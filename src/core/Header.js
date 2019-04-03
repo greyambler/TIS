@@ -9,7 +9,7 @@ class Header extends Component {
          <div className="header">
             <div className="header_Inner">
                <img className="header_Img"
-                  src={'./images/favicon.ico'}
+                  src={'../images/favicon.ico'}
                   alt="React"
                   width="30"
                   height="30"
