@@ -1,14 +1,177 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/*color: rgb(2, 155, 155);*/
+
+/*Селектор id                 - #test1 */
+
+/*Селектор class              - .test1 */
+
+/*Селекторы тэгов             - h      */
+
+/*Селекторы атрибутов         - [src] , [href="http://www.wisdomweb.ru"]*/
+
+/*Комбинирование селекторов   - h2.test1 , div p , div+p*/
+
+/*Группировка селекторов      - h1,h2,p*/
+
+/* Общие кнопки*/
+
+* {
+   margin: 0;
+   padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+html, body, textarea {
+   margin-left: 10px;
+   margin-right: 3px;
+   padding: 0px;
+   height: 100%;
+   font-size: 14px;
+   font-weight: 600;
 }
+
+table, button, footer {
+   width: 100%;
+}
+
+table {
+   border: 1px solid rgb(0, 141, 141);
+}
+
+button {
+   padding: 4px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 12px;
+   font-weight: 600;
+   width: 100%;
+   height: 27px;
+   /*Скругленные углы*/
+   -webkit-border-radius: 9px;
+   -moz-border-radius: 9px;
+   border-radius: 9px;
+   background: linear-gradient( rgb(4, 231, 231), rgb(1, 107, 107)) rgb(126, 255, 255);
+   transition: 0.2s;
+   /*Тень*/
+   -webkit-box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2);
+   -moz-box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2);
+   box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2);
+}
+
+/*****footer****/
+
+.wrapper {
+   display: flex;
+   flex-direction: column;
+   height: 94%;
+}
+
+.content {
+   flex: 70 10 auto;
+   /* flex: 1 0 auto; */
+   min-height: 90%;
+   margin-top: 40px;
+}
+
+footer {
+   flex: 0 0 auto;
+}
+
+.f_table1 {
+   background:  rgb(168, 228, 228);
+   border: 0px solid rgb(0, 141, 141);
+   /* width: 100%;
+    border: 1px solid black; */
+}
+
+.f_table2 {
+   border: 0px solid rgb(0, 141, 141);
+   /* background: rgb(0, 255, 76);  */
+   text-align: right;
+   font-size: 9px;
+   /* 
+   width: 100%; 
+   border: 1px solid black; */
+}
+
+/*****footer****/
+
+th {
+   margin: 0px;
+   /* Шапка таблици*/
+   /* Выравнивание по левому краю */
+   text-align: center;
+   background: rgb(0, 184, 184);
+   /**/
+   /*background: linear-gradient( rgb(0, 253, 253), rgb(0, 83, 83)) rgb(21, 223, 223);*/
+   /* Цвет фона ячеек */
+   padding: 3px;
+   /* Поля вокруг содержимого ячеек */
+   border: 0px solid black;
+}
+
+td {
+   vertical-align: top;
+   min-width: 35px;
+   padding-left: 3px;
+   padding-right: 3px;
+   border: 0px solid black;
+}
+
+ol {
+   padding-left: 24px;
+}
+
+ul.hr {
+   margin: 0;
+   /* Обнуляем значение отступов */
+   padding: 0.4px;
+   /* Значение полей */
+   display: inline;
+}
+
+ul.hr li {
+   display: inline-block;
+   /* Отображать как строчный элемент */
+   margin-right: 0.15px;
+   /* Отступ слева */
+   /*border: 1px solid #000;*/
+   /* Рамка вокруг текста */
+   padding: 0.3px;
+   /* Поля вокруг текста */
+}
+
+/************header*****************************/
+
+.header {
+   background: rgb(168, 228, 228);
+   position: fixed;
+   top: 0;
+   width: 100%;
+   height: 30px;
+   z-index: 1000px;
+   margin-left: 0px;
+   margin-right: 120px;
+}
+
+.header_Inner {
+   display: table;
+   margin: 0 auto;
+   overflow: hidden;
+   text-align: center;
+   width: 100%;
+}
+
+.header_Img {
+   display: table-cell;
+   vertical-align: middle;
+   margin-left: 10px;
+}
+
+.header_Text {
+   color: black;
+   display: table-cell;
+   vertical-align: middle;
+}
+
+
+/************header*****************************/
