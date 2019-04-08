@@ -23,7 +23,7 @@ function GetDateNow() {
 
 
 
-class MainWindow extends React.Component {
+class MainWindow_N2 extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
@@ -84,12 +84,12 @@ class MainWindow extends React.Component {
                      <table>
                         <tbody>
                            <tr>
-                              <td className='td_C_Chart'><ColumnChart w_Width={this.state.W_Width} /></td>
-                              <td className='td_C_Chart'><LinesChart w_Width={this.state.W_Width} /></td>
+                              <td className='td_C_Chart'> </td>
+                              <td className='td_C_Chart'> </td>
                            </tr>
                            <tr>
-                              <td className='td_C_Chart'><HistogramGroup w_Width={this.state.W_Width} /></td>
-                              <td className='td_C_Chart'><Histogram w_Width={this.state.W_Width} /></td>
+                              <td className='td_C_Chart'> </td>
+                              <td className='td_C_Chart'> </td>
                            </tr>
                         </tbody>
                      </table>
@@ -105,4 +105,4 @@ class MainWindow extends React.Component {
    }
 }
 
-export default MainWindow;
+export default MainWindow_N2;

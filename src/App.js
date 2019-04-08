@@ -2,15 +2,23 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 import MainWindow from './MainWindow.jsx'
+import MainWindow_N2 from './MainWindow_N2.jsx'
 
-import Header from './core/Header';
+//import Header from './core/Header';
 
 const _Debuge = false;
 
 class Main extends Component {
    render() {
       return (
-         <MainWindow />
+         <MainWindow w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
+      );
+   }
+}
+class Main_Chart extends Component {
+   render() {
+      return (
+         <MainWindow_N2 w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
       );
    }
 }
@@ -29,8 +37,7 @@ class NotFound extends Component {
       return <center><h2>Ресурс не найден</h2></center>;
    }
 }
-
-class Nav extends React.Component {
+class Nav extends Component {
    render() {
       return (
          <nav>
@@ -38,31 +45,34 @@ class Nav extends React.Component {
                <li>
                   <div className="header_Inner">
 
-                     <a href="/" className="active">
+                  <Link to="/">
                         <img className="header_Img" src={'../images/favicon.ico'} alt="React"
                            width="30" height="30" />
-                     </a>
+                     </Link>
 
                      <div className="header_Text">
                         <h3> Временная ИС по системным инцидентам</h3>
                      </div>
+
                      <div className="header_Text">
-                        <a href="/" className="active">
+                        <Link to="/">
                            <img className="header_Img" src={'../images/Repeat.png'} alt="React"
                               width="20" height="20" />
-                        </a>
+                        </Link>
                      </div>
+
                      <div className="header_Text">
-                        <a href="/users/" className="active">
+                        <Link to="/users/">
                            <img className="header_Img" src={'../images/User.png'} alt="React"
                               width="20" height="20" />
-                        </a>
+                        </Link>
                      </div>
                   </div>
 
                   <ul className="submenu">
-                     <li><Link to="/">Главная</Link></li>
-                     <li><a href="/users/">Пользователи</a></li>
+                     <li><Link to="/" >Главная</Link></li>
+                     <li><Link to="/Chart" >Главная_№2</Link></li>
+                     <li><Link to="/users/">Пользователи</Link></li>
                      <li><Link to="/about/">О сайте</Link></li>
                   </ul>
                </li>
@@ -72,15 +82,42 @@ class Nav extends React.Component {
    }
 }
 
+
 class App extends Component {
+   constructor() {
+      super();
+      this.state = {
+         W_Width: window.innerWidth,
+         W_Height: window.innerHeight,
+      }
+      this.handleResize = this.handleResize.bind(this);
+   }
+   handleResize(WindowSize, event) {
+      this.setState({ W_Width: window.innerWidth, W_Height: window.innerHeight })
+   }
+   componentDidMount() {
+      window.addEventListener("resize", this.handleResize);
+   }
+   componentWillUnmount() {
+      window.addEventListener("resize", null);
+   }
+   
    render() {
       return (
          <div>
+
             <Router>
-               <Nav />
+               <Nav w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
                <div className="content">
                   <Switch>
-                     <Route exact path="/" component={Main} />
+                  <Route path="/" exact
+                        render={() =>
+                           <Main w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
+                        } />
+                     <Route path="/Chart" exact
+                        render={() =>
+                           <Main_Chart w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
+                        } />
                      <Route path="/about" component={About} />
                      <Route path="/users" component={Users} />
                      <Route component={NotFound} />

@@ -174,48 +174,59 @@ nav li:hover>.submenu {
 
 .space {
    padding: 20px;
-   /* Поля */
-   background: #E5D3BD;
+   /* Поля 
+   background: #E5D3BD;*/
    /* Цвет фона */
-   border: 1px solid black;
+   border: 2px solid black;
    /* Параметры рамки */
    height: 200px;
-   
+   font-size: 20px;
+   font-weight: bold;
+
 }
 
 table {
-   background: white;
-   /* Цвет фона таблицы */
+   /*  background: white;
+   Цвет фона таблицы */
    color: black;
-   /* Цвет текста */
-   border: 1px solid black;
+   /* Цвет текста 
+   border: 1px solid black;*/
    width: 100%;
 }
 
 .td_t1 {
-   width: 70%;
+   width: 90%;
    min-width: 400px;
-   
 }
 
 .td_t2 {
-   min-width: 200px;
+   min-width: 40px;
+   padding-top: 10px;
    vertical-align: top;
-   height: 30%;
-   width: 100%;
-}
-.td_t3 {
-   min-width: 200px;
-   vertical-align: middle;
 }
 
-.date_h, .comboBox{
-   width: 100%;  
+
+.date_h, .comboBox {
+   width: 100%;
 }
 
 td, th, tr {
    /*background: maroon;  Цвет фона ячеек */
-   padding: 5px;
-   /* Поля вокруг текста */
-   border: 1px solid black;
+   padding: 0px;
+   /* Поля вокруг текста 
+   border: 1px solid black;*/   
+}
+
+/*
+.td_C_Chart{
+   width: 50%;  
+   height: 100px;
+}*/
+
+.tr_char{
+   border: 1px solid rgb(20, 199, 190); 
+}
+
+.td_Name{
+   font-size: 12px;
 }
