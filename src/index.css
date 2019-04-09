@@ -182,7 +182,6 @@ nav li:hover>.submenu {
    height: 200px;
    font-size: 20px;
    font-weight: bold;
-
 }
 
 table {
@@ -205,7 +204,6 @@ table {
    vertical-align: top;
 }
 
-
 .date_h, .comboBox {
    width: 100%;
 }
@@ -214,19 +212,26 @@ td, th, tr {
    /*background: maroon;  Цвет фона ячеек */
    padding: 0px;
    /* Поля вокруг текста 
-   border: 1px solid black;*/   
+   border: 1px solid black;  */
 }
 
-/*
-.td_C_Chart{
-   width: 50%;  
-   height: 100px;
-}*/
-
-.tr_char{
-   border: 1px solid rgb(20, 199, 190); 
+.tr_char {
+   border: 1px solid rgb(20, 199, 190);
 }
 
-.td_Name{
+.td_Name {
    font-size: 12px;
+}
+
+
+select {
+   background: rgb(238, 255, 0);
+}
+.select_1 {
+   background:rgb(238, 255, 0);
+}
+.select_2 {
+   background: rgb(238, 255, 0);
+}.select_3 {
+   background: rgb(238, 255, 0);
 }

@@ -11,7 +11,7 @@ class TotalIndication extends Component {
       let H_Stage = '110';
       return (
          <div>
-            <fieldset className='space'>
+            <fieldset className='space' >
                <legend >Общие показатели на сегодня</legend>
                <table height='100%'>
                   <tbody>
@@ -20,9 +20,11 @@ class TotalIndication extends Component {
                            <center>
                               <Stage width={W_Stage} height={H_Stage}>
                                  <Layer>
-                                    <Circle x={W_Stage / 2} y={H_Stage / 2} radius={40} fill='white' stroke='black' />
+                                    <Circle x={W_Stage / 2} y={H_Stage / 2} radius={40} fill='white' stroke='black'
+                                    />
                                     <Text width={W_Stage} wrap="char" align="center"
-                                       text="12" x={0} y={H_Stage / 3} fontSize='40' fill='blue' />
+                                       text="12" x={0} y={H_Stage / 3} fontSize='40' fill='blue'
+                                    />
                                  </Layer>
                               </Stage>
                            </center>

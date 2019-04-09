@@ -43,7 +43,13 @@ class MainWindow extends React.Component {
       this.setState({ currentDate: event.target.value })
    }
 
-   /*<h1>Width = {this.state.W_Width}   Height = {this.state.W_Height}</h1>*/
+   /*
+   
+   <h1>Width = {this.state.W_Width}   Height = {this.state.W_Height}</h1>
+   
+   <option disabled >Выбрать</option>
+   
+   */
    render() {
       return (
          <div>
@@ -54,7 +60,7 @@ class MainWindow extends React.Component {
                         <tbody>
                            <tr>
                               <td className='td_t1'>
-                                 <TotalIndication />
+                                 <TotalIndication/>
                               </td>
                               <td className='td_t2'>
                                  <tr>
@@ -66,9 +72,11 @@ class MainWindow extends React.Component {
                                  </tr>
                                  <tr>
                                     <td>
-                                       <select className='comboBox'>
-                                          <option>Пункт 1</option>
-                                          <option>Пункт 2</option>
+                                       <select className='comboBox' >
+                                          
+                                          <option selected="selected" className='select_1'>Пункт 1</option>
+                                          <option className='select_2'>Пункт 2</option>
+                                          <option className='select_3'>Пункт 3</option>
                                        </select>
                                     </td>
                                  </tr>
