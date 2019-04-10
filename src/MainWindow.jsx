@@ -1,5 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
+import { get_Date, Get_StartDate, Get_StopDate, 
+   GetDateNow ,contains, GetDatFromColChart, dataStart, dataStop} from './core/core_Function.jsx';
+
 import TotalIndication from './chart/TotalIndication.jsx'
 
 import ColumnChart from './chart/ColumnChart.jsx'
@@ -7,21 +10,7 @@ import LinesChart from './chart/LinesChart.jsx'
 import Histogram from './chart/Histogram.jsx'
 import HistogramGroup from './chart/HistogramGroup.jsx'
 
-
 const _Debuge = true;
-
-function GetDateNow() {
-   var date = new Date();
-   var day = date.getDate();
-   var month = date.getMonth() + 1;
-   var year = date.getFullYear();
-   if (month < 10) month = "0" + month;
-   if (day < 10) day = "0" + day;
-   var today = year + "-" + month + "-" + day;
-   return today;
-}
-
-
 
 class MainWindow extends React.Component {
    constructor(props) {
@@ -42,15 +31,9 @@ class MainWindow extends React.Component {
    inputChangedHandler = (event) => {
       this.setState({ currentDate: event.target.value })
    }
-
-   /*
    
-   <h1>Width = {this.state.W_Width}   Height = {this.state.W_Height}</h1>
-   
-   <option disabled >Выбрать</option>
-   
-   */
    render() {
+      let dataCol_Char1 = GetDatFromColChart(get_Date());
       return (
          <div>
             {_Debuge ?
@@ -59,27 +42,30 @@ class MainWindow extends React.Component {
                      <table>
                         <tbody>
                            <tr>
+                           <td className='td_t0'></td>
                               <td className='td_t1'>
-                                 <TotalIndication/>
+                                 <TotalIndication />
                               </td>
                               <td className='td_t2'>
-                                 <tr>
-                                    <td>
-                                       <input type='date' className='date_h' value={this.state.currentDate}
-                                          onChange={(event) => this.inputChangedHandler(event)}
-                                       />
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>
-                                       <select className='comboBox' >
-                                          
-                                          <option selected="selected" className='select_1'>Пункт 1</option>
-                                          <option className='select_2'>Пункт 2</option>
-                                          <option className='select_3'>Пункт 3</option>
-                                       </select>
-                                    </td>
-                                 </tr>
+                                 <div>
+                                    <tr>
+                                       <td>
+                                          <input type='date' className='date_h' value={this.state.currentDate}
+                                             onChange={(event) => this.inputChangedHandler(event)}
+                                          />
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>
+                                          <select className='comboBox' >
+
+                                             <option selected="selected" className='select_1'>Пункт 1</option>
+                                             <option className='select_2'>Пункт 2</option>
+                                             <option className='select_3'>Пункт 3</option>
+                                          </select>
+                                       </td>
+                                    </tr>
+                                 </div>
                               </td>
                            </tr>
                         </tbody>
@@ -92,12 +78,17 @@ class MainWindow extends React.Component {
                      <table>
                         <tbody>
                            <tr>
-                              <td className='td_C_Chart'><ColumnChart w_Width={this.state.W_Width} /></td>
-                              <td className='td_C_Chart'><LinesChart w_Width={this.state.W_Width} /></td>
+                              <td><center>{dataStart}  -  {dataStop}</center></td>
+                              <td></td>
                            </tr>
                            <tr>
-                              <td className='td_C_Chart'><HistogramGroup w_Width={this.state.W_Width} /></td>
-                              <td className='td_C_Chart'><Histogram w_Width={this.state.W_Width} /></td>
+
+                              <td className='td_C_Chart'><ColumnChart Data={dataCol_Char1} w_Width={this.state.W_Width} /></td>
+                              <td className='td_C_Chart'><LinesChart Data={dataCol_Char1} w_Width={this.state.W_Width} /></td>
+                           </tr>
+                           <tr>
+                              <td className='td_C_Chart'><HistogramGroup Data={dataCol_Char1} w_Width={this.state.W_Width} /></td>
+                              <td className='td_C_Chart'><Histogram Data={dataCol_Char1} w_Width={this.state.W_Width} /></td>
                            </tr>
                         </tbody>
                      </table>

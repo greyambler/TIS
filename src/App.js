@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 import MainWindow from './MainWindow.jsx'
+import MainTable from './MainTable.jsx'
+
+
+import MainWindow_Save from './MainWindow_Save.jsx'
 import MainWindow_N2 from './MainWindow_N2.jsx'
+
+
 
 //import Header from './core/Header';
 
@@ -15,7 +21,24 @@ class Main extends Component {
       );
    }
 }
-class Main_Chart extends Component {
+
+class Table extends Component {
+   render() {
+      return (
+         <MainTable w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
+      );
+   }
+}
+
+
+class Main_Save extends Component {
+   render() {
+      return (
+         <MainWindow_Save w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
+      );
+   }
+}
+class Main_N2 extends Component {
    render() {
       return (
          <MainWindow_N2 w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
@@ -45,7 +68,7 @@ class Nav extends Component {
                <li>
                   <div className="header_Inner">
 
-                  <Link to="/">
+                     <Link to="/">
                         <img className="header_Img" src={'../images/favicon.ico'} alt="React"
                            width="30" height="30" />
                      </Link>
@@ -71,7 +94,9 @@ class Nav extends Component {
 
                   <ul className="submenu">
                      <li><Link to="/" >Главная</Link></li>
-                     <li><Link to="/Chart" >Главная_№2</Link></li>
+                     <li><Link to="/Table" >Таблица</Link></li>
+                     <li><Link to="/Save" >Главная_Save</Link></li>
+                     <li><Link to="/N2" >Главная_N2</Link></li>
                      <li><Link to="/users/">Пользователи</Link></li>
                      <li><Link to="/about/">О сайте</Link></li>
                   </ul>
@@ -101,7 +126,7 @@ class App extends Component {
    componentWillUnmount() {
       window.addEventListener("resize", null);
    }
-   
+
    render() {
       return (
          <div>
@@ -110,14 +135,23 @@ class App extends Component {
                <Nav w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
                <div className="content">
                   <Switch>
-                  <Route path="/" exact
+                     <Route path="/" exact
                         render={() =>
                            <Main w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
                         } />
-                     <Route path="/Chart" exact
+                     <Route path="/Save" exact
                         render={() =>
-                           <Main_Chart w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
+                           <Main_Save w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
                         } />
+                     <Route path="/N2" exact
+                        render={() =>
+                           <Main_N2 w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
+                        } />
+                     <Route path="/Table" exact
+                        render={() =>
+                           <Table w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
+                        } />
+
                      <Route path="/about" component={About} />
                      <Route path="/users" component={Users} />
                      <Route component={NotFound} />

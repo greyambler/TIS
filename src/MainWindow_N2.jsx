@@ -1,26 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 
+import { get_Date, Get_StartDate, Get_StopDate, 
+   GetDateNow ,contains } from './core/core_Function.jsx';
+
+
 import TotalIndication from './chart/TotalIndication.jsx';
 
-
-
 import { LineChart, PieChart, ColumnChart } from 'react-chartkick'
+
+import { ifError } from 'assert';
 //import Chart from 'chart.js'
 
 
 const _Debuge = true;
-
-function GetDateNow() {
-   var date = new Date();
-   var day = date.getDate();
-   var month = date.getMonth() + 1;
-   var year = date.getFullYear();
-   if (month < 10) month = "0" + month;
-   if (day < 10) day = "0" + day;
-   var today = year + "-" + month + "-" + day;
-   return today;
-}
-
 
 
 class MainWindow_N2 extends React.Component {
@@ -28,14 +20,14 @@ class MainWindow_N2 extends React.Component {
       super(props);
       this.state = {
          currentDate: GetDateNow(),
-         W_Width: this.props.w_Width/ 2 - 25,
+         W_Width: this.props.w_Width / 2 - 25,
          W_Height: this.props.w_Height,
       }
    }
 
    componentDidUpdate(prevProps) {
       if (this.props.w_Width != prevProps.w_Width) {
-         this.setState({ W_Width: this.props.w_Width / 2 - 25});
+         this.setState({ W_Width: this.props.w_Width / 2 - 25 });
       }
    }
 
@@ -43,12 +35,38 @@ class MainWindow_N2 extends React.Component {
       this.setState({ currentDate: event.target.value })
    }
 
-   /*<h1>Width = {this.state.W_Width}   Height = {this.state.W_Height}</h1>*/
+   
    render() {
+      let data_DB = get_Date();
+      let dataCol_Char1 = Array();
+
+      let r = 0;
+      for (let index = 0; index < data_DB.length; index++) {
+         const element = data_DB[index];
+         if (!contains(dataCol_Char1, element.CASHIER_ID)) {
+            if (element != null) {
+               dataCol_Char1[r] = { "CASHIER_ID": element.CASHIER_ID, "F": element.F };
+               r++;
+            }
+         }
+      }
+
+      let RR;
+      for (let index = 0; index < dataCol_Char1.length; index++) {
+         RR += dataCol_Char1[index].CASHIER_ID;
+      }
+
+
+
       let dataCol_Char = {
          "2017-05-13": 2, "2017-05-14": 5,
          "2017-05-15": 3, "2017-05-16": 2, "2017-05-17": 2,
          "2017-05-18": 1, "2017-05-19": 2, "2017-05-20": 3
+      };
+      let dataCol_Сhar_0 = {
+         1: 2, 2: 5,
+         3: 3, 4: 2, 5: 2,
+         6: 1, 7: 2, 8: 3
       };
       let dataCol_Char_2 = {
          "2017-05-13": 5, "2017-05-14": 7,
@@ -57,7 +75,7 @@ class MainWindow_N2 extends React.Component {
       };
 
       let data_Line = [
-         { "name": "Workout", "data":dataCol_Char },
+         { "name": "Workout", "data": dataCol_Char },
          { "name": "Call parents", "data": dataCol_Char_2 }
       ];
 
@@ -100,12 +118,12 @@ class MainWindow_N2 extends React.Component {
                      <table>
                         <tbody>
                            <tr >
-                              <td> <ColumnChart data={dataCol_Char} width={this.state.W_Width}/> </td>
-                              <td> <LineChart data={data_Line} width={this.state.W_Width}/> </td>
+                              <td> <ColumnChart data={dataCol_Сhar_0} width={this.state.W_Width} /> </td>
+                              <td> <LineChart data={data_Line} width={this.state.W_Width} /> </td>
                            </tr>
                            <tr>
-                              <td> <ColumnChart data={data_Line} width={this.state.W_Width}/> </td>
-                              <td> <ColumnChart data={dataCol_Char_2} width={this.state.W_Width}/> </td>
+                              <td> <ColumnChart data={data_Line} width={this.state.W_Width} /> </td>
+                              <td> <ColumnChart data={dataCol_Char_2} width={this.state.W_Width} /> </td>
                            </tr>
                         </tbody>
                      </table>

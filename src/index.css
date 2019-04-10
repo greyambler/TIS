@@ -193,13 +193,16 @@ table {
    width: 100%;
 }
 
+.td_t0{
+   min-width: 200px;
+   width: 200px;
+}
 .td_t1 {
    width: 90%;
    min-width: 400px;
 }
-
 .td_t2 {
-   min-width: 40px;
+   min-width: 200px;
    padding-top: 10px;
    vertical-align: top;
 }
@@ -235,3 +238,6 @@ select {
 }.select_3 {
    background: rgb(238, 255, 0);
 }
+
+/********************************************/
+
