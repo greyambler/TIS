@@ -15,7 +15,7 @@ import { ifError } from 'assert';
 const _Debuge = true;
 
 
-class MainWindow_N2 extends React.Component {
+class MainWindow_Save2 extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
@@ -139,4 +139,4 @@ class MainWindow_N2 extends React.Component {
    }
 }
 
-export default MainWindow_N2;
+export default MainWindow_Save2;

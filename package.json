@@ -6,12 +6,14 @@
     "@antv/data-set": "^0.10.2",
     "bizcharts": "^3.5.2",
     "konva": "^3.2.4",
+    "namor": "^1.1.2",
     "react": "^16.8.6",
     "react-chartkick": "^0.3.0",
     "react-dom": "^16.8.6",
     "react-konva": "^16.8.6",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "react-table": "^6.9.2"
   },
   "scripts": {
     "start": "react-scripts start",

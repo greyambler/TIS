@@ -14,7 +14,7 @@ import HistogramGroup from './chart/HistogramGroup_Save.jsx'
 
 const _Debuge = true;
 
-class MainWindow_Save extends React.Component {
+class MainWindow_Save1 extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
@@ -98,4 +98,4 @@ class MainWindow_Save extends React.Component {
    }
 }
 
-export default MainWindow_Save;
+export default MainWindow_Save1;

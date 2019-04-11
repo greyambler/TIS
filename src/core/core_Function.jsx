@@ -1,6 +1,10 @@
 import React from "react"
 
-function get_Date() {
+import namor from "namor";
+
+
+
+export function get_Date() {
    var date_Test = Array();
 
    date_Test[0] = { 'Datetime': '12.02.2019 18:03:04', 'EVENT_TYPE': 122, 'SHOP_NUM': 100, 'KASS_NUM': 1, 'SHIFT_NUM': '312022019', 'CASHIER_ID': 18, 'EVENT_NAME': 'Shutdown', 'Duration': '00:00:55', 'Key': 123, 'DateKey': '12.02.2019', 'TimeKey': '18:02:09', 'SHOP_NUM': 100, 'KASS_NUM': 1, 'CASHIER_ID': 18, 'Duration': '00:00:55', 'ratedFreq': 4, 'F': 3, 'M': 4, 'Rang': 44, 'М2': 4, 'Rang2_bus': 44 };
@@ -37,7 +41,7 @@ function get_Date() {
    date_Test[31] = { 'Datetime': '25.03.2019 21:12:00', 'EVENT_TYPE': 122, 'SHOP_NUM': 100, 'KASS_NUM': 1, 'SHIFT_NUM': '125032019', 'CASHIER_ID': 3, 'EVENT_NAME': 'Shutdown', 'Duration': '01:09:51', 'Key': 123, 'DateKey': '25.03.2019', 'TimeKey': '20:02:09', 'SHOP_NUM': 100, 'KASS_NUM': 1, 'CASHIER_ID': 3, 'Duration': '01:09:51', 'ratedFreq': 6, 'F': 4, 'M': 4, 'Rang': 44, 'М2': 4, 'Rang2_bus': 44 };
    return date_Test;
 }
-function Get_StartDate(CurentDate, Date_time) {
+export function Get_StartDate(CurentDate, Date_time) {
    if (CurentDate == null) {
       return Date_time;
    }
@@ -56,7 +60,7 @@ function Get_StartDate(CurentDate, Date_time) {
       }
    }
 }
-function Get_StopDate(CurentDate, Date_time) {
+export function Get_StopDate(CurentDate, Date_time) {
    if (CurentDate == null) {
       return Date_time;
    }
@@ -75,7 +79,7 @@ function Get_StopDate(CurentDate, Date_time) {
       }
    }
 }
-function GetDateNow() {
+export function GetDateNow() {
    var date = new Date();
    var day = date.getDate();
    var month = date.getMonth() + 1;
@@ -85,7 +89,7 @@ function GetDateNow() {
    var today = year + "-" + month + "-" + day;
    return today;
 }
-function contains(arr, elem) {
+export function contains(arr, elem) {
    let Exist = false;
    if (arr != null && elem != null) {
       for (const iterator of arr) {
@@ -98,10 +102,10 @@ function contains(arr, elem) {
    return Exist;
 }
 
-let dataStart = null;
-let dataStop = null;
+export let dataStart = null;
+export let dataStop = null;
 
-function GetDatFromColChart(data_DB){
+export function GetDatFromColChart(data_DB){
    let dataCol_Char1 = Array();
    let t = 0;
    for (const element of data_DB) {
@@ -125,6 +129,59 @@ function GetDatFromColChart(data_DB){
    }
    return dataCol_Char1;
 }
+/******************************************************************/
 
-export { get_Date, Get_StartDate, Get_StopDate, GetDateNow, contains, 
-   GetDatFromColChart, dataStart, dataStop};
+
+
+
+
+const range = len => {
+  const arr = [];
+  for (let i = 0; i < len; i++) {
+    arr.push(i);
+  }
+  return arr;
+};
+
+const newPerson = () => {
+  const statusChance = Math.random();
+  return {
+    firstName: namor.generate({ words: 1, numbers: 0 }),
+    lastName: namor.generate({ words: 1, numbers: 0 }),
+    age: Math.floor(Math.random() * 30),
+    visits: Math.floor(Math.random() * 100),
+    progress: Math.floor(Math.random() * 100),
+    status:
+      statusChance > 0.66
+        ? "relationship"
+        : statusChance > 0.33 ? "complicated" : "single"
+  };
+};
+
+export function makeData(len = 5553) {
+  return range(len).map(d => {
+    return {
+      ...newPerson(),
+      children: range(10).map(newPerson)
+    };
+  });
+}
+
+export const Logo = () =>
+  <div style={{ margin: '1rem auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center'}}>
+    For more examples, visit {''}
+  <br />
+    <a href="https://github.com/react-tools/react-table" target="_blank">
+      <img
+        src="https://github.com/react-tools/media/raw/master/logo-react-table.png"
+        style={{ width: `150px`, margin: ".5em auto .3em" }}
+      />
+    </a>
+  </div>;
+
+
+export const Tips = () =>
+  <div style={{ textAlign: "center" }}>
+    <em>Tip: Hold shift when sorting to multi-sort!</em>
+  </div>;
+

@@ -1,0 +1,243 @@
+/*
+html, body {
+   margin-left: 1px;
+   margin-right: 1px;
+   padding: 0px;
+   height: 98%;
+   font-size: 14px;
+   font-weight: 600;
+}
+*/
+
+* {
+   margin: 0;
+   padding: 0;
+}
+
+html, body {
+   margin-left: 2px;
+   margin-right: 5px;
+   height: 95%;
+}
+
+.content {
+   flex: 70 10 auto;
+   min-height: 100%;
+   margin-top: 60px;
+}
+
+/*****footer****/
+
+footer {
+   flex: 0 0 auto;
+}
+
+.f_table1 {
+   background: rgb(168, 228, 228);
+   border: 0px solid rgb(0, 141, 141);
+   width: 100%;
+}
+
+.f_table2 {
+   border: 0px solid rgb(0, 141, 141);
+   text-align: right;
+   font-size: 9px;
+}
+
+/*****footer****/
+
+nav {
+   background: rgb(168, 228, 228);
+   position: fixed;
+   top: 0;
+   width: 100%;
+   display: table;
+}
+
+.header_Inner {
+   display: table;
+   margin: 0 auto;
+   overflow: hidden;
+   text-align: center;
+   width: 100%;
+}
+
+.header_Img {
+   display: table-cell;
+   vertical-align: middle;
+   margin-left: 10px;
+}
+
+.header_Text {
+   color: black;
+   display: table-cell;
+   vertical-align: middle;
+}
+
+.submenu {
+   position: absolute;
+   z-index: 5;
+   min-width: 200px;
+   background: white;
+   border-top: 1px solid #CBCBCC;
+   border-left: 1px solid #CBCBCC;
+   border-right: 1px solid #CBCBCC;
+   visibility: hidden;
+   opacity: 0;
+   transform-origin: 0% 0%;
+   transform: rotateX(-90deg);
+   transition: .3s linear;
+}
+
+/*****************************************************************/
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,cyrillic);
+* {
+   box-sizing: border-box;
+}
+
+body {
+   margin: 0;
+   /* font-family: 'Open Sans', sans-serif;*/
+}
+
+nav ul {
+   margin: 0;
+   padding: 0;
+   list-style: none;
+}
+
+nav ul:after {
+   content: "";
+   display: table;
+   clear: both;
+}
+
+nav a {
+   text-decoration: none;
+   display: block;
+   transition: .3s linear;
+}
+
+.topmenu>li {
+   float: center;
+   position: relative;
+   border-left: 1px solid black;
+}
+
+.topmenu>li:first-child {
+   border-left: 0;
+}
+
+.topmenu>li>a {
+   padding: 8px 10px;
+   font-size: 12px;
+   text-transform: uppercase;
+   color: #FEFDFD;
+   letter-spacing: 2px;
+}
+
+.topmenu>li>a.active, .submenu a:hover {
+   color: black;
+}
+
+.topmenu .fa, .submenu .fa {
+   margin-left: 5px;
+   color: inherit;
+}
+
+.submenu li {
+   position: relative;
+}
+
+.submenu li a {
+   color: #282828;
+   padding: 10px 20px;
+   font-size: 13px;
+   border-bottom: 1px solid #CBCBCC;
+}
+
+.submenu .submenu {
+   position: absolute;
+   left: 100%;
+   top: -1px;
+   transition: .3s linear;
+}
+
+nav li:hover>.submenu {
+   transform: rotateX(0deg);
+   visibility: visible;
+   opacity: 1;
+}
+
+/***********************************/
+
+.space {
+   padding: 20px;
+   /* Поля 
+   background: #E5D3BD;*/
+   /* Цвет фона */
+   border: 2px solid black;
+   /* Параметры рамки */
+   height: 200px;
+   font-size: 20px;
+   font-weight: bold;
+}
+
+table {
+   /*  background: white;
+   Цвет фона таблицы */
+   color: black;
+   /* Цвет текста 
+   border: 1px solid black;*/
+   width: 100%;
+}
+
+.td_t0{
+   min-width: 200px;
+   width: 200px;
+}
+.td_t1 {
+   width: 90%;
+   min-width: 400px;
+}
+.td_t2 {
+   min-width: 200px;
+   padding-top: 10px;
+   vertical-align: top;
+}
+
+.date_h, .comboBox {
+   width: 100%;
+}
+
+td, th, tr {
+   /*background: maroon;  Цвет фона ячеек */
+   padding: 0px;
+   /* Поля вокруг текста 
+   border: 1px solid black;  */
+}
+
+.tr_char {
+   border: 1px solid rgb(20, 199, 190);
+}
+
+.td_Name {
+   font-size: 12px;
+}
+
+
+select {
+   background: rgb(238, 255, 0);
+}
+.select_1 {
+   background:rgb(238, 255, 0);
+}
+.select_2 {
+   background: rgb(238, 255, 0);
+}.select_3 {
+   background: rgb(238, 255, 0);
+}
+
+/********************************************/
+
