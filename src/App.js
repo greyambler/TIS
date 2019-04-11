@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 import MainWindow from './MainWindow.jsx'
+import MainTable from './MainTable.jsx'
 
 
 
@@ -20,6 +21,13 @@ class Main extends Component {
    render() {
       return (
          <MainWindow w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
+      );
+   }
+}
+class Table extends Component {
+   render() {
+      return (
+         <MainTable w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
       );
    }
 }
@@ -66,6 +74,7 @@ class Table_Save1 extends Component {
 }
 
 /********DEBUGE*****/
+
 
 class Nav extends Component {
    render() {
@@ -114,6 +123,7 @@ class Nav extends Component {
 
 
                      <li><Link to="/" >Главная</Link></li>
+                     <li><Link to="/Table" >Таблица</Link></li>
                      <li><Link to="/users/">Пользователи</Link></li>
                      <li><Link to="/about/">О сайте</Link></li>
                   </ul>
@@ -123,7 +133,6 @@ class Nav extends Component {
       );
    }
 }
-
 
 class App extends Component {
    constructor() {
@@ -151,11 +160,18 @@ class App extends Component {
                <Nav w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
                <div className="content">
                   <Switch>
-                     
+
                      <Route path="/" exact
                         render={() =>
                            <Main w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
                         } />
+                     <Route path="/Table" exact
+                        render={() =>
+                           <Table w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
+                        } />
+
+
+
 
                      <Route path="/Main_Save1" exact
                         render={() =>
