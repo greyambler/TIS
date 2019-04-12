@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-
+import { render } from "react-dom";
+import ReactTable from "react-table";
+import "react-table/react-table.css"; // Импорт стилей путем включения
 
 import {
    get_Date, Get_StartDate, Get_StopDate,
@@ -7,14 +9,6 @@ import {
 } from './core/core_Function.jsx';
 
 
-
-
-import { render } from "react-dom";
-import { makeData, Logo, Tips } from "./core/core_Function.jsx";
-
-// Import React Table
-import ReactTable from "react-table";
-import "react-table/react-table.css";
 
 
 
@@ -44,7 +38,7 @@ class MainTable extends React.Component {
                      Header: "Магазин",
                      columns: [
                         {
-                           Header: "№",
+                           Header: "№ магазина",
                            accessor: "SHOP_NUM"
                         },
                         {
@@ -83,7 +77,20 @@ class MainTable extends React.Component {
                      ]
                   }
                ]}
-               getTdProps={(state, rowInfo, column, instance) => {
+
+              
+               defaultPageSize={10}
+               className="-striped -highlight"
+            />
+
+         </div>
+      );
+   }
+}
+export default MainTable;
+
+/*
+ getTdProps={(state, rowInfo, column, instance) => {
                   return {
                      onMouseEnter: e =>
                         console.log("Cell - onMouseEnter", {
@@ -95,12 +102,7 @@ class MainTable extends React.Component {
                         })
                   };
                }}
-               defaultPageSize={10}
-               className="-striped -highlight"
-            />
 
-         </div>
-      );
-   }
-}
-export default MainTable;
+
+
+*/

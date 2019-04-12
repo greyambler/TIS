@@ -11,7 +11,7 @@ import MainWindow_Save2 from './MainWindow_Save2.jsx'
 import MainTable_Save1 from './MainTable_Save1.jsx'
 
 
-import './index_Menu.css';
+
 
 //import Header from './core/Header';
 
@@ -31,7 +31,6 @@ class Table extends Component {
       );
    }
 }
-
 class About extends Component {
    render() {
       return <center><h2>О сайте</h2></center>;
@@ -152,7 +151,6 @@ class App extends Component {
    componentWillUnmount() {
       window.addEventListener("resize", null);
    }
-
    render() {
       return (
          <div>

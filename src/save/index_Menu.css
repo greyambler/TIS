@@ -4,8 +4,9 @@ nav {
    top: 0;
    width: 100%;
    display: table;
-}
 
+   z-index: 5000;
+}
 .header_Inner {
    display: table;
    margin: 0 auto;
@@ -13,22 +14,19 @@ nav {
    text-align: center;
    width: 100%;
 }
-
 .header_Img {
    display: table-cell;
    vertical-align: middle;
    margin-left: 10px;
 }
-
 .header_Text {
    color: black;
    display: table-cell;
    vertical-align: middle;
 }
-
 .submenu {
    position: absolute;
-   z-index: 5;
+   z-index: 5000;
    min-width: 200px;
    background: white;
    border-top: 1px solid #CBCBCC;
@@ -112,10 +110,29 @@ nav a {
    left: 100%;
    top: -1px;
    transition: .3s linear;
+
+   z-index: 5000;
+   opacity: 1;   
 }
 
-nav li:hover>.submenu {
+nav li:hover > .submenu {
    transform: rotateX(0deg);
    visibility: visible;
    opacity: 1;
+
+   z-index: 5000;
+   opacity: 1;   
+}
+
+.T_1{
+   /*z-index: -10000;
+   background: rgb(168, 228, 228);
+   position: fixed;*/
+   top: 0;
+}
+.T_2{
+   z-index: 1;
+   /*background: brown;*/
+   position: fixed;
+   top: 10px;
 }

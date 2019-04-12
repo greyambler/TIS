@@ -13,12 +13,12 @@ class TotalIndication extends Component {
          <div>
             <fieldset className='space' >
                <legend >Общие показатели на сегодня</legend>
-               <table height='100%'>
+               <table height='100%' className='T_1'>
                   <tbody>
                      <tr>
                         <td border='1'>
                            <center>
-                              <Stage width={W_Stage} height={H_Stage}>
+                              <Stage width={W_Stage} height={H_Stage} >
                                  <Layer>
                                     <Circle x={W_Stage / 2} y={H_Stage / 2} radius={40} fill='white' stroke='black'
                                     />
@@ -74,6 +74,7 @@ class TotalIndication extends Component {
                      </tr>
                   </tbody>
                </table>
+
             </fieldset>
          </div>
       );
