@@ -4,16 +4,16 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import MainWindow from './MainWindow.jsx'
 import MainTable from './MainTable.jsx'
 
-
-
 import MainWindow_Save1 from './MainWindow_Save1.jsx'
 import MainWindow_Save2 from './MainWindow_Save2.jsx'
 import MainTable_Save1 from './MainTable_Save1.jsx'
-
-
-
+import MainTable_Save2 from './MainTable_Save2.jsx'
+import MainTable_Save3 from './MainTable_Save3.jsx'
+import MainTable_Save4 from './MainTable_Save4.jsx'
 
 //import Header from './core/Header';
+
+
 
 const _Debuge = true;
 
@@ -71,6 +71,20 @@ class Table_Save1 extends Component {
       );
    }
 }
+class Table_Save2 extends Component {
+   render() {
+      return (
+         <MainTable_Save2 w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
+      );
+   }
+}
+class Table_Save4 extends Component {
+   render() {
+      return (
+         <MainTable_Save4 w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
+      );
+   }
+}
 
 /********DEBUGE*****/
 
@@ -83,12 +97,10 @@ class Nav extends Component {
                <li>
 
                   <div className="header_Inner">
-
                      <Link to="/">
                         <img className="header_Img" src={'../images/favicon.ico'} alt="React"
                            width="30" height="30" />
                      </Link>
-
                      <div className="header_Text">
                         <h3> Временная ИС по системным инцидентам</h3>
                      </div>
@@ -113,6 +125,10 @@ class Nav extends Component {
                         <li><Link><center>Технические >></center></Link>
                            <ul className="submenu">
                               <li><Link to="/Table_Save1" >Таблица_Save1</Link></li>
+                              <li><Link to="/Table_Save2" >Таблица_Save2</Link></li>
+
+                              <li><Link to="/Table_Save4" >Таблица_Save4</Link></li>
+
                               <li><Link to="/Main_Save1" >Главная_Save1</Link></li>
                               <li><Link to="/Main_Save2" >Главная_Save2</Link></li>
 
@@ -168,9 +184,6 @@ class App extends Component {
                            <Table w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
                         } />
 
-
-
-
                      <Route path="/Main_Save1" exact
                         render={() =>
                            <Main_Save1 w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
@@ -182,6 +195,16 @@ class App extends Component {
                      <Route path="/Table_Save1" exact
                         render={() =>
                            <Table_Save1 w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
+                        } />
+                     <Route path="/Table_Save2" exact
+                        render={() =>
+                           <Table_Save2 w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
+                        } />
+
+
+                     <Route path="/Table_Save4" exact
+                        render={() =>
+                           <Table_Save4 w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
                         } />
 
                      <Route path="/about" component={About} />
@@ -195,3 +218,10 @@ class App extends Component {
    }
 }
 export default App;
+
+/*
+                     <Link to="/">
+                        <img className="header_Img" src={'../images/favicon.ico'} alt="React"
+                           width="30" height="30" />
+                     </Link>
+*/

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { render } from "react-dom";
 import ReactTable from "react-table";
+
 import "react-table/react-table.css"; // Импорт стилей путем включения
 
 import {
@@ -21,13 +22,13 @@ class MainTable extends React.Component {
    }
    render() {
       const { data } = this.state;
+      //<a>https://reactjsexample.com/a-lightweight-and-extendable-datagrid-for-react/</a>
       return (
          <div>
             <center><strong>ReactTable</strong></center>
-            <br />
-            <a>https://reactjsexample.com/a-lightweight-and-extendable-datagrid-for-react/</a>
-            <br />
+            <hr />
             <ReactTable
+
                data={data}
                columns={[
                   {
@@ -77,12 +78,20 @@ class MainTable extends React.Component {
                      ]
                   }
                ]}
-
-              
                defaultPageSize={10}
-               className="-striped -highlight"
-            />
 
+               //filterable= {true}
+               show={false}
+               nextText={'>'}
+               previousText={'<'}
+               rowsText={'строк'}
+               width={150}
+               pageText={'стр.'}
+               ofText={'из'}
+               className="-striped -highlight"
+            >
+              
+            </ReactTable>
          </div>
       );
    }

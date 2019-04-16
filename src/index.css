@@ -175,15 +175,17 @@ nav li:hover>.submenu {
 /***********************************/
 
 .space {
-   padding: 20px;
+   padding-bottom: 10px;
+   padding-top: 0px;
    /* Поля 
    background: #E5D3BD;*/
-   /* Цвет фона */
-   border: 2px solid black;
-   /* Параметры рамки */
-   height: 200px;
+   /* Цвет фона 
+   border: 2px solid black;*/
+   /* Параметры рамки 
+   height: 200px;*/
    font-size: 20px;
    font-weight: bold;
+   width: 100%;
 }
 
 table {
@@ -197,7 +199,7 @@ table {
 
 .td_t0{
    min-width: 200px;
-   width: 200px;
+   width: 100%;
 }
 .td_t1 {
    width: 90%;
@@ -210,7 +212,9 @@ table {
 }
 
 .date_h, .comboBox {
-   width: 100%;
+   width: 155px;
+   font-size: 16px;
+   font-weight: bold;
 }
 
 td, th, tr {
@@ -244,7 +248,51 @@ select {
 
 /********************************************/
 
-
-a {
-   font-size: 7px;
+.td_Right{
+   font-size: 21px;
+   font-weight: bold;
+   text-align: right;
+   padding-right: 10px;
+   width: 50%;
+   min-width:  220px;
 }
+.td_Left{
+   text-align: left;
+   padding-left: 10px;
+   width: 50%;
+}
+
+/*******************************/
+.Ves_table{
+   width: 300px;
+   background: white;
+     /*  Цвет фона таблицы */
+    color: black;
+    /* Цвет текста 
+    border: 1px solid black;*/
+    
+ }
+ .Ves_table > tbody > tr > td{
+   
+     /*  Цвет фона таблицы */
+    color: black;
+    /* Цвет текста */
+    border: 1px solid black;
+    text-align: center;
+ }
+ 
+ .td_yw{
+   background: rgb(252, 234, 220);
+ }
+ .td_y{
+   background: rgb(235, 199, 158);
+ }
+ .td_rw{
+   background: rgb(245, 154, 90);
+ }
+ .td_gw {
+   background:  rgb(173, 219, 159);
+ }
+ .td_g {
+   background: rgb(126, 197, 104);
+ }
