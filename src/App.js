@@ -25,19 +25,19 @@ class Main extends Component {
       );
    }
 }
-class Table extends Component {
+class Reports extends Component {
    render() {
       return (
          <MainTable w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
       );
    }
 }
-class About extends Component {
+class Help extends Component {
    render() {
       return <center><h2>Помощь</h2></center>;
    }
 }
-class Users extends Component {
+class Settings extends Component {
    render() {
       return <center><h2>Настройки</h2></center>;
    }
@@ -110,7 +110,7 @@ class Nav extends Component {
                         </button>
                      </div>
                      <div className="header_Text">
-                        <Link to="/users/">
+                        <Link to="/settings/">
                            <img className="header_Img" src={'../images/User1.png'} alt="React"
                               width="20" height="20" />
                         </Link>
@@ -132,9 +132,9 @@ class Nav extends Component {
                         </li>
                      }
                      <li><Link to="/" >Главная</Link></li>
-                     <li><Link to="/users/">Настройки</Link></li>
-                     <li><Link to="/Table" >Отчеты</Link></li>
-                     <li><Link to="/about/">Помощь</Link></li>
+                     <li><Link to="/settings/">Настройки</Link></li>
+                     <li><Link to="/reports/" >Отчеты</Link></li>
+                     <li><Link to="/help/">Помощь</Link></li>
                   </ul>
                </li>
             </ul>
@@ -182,9 +182,9 @@ class App extends Component {
                         render={() =>
                            <Main w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
                         } />
-                     <Route path="/Table" exact
+                     <Route path="/reports" exact
                         render={() =>
-                           <Table />
+                           <Reports />
                         } />
                      <Route path="/Main_Save1" exact
                         render={() =>
@@ -206,8 +206,9 @@ class App extends Component {
                         render={() =>
                            <Table_Save4 />
                         } />
-                     <Route path="/about" component={About} />
-                     <Route path="/users" component={Users} />
+                     <Route path="/settings" component={Settings} />
+                     <Route path="/help" component={Help} />
+
                      <Route component={NotFound} />
                   </Switch>
                </div>
