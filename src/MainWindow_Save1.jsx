@@ -9,7 +9,7 @@ import TotalIndication from './chart/TotalIndication.jsx'
 
 import ColumnChart from './chart/ColumnChart_Save.jsx'
 import LinesChart from './chart/LinesChart_Save.jsx'
-import Histogram from './chart/Histogram_Save.jsx'
+import Histogram from './chart/Histogram.jsx'
 import HistogramGroup from './chart/HistogramGroup_Save.jsx'
 
 const _Debuge = true;

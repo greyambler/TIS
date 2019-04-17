@@ -15,7 +15,8 @@ import MainTable_Save4 from './MainTable_Save4.jsx'
 
 
 
-const _Debuge = true;
+
+const _Debuge = false;
 
 class Main extends Component {
    render() {
@@ -33,12 +34,12 @@ class Table extends Component {
 }
 class About extends Component {
    render() {
-      return <center><h2>О сайте</h2></center>;
+      return <center><h2>Помощь</h2></center>;
    }
 }
 class Users extends Component {
    render() {
-      return <center><h2>Пользователи</h2></center>;
+      return <center><h2>Настройки</h2></center>;
    }
 }
 class NotFound extends Component {
@@ -52,6 +53,7 @@ class NotFound extends Component {
 
 class Main_Save1 extends Component {
    render() {
+
       return (
          <MainWindow_Save1 w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
       );
@@ -88,38 +90,32 @@ class Table_Save4 extends Component {
 
 /********DEBUGE*****/
 
-
 class Nav extends Component {
    render() {
       return (
          <nav>
             <ul className="topmenu">
                <li>
-
                   <div className="header_Inner">
                      <Link to="/">
-                        <img className="header_Img" src={'../images/favicon.ico'} alt="React"
-                           width="30" height="30" />
+                        <a className='headermenu'>Меню</a>
                      </Link>
                      <div className="header_Text">
                         <h3> Временная ИС по системным инцидентам</h3>
                      </div>
-
                      <div className="header_Text">
-                        <Link to="/">
-                           <img className="header_Img" src={'../images/Repeat.png'} alt="React"
+                        <button className='btn_Reload' type="button" onClick={refreshPage}>
+                           <img className="header_Img" src={'../images/Repeat1.png'} alt="React"
                               width="20" height="20" />
-                        </Link>
+                        </button>
                      </div>
-
                      <div className="header_Text">
                         <Link to="/users/">
-                           <img className="header_Img" src={'../images/User.png'} alt="React"
+                           <img className="header_Img" src={'../images/User1.png'} alt="React"
                               width="20" height="20" />
                         </Link>
                      </div>
                   </div>
-
                   <ul className="submenu">
                      {_Debuge &&
                         <li><Link><center>Технические >></center></Link>
@@ -135,18 +131,20 @@ class Nav extends Component {
                            </ul>
                         </li>
                      }
-
-
                      <li><Link to="/" >Главная</Link></li>
-                     <li><Link to="/Table" >Таблица</Link></li>
-                     <li><Link to="/users/">Пользователи</Link></li>
-                     <li><Link to="/about/">О сайте</Link></li>
+                     <li><Link to="/users/">Настройки</Link></li>
+                     <li><Link to="/Table" >Отчеты</Link></li>
+                     <li><Link to="/about/">Помощь</Link></li>
                   </ul>
                </li>
             </ul>
          </nav>
       );
    }
+}
+
+function refreshPage() {
+   window.location.reload();
 }
 
 class App extends Component {
@@ -157,56 +155,57 @@ class App extends Component {
          W_Height: window.innerHeight,
       }
       this.handleResize = this.handleResize.bind(this);
+
    }
    handleResize(WindowSize, event) {
       this.setState({ W_Width: window.innerWidth, W_Height: window.innerHeight })
    }
    componentDidMount() {
       window.addEventListener("resize", this.handleResize);
+
    }
    componentWillUnmount() {
       window.addEventListener("resize", null);
    }
    render() {
+      /**<Nav w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
+       * <Main w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
+       * 
+       */
       return (
          <div>
             <Router>
-               <Nav w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
+               <Nav />
                <div className="content">
                   <Switch>
-
                      <Route path="/" exact
                         render={() =>
                            <Main w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
                         } />
                      <Route path="/Table" exact
                         render={() =>
-                           <Table w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
+                           <Table />
                         } />
-
                      <Route path="/Main_Save1" exact
                         render={() =>
-                           <Main_Save1 w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
+                           <Main_Save1 />
                         } />
                      <Route path="/Main_Save2" exact
                         render={() =>
-                           <Main_Save2 w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
+                           <Main_Save2 />
                         } />
                      <Route path="/Table_Save1" exact
                         render={() =>
-                           <Table_Save1 w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
+                           <Table_Save1 />
                         } />
                      <Route path="/Table_Save2" exact
                         render={() =>
-                           <Table_Save2 w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
+                           <Table_Save2 />
                         } />
-
-
                      <Route path="/Table_Save4" exact
                         render={() =>
-                           <Table_Save4 w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
+                           <Table_Save4 />
                         } />
-
                      <Route path="/about" component={About} />
                      <Route path="/users" component={Users} />
                      <Route component={NotFound} />
@@ -218,10 +217,3 @@ class App extends Component {
    }
 }
 export default App;
-
-/*
-                     <Link to="/">
-                        <img className="header_Img" src={'../images/favicon.ico'} alt="React"
-                           width="30" height="30" />
-                     </Link>
-*/

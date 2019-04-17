@@ -28,6 +28,7 @@ class LinesChart extends Component {
          W_Width: this.props.w_Width / 2 - 25,
       }
    }
+
    componentDidUpdate(prevProps) {
       if (this.props.w_Width != prevProps.w_Width) {
          this.setState({ W_Width: this.props.w_Width / 2 - 25 });
@@ -37,74 +38,87 @@ class LinesChart extends Component {
    render() {
       const data = [
          {
-            month: "Jan",
+            month: "Янв.",
             ТРК: 7.0,
-            ТСО: 23.9
+            ФР: 7.0,
+            ТУ: 23.9
          },
          {
-            month: "Feb",
-            ТРК: 6.9,
-            ТСО: 24.2
+            month: "Фев.",
+            ТРК: 3.0,
+            ФР: 6.9,
+            ТУ: 24.2
          },
          {
-            month: "Mar",
-            ТРК: 9.5,
-            ТСО: 21.7
+            month: "Мар.",
+            ТРК: 4.0,
+            ФР: 9.5,
+            ТУ: 21.7
          },
          {
-            month: "Apr",
-            ТРК: 16.5,
-            ТСО: 18.5
+            month: "Апр.",
+            ТРК: 7.0,
+            ФР: 16.5,
+            ТУ: 18.5
          },
          {
-            month: "May",
-            ТРК: 22.4,
-            ТСО: 15.9
+            month: "Май.",
+            ТРК: 8.0,
+            ФР: 22.4,
+            ТУ: 15.9
          },
          {
-            month: "Jun",
-            ТРК: 17.5,
-            ТСО: 18.2
+            month: "Июн.",
+            ТРК: 6.0,
+            ФР: 17.5,
+            ТУ: 18.2
          },
          {
-            month: "Jul",
-            ТРК: 12.2,
-            ТСО: 19.0
+            month: "Июл.",
+            ТРК: 7.0,
+            ФР: 12.2,
+            ТУ: 19.0
          },
          {
-            month: "Aug",
-            ТРК: 17.5,
-            ТСО: 17.6
+            month: "Авг.",
+            ТРК: 4.0,
+            ФР: 17.5,
+            ТУ: 17.6
          },
          {
-            month: "Sep",
-            ТРК: 21.3,
-            ТСО: 14.2
+            month: "Сен.",
+            ТРК: 3.0,
+            ФР: 21.3,
+            ТУ: 14.2
          },
          {
-            month: "Oct",
-            ТРК: 22.3,
-            ТСО: 10.3
+            month: "Окт.",
+            ТРК: 5.0,
+            ФР: 22.3,
+            ТУ: 10.3
          },
          {
-            month: "Nov",
-            ТРК: 23.9,
-            ТСО: 6.6
+            month: "Ноя.",
+            ТРК: 7.0,
+            ФР: 23.9,
+            ТУ: 6.6
          },
          {
-            month: "Dec",
-            ТРК: 29.6,
-            ТСО: 4.8
+            month: "Дек.",
+            ТРК: 3.0,
+            ФР: 29.6,
+            ТУ: 4.8
          }
       ];
       const ds = new DataSet();
       const dv = ds.createView().source(data);
       dv.transform({
          type: "fold",
-         fields: ["ТРК", "ТСО"],
+         fields: ["ТРК", "ФР", "ТУ"],
          key: "city",
          value: "temperature" // value
       });
+
       console.log(dv);
       const cols = {
          month: {
@@ -115,6 +129,13 @@ class LinesChart extends Component {
          <div>
             <table>
                <tbody>
+                  <tr>
+                     <th>
+                        <center>
+                           Недоступность периферийного оборудования и ТРК (количество сбоев)
+                     </center>
+                     </th>
+                  </tr>
                   <tr>
                      <td>
                         <center>
@@ -129,7 +150,7 @@ class LinesChart extends Component {
                               <Axis
                                  name="temperature"
                                  label={{
-                                    formatter: val => `${val}°C`
+                                    formatter: val => `${val}`
                                  }}
                               />
                               <Tooltip
@@ -158,14 +179,7 @@ class LinesChart extends Component {
                         </center>
                      </td>
                   </tr>
-                  <tr>
-                     <td>
-                        <center>
-                           Доступность периферийного оборудования
-                           (потери за последний месяц по всем регионам)
-                     </center>
-                     </td>
-                  </tr>
+
                </tbody>
             </table>
          </div>

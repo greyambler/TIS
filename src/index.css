@@ -23,7 +23,7 @@ html, body {
 .content {
    flex: 70 10 auto;
    min-height: 100%;
-   margin-top: 60px;
+   margin-top: 45px;
 }
 
 /*****footer****/
@@ -33,7 +33,7 @@ footer {
 }
 
 .f_table1 {
-   background: rgb(168, 228, 228);
+   background: rgb(0, 21, 41);
    border: 0px solid rgb(0, 141, 141);
    width: 100%;
 }
@@ -47,12 +47,11 @@ footer {
 /*****footer****/
 
 nav {
-   background: rgb(168, 228, 228);
+   background: rgb(0, 21, 41);
    position: fixed;
    top: 0;
    width: 100%;
    display: table;
-   
    z-index: 2;
 }
 
@@ -62,6 +61,14 @@ nav {
    overflow: hidden;
    text-align: center;
    width: 100%;
+   height: 35px;
+}
+.headermenu {
+   
+   padding-top: 10px;
+   color: white;
+   padding-left: 10px; 
+   text-align: left;
 }
 
 .header_Img {
@@ -71,7 +78,7 @@ nav {
 }
 
 .header_Text {
-   color: black;
+   color: rgb(235, 235, 235);
    display: table-cell;
    vertical-align: middle;
 }
@@ -119,12 +126,14 @@ nav a {
    text-decoration: none;
    display: block;
    transition: .3s linear;
+   
 }
 
 .topmenu>li {
    float: center;
    position: relative;
    border-left: 1px solid black;
+   
 }
 
 .topmenu>li:first-child {
@@ -183,45 +192,50 @@ nav li:hover>.submenu {
    border: 2px solid black;*/
    /* Параметры рамки 
    height: 200px;*/
-   font-size: 20px;
-   font-weight: bold;
-   width: 100%;
+   font-size: 10px;
+   /*font-weight: bold;*/
+   width: 200px;
+}
+
+legend {
+   font-size: 12px;
 }
 
 table {
    /*  background: white;
    Цвет фона таблицы */
    color: black;
-   /* Цвет текста 
-   border: 1px solid black;*/
+   /* Цвет текста
+   border: 1px solid black; */
    width: 100%;
+}
+.td_Date{
+   font-size: 14px;
+}
+.td_t0 {
+   width: 17%;
 }
 
-.td_t0{
-   min-width: 200px;
-   width: 100%;
-}
 .td_t1 {
-   width: 90%;
-   min-width: 400px;
+   width: 100px;
 }
+
 .td_t2 {
-   min-width: 200px;
-   padding-top: 10px;
-   vertical-align: top;
+   width: 17%;
+   vertical-align: bottom;
 }
 
 .date_h, .comboBox {
-   width: 155px;
-   font-size: 16px;
+   width: 100%;
+   font-size: 12px;
    font-weight: bold;
 }
 
 td, th, tr {
    /*background: maroon;  Цвет фона ячеек */
    padding: 0px;
-   /* Поля вокруг текста 
-   border: 1px solid black;  */
+   /* Поля вокруг текста
+   border: 1px solid black;   */
 }
 
 .tr_char {
@@ -229,70 +243,84 @@ td, th, tr {
 }
 
 .td_Name {
-   font-size: 12px;
+   font-size: 10px;
 }
-
 
 select {
    background: rgb(238, 255, 0);
 }
+
 .select_1 {
-   background:rgb(238, 255, 0);
+   background: rgb(238, 255, 0);
 }
+
 .select_2 {
    background: rgb(238, 255, 0);
-} 
+}
+
 .select_3 {
    background: rgb(238, 255, 0);
 }
 
 /********************************************/
 
-.td_Right{
+.td_Right {
    font-size: 21px;
    font-weight: bold;
    text-align: right;
    padding-right: 10px;
    width: 50%;
-   min-width:  220px;
+   min-width: 220px;
 }
-.td_Left{
+
+.td_Left {
    text-align: left;
    padding-left: 10px;
    width: 50%;
 }
 
 /*******************************/
-.Ves_table{
+
+.Ves_table {
    width: 300px;
    background: white;
-     /*  Цвет фона таблицы */
-    color: black;
-    /* Цвет текста 
+   /*  Цвет фона таблицы */
+   color: black;
+   /* Цвет текста 
     border: 1px solid black;*/
-    
- }
- .Ves_table > tbody > tr > td{
-   
-     /*  Цвет фона таблицы */
-    color: black;
-    /* Цвет текста */
-    border: 1px solid black;
-    text-align: center;
- }
- 
- .td_yw{
+}
+
+.Ves_table>tbody>tr>td {
+   /*  Цвет фона таблицы */
+   color: black;
+   /* Цвет текста */
+   border: 1px solid black;
+   text-align: center;
+}
+
+.td_yw {
    background: rgb(252, 234, 220);
- }
- .td_y{
+}
+
+.td_y {
    background: rgb(235, 199, 158);
- }
- .td_rw{
+}
+
+.td_rw {
    background: rgb(245, 154, 90);
- }
- .td_gw {
-   background:  rgb(173, 219, 159);
- }
- .td_g {
+}
+
+.td_gw {
+   background: rgb(173, 219, 159);
+}
+
+.td_g {
    background: rgb(126, 197, 104);
- }
+}
+
+
+.btn_Reload{
+   src:  '../images/Repeat.png';
+   background: rgb(0, 21, 41);
+   border: 0px solid rgb(20, 199, 190);
+}

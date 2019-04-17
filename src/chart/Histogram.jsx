@@ -7,6 +7,19 @@ import { Chart, Geom, Axis, Tooltip, Legend, Coord, Label, Guide } from 'bizchar
 
 import DataSet from "@antv/data-set";
 
+
+function get_name(count) {
+   switch (count) {
+      case "1": return 'ASZ1';
+      case "2": return 'ASZ2';
+      case "3": return 'ASZ3';
+      case "4": return 'ASZ4';
+      case "5": return 'ASZ5';
+      case "6": return 'ASZ6';
+      default: return 'ASZ7';
+   }
+}
+
 class Histogram extends React.Component {
    constructor(props) {
       super(props);
@@ -15,13 +28,13 @@ class Histogram extends React.Component {
       }
    }
    componentDidUpdate(prevProps) {
-      if (this.props.w_Width != prevProps.w_Width) 
-      {
-         this.setState({ W_Width: this.props.w_Width / 2 - 25});
+      if (this.props.w_Width != prevProps.w_Width) {
+         this.setState({ W_Width: this.props.w_Width / 2 - 25 });
       }
    }
 
    render() {
+
       const values = [
          1.2,
          3.4,
@@ -78,6 +91,7 @@ class Histogram extends React.Component {
          21,
          23.4
       ];
+
       const data = [];
 
       for (let i = 0; i < values.length; i++) {
@@ -88,12 +102,18 @@ class Histogram extends React.Component {
 
       const ds = new DataSet();
       const dv = ds.createView().source(data);
-      dv.transform({
-         type: "bin.histogram",
-         field: "value",
-         binWidth: 2,
-         as: ["value", "count"]
-      });
+
+
+
+
+      /**/
+      dv.transform(
+         {
+            type: "bin.histogram",
+            field: "value",
+            binWidth: 2,
+            as: ["value", "count"]
+         });
 
       const cols = {
          value: {
@@ -101,49 +121,58 @@ class Histogram extends React.Component {
             min: 0,
             tickInterval: 1
          },
-         count: {
+         count: {//Максимум вертикальной шкалы.
             max: 14
          }
       };
       return (
          <div>
             <table>
-            <tbody>
-               <tr>
-                  <td>
-                  <center>
-                     <Chart
-                        width={this.state.W_Width}
-                        height={200} 
-                        data={dv} scale={cols}
-                        forceFit
-                        >
-                        <Legend />
-                        <Axis
-                           name="value"
-                           label={{
-                              formatter: val => {
-                                 if (val % 2) {
-                                    return val;
-                                 }
-                                 return "";
-                              }
-                           }}
-                        />
-                        <Axis name="count" />
-                        <Tooltip inPlot={false} crosshairs={false} position={"top"} />
-                        <Geom type="interval" position="value*count" />
-                     </Chart>
+               <tbody>
+                  <tr>
+                     <th>
+                        <center>
+                           Недоступность СВН (количество событий)
                      </center>
-                  </td>
-               </tr>
-               <tr>
-                  <td>
-                     <center>
-                        Недоступность СВН (сводная статистика по всем регионам)
+                     </th>
+
+                  </tr>
+                  <tr>
+                     <th>
+                        <center>
+                           ТОП-5 ПНПО
                      </center>
-                  </td>
-               </tr>
+                     </th>
+                  </tr>
+                  <tr>
+                     <td>
+                        <center>
+                           <Chart
+                              width={this.state.W_Width}
+                              height={200}
+                              data={dv} scale={cols}
+                              forceFit
+                           >
+                              <Legend />
+                              <Axis
+                                 name="value"
+                                 label={{
+                                    formatter: val => {
+                                       if (val % 2) {
+                                          return val;
+                                       }
+                                       return "";
+                                    }
+                                 }}
+                              />
+                              <Axis name="count" />
+                              <Tooltip inPlot={false} crosshairs={false} position={"top"} />
+                              <Geom type="interval" position="value*count" />
+                           </Chart>
+                        </center>
+                     </td>
+                  </tr>
+
                </tbody>
             </table>
          </div>
@@ -152,3 +181,65 @@ class Histogram extends React.Component {
 }
 
 export default Histogram;
+/*
+
+      const values = [
+         1.2,
+         3.4,
+         3.7,
+         4.3,
+         5.2,
+         5.8,
+         6.1,
+         6.5,
+         6.8,
+         7.1,
+         7.3,
+         7.7,
+         8.3,
+         8.6,
+         8.8,
+         9.1,
+         9.2,
+         9.4,
+         9.5,
+         9.7,
+         10.5,
+         10.7,
+         10.8,
+         11.0,
+         11.0,
+         11.1,
+         11.2,
+         11.3,
+         11.4,
+         11.4,
+         11.7,
+         12.0,
+         12.9,
+         12.9,
+         13.3,
+         13.7,
+         13.8,
+         13.9,
+         14.0,
+         14.2,
+         14.5,
+         15,
+         15.2,
+         15.6,
+         16.0,
+         16.3,
+         17.3,
+         17.5,
+         17.9,
+         18.0,
+         18.0,
+         20.6,
+         21,
+         23.4
+      ];
+
+
+
+*/

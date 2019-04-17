@@ -36,33 +36,33 @@ class HistogramGroup extends React.Component {
    render() {
       const data = [
          {
-            name: "ТРК",
-            "Jan.": 18.9,
-            "Feb.": 28.8,
-            "Mar.": 39.3,
-            "Apr.": 81.4,
-            May: 47,
-            "Jun.": 20.3,
-            "Jul.": 24,
-            "Aug.": 35.6
+            name: "Норма",
+            "Янв.": 18.9,
+            "Фев.": 28.8,
+            "Мар.": 39.3,
+            "Апр.": 81.4,
+            "Май.": 47,
+            "Июн.": 20.3,
+            "Июл.": 24,
+            "Авг.": 35.6
          },
          {
-            name: "ТСО",
-            "Jan.": 12.4,
-            "Feb.": 23.2,
-            "Mar.": 34.5,
-            "Apr.": 99.7,
-            May: 52.6,
-            "Jun.": 35.5,
-            "Jul.": 37.4,
-            "Aug.": 42.4
+            name: "Факт",
+            "Янв.": 12.4,
+            "Фев.": 23.2,
+            "Мар.": 34.5,
+            "Апр.": 99.7,
+            "Май.": 52.6,
+            "Июн.": 35.5,
+            "Июл.": 37.4,
+            "Авг.": 42.4
          }
       ];
       const ds = new DataSet();
       const dv = ds.createView().source(data);
       dv.transform({
          type: "fold",
-         fields: ["Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.", "Jul.", "Aug."],
+         fields: ["Янв.", "Фев.", "Мар.", "Апр.", "Май.", "Июн.", "Июл.", "Авг."],
          // 展开字段集
          key: "月份",
          // key字段
@@ -71,6 +71,13 @@ class HistogramGroup extends React.Component {
       return (
          <table>
             <tbody>
+               <tr>
+                  <th>
+                     <center>
+                        Отклонение от нормы за период по зависшим транзакциям на ТРК
+                  </center>
+                  </th>
+               </tr>
                <tr>
                   <td>
                      <div>
@@ -105,13 +112,7 @@ class HistogramGroup extends React.Component {
                      </div>
                   </td>
                </tr>
-               <tr>
-                  <td>
-                     <center>
-                        Аномалии по зависшим транзакциям (по подключенным регионам за текущий)
-                  </center>
-                  </td>
-               </tr>
+
             </tbody>
          </table>
       );

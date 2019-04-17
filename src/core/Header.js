@@ -15,7 +15,7 @@ class Header extends Component {
                   height="30"
                />
                <div className="header_Text">
-                  <h3> Временная ИС по системным инцидентам</h3>
+                  <h3> 11Временная ИС по системным инцидентам</h3>
                </div>
 
             </div>

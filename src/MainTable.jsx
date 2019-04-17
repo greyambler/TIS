@@ -97,21 +97,3 @@ class MainTable extends React.Component {
    }
 }
 export default MainTable;
-
-/*
- getTdProps={(state, rowInfo, column, instance) => {
-                  return {
-                     onMouseEnter: e =>
-                        console.log("Cell - onMouseEnter", {
-                           state,
-                           rowInfo,
-                           column,
-                           instance,
-                           event: e
-                        })
-                  };
-               }}
-
-
-
-*/
