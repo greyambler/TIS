@@ -1,23 +1,60 @@
-import React, { Component, PropTypes } from 'react';
-import { render } from "react-dom";
+import React from "react";
+import {
+   get_Date, GetDateNow
+} from './core/core_Function.jsx';
 import ReactTable from "react-table";
-
 import "react-table/react-table.css"; // Импорт стилей путем включения
 
-import {
-   get_Date, Get_StartDate, Get_StopDate,
-   GetDateNow, contains, GetDatFromColChart, dataStart, dataStop
-} from './core/core_Function.jsx';
+
 
 import ReactExport from "react-data-export";
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
+const dataSet1 = [
+   {
+      name: "Johson",
+      amount: 30000,
+      sex: 'M',
+      is_married: true
+   },
+   {
+      name: "Monika",
+      amount: 355000,
+      sex: 'F',
+      is_married: false
+   },
+   {
+      name: "John",
+      amount: 250000,
+      sex: 'M',
+      is_married: false
+   },
+   {
+      name: "Josef",
+      amount: 450500,
+      sex: 'M',
+      is_married: true
+   }
+];
+
+const dataSet2 = [
+   {
+      name: "Johnson",
+      total: 25,
+      remainig: 16
+   },
+   {
+      name: "Josef",
+      total: 25,
+      remainig: 7
+   }
+];
 
 
 
-class MainTable extends React.Component {
+class MainTable_Save7 extends React.Component {
    constructor() {
       super();
       this.state = {
@@ -30,10 +67,8 @@ class MainTable extends React.Component {
       this.setState({ currentDate: event.target.value })
    }
 
-
    render() {
       const { data } = this.state;
-      //<a>https://reactjsexample.com/a-lightweight-and-extendable-datagrid-for-react/</a>
       return (
          <div>
 
@@ -56,9 +91,8 @@ class MainTable extends React.Component {
                         onChange={(event) => this.inputChangedHandler(event)} />
                   </td>
                   <td>
-                     <ExcelFile element={<button>Выгрузка в EXCEL</button>}>
+                     <ExcelFile>
                         <ExcelSheet data={data} name="Employees">
-
                            <ExcelColumn label="CASHIER_ID" value="CASHIER_ID" />
                            <ExcelColumn label="DateKey" value="DateKey" />
                            <ExcelColumn label="Datetime" value="Datetime" />
@@ -78,6 +112,7 @@ class MainTable extends React.Component {
                            <ExcelColumn label="SHOP_NUM" value="SHOP_NUM" />
                            <ExcelColumn label="TimeKey" value="TimeKey" />
                            <ExcelColumn label="M2" value="M2" />
+                           
 
                         </ExcelSheet>
 
@@ -157,46 +192,4 @@ class MainTable extends React.Component {
       );
    }
 }
-export default MainTable;
-
-/*
-
-<td>
-   <ExcelFile element={<button>Выгрузка в EXCEL</button>}>
-      <ExcelSheet data={data} name="Employees">
-         <ExcelColumn label="CASHIER_ID" value="CASHIER_ID" />
-         <ExcelColumn label="DateKey" value="DateKey" />
-         <ExcelColumn label="Datetime" value="Datetime" />
-         <ExcelColumn label="Duration" value="Duration" />
-         <ExcelColumn label="EVENT_NAME" value="EVENT_NAME" />
-
-         <ExcelColumn label="EVENT_TYPE" value="EVENT_TYPE" />
-         <ExcelColumn label="F" value="F" />
-         <ExcelColumn label="KASS_NUM" value="KASS_NUM" />
-         <ExcelColumn label="Key" value="Key" />
-         <ExcelColumn label="M" value="M" />
-
-         <ExcelColumn label="Rang" value="Rang" />
-         <ExcelColumn label="Rang2_bus" value="Rang2_bus" />
-         <ExcelColumn label="ratedFreq" value="ratedFreq" />
-         <ExcelColumn label="SHIFT_NUM" value="SHIFT_NUM" />
-         <ExcelColumn label="SHOP_NUM" value="SHOP_NUM" />
-         <ExcelColumn label="TimeKey" value="TimeKey" />
-         <ExcelColumn label="M2" value="M2" />
-
-
-      </ExcelSheet>
-
-   </ExcelFile>
-</td>
-
-*/
-
-
-
-
-
-
-
-
-
+export default MainTable_Save7;

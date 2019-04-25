@@ -23,9 +23,15 @@ import DataSet from "@antv/data-set";
 class HistogramGroup extends React.Component {
    constructor(props) {
       super(props);
+      
       this.state = {
          W_Width: this.props.w_Width / 2 - 25,
       }
+      
+   }
+   
+   componentDidMount() {
+      this.setState({ W_Width: this.props.w_Width / 2 - 25 });
    }
    componentDidUpdate(prevProps) {
       if (this.props.w_Width != prevProps.w_Width) {

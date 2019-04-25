@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 import MainWindow from './MainWindow.jsx'
@@ -10,13 +11,16 @@ import MainTable_Save1 from './MainTable_Save1.jsx'
 import MainTable_Save2 from './MainTable_Save2.jsx'
 import MainTable_Save3 from './MainTable_Save3.jsx'
 import MainTable_Save4 from './MainTable_Save4.jsx'
+import MainTable_Save5 from './MainTable_Save5.jsx'
+import MainTable_Save6 from './MainTable_Save6.jsx'
+import MainTable_Save7 from './MainTable_Save7.jsx'
 
 //import Header from './core/Header';
 
 
 
 
-const _Debuge = false;
+const _Debuge = true;
 
 class Main extends Component {
    render() {
@@ -80,6 +84,39 @@ class Table_Save2 extends Component {
       );
    }
 }
+
+class Table_Save7 extends Component {
+   render() {
+      return (
+         <MainTable_Save7 w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
+      );
+   }
+}
+
+
+class Date_Save5 extends Component {
+   render() {
+      return (
+         <MainTable_Save5 w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
+      );
+   }
+}
+class Date_Save6 extends Component {
+   render() {
+      return (
+         <MainTable_Save6 w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
+      );
+   }
+}
+
+
+class Table_Save3 extends Component {
+   render() {
+      return (
+         <MainTable_Save3 w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
+      );
+   }
+}
 class Table_Save4 extends Component {
    render() {
       return (
@@ -98,23 +135,29 @@ class Nav extends Component {
                <li>
                   <div className="header_Inner">
                      <Link to="/">
-                        <a className='headermenu'>Меню</a>
+                        <div className='headermenu'>Меню</div>
                      </Link>
                      <div className="header_Text">
-                        <h3> Временная ИС по системным инцидентам</h3>
+                        <h3>Временная ИС по системным инцидентам</h3>
                      </div>
-                     <div className="header_Text">
-                        <button className='btn_Reload' type="button" onClick={refreshPage}>
-                           <img className="header_Img" src={'../images/Repeat1.png'} alt="React"
-                              width="20" height="20" />
-                        </button>
-                     </div>
-                     <div className="header_Text">
-                        <Link to="/settings/">
-                           <img className="header_Img" src={'../images/User1.png'} alt="React"
-                              width="20" height="20" />
-                        </Link>
-                     </div>
+                     <table className="header_Left">
+                        <tbody>
+                           <tr>
+                              <td>
+                                 <button className='btn_Reload' type="button" onClick={refreshPage}>
+                                    <img className="header_Img" src={'../images/Repeat1.png'} alt="React"
+                                       width="20" height="20" />
+                                 </button>
+                              </td>
+                              <td>
+                                 <Link to="/settings">
+                                    <img className="header_Img" src={'../images/Work.png'} alt="React"
+                                       width="20" height="20" />
+                                 </Link>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
                   </div>
                   <ul className="submenu">
                      {_Debuge &&
@@ -122,19 +165,25 @@ class Nav extends Component {
                            <ul className="submenu">
                               <li><Link to="/Table_Save1" >Таблица_Save1</Link></li>
                               <li><Link to="/Table_Save2" >Таблица_Save2</Link></li>
-
+                              <li><Link to="/Table_Save3" >Таблица_Save3</Link></li>
                               <li><Link to="/Table_Save4" >Таблица_Save4</Link></li>
+
+                              <li><Link to="/Table_Save7" >Таблица_Save7</Link></li>
+
+                              <li><Link to="/Date_Save5" >Date_Save5</Link></li>
+                              <li><Link to="/Date_Save6" >Date_Save6</Link></li>
+                              
 
                               <li><Link to="/Main_Save1" >Главная_Save1</Link></li>
                               <li><Link to="/Main_Save2" >Главная_Save2</Link></li>
-
                            </ul>
                         </li>
                      }
+
                      <li><Link to="/" >Главная</Link></li>
-                     <li><Link to="/settings/">Настройки</Link></li>
-                     <li><Link to="/reports/" >Отчеты</Link></li>
-                     <li><Link to="/help/">Помощь</Link></li>
+                     <li><Link to="/settings">Настройки</Link></li>
+                     <li><Link to="/reports">Отчеты</Link></li>
+                     <li><Link to="/help">Помощь</Link></li>
                   </ul>
                </li>
             </ul>
@@ -142,6 +191,7 @@ class Nav extends Component {
       );
    }
 }
+
 
 function refreshPage() {
    window.location.reload();
@@ -168,53 +218,53 @@ class App extends Component {
       window.addEventListener("resize", null);
    }
    render() {
-      /**<Nav w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
-       * <Main w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
-       * 
-       */
       return (
-         <div>
-            <Router>
+         <Router>
                <Nav />
                <div className="content">
                   <Switch>
-                     <Route path="/" exact
-                        render={() =>
-                           <Main w_Height={this.state.W_Height} w_Width={this.state.W_Width} />
-                        } />
-                     <Route path="/reports" exact
-                        render={() =>
-                           <Reports />
-                        } />
-                     <Route path="/Main_Save1" exact
-                        render={() =>
-                           <Main_Save1 />
-                        } />
-                     <Route path="/Main_Save2" exact
-                        render={() =>
-                           <Main_Save2 />
-                        } />
-                     <Route path="/Table_Save1" exact
-                        render={() =>
-                           <Table_Save1 />
-                        } />
-                     <Route path="/Table_Save2" exact
-                        render={() =>
-                           <Table_Save2 />
-                        } />
-                     <Route path="/Table_Save4" exact
-                        render={() =>
-                           <Table_Save4 />
-                        } />
-                     <Route path="/settings" component={Settings} />
-                     <Route path="/help" component={Help} />
+                     <Route exact path="/" render={() => <Main w_Height={this.state.W_Height} w_Width={this.state.W_Width} />} />
+                     <Route exact path="/reports" render={() => <Reports w_Height={this.state.W_Height} w_Width={this.state.W_Width} />} />
 
-                     <Route component={NotFound} />
+                     <Route exact path="/settings" component={Settings} />
+                     <Route exact path="/help" component={Help} />
+
+
+
+                     <Route exact path="/Main_Save1" render={() => <Main_Save1 />} />
+                     <Route exact path="/Main_Save2" render={() => <Main_Save2 />} />
+                     <Route exact path="/Table_Save1" render={() => <Table_Save1 />} />
+                     <Route exact path="/Table_Save2" render={() => <Table_Save2 />} />
+                     <Route exact path="/Table_Save3" render={() => <Table_Save3 />} />
+                     <Route exact path="/Table_Save4" render={() => <Table_Save4 />} />
+
+                     <Route exact path="/Table_Save7" render={() => <Table_Save7 />} />
+
+                     <Route exact path="/Date_Save5" render={() => <Date_Save5 />} />
+                     <Route exact path="/Date_Save6" render={() => <Date_Save6 />} />
+
+
+                     <Route exact component={NotFound} />
                   </Switch>
+
                </div>
             </Router>
-         </div>
-      );
-   }
-}
-export default App;
+
+            );
+         }
+      }
+      export default App;
+      
+      
+      
+      /*
+      
+children={() => <h2>Help</h2>} />
+            
+<Route path="/" exact render={() => <Main w_Height={this.state.W_Height} w_Width={this.state.W_Width} />} />
+            <Route path="/reports/" exact render={() => <Reports />} />
+            <Route path="/settings/" exact component={Settings} />
+            <Route path="/help/" exact component={Help} />
+            <Route component={NotFound} />
+
+            */

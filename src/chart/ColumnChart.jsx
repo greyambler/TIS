@@ -14,10 +14,14 @@ class ColumnChart extends Component {
          Data: this.props.Data,
       }
    }
+
+   componentDidMount() {
+      this.setState({ W_Width: this.props.w_Width / 2 - 25 });
+   }
+
    componentDidUpdate(prevProps) {
       if (this.props.w_Width != prevProps.w_Width) {
          this.setState({ W_Width: this.props.w_Width / 2 - 25 });
-
       }
       if (this.props.Data != prevProps.Data) {
          this.setState({ Data: this.props.Data });
@@ -67,7 +71,6 @@ class ColumnChart extends Component {
                               scale={cols1}>
                               <Axis name="N" />
                               <Axis name="CASHIER_ID" />
-
                               <Tooltip />
                               <Geom type="interval" position="CASHIER_ID*N" color="N" />
                            </Chart>

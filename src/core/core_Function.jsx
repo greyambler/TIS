@@ -4,6 +4,7 @@ import namor from "namor";
 
 
 
+
 export function get_Date() {
    var date_Test = Array();
 
@@ -79,6 +80,41 @@ export function Get_StopDate(CurentDate, Date_time) {
       }
    }
 }
+
+export function Check_StartDate_EndDate(startDate, endDate) {
+   if (endDate == null) {
+      return false;
+   }
+   else {
+      let S_yyyy = +startDate.substring(0, 4)
+      let E_yyyy = +endDate.substring(0, 4)
+      if (S_yyyy > E_yyyy) {
+         return false;
+      }
+      else {
+         let S_mm = +startDate.substring(5, 7)
+         let E_mm = +endDate.substring(5, 7)
+         if (S_mm > E_mm) {
+            return false;
+         } else {
+            let S_dd = +startDate.substring(8, 10)
+            let E_dd = +endDate.substring(8, 10)
+            if (S_dd > E_dd) {
+               return false;
+            } else {
+               return true;
+            }
+         }
+      }
+   }
+}
+
+export function Get_Date_String(Date_String) {
+
+   const CurentDate = Date_String.substring(3, 6) + Date_String.substring(0, 2) + Date_String.substring(5, Date_String.length);
+
+   return CurentDate;
+}
 export function GetDateNow() {
    var date = new Date();
    var day = date.getDate();
@@ -87,6 +123,35 @@ export function GetDateNow() {
    if (month < 10) month = "0" + month;
    if (day < 10) day = "0" + day;
    var today = year + "-" + month + "-" + day;
+   return today;
+}
+export function GetDateNowSl() {
+   var date = new Date();
+   var day = date.getDate();
+   var month = date.getMonth() + 1;
+   var year = date.getFullYear();
+   if (month < 10) month = "0" + month;
+   if (day < 10) day = "0" + day;
+   var today = year + "/" + month + "/" + day;
+   return today;
+}
+export function GetDate_moment(_moment) {
+   var day = _moment.date();
+   var month = _moment.month();
+   var year = _moment.year();
+   if (month < 10) month = "0" + month;
+   if (day < 10) day = "0" + day;
+   var today = day + "/" + month + "/" + year;
+   return today;
+}
+export function GetDateNowDMY() {
+   var date = new Date();
+   var day = date.getDate();
+   var month = date.getMonth() + 1;
+   var year = date.getFullYear();
+   if (month < 10) month = "0" + month;
+   if (day < 10) day = "0" + day;
+   var today = day + "." + month + "." + year;
    return today;
 }
 export function contains(arr, elem) {
@@ -105,7 +170,7 @@ export function contains(arr, elem) {
 export let dataStart = null;
 export let dataStop = null;
 
-export function GetDatFromColChart(data_DB){
+export function GetDatFromColChart(data_DB) {
    let dataCol_Char1 = Array();
    let t = 0;
    for (const element of data_DB) {
@@ -133,49 +198,49 @@ export function GetDatFromColChart(data_DB){
 
 
 const range = len => {
-  const arr = [];
-  for (let i = 0; i < len; i++) {
-    arr.push(i);
-  }
-  return arr;
+   const arr = [];
+   for (let i = 0; i < len; i++) {
+      arr.push(i);
+   }
+   return arr;
 };
 
 const newPerson = () => {
-  const statusChance = Math.random();
-  return {
-    firstName: namor.generate({ words: 1, numbers: 0 }),
-    lastName: namor.generate({ words: 1, numbers: 0 }),
-    age: Math.floor(Math.random() * 30),
-    visits: Math.floor(Math.random() * 100),
-    progress: Math.floor(Math.random() * 100),
-    status:
-      statusChance > 0.66
-        ? "relationship"
-        : statusChance > 0.33 ? "complicated" : "single"
-  };
+   const statusChance = Math.random();
+   return {
+      firstName: namor.generate({ words: 1, numbers: 0 }),
+      lastName: namor.generate({ words: 1, numbers: 0 }),
+      age: Math.floor(Math.random() * 30),
+      visits: Math.floor(Math.random() * 100),
+      progress: Math.floor(Math.random() * 100),
+      status:
+         statusChance > 0.66
+            ? "relationship"
+            : statusChance > 0.33 ? "complicated" : "single"
+   };
 };
 
 export function makeData(len = 5553) {
-  return range(len).map(d => {
-    return {
-      ...newPerson(),
-      children: range(10).map(newPerson)
-    };
-  });
+   return range(len).map(d => {
+      return {
+         ...newPerson(),
+         children: range(10).map(newPerson)
+      };
+   });
 }
 export const Logo = () =>
-  <div style={{ margin: '1rem auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center'}}>
-    For more examples, visit {''}
-  <br />
-    <a href="https://github.com/react-tools/react-table" target="_blank">
-      <img
-        src="https://github.com/react-tools/media/raw/master/logo-react-table.png"
-        style={{ width: `150px`, margin: ".5em auto .3em" }}
-      />
-    </a>
-  </div>;
+   <div style={{ margin: '1rem auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center' }}>
+      For more examples, visit {''}
+      <br />
+      <a href="https://github.com/react-tools/react-table" target="_blank">
+         <img
+            src="https://github.com/react-tools/media/raw/master/logo-react-table.png"
+            style={{ width: `150px`, margin: ".5em auto .3em" }}
+         />
+      </a>
+   </div>;
 export const Tips = () =>
-  <div style={{ textAlign: "center" }}>
-    <em>Tip: Hold shift when sorting to multi-sort!</em>
-  </div>;
+   <div style={{ textAlign: "center" }}>
+      <em>Tip: Hold shift when sorting to multi-sort!</em>
+   </div>;
 

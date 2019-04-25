@@ -10,6 +10,11 @@ class RightIndication extends Component {
          currentDate: GetDateNow(),
       }
    }
+   
+   inputChangedHandler = (event) => {
+      this.setState({ currentDate: event.target.value })
+   }
+
    render() {
       return (
          <table>

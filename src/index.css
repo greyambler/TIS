@@ -17,13 +17,13 @@ html, body {
 html, body {
    margin-left: 2px;
    margin-right: 5px;
-   height: 95%;
+   height: 96.5%;
 }
 
 .content {
    flex: 70 10 auto;
-   min-height: 100%;
-   margin-top: 45px;
+   min-height: 99%;
+   margin-top: 35px;
 }
 
 /*****footer****/
@@ -50,7 +50,7 @@ nav {
    background: rgb(0, 21, 41);
    position: fixed;
    top: 0;
-   width: 100%;
+   width: 99.9%;
    display: table;
    z-index: 2;
 }
@@ -63,18 +63,32 @@ nav {
    width: 100%;
    height: 35px;
 }
+
 .headermenu {
-   
    padding-top: 10px;
    color: white;
-   padding-left: 10px; 
    text-align: left;
+   position: absolute;
+   left: 10px;
 }
 
 .header_Img {
    display: table-cell;
    vertical-align: middle;
    margin-left: 10px;
+}
+
+.header_Left {
+   display: table;
+   width: 170px;
+   position: absolute;
+   /* блок занимает ширину содержимого, max-width её ограничивает 
+   top: 0;*/
+   /* прикрепить к верху родителя */
+   right: 0;
+   max-width: 8em;
+   min-height: 2em;
+   vertical-align: middle;
 }
 
 .header_Text {
@@ -126,14 +140,12 @@ nav a {
    text-decoration: none;
    display: block;
    transition: .3s linear;
-   
 }
 
 .topmenu>li {
    float: center;
    position: relative;
    border-left: 1px solid black;
-   
 }
 
 .topmenu>li:first-child {
@@ -163,7 +175,7 @@ nav a {
 
 .submenu li a {
    color: #282828;
-   padding: 10px 20px;
+   padding: 7px 20px;
    font-size: 13px;
    border-bottom: 1px solid #CBCBCC;
 }
@@ -194,11 +206,11 @@ nav li:hover>.submenu {
    height: 200px;*/
    font-size: 10px;
    /*font-weight: bold;*/
-   width: 200px;
+   width: 600px;
 }
 
 legend {
-   font-size: 12px;
+   font-size: 14px;
 }
 
 table {
@@ -206,12 +218,26 @@ table {
    Цвет фона таблицы */
    color: black;
    /* Цвет текста
-   border: 1px solid black; */
+   border: 1px solid black;    */
+   width: 99.9%;
+}
+
+.tbl {
    width: 100%;
 }
-.td_Date{
+
+.tbl>tr>td {
+   width: 20%;
+}
+
+select {
+   width: 100%;
+}
+
+.td_Date {
    font-size: 14px;
 }
+
 .td_t0 {
    width: 17%;
 }
@@ -235,7 +261,7 @@ td, th, tr {
    /*background: maroon;  Цвет фона ячеек */
    padding: 0px;
    /* Поля вокруг текста
-   border: 1px solid black;   */
+   border: 1px solid black;      */
 }
 
 .tr_char {
@@ -243,23 +269,7 @@ td, th, tr {
 }
 
 .td_Name {
-   font-size: 10px;
-}
-
-select {
-   background: rgb(238, 255, 0);
-}
-
-.select_1 {
-   background: rgb(238, 255, 0);
-}
-
-.select_2 {
-   background: rgb(238, 255, 0);
-}
-
-.select_3 {
-   background: rgb(238, 255, 0);
+   font-size: 12px;
 }
 
 /********************************************/
@@ -318,9 +328,46 @@ select {
    background: rgb(126, 197, 104);
 }
 
-
-.btn_Reload{
-   src:  '../images/Repeat.png';
+.btn_Reload {
+   src: '../images/Repeat.png';
    background: rgb(0, 21, 41);
    border: 0px solid rgb(20, 199, 190);
+}
+
+
+
+/*npm install --save react-dates moment@>=#.## react@>=#.## react-dom@>=#.##*/
+
+/* ПРИМЕЧАНИЕ: порядок этих стилей действительно имеет значение */
+
+/* Будет редактировать все выбранное, включая все в диапазоне дат */
+
+.CalendarDay__selected_span {
+   background: #82e0aa;
+   /*background*/
+   color: white;
+   /*text*/
+   border: 1px solid lightpink;
+   /*default styles include a border*/
+}
+
+/* Будет редактировать при наведении. Стиль _span также имеет это свойство*/
+
+.CalendarDay__selected {
+   background: darkred;
+   color: white;
+}
+
+/* Will edit when hovered over. _span style also has this property*/
+
+.CalendarDay__selected:hover {
+   background: orange;
+   color: white;
+}
+
+/* Будет редактировать , когда вторая дата (дата окончания) в виде диапазона дат 
+пока не выбран. Редактирует даты между вашей мышью и указанной датой */
+
+.CalendarDay__hovered_span:hover, .CalendarDay__hovered_span {
+   background: brown;
 }
