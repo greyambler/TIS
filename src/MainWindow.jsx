@@ -18,7 +18,7 @@ import HistogramGroup from './chart/HistogramGroup.jsx';
 const _Debuge = false;
 
 
-const Rss = "http://172.23.16.18:11000/msg/";
+const Rss = "get_01.json";
 //"http://172.23.16.18:11000/msg";
 //"get_01.json";
 //"http://172.23.16.125:8000/dpfacade-1.0-SNAPSHOT/webresources/ru.expertek.dp.dpfacade.dvc/";
