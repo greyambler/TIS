@@ -36,7 +36,7 @@ class MainTable_Save6 extends React.Component {
          date: moment(),
          endDate: moment(),
          focused: false,
-         IsOneDay: true,
+         IsOneDay: false,
       }
    }
    testDate(e) {
@@ -63,7 +63,10 @@ class MainTable_Save6 extends React.Component {
          default: break;
       }
    }
+   
    render() {
+
+      
 
       return (
          <div>
@@ -109,8 +112,12 @@ class MainTable_Save6 extends React.Component {
                      onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
                      focusedInput={this.state.focusedInput}
                      onFocusChange={focusedInput => this.setState({ focusedInput })}
+                     
                      small={true}
                      displayFormat={'DD/MM/YYYY'}
+                     noBorder={true}
+                     isOutsideRange={() => false}
+                     minimumNights={0}
                   />
                )}
 

@@ -163,8 +163,8 @@ class Nav extends Component {
                      {_Debuge &&
                         <li><Link><center>Технические >></center></Link>
                            <ul className="submenu">
-                              <li><Link to="/Table_Save1" >Таблица_Save1</Link></li>
-                              <li><Link to="/Table_Save2" >Таблица_Save2</Link></li>
+                              <li><Link to="/Table_Save1" >Таблица_Эталон1</Link></li>
+                              <li><Link to="/Table_Save2" >Таблица_MinTable2</Link></li>
                               <li><Link to="/Table_Save3" >Таблица_Save3</Link></li>
                               <li><Link to="/Table_Save4" >Таблица_Save4</Link></li>
 
