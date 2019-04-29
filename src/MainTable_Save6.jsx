@@ -115,7 +115,7 @@ class MainTable_Save6 extends React.Component {
                      
                      small={true}
                      displayFormat={'DD/MM/YYYY'}
-                     noBorder={true}
+                     noBorder={false}
                      isOutsideRange={() => false}
                      minimumNights={0}
                   />

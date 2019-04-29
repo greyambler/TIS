@@ -7,6 +7,8 @@ import MainTable from './MainTable.jsx'
 
 import MainWindow_Save1 from './MainWindow_Save1.jsx'
 import MainWindow_Save2 from './MainWindow_Save2.jsx'
+import MainWindow_Save8 from './MainWindow_Save8.jsx'
+
 import MainTable_Save1 from './MainTable_Save1.jsx'
 import MainTable_Save2 from './MainTable_Save2.jsx'
 import MainTable_Save3 from './MainTable_Save3.jsx'
@@ -14,6 +16,7 @@ import MainTable_Save4 from './MainTable_Save4.jsx'
 import MainTable_Save5 from './MainTable_Save5.jsx'
 import MainTable_Save6 from './MainTable_Save6.jsx'
 import MainTable_Save7 from './MainTable_Save7.jsx'
+
 
 //import Header from './core/Header';
 
@@ -67,6 +70,13 @@ class Main_Save2 extends Component {
    render() {
       return (
          <MainWindow_Save2 w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
+      );
+   }
+}
+class Main_Save3 extends Component {
+   render() {
+      return (
+         <MainWindow_Save8 w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
       );
    }
 }
@@ -176,6 +186,7 @@ class Nav extends Component {
 
                               <li><Link to="/Main_Save1" >Главная_Save1</Link></li>
                               <li><Link to="/Main_Save2" >Главная_Save2</Link></li>
+                              <li><Link to="/Main_Save3" >Главная_Save3</Link></li>
                            </ul>
                         </li>
                      }
@@ -242,6 +253,10 @@ class App extends Component {
 
                      <Route exact path="/Date_Save5" render={() => <Date_Save5 />} />
                      <Route exact path="/Date_Save6" render={() => <Date_Save6 />} />
+
+
+                     <Route exact path="/Main_Save3" render={() => <Main_Save3 w_Height={this.state.W_Height} w_Width={this.state.W_Width} />} />
+                     
 
 
                      <Route exact component={NotFound} />

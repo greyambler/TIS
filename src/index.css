@@ -217,8 +217,8 @@ table {
    /*  background: white;
    Цвет фона таблицы */
    color: black;
-   /* Цвет текста
-   border: 1px solid black;    */
+   /* Цвет текста   */
+   border: 1px solid black; 
    width: 99.9%;
 }
 
@@ -251,6 +251,29 @@ select {
    vertical-align: bottom;
 }
 
+.td_t_Left{
+   width: 17%;
+}
+.td_t_Main{
+   width: 100px;
+}
+.td_t_Right{
+   width: 17%;
+}
+.space_Head{
+   padding-bottom: 10px;
+   padding-top: 0px;
+   /* Поля 
+   background: #E5D3BD;*/
+   /* Цвет фона 
+   border: 2px solid black;*/
+   /* Параметры рамки 
+   height: 200px;*/
+   font-size: 10px;
+   /*font-weight: bold;*/
+   width: 100%;
+}
+
 .date_h, .comboBox {
    width: 100%;
    font-size: 12px;
@@ -260,8 +283,8 @@ select {
 td, th, tr {
    /*background: maroon;  Цвет фона ячеек */
    padding: 0px;
-   /* Поля вокруг текста
-   border: 1px solid black;      */
+   /* Поля вокруг текста     */
+   border: 1px solid black; 
 }
 
 .tr_char {
