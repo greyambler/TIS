@@ -7,7 +7,6 @@
     "babel-polyfill": "^6.26.0",
     "bizcharts": "^3.5.2",
     "konva": "^3.2.4",
-    "lite-server": "^2.4.0",
     "match-sorter": "^2.3.0",
     "moment": "^2.24.0",
     "namor": "^1.1.2",
@@ -21,6 +20,7 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
     "react-table": "^6.9.2",
+    "react-websocket": "^2.0.1",
     "xlsx": "^0.14.2"
   },
   "scripts": {

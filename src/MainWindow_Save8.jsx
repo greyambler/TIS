@@ -9,6 +9,9 @@ import {
 //import RightIndication from './chart/RightIndication.jsx'
 //import Histogram from './chart/Histogram.jsx'
 
+import CircularGraph from './chart/CircularGraph.jsx';
+
+
 import Header_Main from './chart/Header_Main.jsx';
 import Header_Main_Chart from './chart/Header_Main_Chart.jsx';
 
@@ -70,7 +73,7 @@ class MainWindow_Save8 extends React.Component {
 
    render() {
       let dataCol_Char1 = GetDatFromColChart(get_Date());
-      
+
       let _Objects = this.state.Objest;
       let numfiles = 0;
       let numincidents = 0;
@@ -86,7 +89,7 @@ class MainWindow_Save8 extends React.Component {
                      <tbody>
                         <tr>
                            <td colSpan='2' >
-                              <Header_Main_Chart numfiles={numfiles} numincidents={numincidents}/>
+                              <Header_Main_Chart numfiles={numfiles} numincidents={numincidents} />
                            </td>
                         </tr>
                         <tr><td colSpan='2'><hr /><br /><br /><br /></td></tr>
@@ -115,14 +118,15 @@ class MainWindow_Save8 extends React.Component {
                      <tbody>
                         <tr>
                            <td colSpan='2' >
-                              <Header_Main_Chart numfiles={numfiles} numincidents={numincidents}/>
+                              <Header_Main_Chart numfiles={numfiles} numincidents={numincidents} />
                            </td>
                         </tr>
                         <tr><td colSpan='2'><hr /><br /><br /><br /></td></tr>
                         <tr>
-                           <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} ><ColumnChart Data={dataCol_Char1}
-                              dataStart={dataStart} dataStop={dataStop}
-                              w_Width={this.state.W_Width} />
+                           <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
+                              <CircularGraph Data={dataCol_Char1}
+                                 dataStart={dataStart} dataStop={dataStop}
+                                 w_Width={this.state.W_Width} />
                            </td>
                         </tr>
                      </tbody>

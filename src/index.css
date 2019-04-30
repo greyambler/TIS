@@ -217,8 +217,8 @@ table {
    /*  background: white;
    Цвет фона таблицы */
    color: black;
-   /* Цвет текста   */
-   border: 1px solid black; 
+   /* Цвет текста 
+   border: 1px solid black;  */
    width: 99.9%;
 }
 
@@ -251,16 +251,19 @@ select {
    vertical-align: bottom;
 }
 
-.td_t_Left{
+.td_t_Left {
    width: 17%;
 }
-.td_t_Main{
+
+.td_t_Main {
    width: 100px;
 }
-.td_t_Right{
+
+.td_t_Right {
    width: 17%;
 }
-.space_Head{
+
+.space_Head {
    padding-bottom: 10px;
    padding-top: 0px;
    /* Поля 
@@ -283,8 +286,8 @@ select {
 td, th, tr {
    /*background: maroon;  Цвет фона ячеек */
    padding: 0px;
-   /* Поля вокруг текста     */
-   border: 1px solid black; 
+   /* Поля вокруг текста 
+   border: 1px solid black;    */
 }
 
 .tr_char {
@@ -357,8 +360,6 @@ td, th, tr {
    border: 0px solid rgb(20, 199, 190);
 }
 
-
-
 /*npm install --save react-dates moment@>=#.## react@>=#.## react-dom@>=#.##*/
 
 /* ПРИМЕЧАНИЕ: порядок этих стилей действительно имеет значение */
@@ -393,4 +394,11 @@ td, th, tr {
 
 .CalendarDay__hovered_span:hover, .CalendarDay__hovered_span {
    background: brown;
+}
+
+.T_Chart{
+   /*background: gainsboro;
+   border: 3px solid red;*/
+   width: 300px;
+   
 }

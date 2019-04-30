@@ -171,7 +171,7 @@ class Nav extends Component {
                   </div>
                   <ul className="submenu">
                      {_Debuge &&
-                        <li><Link><center>Технические >></center></Link>
+                        <li><Link to="/"><center>Технические &gt;&gt;</center></Link>
                            <ul className="submenu">
                               <li><Link to="/Table_Save1" >Таблица_Эталон1</Link></li>
                               <li><Link to="/Table_Save2" >Таблица_MinTable2</Link></li>

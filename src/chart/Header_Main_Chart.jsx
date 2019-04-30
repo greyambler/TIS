@@ -2,19 +2,32 @@ import React, { Component, PropTypes } from 'react';
 import { GetDateNow, Check_StartDate_EndDate } from '../core/core_Function.jsx';
 import { Stage, Layer, Rect, Text, Circle } from 'react-konva';
 
+import {
+   G2,
+   Chart,
+   Geom,
+   Axis,
+   Tooltip,
+   Coord,
+   Label,
+   Legend,
+   View,
+   Guide,
+   Shape,
+   Facet,
+   Util
+} from "bizcharts";
+import DataSet from "@antv/data-set";
+
 import moment from 'moment';
 
 
-import 'moment/locale/ru'  // without this line it didn't work
-import 'react-dates/initialize';
-import {
-   DateRangePicker, SingleDatePicker, DayPickerRangeController,
-   PresetDateRangePicker
-} from 'react-dates';
-import 'react-dates/lib/css/_datepicker.css';
-export const pureComponentAvailable = true;
+//import 'moment/locale/ru'
+//import 'react-dates/initialize';
+//import 'react-dates/lib/css/_datepicker.css';
+//export const pureComponentAvailable = true;
 
-
+import { DateRangePicker } from 'react-dates';
 
 
 const _Debuge = true;
@@ -86,6 +99,44 @@ class Header_Main_Chart extends Component {
       let H_Stage_tr = 80;
       let W_Stage_td = 10;
 
+
+
+      const { DataView } = DataSet;
+      const { Html } = Guide;
+      const data = [
+         {
+            item: "1 Сбой кассы",
+            count: 20
+         },
+         {
+            item: "2 Сбой ТРК",
+            count: 21
+         },
+         {
+            item: "3 Сбой периферия",
+            count: 17
+         },
+         {
+            item: "4 Сбой СВН",
+            count: 13
+         },
+      ];
+
+      const dv = new DataView();
+      dv.source(data).transform({
+         type: "percent",
+         field: "count",
+         dimension: "item",
+         as: "percent"
+      });
+      const cols = {
+         percent: {
+            formatter: val => {
+               val = val * 100 + "%";
+               return val;
+            }
+         }
+      };
       return (
          <div>
             <table>
@@ -98,27 +149,30 @@ class Header_Main_Chart extends Component {
                            <table className='space_Head'>
                               <tbody>
 
-                                 <tr><td colSpan='2'><center><legend >Общие показатели за период</legend></center></td>
-
-                                    <td colSpan='2'>
-                                    <DateRangePicker
-                                       startDate={this.state.startDate}
-                                       startDateId="your_unique_start_date_id"
-                                       endDate={this.state.endDate}
-                                       endDateId="your_unique_end_date_id"
-                                       onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
-                                       focusedInput={this.state.focusedInput}
-                                       onFocusChange={focusedInput => this.setState({ focusedInput })}
-
-                                       small={true}
-                                       displayFormat={'DD/MM/YYYY'}
-                                       noBorder={false}
-                                       isOutsideRange={() => false}
-                                       minimumNights={0}
-                                    />
+                                 <tr><td colSpan='5'>
+                                    <center>
+                                       <legend>
+                                          Общие показатели за период
 
 
-                                    </td>
+                                       <DateRangePicker
+                                             startDate={this.state.startDate}
+                                             startDateId="your_unique_start_date_id"
+                                             endDate={this.state.endDate}
+                                             endDateId="your_unique_end_date_id"
+                                             onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
+                                             focusedInput={this.state.focusedInput}
+                                             onFocusChange={focusedInput => this.setState({ focusedInput })}
+
+                                             small={true}
+                                             displayFormat={'DD/MM/YYYY'}
+                                             noBorder={true}
+                                             isOutsideRange={() => false}
+                                             minimumNights={0}
+                                          />
+                                       </legend>
+                                    </center>
+                                 </td>
                                  </tr>
 
 
@@ -167,26 +221,68 @@ class Header_Main_Chart extends Component {
                                           </Stage>
                                        </center>
                                     </td>
+                                    
                                     <td>
-                                       <center>
-                                          <Stage width={W_Stage} height={H_Stage}>
-                                             <Layer>
-                                                <Circle x={W_Stage / 2} y={H_Stage / 2}
-                                                   radius={24} fill='yellow' stroke='black' />
+                                    <div>
+            <Chart className='T_Chart' z-index={100}
+               height={100}
+               
+               data={dv}
+               scale={cols}
+               padding={[5, 430, 3, 0]}
+               forceFit={false}
+            >
+               <Coord type={"theta"} radius={0.75} innerRadius={0.2} />
+               <Axis name="percent" />
+               <Legend
+                  position="right"
+                  offsetY={0}
+                  offsetX={10}
+               />
+               <Tooltip
+                  showTitle={false}
+                  itemTpl="<li><span style=&quot;background-color:{color};&quot; class=&quot;g2-tooltip-marker&quot;></span>{name}: {value}</li>"
+               />
+               <Guide>
+                  <Html
+                     position={["50%", "49%"]}
+                     html="<div style=&quot;color:#000;font-size:2em;text-align: center;font-family: 'Open Sans', sans-serif;width: 10em;&quot;>
 
-                                                <Text width={W_Stage} wrap="char" align="center"
-                                                   text="24" x={0} y={H_Stage / 3}
-                                                   fontSize='20' fill='black' />
-                                             </Layer>
-                                          </Stage>
-                                       </center>
+                     24</div>"
+                     alignX="middle"
+                     alignY="middle"
+                  />
+               </Guide>
+               <Geom
+                  type="intervalStack"
+                  position="percent"
+                  color="item"
+                  tooltip={[
+                     "item*percent",
+                     (item, percent) => {
+                        percent = percent * 100 + "%";
+                        return {
+                           name: item,
+                           value: percent
+                        };
+                     }
+                  ]}
+                  style={{
+                     lineWidth: 1,
+                     stroke: "#fff"
+                  }}
+               >
+
+               </Geom>
+            </Chart>
+         </div>
                                     </td>
                                  </tr>
                                  <tr>
                                     <td className='td_Name'><center>Логов загружено</center></td>
                                     <td className='td_Name'><center>События идентифицированы</center></td>
                                     <td className='td_Name'><center>Расчеты КП выполнены</center></td>
-                                    <td className='td_Name'><center>Системные инциденты</center></td>
+                                    <td className='td_Name' >Системные инциденты</td>
                                  </tr>
                               </tbody>
                            </table>
