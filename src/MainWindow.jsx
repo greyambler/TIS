@@ -24,7 +24,7 @@ const Rss = "http://172.23.16.18:11000/msg";
 
 //"http://172.23.16.18:11000/msg";
 //"http://172.23.16.125:11000/msg?from=DateTime&to=DateTime";
-
+y
 //http://172.23.16.125:11000/msg?from=2019-02-17T23:01:22Z&to=2019-02-018T18:00:36Z
 
 //"get_01.json";
@@ -139,7 +139,6 @@ class MainWindow extends React.Component {
                   </tr>
                </tbody>
             </table>
-            }
          </div>
       );
    }

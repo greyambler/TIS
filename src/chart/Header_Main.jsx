@@ -43,7 +43,7 @@ class Header_Main extends Component {
    async componentDidMount() {
       this.setState({ W_Width: this.props.w_Width });
       //await this.tick();
-      this.timerID = setInterval(() => this.tick(), 30000);//30 сек
+      //this.timerID = setInterval(() => this.tick(), 30000);//30 сек
    }
 
 
