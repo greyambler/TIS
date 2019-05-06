@@ -1,14 +1,16 @@
 import React, { Component, PropTypes } from 'react';
-import { GetDateNow, Check_StartDate_EndDate } from '../core/core_Function.jsx';
+import { GetDateNow, StartDate_Big_EndDate } from '../core/core_Function.jsx';
 import { Stage, Layer, Rect, Text, Circle } from 'react-konva';
 
 import moment from 'moment';
 
 const _Debuge = false;
 
+
 class Header_Main extends Component {
    constructor(props, context) {
       super(props, context);
+      this.tick = this.tick.bind(this);
       this.state = {
          startDate: GetDateNow(),
          endDate: GetDateNow(),
@@ -18,27 +20,85 @@ class Header_Main extends Component {
          ch2: true,
          ch3: true,
          ch4: true,
-         numfiles: this.props.numfiles,
-         numincidents: this.props.numincidents,
+         //numfiles: this.props.numfiles,
+         //numincidents: this.props.numincidents,
          start_Date: moment(),
          end_Date: moment(),
-
+         Rss: this.props.Rss,
+         Objest: null,
       }
    }
+
    inputChangedHandler = (event) => {
-      this.setState({ startDate: event.target.value })
+      this.setState({ startDate: event.target.value }, this.tick);
    }
    inputChangedHandlerEnd = (event) => {
-      if (Check_StartDate_EndDate(this.state.startDate, event.target.value)) {
-         this.setState({ endDate: event.target.value })
+      if (StartDate_Big_EndDate(this.state.startDate, event.target.value)) {
+         this.setState({ endDate: this.state.startDate }, this.tick)
       } else {
-         this.setState({ endDate: this.state.startDate })
+         this.setState({ endDate: event.target.value }, this.tick)
       }
-
    }
 
    async componentDidMount() {
       this.setState({ W_Width: this.props.w_Width });
+      //await this.tick();
+      this.timerID = setInterval(() => this.tick(), 30000);//30 сек
+   }
+
+
+
+   async tick() {
+      //?from=2019-02-17T23:01:22Z&to=2019-02-018T18:00:36Z
+      var rss = this.state.Rss;
+      /*    if (this.state.ch_Day) {
+
+         rss = rss + "?from=" + this.state.startDate + "T&to=" + this.state.startDate + "TZ";
+      }
+      else {
+         rss = rss + "?from=" + this.state.startDate + "Z&to=" + this.state.endDate + "Z";
+      }
+
+    */  
+      if (this.state.ch_Day) {
+         rss = rss +"?from=" + this.state.startDate +
+         "T00:00:00Z&to="+ this.state.startDate + "T23:59:59Z";
+         let r = 0;
+      }
+      else{
+         rss = rss +"?from=" + this.state.startDate +
+         "T00:00:00Z&to="+ this.state.endDate + "T23:59:59Z";
+      }
+  
+
+
+
+      var myRequest = new Request(rss);
+
+      try {
+         var response = await fetch(
+            myRequest
+            ,
+            {
+               method: 'GET',
+               headers:
+               {
+                  'Accept': 'application/json',
+               },
+            }
+         );
+         if (response.ok) {
+            const Jsons = await response.json();
+
+            this.setState({ Objest: Jsons });
+         }
+         else {
+            throw Error(response.statusText);
+         }
+      }
+      catch (error) {
+         console.log(error);
+      }
    }
 
    componentDidUpdate(prevProps) {
@@ -76,6 +136,16 @@ class Header_Main extends Component {
       let H_Stage_tr = 80;
       let W_Stage_td = 10;
 
+      let _Objects = this.state.Objest;
+
+      let numfiles = 0;
+      let numincidents = 0;
+
+      if (_Objects != null) {
+         numfiles = _Objects.numfiles;
+         numincidents = _Objects.numincidents;
+      }
+
       return (
          <div>
             <table>
@@ -97,7 +167,7 @@ class Header_Main extends Component {
                                                       radius={24} fill='white' stroke='black'
                                                    />
                                                    <Text width={W_Stage - 2} wrap="char" align="center"
-                                                      text={this.state.numfiles}
+                                                      text={numfiles}
 
                                                       x={0} y={H_Stage / 3} fontSize='20' fill='black'
                                                    />
@@ -113,7 +183,7 @@ class Header_Main extends Component {
                                                       radius={24} fill='white'
                                                       stroke='black' />
                                                    <Text width={W_Stage} wrap="char" align="center"
-                                                      text={this.state.numincidents}
+                                                      text={numincidents}
 
                                                       x={0} y={H_Stage / 3} fontSize='20' fill='blue' />
                                                 </Layer>
@@ -163,7 +233,7 @@ class Header_Main extends Component {
                         <div>
                            <table>
                               <tbody>
-                                 
+
                                  <tr>
                                     <td className='td_Left'>
                                        <input type='checkBox' value='sda' id="ch_Day"

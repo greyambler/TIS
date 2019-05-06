@@ -81,7 +81,7 @@ export function Get_StopDate(CurentDate, Date_time) {
    }
 }
 
-export function Check_StartDate_EndDate(startDate, endDate) {
+export function StartDate_Big_EndDate(startDate, endDate) {
    if (endDate == null) {
       return false;
    }
@@ -89,20 +89,27 @@ export function Check_StartDate_EndDate(startDate, endDate) {
       let S_yyyy = +startDate.substring(0, 4)
       let E_yyyy = +endDate.substring(0, 4)
       if (S_yyyy > E_yyyy) {
+         return true;
+      }
+      else if (S_yyyy < E_yyyy) {
          return false;
       }
       else {
          let S_mm = +startDate.substring(5, 7)
          let E_mm = +endDate.substring(5, 7)
          if (S_mm > E_mm) {
+            return true;
+         }
+         else if (S_mm < E_mm) {
             return false;
-         } else {
+         }
+         else {
             let S_dd = +startDate.substring(8, 10)
             let E_dd = +endDate.substring(8, 10)
             if (S_dd > E_dd) {
-               return false;
-            } else {
                return true;
+            } else {
+               return false;
             }
          }
       }

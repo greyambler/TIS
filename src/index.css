@@ -52,7 +52,7 @@ nav {
    top: 0;
    width: 99.9%;
    display: table;
-   z-index: 2;
+   z-index: 1;
 }
 
 .header_Inner {
@@ -275,6 +275,7 @@ select {
    font-size: 10px;
    /*font-weight: bold;*/
    width: 100%;
+   z-index: 2;
 }
 
 .date_h, .comboBox {
@@ -286,8 +287,8 @@ select {
 td, th, tr {
    /*background: maroon;  Цвет фона ячеек */
    padding: 0px;
-   /* Поля вокруг текста 
-   border: 1px solid black;    */
+   /* Поля вокруг текста
+   border: 1px solid black;     */
 }
 
 .tr_char {
@@ -373,6 +374,8 @@ td, th, tr {
    /*text*/
    border: 1px solid lightpink;
    /*default styles include a border*/
+
+   
 }
 
 /* Будет редактировать при наведении. Стиль _span также имеет это свойство*/
@@ -380,6 +383,8 @@ td, th, tr {
 .CalendarDay__selected {
    background: darkred;
    color: white;
+
+   
 }
 
 /* Will edit when hovered over. _span style also has this property*/
@@ -387,6 +392,8 @@ td, th, tr {
 .CalendarDay__selected:hover {
    background: orange;
    color: white;
+
+   
 }
 
 /* Будет редактировать , когда вторая дата (дата окончания) в виде диапазона дат 
@@ -394,11 +401,12 @@ td, th, tr {
 
 .CalendarDay__hovered_span:hover, .CalendarDay__hovered_span {
    background: brown;
+   
 }
 
-.T_Chart{
+.T_Chart {
    /*background: gainsboro;
    border: 3px solid red;*/
-   width: 300px;
-   
+   width: 200px;
+   z-index: 4;
 }

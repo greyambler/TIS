@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { GetDateNow, Check_StartDate_EndDate } from '../core/core_Function.jsx';
+import { GetDateNow, StartDate_Big_EndDate } from '../core/core_Function.jsx';
 import { Stage, Layer, Rect, Text, Circle } from 'react-konva';
 
 import {
@@ -52,7 +52,7 @@ class Header_Main_Chart extends Component {
       this.setState({ startDate: event.target.value })
    }
    inputChangedHandlerEnd = (event) => {
-      if (Check_StartDate_EndDate(this.state.startDate, event.target.value)) {
+      if (StartDate_Big_EndDate(this.state.startDate, event.target.value)) {
          this.setState({ endDate: event.target.value })
       } else {
          this.setState({ endDate: this.state.startDate })
@@ -156,6 +156,7 @@ class Header_Main_Chart extends Component {
 
 
                                        <DateRangePicker
+                                             z-index={4}
                                              startDate={this.state.startDate}
                                              startDateId="your_unique_start_date_id"
                                              endDate={this.state.endDate}
@@ -221,68 +222,72 @@ class Header_Main_Chart extends Component {
                                           </Stage>
                                        </center>
                                     </td>
-                                    
+
                                     <td>
-                                    <div>
-            <Chart className='T_Chart' z-index={100}
-               height={100}
-               
-               data={dv}
-               scale={cols}
-               padding={[5, 430, 3, 0]}
-               forceFit={false}
-            >
-               <Coord type={"theta"} radius={0.75} innerRadius={0.2} />
-               <Axis name="percent" />
-               <Legend
-                  position="right"
-                  offsetY={0}
-                  offsetX={10}
-               />
-               <Tooltip
-                  showTitle={false}
-                  itemTpl="<li><span style=&quot;background-color:{color};&quot; class=&quot;g2-tooltip-marker&quot;></span>{name}: {value}</li>"
-               />
-               <Guide>
-                  <Html
-                     position={["50%", "49%"]}
-                     html="<div style=&quot;color:#000;font-size:2em;text-align: center;font-family: 'Open Sans', sans-serif;width: 10em;&quot;>
+                                    <center>
+                                       <div className='T_Chart'>
+                                       
+                                          <Chart className='T_Chart'
+                                             height={110}
 
-                     24</div>"
-                     alignX="middle"
-                     alignY="middle"
-                  />
-               </Guide>
-               <Geom
-                  type="intervalStack"
-                  position="percent"
-                  color="item"
-                  tooltip={[
-                     "item*percent",
-                     (item, percent) => {
-                        percent = percent * 100 + "%";
-                        return {
-                           name: item,
-                           value: percent
-                        };
-                     }
-                  ]}
-                  style={{
-                     lineWidth: 1,
-                     stroke: "#fff"
-                  }}
-               >
+                                             data={dv}
+                                             scale={cols}
+                                             padding={[1, 420, 0, 0]}
+                                             forceFit={false}
+                                          >
+                                             <Coord type={"theta"} radius={0.75} innerRadius={0.2} />
+                                             <Axis name="percent" />
+                                             <Legend
+                                                position="right"
+                                                offsetY={0}
+                                                offsetX={10}
+                                             />
+                                             <Tooltip
+                                                showTitle={false}
+                                                itemTpl="<li><span style=&quot;background-color:{color};&quot; class=&quot;g2-tooltip-marker&quot;></span>{name}: {value}</li>"
+                                             />
+                                             <Guide>
+                                                <Html z-index={4}
+                                                   position={["50%", "49%"]}
+                                                   html="<div style=&quot;color:#000;font-size:2em;text-align: center;font-family: 'Open Sans', sans-serif;width: 10em;&quot;>
+                                                   24
+                                                   </div>"
+                                                   alignX="middle"
+                                                   alignY="middle"
+                                                />
+                                             </Guide>
+                                             <Geom
+                                                type="intervalStack"
+                                                position="percent"
+                                                color="item"
+                                                tooltip={[
+                                                   "item*percent",
+                                                   (item, percent) => {
+                                                      percent = percent * 100 + "%";
+                                                      return {
+                                                         name: item,
+                                                         value: percent
+                                                      };
+                                                   }
+                                                ]}
+                                                style={{
+                                                   lineWidth: 1,
+                                                   stroke: "#fff"
+                                                }}
+                                             >
 
-               </Geom>
-            </Chart>
-         </div>
+                                             </Geom>
+                                          </Chart>
+                                          
+                                       </div>
+                                       </center>
                                     </td>
                                  </tr>
                                  <tr>
                                     <td className='td_Name'><center>Логов загружено</center></td>
                                     <td className='td_Name'><center>События идентифицированы</center></td>
                                     <td className='td_Name'><center>Расчеты КП выполнены</center></td>
-                                    <td className='td_Name' >Системные инциденты</td>
+                                    <td className='td_Name' ><center>Системные инциденты</center></td>
                                  </tr>
                               </tbody>
                            </table>

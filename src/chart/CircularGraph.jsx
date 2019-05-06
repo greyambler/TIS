@@ -58,16 +58,17 @@ class CircularGraph extends Component {
       return (
          <div>
             <Chart className='T_Chart'
-               height={100}
+               height={110}
                
                data={dv}
                scale={cols}
-               padding={[5, 420, 7, 0]}
+               padding={[1, 420, 0, 0]}
                forceFit={false}
             >
                <Coord type={"theta"} radius={0.75} innerRadius={0.2} />
                <Axis name="percent" />
                <Legend
+                
                   position="right"
                   offsetY={0}
                   offsetX={0}
@@ -77,11 +78,12 @@ class CircularGraph extends Component {
                   itemTpl="<li><span style=&quot;background-color:{color};&quot; class=&quot;g2-tooltip-marker&quot;></span>{name}: {value}</li>"
                />
                <Guide>
-                  <Html
+               
+                  <Html 
                      position={["50%", "45%"]}
                      html="<div style=&quot;color:#000;font-size:1.5em;text-align: center;font-family: 'Open Sans', sans-serif;width: 10em;&quot;>
-
-                     24</div>"
+                     24                     
+                     </div>"
                      alignX="middle"
                      alignY="middle"
                   />
