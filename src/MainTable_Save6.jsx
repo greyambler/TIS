@@ -6,7 +6,7 @@ import Header_Main from './chart/Header_Main.jsx'
 
 import moment from 'moment';
 
-import { GetDateNowDMY, GetDateNow, GetDate_moment, DayPicker } from './core/core_Function.jsx';
+import { GetDateNowDMY, GetDateNow, GetDateYMD_moment, DayPicker } from './core/core_Function.jsx';
 
 //import { ru } from 'date-fns/esm/locale';
 
@@ -77,7 +77,7 @@ class MainTable_Save6 extends React.Component {
                      <center><input type='text' value={this.state.currentDate} /></center>
                      <center><input type='text' value={this.state.currentDate} /></center>
 
-                     <center><input type='text' value={GetDate_moment(this.state.Start_Date)} /></center>
+                     <center><input type='text' value={GetDateYMD_moment(this.state.Start_Date)} /></center>
                      <center><input type="button" onClick={this.testDate} value="Test" width="500px" /></center>
                   </td>
                </tr>

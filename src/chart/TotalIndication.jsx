@@ -14,9 +14,9 @@ class TotalIndication extends Component {
          <table className='space'>
             <tbody>
                <tr>
-                  <th colSpan='4'><legend >Общие показатели за период</legend></th>   
+                  <th colSpan='4'><legend >Общие показатели за период</legend></th>
                </tr>
-               <tr><td><br/></td></tr>
+               <tr><td><br /></td></tr>
                <tr>
                   <td>
                      <center>
@@ -64,7 +64,7 @@ class TotalIndication extends Component {
                            <Layer>
                               <Circle x={W_Stage / 2} y={H_Stage / 2}
                                  radius={24} fill='yellow' stroke='black' />
-                                 
+
                               <Text width={W_Stage} wrap="char" align="center"
                                  text="24" x={0} y={H_Stage / 3}
                                  fontSize='20' fill='black' />
@@ -73,7 +73,7 @@ class TotalIndication extends Component {
                      </center>
                   </td>
                </tr>
-               <tr><td><br/></td></tr>
+               <tr><td><br /></td></tr>
                <tr>
                   <td className='td_Name'><center>Логов загружено</center></td>
                   <td className='td_Name'><center>События идентифицированы</center></td>

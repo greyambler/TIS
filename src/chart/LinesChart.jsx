@@ -28,7 +28,7 @@ class LinesChart extends Component {
          W_Width: this.props.w_Width / 2 - 25,
       }
    }
-   
+
    componentDidMount() {
       this.setState({ W_Width: this.props.w_Width / 2 - 25 });
    }

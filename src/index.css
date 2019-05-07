@@ -410,3 +410,7 @@ td, th, tr {
    width: 200px;
    z-index: 4;
 }
+
+.tr_Date{
+   z-index: 1;
+}

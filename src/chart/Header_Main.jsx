@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { GetDateNow, StartDate_Big_EndDate } from '../core/core_Function.jsx';
+import { GetDateNow, StartDate_Big_EndDate, GetDatePlusDay } from '../core/core_Function.jsx';
 import { Stage, Layer, Rect, Text, Circle } from 'react-konva';
 
 import moment from 'moment';
@@ -13,19 +13,15 @@ class Header_Main extends Component {
       this.tick = this.tick.bind(this);
       this.state = {
          startDate: GetDateNow(),
-         endDate: GetDateNow(),
+         endDate: GetDatePlusDay(GetDateNow()),
          ch_Day: true,
          Text_ch_Day: 'За один день',
          ch1: true,
          ch2: true,
          ch3: true,
          ch4: true,
-         //numfiles: this.props.numfiles,
-         //numincidents: this.props.numincidents,
-         start_Date: moment(),
-         end_Date: moment(),
          Rss: this.props.Rss,
-         Objest: null,
+         Object: null,
       }
    }
 
@@ -39,42 +35,26 @@ class Header_Main extends Component {
          this.setState({ endDate: event.target.value }, this.tick)
       }
    }
-
    async componentDidMount() {
       this.setState({ W_Width: this.props.w_Width });
-      //await this.tick();
-      //this.timerID = setInterval(() => this.tick(), 30000);//30 сек
+      await this.tick();
+      this.timerID = setInterval(() => this.tick(), 30000);//30 сек
    }
-
-
-
    async tick() {
       //?from=2019-02-17T23:01:22Z&to=2019-02-018T18:00:36Z
       var rss = this.state.Rss;
-      /*    if (this.state.ch_Day) {
-
-         rss = rss + "?from=" + this.state.startDate + "T&to=" + this.state.startDate + "TZ";
+      if (this.state.ch_Day || this.state.startDate == this.state.endDate) {
+         rss = rss + "?date=" + this.state.startDate;
       }
       else {
-         rss = rss + "?from=" + this.state.startDate + "Z&to=" + this.state.endDate + "Z";
+         rss = rss + "?from="
+            + this.state.startDate
+            + "&to="
+            + this.state.endDate;
       }
-
-    */  
-      if (this.state.ch_Day) {
-         rss = rss +"?from=" + this.state.startDate +
-         "T00:00:00Z&to="+ this.state.startDate + "T23:59:59Z";
-         let r = 0;
-      }
-      else{
-         rss = rss +"?from=" + this.state.startDate +
-         "T00:00:00Z&to="+ this.state.endDate + "T23:59:59Z";
-      }
-  
-
-
 
       var myRequest = new Request(rss);
-
+      this.setState({ Object: null });
       try {
          var response = await fetch(
             myRequest
@@ -90,7 +70,7 @@ class Header_Main extends Component {
          if (response.ok) {
             const Jsons = await response.json();
 
-            this.setState({ Objest: Jsons });
+            this.setState({ Object: Jsons });
          }
          else {
             throw Error(response.statusText);
@@ -101,15 +81,6 @@ class Header_Main extends Component {
       }
    }
 
-   componentDidUpdate(prevProps) {
-      if (this.props.numfiles != prevProps.numfiles) {
-         this.setState({ numfiles: this.props.numfiles });
-      }
-      if (this.props.numincidents != prevProps.numincidents) {
-         this.setState({ numincidents: this.props.numincidents });
-      }
-   }
-
    toggleChange = (event) => {
       switch (event.target.id) {
          case 'ch1': this.setState({ ch1: !this.state.ch1 }); break;
@@ -117,7 +88,7 @@ class Header_Main extends Component {
          case 'ch3': this.setState({ ch3: !this.state.ch3 }); break;
          case 'ch4': this.setState({ ch4: !this.state.ch4 }); break;
          case 'ch_Day':
-            this.setState({ ch_Day: !this.state.ch_Day });
+            this.setState({ ch_Day: !this.state.ch_Day }, this.tick);
             if (this.state.ch_Day) {
                this.setState({ Text_ch_Day: 'За период' });
             }
@@ -136,7 +107,7 @@ class Header_Main extends Component {
       let H_Stage_tr = 80;
       let W_Stage_td = 10;
 
-      let _Objects = this.state.Objest;
+      let _Objects = this.state.Object;
 
       let numfiles = 0;
       let numincidents = 0;
@@ -163,9 +134,12 @@ class Header_Main extends Component {
                                           <center>
                                              <Stage width={W_Stage} height={H_Stage} >
                                                 <Layer>
-                                                   <Circle x={W_Stage / 2} y={H_Stage / 2}
-                                                      radius={24} fill='white' stroke='black'
-                                                   />
+                                                   {(numfiles == 0 || numfiles.toString().length < 5) &&
+
+                                                      <Circle x={W_Stage / 2} y={H_Stage / 2}
+                                                         radius={24} fill='white'
+                                                         stroke='black' />
+                                                   }
                                                    <Text width={W_Stage - 2} wrap="char" align="center"
                                                       text={numfiles}
 
@@ -179,12 +153,16 @@ class Header_Main extends Component {
                                           <center>
                                              <Stage width={W_Stage} height={H_Stage}>
                                                 <Layer>
-                                                   <Circle x={W_Stage / 2} y={H_Stage / 2}
-                                                      radius={24} fill='white'
-                                                      stroke='black' />
+
+                                                   {(numincidents == 0 || numincidents.toString().length < 5) &&
+
+                                                      <Circle x={W_Stage / 2} y={H_Stage / 2}
+                                                         radius={24} fill='white'
+                                                         stroke='black' />
+                                                   }
+
                                                    <Text width={W_Stage} wrap="char" align="center"
                                                       text={numincidents}
-
                                                       x={0} y={H_Stage / 3} fontSize='20' fill='blue' />
                                                 </Layer>
                                              </Stage>
@@ -303,6 +281,11 @@ class Header_Main extends Component {
 
 export default Header_Main;
 /*
+
+<Circle x={W_Stage / 2} y={H_Stage / 2}
+                                                      radius={24} fill='white'
+                                                      stroke='black' />
+
 <tr>
                                     <td className='td_Left'><center>Период выборки</center></td>
                                  </tr>

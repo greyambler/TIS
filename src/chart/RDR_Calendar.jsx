@@ -35,14 +35,14 @@ class RDR_Calendar extends React.Component {
                <th><center><input type='text' value={this.state.currentDate} /></center></th>
             </tr>
             <tr>
-            <center>
-               <Calendar
-                  date={this.state._date}
-                  dragSelectionEnabled={true}
-                  showSelectionPreview={true}
-                  locale={ru}
-                  onChange={(event) => this.inputChangedHandler(event)}
-               />
+               <center>
+                  <Calendar
+                     date={this.state._date}
+                     dragSelectionEnabled={true}
+                     showSelectionPreview={true}
+                     locale={ru}
+                     onChange={(event) => this.inputChangedHandler(event)}
+                  />
                </center>
             </tr>
          </table>

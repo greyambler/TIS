@@ -15,9 +15,8 @@ class Histogram_Save extends React.Component {
       }
    }
    componentDidUpdate(prevProps) {
-      if (this.props.w_Width != prevProps.w_Width) 
-      {
-         this.setState({ W_Width: this.props.w_Width / 2 - 25});
+      if (this.props.w_Width != prevProps.w_Width) {
+         this.setState({ W_Width: this.props.w_Width / 2 - 25 });
       }
    }
 
@@ -108,42 +107,42 @@ class Histogram_Save extends React.Component {
       return (
          <div>
             <table>
-            <tbody>
-               <tr>
-                  <td>
-                  <center>
-                     <Chart
-                        width={this.state.W_Width}
-                        height={200} 
-                        data={dv} scale={cols}
-                        forceFit
-                        >
-                        <Legend />
-                        <Axis
-                           name="value"
-                           label={{
-                              formatter: val => {
-                                 if (val % 2) {
-                                    return val;
-                                 }
-                                 return "";
-                              }
-                           }}
-                        />
-                        <Axis name="count" />
-                        <Tooltip inPlot={false} crosshairs={false} position={"top"} />
-                        <Geom type="interval" position="value*count" />
-                     </Chart>
+               <tbody>
+                  <tr>
+                     <td>
+                        <center>
+                           <Chart
+                              width={this.state.W_Width}
+                              height={200}
+                              data={dv} scale={cols}
+                              forceFit
+                           >
+                              <Legend />
+                              <Axis
+                                 name="value"
+                                 label={{
+                                    formatter: val => {
+                                       if (val % 2) {
+                                          return val;
+                                       }
+                                       return "";
+                                    }
+                                 }}
+                              />
+                              <Axis name="count" />
+                              <Tooltip inPlot={false} crosshairs={false} position={"top"} />
+                              <Geom type="interval" position="value*count" />
+                           </Chart>
+                        </center>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td>
+                        <center>
+                           Недоступность СВН (сводная статистика по всем регионам)
                      </center>
-                  </td>
-               </tr>
-               <tr>
-                  <td>
-                     <center>
-                        Недоступность СВН (сводная статистика по всем регионам)
-                     </center>
-                  </td>
-               </tr>
+                     </td>
+                  </tr>
                </tbody>
             </table>
          </div>

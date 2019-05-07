@@ -32,56 +32,17 @@ const Rss = "http://172.23.16.18:11000/msg";
 class MainWindow extends React.Component {
    constructor(props) {
       super(props);
-      //this.tick = this.tick.bind(this);
       this.state = {
          currentDate: GetDateNow(),
          W_Width: this.props.w_Width,
          W_Height: this.props.w_Height,
-
-         Objest: null,
+         Object: null,
       }
    }
 
    async componentDidMount() {
       this.setState({ W_Width: this.props.w_Width });
-      //await this.tick();
-      //this.timerID = setInterval(() => this.tick(), 30000);//30 сек
    }
-
-
-/*
-   async tick() {
-      
-      var rss = Rss;
-      var myRequest = new Request(rss);
-
-      try {
-         var response = await fetch(
-            myRequest
-            ,
-            {
-               method: 'GET',
-               //mode: 'no-cors',
-               headers:
-               {
-                  'Accept': 'application/json',
-               },
-            }
-         );
-         if (response.ok) {
-            const Jsons = await response.json();
-
-            this.setState({ Objest: Jsons });
-         }
-         else {
-            throw Error(response.statusText);
-         }
-      }
-      catch (error) {
-         console.log(error);
-      }
-   }
-   */
    componentDidUpdate(prevProps) {
       if (this.props.w_Width != prevProps.w_Width) {
          this.setState({ W_Width: this.props.w_Width });
@@ -91,17 +52,7 @@ class MainWindow extends React.Component {
    render() {
       let dataCol_Char1 = GetDatFromColChart(get_Date());
 
-      let _Objects = this.state.Objest;
-/*
-      let numfiles = 0;
-      let numincidents = 0;
-      if (_Objects != null) {
-         numfiles = _Objects.numfiles;
-         numincidents = _Objects.numincidents;
-      }
-*/
-      //<Header_Main numfiles={numfiles} numincidents={numincidents} />
-      //<Header_Main_Chart numfiles={numfiles} numincidents={numincidents} />
+      let _Objects = this.state.Object;
       return (
          <div>
 
@@ -111,9 +62,9 @@ class MainWindow extends React.Component {
                   <tr>
                      <td colSpan='2' >
                         {!_Debuge ? (
-                           <Header_Main numObjects={_Objects} Rss={Rss}/>
+                           <Header_Main numObjects={_Objects} Rss={Rss} />
                         ) : (
-                              <Header_Main_Chart numObjects={_Objects} Rss={Rss}/>
+                              <Header_Main_Chart numObjects={_Objects} Rss={Rss} />
                            )}
                      </td>
                   </tr>

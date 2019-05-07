@@ -80,7 +80,6 @@ export function Get_StopDate(CurentDate, Date_time) {
       }
    }
 }
-
 export function StartDate_Big_EndDate(startDate, endDate) {
    if (endDate == null) {
       return false;
@@ -115,7 +114,6 @@ export function StartDate_Big_EndDate(startDate, endDate) {
       }
    }
 }
-
 export function Get_Date_String(Date_String) {
 
    const CurentDate = Date_String.substring(3, 6) + Date_String.substring(0, 2) + Date_String.substring(5, Date_String.length);
@@ -125,6 +123,16 @@ export function Get_Date_String(Date_String) {
 export function GetDateNow() {
    var date = new Date();
    var day = date.getDate();
+   var month = date.getMonth() + 1;
+   var year = date.getFullYear();
+   if (month < 10) month = "0" + month;
+   if (day < 10) day = "0" + day;
+   var today = year + "-" + month + "-" + day;
+   return today;
+}
+export function GetDatePlusDay(_date) {
+   var date = new Date(_date);
+   var day = date.getDate() + 1;
    var month = date.getMonth() + 1;
    var year = date.getFullYear();
    if (month < 10) month = "0" + month;
@@ -142,15 +150,56 @@ export function GetDateNowSl() {
    var today = year + "/" + month + "/" + day;
    return today;
 }
-export function GetDate_moment(_moment) {
-   var day = _moment.date();
-   var month = _moment.month();
-   var year = _moment.year();
-   if (month < 10) month = "0" + month;
-   if (day < 10) day = "0" + day;
-   var today = day + "/" + month + "/" + year;
-   return today;
+export function GetDateYMD_moment(_moment) {
+   if (_moment != null) {
+      var day = _moment.date();
+      var month = _moment.month() + 1;
+      var year = _moment.year();
+      if (month < 10) month = "0" + month;
+      if (day < 10) day = "0" + day;
+      var today = year + "-" + month + "-" + day;
+
+      return today;
+   }
+   else {
+      return GetDateNow();
+   }
 }
+
+export function D1_D1_Eq_moment(_M1, _M2) {
+
+   try {
+      var d1 = _M1.date();
+      var m1 = _M1.month();
+      var y1 = _M1.year();
+
+      var d2 = _M2.date();
+      var m2 = _M2.month();
+      var y2 = _M2.year();
+
+      if ((y1 == y2) && (m1 == m2) && (d1 == d2)) {
+         return true;
+      }
+   }
+   catch{ }
+   return false;
+}
+
+export function GetDateDMY_moment(_moment) {
+   if (_moment != null) {
+      var day = _moment.date();
+      var month = _moment.month();
+      var year = _moment.year();
+      if (month < 10) month = "0" + month;
+      if (day < 10) day = "0" + day;
+      var today = day + "/" + month + "/" + year;
+      return today;
+   }
+   else {
+      return GetDateNow();
+   }
+}
+
 export function GetDateNowDMY() {
    var date = new Date();
    var day = date.getDate();
@@ -173,6 +222,8 @@ export function contains(arr, elem) {
    }
    return Exist;
 }
+
+
 
 export let dataStart = null;
 export let dataStop = null;

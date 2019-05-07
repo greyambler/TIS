@@ -18,6 +18,7 @@ import MainTable_Save6 from './MainTable_Save6.jsx'
 import MainTable_Save7 from './MainTable_Save7.jsx'
 
 
+
 //import Header from './core/Header';
 
 
@@ -135,6 +136,9 @@ class Table_Save4 extends Component {
    }
 }
 
+
+
+
 /********DEBUGE*****/
 
 class Nav extends Component {
@@ -187,6 +191,10 @@ class Nav extends Component {
                               <li><Link to="/Main_Save1" >Главная_Save1</Link></li>
                               <li><Link to="/Main_Save2" >Главная_Save2</Link></li>
                               <li><Link to="/Main_Save3" >Главная_Save3</Link></li>
+
+
+                              
+
                            </ul>
                         </li>
                      }
@@ -257,7 +265,6 @@ class App extends Component {
 
                      <Route exact path="/Main_Save3" render={() => <Main_Save3 w_Height={this.state.W_Height} w_Width={this.state.W_Width} />} />
                      
-
 
                      <Route exact component={NotFound} />
                   </Switch>

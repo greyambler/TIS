@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { GetDateNow, StartDate_Big_EndDate } from '../core/core_Function.jsx';
+import { GetDateNow, StartDate_Big_EndDate, D1_D1_Eq_moment,GetDateYMD_moment } from '../core/core_Function.jsx';
 import { Stage, Layer, Rect, Text, Circle } from 'react-konva';
 
 import {
@@ -22,7 +22,7 @@ import DataSet from "@antv/data-set";
 import moment from 'moment';
 
 
-//import 'moment/locale/ru'
+import 'moment/locale/ru'
 //import 'react-dates/initialize';
 //import 'react-dates/lib/css/_datepicker.css';
 //export const pureComponentAvailable = true;
@@ -35,17 +35,17 @@ const _Debuge = true;
 class Header_Main_Chart extends Component {
    constructor(props, context) {
       super(props, context);
+      this.tick = this.tick.bind(this);
       this.state = {
          startDate: moment(),
          endDate: moment(),
-         ch_Day: true,
-         Text_ch_Day: 'За один день',
+
          ch1: true,
          ch2: true,
          ch3: true,
          ch4: true,
-         numfiles: this.props.numfiles,
-         numincidents: this.props.numincidents,
+         Rss: this.props.Rss,
+         Object: null,
       }
    }
    inputChangedHandler = (event) => {
@@ -59,11 +59,11 @@ class Header_Main_Chart extends Component {
       }
 
    }
-
    async componentDidMount() {
       this.setState({ W_Width: this.props.w_Width });
+      await this.tick();
+      this.timerID = setInterval(() => this.tick(), 30000);//30 сек
    }
-
    componentDidUpdate(prevProps) {
       if (this.props.numfiles != prevProps.numfiles) {
          this.setState({ numfiles: this.props.numfiles });
@@ -72,27 +72,60 @@ class Header_Main_Chart extends Component {
          this.setState({ numincidents: this.props.numincidents });
       }
    }
+   async tick() {
+      //?from=2019-02-17T23:01:22Z&to=2019-02-018T18:00:36Z
+      var rss = this.state.Rss;
+      var S_Date = new Date(this.state.startDate);
+      var E_Date = new Date(this.state.endDate);
 
-   toggleChange = (event) => {
-      switch (event.target.id) {
-         case 'ch1': this.setState({ ch1: !this.state.ch1 }); break;
-         case 'ch2': this.setState({ ch2: !this.state.ch2 }); break;
-         case 'ch3': this.setState({ ch3: !this.state.ch3 }); break;
-         case 'ch4': this.setState({ ch4: !this.state.ch4 }); break;
-         case 'ch_Day':
-            this.setState({ ch_Day: !this.state.ch_Day });
-            if (this.state.ch_Day) {
-               this.setState({ Text_ch_Day: 'За период' });
-            }
-            else {
-               this.setState({ Text_ch_Day: 'За один день' });
-            }
-            break;
+      if(this.state.startDate != null &&  this.state.endDate != null){
+      let IsOne = D1_D1_Eq_moment(this.state.startDate,this.state.endDate);
 
-         default: break;
+      if(IsOne)
+      {
+         rss = rss + "?date=" + GetDateYMD_moment(this.state.startDate);
+      }
+      else
+      {
+         rss = rss + "?from="
+            + GetDateYMD_moment(this.state.startDate)
+            + "&to="
+            + GetDateYMD_moment(this.state.endDate);
+         
+      }
+   }
+      
+
+
+      var myRequest = new Request(rss);
+      this.setState({ Object: null });
+      try {
+         var response = await fetch(
+            myRequest
+            ,
+            {
+               method: 'GET',
+               headers:
+               {
+                  'Accept': 'application/json',
+               },
+            }
+         );
+         if (response.ok) {
+            const Jsons = await response.json();
+
+            this.setState({ Object: Jsons });
+         }
+         else {
+            throw Error(response.statusText);
+         }
+      }
+      catch (error) {
+         console.log(error);
       }
    }
 
+   
    render() {
       let W_Stage = 120;
       let H_Stage = 50;
@@ -137,6 +170,16 @@ class Header_Main_Chart extends Component {
             }
          }
       };
+      let _Objects = this.state.Object;
+
+      let numfiles = 0;
+      let numincidents = 0;      
+
+      if (_Objects != null) {
+         numfiles = _Objects.numfiles;
+         numincidents = _Objects.numincidents;
+      }
+
       return (
          <div>
             <table>
@@ -156,14 +199,16 @@ class Header_Main_Chart extends Component {
 
 
                                        <DateRangePicker
-                                             z-index={4}
                                              startDate={this.state.startDate}
                                              startDateId="your_unique_start_date_id"
                                              endDate={this.state.endDate}
                                              endDateId="your_unique_end_date_id"
-                                             onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
+                                             onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate }, this.tick)}
+                                             
+                                             
                                              focusedInput={this.state.focusedInput}
                                              onFocusChange={focusedInput => this.setState({ focusedInput })}
+
 
                                              small={true}
                                              displayFormat={'DD/MM/YYYY'}
@@ -177,16 +222,19 @@ class Header_Main_Chart extends Component {
                                  </tr>
 
 
-                                 <tr height={H_Stage_tr}>
+                                 <tr height={H_Stage_tr} className="tr_Date">
                                     <td>
                                        <center>
                                           <Stage width={W_Stage} height={H_Stage} >
                                              <Layer>
-                                                <Circle x={W_Stage / 2} y={H_Stage / 2}
-                                                   radius={24} fill='white' stroke='black'
-                                                />
+                                             {(numfiles == 0 || numfiles.toString().length < 5) && 
+                                             
+                                             <Circle x={W_Stage / 2} y={H_Stage / 2}
+                                                radius={24} fill='white'
+                                                stroke='black' />
+                                          }
                                                 <Text width={W_Stage - 2} wrap="char" align="center"
-                                                   text={this.state.numfiles}
+                                                   text={numfiles}
 
                                                    x={0} y={H_Stage / 3} fontSize='20' fill='black'
                                                 />
@@ -198,13 +246,17 @@ class Header_Main_Chart extends Component {
                                        <center>
                                           <Stage width={W_Stage} height={H_Stage}>
                                              <Layer>
+                                             
+                                             {(numincidents == 0 || numincidents.toString().length < 5) && 
+                                             
                                                 <Circle x={W_Stage / 2} y={H_Stage / 2}
                                                    radius={24} fill='white'
                                                    stroke='black' />
-                                                <Text width={W_Stage} wrap="char" align="center"
-                                                   text={this.state.numincidents}
-
+                                             }
+                                                   <Text width={W_Stage} wrap="char" align="center"
+                                                   text={numincidents}
                                                    x={0} y={H_Stage / 3} fontSize='20' fill='blue' />
+
                                              </Layer>
                                           </Stage>
                                        </center>
@@ -222,12 +274,11 @@ class Header_Main_Chart extends Component {
                                           </Stage>
                                        </center>
                                     </td>
-
                                     <td>
                                     <center>
                                        <div className='T_Chart'>
                                        
-                                          <Chart className='T_Chart'
+                                          <Chart
                                              height={110}
 
                                              data={dv}
@@ -247,9 +298,9 @@ class Header_Main_Chart extends Component {
                                                 itemTpl="<li><span style=&quot;background-color:{color};&quot; class=&quot;g2-tooltip-marker&quot;></span>{name}: {value}</li>"
                                              />
                                              <Guide>
-                                                <Html z-index={4}
+                                                <Html 
                                                    position={["50%", "49%"]}
-                                                   html="<div style=&quot;color:#000;font-size:2em;text-align: center;font-family: 'Open Sans', sans-serif;width: 10em;&quot;>
+                                                   html="<div className='T_Chart' style=&quot;color:#000; z-index='4';font-size:2em;text-align: center;font-family: 'Open Sans', sans-serif;width: 10em;&quot;>
                                                    24
                                                    </div>"
                                                    alignX="middle"

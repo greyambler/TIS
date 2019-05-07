@@ -8,12 +8,12 @@ import { Chart, Geom, Axis, Tooltip, Legend, Coord, Label, Guide } from 'bizchar
 class Histogram_2 extends Component {
    constructor(props) {
       super(props);
-   
+
       this.state = {
          W_Width: this.props.w_Width / 2 - 25,
       }
    }
-   
+
    componentDidMount() {
       this.setState({ W_Width: this.props.w_Width / 2 - 25 });
    }

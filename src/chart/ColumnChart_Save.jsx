@@ -13,9 +13,8 @@ class ColumnChart_Save extends Component {
       }
    }
    componentDidUpdate(prevProps) {
-      if (this.props.w_Width != prevProps.w_Width) 
-      {
-         this.setState({ W_Width: this.props.w_Width / 2 - 25});
+      if (this.props.w_Width != prevProps.w_Width) {
+         this.setState({ W_Width: this.props.w_Width / 2 - 25 });
       }
    }
 
@@ -41,7 +40,7 @@ class ColumnChart_Save extends Component {
                      <td>
                         <center>
                            <Chart
-                              forceFit                              
+                              forceFit
                               width={this.state.W_Width}
                               height={200}
                               data={data}
