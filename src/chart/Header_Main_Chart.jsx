@@ -121,6 +121,7 @@ class Header_Main_Chart extends Component {
          }
       }
       catch (error) {
+         alert(error + "\nОшибка.\nСервер не ответил.");
          console.log(error);
       }
    }
