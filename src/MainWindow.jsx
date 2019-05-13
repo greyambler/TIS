@@ -75,15 +75,18 @@ class MainWindow extends React.Component {
                         w_Width={this.state.W_Width} />
                      </td>
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} ><LinesChart Data={dataCol_Char1}
+                        dataStart={dataStart} dataStop={dataStop}
                         w_Width={this.state.W_Width} />
                      </td>
                   </tr>
                   <tr><td colSpan='2'><br /><br /><br /></td></tr>
                   <tr>
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} ><HistogramGroup Data={dataCol_Char1}
+                        dataStart={dataStart} dataStop={dataStop}
                         w_Width={this.state.W_Width} />
                      </td>
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} ><Histogram_2 Data={dataCol_Char1}
+                        dataStart={dataStart} dataStop={dataStop}
                         w_Width={this.state.W_Width} />
                      </td>
                   </tr>

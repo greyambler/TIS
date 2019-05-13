@@ -141,6 +141,11 @@ class LinesChart extends Component {
                      </th>
                   </tr>
                   <tr>
+                     <td className="td_Date">
+                        <center>{this.props.dataStart}  -  {this.props.dataStop}</center>
+                     </td>
+                  </tr>
+                  <tr>
                      <td>
                         <center>
                            <Chart

@@ -287,8 +287,8 @@ select {
 td, th, tr {
    /*background: maroon;  Цвет фона ячеек */
    padding: 0px;
-   /* Поля вокруг текста
-   border: 1px solid black;     */
+   /* Поля вокруг текста 
+   border: 1px solid black;    */
 }
 
 .tr_char {
@@ -356,10 +356,22 @@ td, th, tr {
 }
 
 .btn_Reload {
-   src: '../images/Repeat.png';
+   /*src: '../images/Repeat.png';*/
    background: rgb(0, 21, 41);
    border: 0px solid rgb(20, 199, 190);
 }
+
+.btn_Reload_Withe {
+   align-items: center;
+   background: white;
+   border: 0px solid rgb(20, 199, 190);
+   
+}
+
+/*
+<img className="header_Img" src={'../images/JDownloader.ico'} alt="React"
+width="35" height="35" />
+*/
 
 /*npm install --save react-dates moment@>=#.## react@>=#.## react-dom@>=#.##*/
 
@@ -374,8 +386,6 @@ td, th, tr {
    /*text*/
    border: 1px solid lightpink;
    /*default styles include a border*/
-
-   
 }
 
 /* Будет редактировать при наведении. Стиль _span также имеет это свойство*/
@@ -383,8 +393,6 @@ td, th, tr {
 .CalendarDay__selected {
    background: darkred;
    color: white;
-
-   
 }
 
 /* Will edit when hovered over. _span style also has this property*/
@@ -392,8 +400,6 @@ td, th, tr {
 .CalendarDay__selected:hover {
    background: orange;
    color: white;
-
-   
 }
 
 /* Будет редактировать , когда вторая дата (дата окончания) в виде диапазона дат 
@@ -401,7 +407,6 @@ td, th, tr {
 
 .CalendarDay__hovered_span:hover, .CalendarDay__hovered_span {
    background: brown;
-   
 }
 
 .T_Chart {
@@ -411,6 +416,54 @@ td, th, tr {
    z-index: 4;
 }
 
-.tr_Date{
+.tr_Date {
    z-index: 1;
 }
+
+.T_Error {
+   color: red;
+}
+
+/****PresetDateRangePicker********************************/
+
+.btn_Date {
+   margin-left: 7px;
+   padding-left: 7px;
+   padding-right: 7px;
+   position: relative;
+   height: 100%;
+   text-align: center;
+   background: none;
+   border: 2px solid rgb(24, 165, 158);
+   color: rgb(24, 165, 158);
+   padding: '4px 12px';
+   margin-right: 8;
+   font: inherit;
+   font-weight: 700;
+   line-height: normal;
+   overflow: visible;
+   box-sizing: border-box;
+   cursor: pointer;
+}
+
+.btn_Date_Select {
+   color: white;
+   background: rgb(24, 165, 158);
+   margin-left: 7px;
+   padding-left: 7px;
+   padding-right: 7px;
+   position: relative;
+   height: 100%;
+   text-align: center;
+   border: 2px solid rgb(24, 165, 158);
+   padding: '4px 12px';
+   margin-right: 8;
+   font: inherit;
+   font-weight: 700;
+   line-height: normal;
+   overflow: visible;
+   box-sizing: border-box;
+   cursor: pointer;
+}
+
+/****PresetDateRangePicker********************************/

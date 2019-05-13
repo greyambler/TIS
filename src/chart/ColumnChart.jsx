@@ -3,12 +3,12 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 
 import { Chart, Geom, Axis, Tooltip, Legend, Coord, Label, Guide } from 'bizcharts';
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 
 class ColumnChart extends Component {
    constructor(props) {
       super(props);
-
       this.state = {
          W_Width: this.props.w_Width / 2 - 25,
          Data: this.props.Data,
@@ -52,16 +52,26 @@ class ColumnChart extends Component {
             <table>
                <tbody>
                   <tr>
+
+                     <th rowSpan='2'>
+                        <Link to="/Ch_TDRP">
+                           <img src={'../images/JDownloader.ico'} width='30' />
+                        </Link>
+                     </th>
+
                      <th>
                         <center>Недоступность касс за период на АЗК</center>
                      </th>
-                  </tr><tr>
+
+                  </tr>
+                  <tr>
                      <td className="td_Date">
                         <center>{this.props.dataStart}  -  {this.props.dataStop}</center>
                      </td>
                   </tr>
-                  <tr>
-                     <td>
+
+                  <tr >
+                     <td colSpan='3'>
                         <center>
                            <Chart
                               forceFit
@@ -84,8 +94,6 @@ class ColumnChart extends Component {
       );
    }
 }
-export default ColumnChart;
-/*
- <Legend position="bottom" dy={-10} />
 
-*/
+
+export default ColumnChart;

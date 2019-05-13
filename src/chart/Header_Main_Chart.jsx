@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { GetDateNow, StartDate_Big_EndDate, D1_D1_Eq_moment,GetDateYMD_moment } from '../core/core_Function.jsx';
+import {isSameDay, presets, GetDateNow, StartDate_Big_EndDate, D1_D1_Eq_moment,GetDateYMD_moment } from '../core/core_Function.jsx';
+
 import { Stage, Layer, Rect, Text, Circle } from 'react-konva';
 
 import {
@@ -20,12 +21,8 @@ import {
 import DataSet from "@antv/data-set";
 
 import moment from 'moment';
-
-
 import 'moment/locale/ru'
-//import 'react-dates/initialize';
-//import 'react-dates/lib/css/_datepicker.css';
-//export const pureComponentAvailable = true;
+
 
 import { DateRangePicker } from 'react-dates';
 
@@ -35,7 +32,10 @@ const _Debuge = true;
 class Header_Main_Chart extends Component {
    constructor(props, context) {
       super(props, context);
+      this.onDatesChange = this.onDatesChange.bind(this);
+      this.renderDatePresets = this.renderDatePresets.bind(this);
       this.tick = this.tick.bind(this);
+      //moment.locale('ru');
       this.state = {
          startDate: moment(),
          endDate: moment(),
@@ -46,7 +46,10 @@ class Header_Main_Chart extends Component {
          ch4: true,
          Rss: this.props.Rss,
          Object: null,
+
+         isExistError:false,
       }
+      
    }
    inputChangedHandler = (event) => {
       this.setState({ startDate: event.target.value })
@@ -62,7 +65,7 @@ class Header_Main_Chart extends Component {
    async componentDidMount() {
       this.setState({ W_Width: this.props.w_Width });
       await this.tick();
-      this.timerID = setInterval(() => this.tick(), 30000);//30 сек
+      this.timerID = setInterval(() => this.tick(), 30000);
    }
    componentDidUpdate(prevProps) {
       if (this.props.numfiles != prevProps.numfiles) {
@@ -73,7 +76,7 @@ class Header_Main_Chart extends Component {
       }
    }
    async tick() {
-      //?from=2019-02-17T23:01:22Z&to=2019-02-018T18:00:36Z
+      
       var rss = this.state.Rss;
       var S_Date = new Date(this.state.startDate);
       var E_Date = new Date(this.state.endDate);
@@ -119,11 +122,42 @@ class Header_Main_Chart extends Component {
          else {
             throw Error(response.statusText);
          }
+         this.state.isExistError = false;
       }
       catch (error) {
-         alert(error + "\nОшибка.\nСервер не ответил.");
+         this.state.isExistError = true;
          console.log(error);
       }
+   }
+
+   onDatesChange({ startDate, endDate }) {
+      this.setState({ startDate, endDate });
+      this.tick();
+   }
+
+   renderDatePresets() {
+      const { startDate, endDate } = this.state;
+     
+      return (
+         <div>
+            {presets.map(({ text, start, end }) => {
+               let isSelected = isSameDay(start, startDate) && isSameDay(end, endDate);
+               return (
+                  <button
+                     key={text}
+
+                     className={!isSelected ?
+                        ("btn_Date")
+                        :
+                        ("btn_Date_Select")}
+                     type="button"
+                     onClick={() => this.onDatesChange({ startDate: start, endDate: end })}>
+                     {text}
+                  </button>
+               );
+            })}
+         </div>
+      );
    }
 
    
@@ -180,7 +214,7 @@ class Header_Main_Chart extends Component {
          numfiles = _Objects.numfiles;
          numincidents = _Objects.numincidents;
       }
-
+      
       return (
          <div>
             <table>
@@ -193,7 +227,8 @@ class Header_Main_Chart extends Component {
                            <table className='space_Head'>
                               <tbody>
 
-                                 <tr><td colSpan='5'>
+                                 <tr>
+                                 <td colSpan='4'>
                                     <center>
                                        <legend>
                                           Общие показатели за период
@@ -201,15 +236,15 @@ class Header_Main_Chart extends Component {
 
                                        <DateRangePicker
                                              startDate={this.state.startDate}
-                                             startDateId="your_unique_start_date_id"
+                                             startDateId="S_DRP_id"
                                              endDate={this.state.endDate}
-                                             endDateId="your_unique_end_date_id"
+                                             endDateId="E_DRP_id"
                                              onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate }, this.tick)}
-                                             
                                              
                                              focusedInput={this.state.focusedInput}
                                              onFocusChange={focusedInput => this.setState({ focusedInput })}
 
+                                             renderCalendarInfo={this.renderDatePresets}
 
                                              small={true}
                                              displayFormat={'DD/MM/YYYY'}
@@ -217,6 +252,9 @@ class Header_Main_Chart extends Component {
                                              isOutsideRange={() => false}
                                              minimumNights={0}
                                           />
+                                          {this.state.isExistError &&
+                                          <a className="T_Error">Ошибка! Сервер не ответил!</a>
+                                       }
                                        </legend>
                                     </center>
                                  </td>
@@ -228,7 +266,7 @@ class Header_Main_Chart extends Component {
                                        <center>
                                           <Stage width={W_Stage} height={H_Stage} >
                                              <Layer>
-                                             {(numfiles == 0 || numfiles.toString().length < 5) && 
+                                             {(numfiles == 0 || numfiles.toString().length < 7) && 
                                              
                                              <Circle x={W_Stage / 2} y={H_Stage / 2}
                                                 radius={24} fill='white'
@@ -236,8 +274,7 @@ class Header_Main_Chart extends Component {
                                           }
                                                 <Text width={W_Stage - 2} wrap="char" align="center"
                                                    text={numfiles}
-
-                                                   x={0} y={H_Stage / 3} fontSize='20' fill='black'
+                                                   x={0} y={H_Stage / 2.5} fontSize='12' fill='black'
                                                 />
                                              </Layer>
                                           </Stage>
@@ -248,7 +285,7 @@ class Header_Main_Chart extends Component {
                                           <Stage width={W_Stage} height={H_Stage}>
                                              <Layer>
                                              
-                                             {(numincidents == 0 || numincidents.toString().length < 5) && 
+                                             {(numincidents == 0 || numincidents.toString().length < 7) && 
                                              
                                                 <Circle x={W_Stage / 2} y={H_Stage / 2}
                                                    radius={24} fill='white'
@@ -256,7 +293,7 @@ class Header_Main_Chart extends Component {
                                              }
                                                    <Text width={W_Stage} wrap="char" align="center"
                                                    text={numincidents}
-                                                   x={0} y={H_Stage / 3} fontSize='20' fill='blue' />
+                                                   x={0} y={H_Stage / 2.5} fontSize='12' fill='blue' />
 
                                              </Layer>
                                           </Stage>
@@ -270,7 +307,7 @@ class Header_Main_Chart extends Component {
                                                    radius={20} fill='white'
                                                    stroke='yellow' strokeWidth='15' />
                                                 <Text width={W_Stage} wrap="char" align="center"
-                                                   text="50%" x={5} y={H_Stage / 1.9} fontSize='20' fill='red' />
+                                                   text="50%" x={5} y={H_Stage / 1.7} fontSize='12' fill='red' />
                                              </Layer>
                                           </Stage>
                                        </center>
@@ -300,8 +337,8 @@ class Header_Main_Chart extends Component {
                                              />
                                              <Guide>
                                                 <Html 
-                                                   position={["50%", "49%"]}
-                                                   html="<div className='T_Chart' style=&quot;color:#000; z-index='4';font-size:2em;text-align: center;font-family: 'Open Sans', sans-serif;width: 10em;&quot;>
+                                                   position={["50%", "50%"]}
+                                                   html="<div className='T_Chart' style=&quot;color:#000; z-index='4';font-size:1.2em;text-align: center;font-family: 'Open Sans', sans-serif;width: 10em;&quot;>
                                                    24
                                                    </div>"
                                                    alignX="middle"
@@ -350,7 +387,7 @@ class Header_Main_Chart extends Component {
                   </tr>
                </tbody>
             </table>
-
+<hr/>
          </div>
       );
    }

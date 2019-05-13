@@ -10,8 +10,11 @@ import { DateRangePicker, DefinedRange, DateRange } from 'react-date-range';
 
 import 'moment/locale/ru'  // without this line it didn't work
 
+import omit from 'lodash/omit';
 
-class MainTable_Save5 extends React.Component {
+
+
+class DateSave5 extends React.Component {
    constructor() {
       super();
       this.state = {
@@ -32,6 +35,16 @@ class MainTable_Save5 extends React.Component {
          key: 'selection',
          locale: ru
       }
+
+      const props = omit(this.props, [
+         'autoFocus',
+         'autoFocusEndDate',
+         'initialStartDate',
+         'initialEndDate',
+         'presets',
+       ]);
+
+
       return (
          <div>
             <table>
@@ -41,6 +54,7 @@ class MainTable_Save5 extends React.Component {
                      <center><input type='text' value={this.state.currentDate} /></center>
                   </td>
                </tr>
+               
             </table>
             <br />
             <hr />
@@ -48,7 +62,7 @@ class MainTable_Save5 extends React.Component {
                ranges={[selectionRange]}
                onChange={this.handleSelect}
                locale={ru}
-               
+
             />
             <br />
             <hr />
@@ -57,19 +71,25 @@ class MainTable_Save5 extends React.Component {
       );
    }
 }
-export default MainTable_Save5;
-
-
+export default DateSave5;
 
 /*
 
-<RDR_Calendar />
+<DateRangePicker
+                     
+                     startDate={this.state.startDate}
+                     startDateId="your_unique_start_date_id"
+                     endDate={this.state.endDate}
+                     endDateId="your_unique_end_date_id"
+                     onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
+                     focusedInput={this.state.focusedInput}
+                     onFocusChange={focusedInput => this.setState({ focusedInput })}
 
-<Header_Main />
-
-
-
-
-
+                     small={true}
+                     displayFormat={'DD/MM/YYYY'}
+                     noBorder={false}
+                     isOutsideRange={() => false}
+                     minimumNights={0}
+                  />
 
 */

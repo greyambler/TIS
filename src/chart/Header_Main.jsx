@@ -134,7 +134,7 @@ class Header_Main extends Component {
                                           <center>
                                              <Stage width={W_Stage} height={H_Stage} >
                                                 <Layer>
-                                                   {(numfiles == 0 || numfiles.toString().length < 5) &&
+                                                   {(numfiles == 0 || numfiles.toString().length < 7) &&
 
                                                       <Circle x={W_Stage / 2} y={H_Stage / 2}
                                                          radius={24} fill='white'
@@ -143,7 +143,7 @@ class Header_Main extends Component {
                                                    <Text width={W_Stage - 2} wrap="char" align="center"
                                                       text={numfiles}
 
-                                                      x={0} y={H_Stage / 3} fontSize='20' fill='black'
+                                                      x={0} y={H_Stage / 2.5} fontSize='12' fill='black'
                                                    />
                                                 </Layer>
                                              </Stage>
@@ -154,7 +154,7 @@ class Header_Main extends Component {
                                              <Stage width={W_Stage} height={H_Stage}>
                                                 <Layer>
 
-                                                   {(numincidents == 0 || numincidents.toString().length < 5) &&
+                                                   {(numincidents == 0 || numincidents.toString().length < 7) &&
 
                                                       <Circle x={W_Stage / 2} y={H_Stage / 2}
                                                          radius={24} fill='white'
@@ -163,7 +163,7 @@ class Header_Main extends Component {
 
                                                    <Text width={W_Stage} wrap="char" align="center"
                                                       text={numincidents}
-                                                      x={0} y={H_Stage / 3} fontSize='20' fill='blue' />
+                                                      x={0} y={H_Stage / 2.5} fontSize='12' fill='blue' />
                                                 </Layer>
                                              </Stage>
                                           </center>
@@ -176,7 +176,7 @@ class Header_Main extends Component {
                                                       radius={20} fill='white'
                                                       stroke='yellow' strokeWidth='15' />
                                                    <Text width={W_Stage} wrap="char" align="center"
-                                                      text="50%" x={5} y={H_Stage / 1.9} fontSize='20' fill='red' />
+                                                      text="50%" x={5} y={H_Stage / 1.7} fontSize='12' fill='red' />
                                                 </Layer>
                                              </Stage>
                                           </center>
@@ -189,8 +189,8 @@ class Header_Main extends Component {
                                                       radius={24} fill='yellow' stroke='black' />
 
                                                    <Text width={W_Stage} wrap="char" align="center"
-                                                      text="24" x={0} y={H_Stage / 3}
-                                                      fontSize='20' fill='black' />
+                                                      text="24" x={0} y={H_Stage / 2.5}
+                                                      fontSize='12' fill='black' />
                                                 </Layer>
                                              </Stage>
                                           </center>

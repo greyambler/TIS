@@ -2,7 +2,8 @@ import React from "react"
 
 import namor from "namor";
 
-
+import moment from 'moment';
+import 'moment/locale/ru';
 
 
 export function get_Date() {
@@ -302,3 +303,42 @@ export const Tips = () =>
       <em>Tip: Hold shift when sorting to multi-sort!</em>
    </div>;
 
+
+/****PresetDateRangePicker********************************/
+
+const today = moment();
+const tomorrow = moment().add(1, 'day');
+export const presets = [{
+   text: 'Сегодня',
+   start: today,
+   end: today,
+},
+{
+   text: 'Завтра',
+   start: tomorrow,
+   end: tomorrow,
+},
+{
+   text: 'Следующая неделя',
+   start: today,
+   end: moment().add(1, 'week'),
+},
+{
+   text: 'Следующий месяц',
+   start: today,
+   end: moment().add(1, 'month'),
+}];
+
+
+export function isSameDay(a, b) {
+   moment.locale('ru');
+
+   if (!moment.isMoment(a) || !moment.isMoment(b)) return false;
+   // Compare least significant, most likely to change units first
+   // Moment's isSame clones moment inputs and is a tad slow
+   return a.date() === b.date()
+      && a.month() === b.month()
+      && a.year() === b.year();
+}
+
+/****PresetDateRangePicker********************************/
