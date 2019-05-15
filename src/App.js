@@ -4,41 +4,54 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 import MainWindow from './MainWindow.jsx'
 import MainTable_DRP from './MainTable_DRP.jsx'
-
 import MainTable from './MainTable.jsx'
-
 import Chart_Table_DRP from './Chart_Table_DRP.jsx'
 
 
-import MainWindow_Save1 from './MainWindow_Save1.jsx'
-import MainWindow_Save2 from './MainWindow_Save2.jsx'
-import MainWindow_Save8 from './MainWindow_Save8.jsx'
+import MainWindow_Save1 from './save/MainWindow_Save1.jsx'
+import MainWindow_Save2 from './save/MainWindow_Save2.jsx'
+import MainWindow_Save8 from './save/MainWindow_Save8.jsx'
 
-import MainTable_Save1 from './MainTable_Save1.jsx'
-import MainTable_Save2 from './MainTable_Save2.jsx'
-import MainTable_Save3 from './MainTable_Save3.jsx'
-import MainTable_Save4 from './MainTable_Save4.jsx'
+import MainTable_Save1 from './save/MainTable_Save1.jsx'
+import MainTable_Save2 from './save/MainTable_Save2.jsx'
+import MainTable_Save3 from './save/MainTable_Save3.jsx'
+import MainTable_Save4 from './save/MainTable_Save4.jsx'
 
-import DateSave5 from './DateSave5.jsx'
+import DateSave5 from './save/DateSave5.jsx'
+import DateSave6 from './save/DateSave6.jsx'
+import MainTable_Save7 from './save/MainTable_Save7.jsx'
 
-import DateSave6 from './DateSave6.jsx'
-import MainTable_Save7 from './MainTable_Save7.jsx'
+
+
+import { dateStart, dateStop } from './core/core_Function.jsx';
+
+import First_Chart from './chart/First_Chart.jsx'
+
 
 import { presets } from './core/core_Function.jsx';
 
 //import Header from './core/Header';
-
+import moment from 'moment';
 
 const _Debuge = true;
 
 class Main extends Component {
+   constructor(props) {
+      super(props);
+   }
    render() {
       return (
-         <MainWindow w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
+         <MainWindow w_Height={this.props.w_Height} w_Width={this.props.w_Width}
+            S_Date_Head={this.props.S_Date_Head} E_Date_Head={this.props.E_Date_Head}
+            S_Date={this.props.S_Date} E_Date={this.props.E_Date}
+         />
       );
    }
 }
 class Reports extends Component {
+   constructor(props) {
+      super(props);
+   }
    render() {
       return (
          <MainTable_DRP w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
@@ -57,6 +70,19 @@ class Settings extends Component {
 }
 
 class Ch_TDRP extends Component {
+   constructor(props) {
+      super(props);
+   }
+   render() {
+      return (
+         <First_Chart w_Height={this.props.w_Height} w_Width={this.props.w_Width}
+            IsTable={true}
+            dateStart={this.props.S_Date} dateStop={this.props.E_Date}
+         />
+      );
+   }
+}
+class Ch_TDRP2 extends Component {
    render() {
       return (
          <Chart_Table_DRP w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
@@ -109,7 +135,6 @@ class Table_Save2 extends Component {
       );
    }
 }
-
 class Table_Save7 extends Component {
    render() {
       return (
@@ -117,8 +142,6 @@ class Table_Save7 extends Component {
       );
    }
 }
-
-
 class Date_Save5 extends Component {
    render() {
       return (
@@ -126,8 +149,6 @@ class Date_Save5 extends Component {
       );
    }
 }
-
-
 class Date_Save6 extends Component {
    render() {
       return (
@@ -135,8 +156,6 @@ class Date_Save6 extends Component {
       );
    }
 }
-
-
 class Table_Save3 extends Component {
    render() {
       return (
@@ -151,8 +170,6 @@ class Table_Save4 extends Component {
       );
    }
 }
-
-
 class Reports_OLD extends Component {
    render() {
       return (
@@ -215,8 +232,10 @@ class Nav extends Component {
 
                               <li><Link to="/Oldreports">Отчеты старый</Link></li>
 
+                              <li><Link to="/ChTDRP2">Недоступность касс 2</Link></li>
 
-                              <li><Link to="/Ch_TDRP">Недоступность касс</Link></li>
+                              <li><Link to="/reports">Отчеты</Link></li>
+
                            </ul>
                         </li>
                      }
@@ -224,10 +243,10 @@ class Nav extends Component {
                      <li><Link to="/" >Главная</Link></li>
                      <li><Link to="/settings">Настройки</Link></li>
 
-                     <li><Link to="/reports">Отчеты</Link></li>
-                     
+
+                     <li><Link to="/ChTDRP">Недоступность касс</Link></li>
                      <li><Link to="/help">Помощь</Link></li>
-                     
+
 
                   </ul>
                </li>
@@ -236,7 +255,6 @@ class Nav extends Component {
       );
    }
 }
-
 
 function refreshPage() {
    window.location.reload();
@@ -251,9 +269,14 @@ class App extends Component {
       this.state = {
          W_Width: window.innerWidth,
          W_Height: window.innerHeight,
+         S_Date_Head: moment().add(-3, 'month'),
+         E_Date_Head: moment().add(-3, 'month').add(10, 'day'),
+
+         S_Date: moment().add(-3, 'month'),
+         E_Date: moment(),
+
       }
       this.handleResize = this.handleResize.bind(this);
-
    }
    handleResize(WindowSize, event) {
       this.setState({ W_Width: window.innerWidth, W_Height: window.innerHeight })
@@ -265,20 +288,25 @@ class App extends Component {
    componentWillUnmount() {
       window.addEventListener("resize", null);
    }
+
    render() {
       return (
          <Router>
             <Nav />
             <div className="content">
                <Switch>
-                  <Route exact path="/" render={() => <Main w_Height={this.state.W_Height} w_Width={this.state.W_Width} />} />
+                  <Route exact path="/" render={() => <Main w_Height={this.state.W_Height} w_Width={this.state.W_Width}
+                     S_Date_Head={this.state.S_Date_Head} E_Date_Head={this.state.E_Date_Head}
+                     S_Date={this.state.S_Date} E_Date={this.state.E_Date}
+                  />} />
                   <Route exact path="/reports" render={() => <Reports w_Height={this.state.W_Height} w_Width={this.state.W_Width} />} />
 
                   <Route exact path="/settings" component={Settings} />
-                  <Route exact path="/Ch_TDRP" component={Ch_TDRP} />
+                  <Route exact path="/ChTDRP" render={() => <Ch_TDRP w_Height={this.state.W_Height} w_Width={this.state.W_Width}
+                     S_Date={this.state.S_Date} E_Date={this.state.E_Date} />} />
+                  <Route exact path="/ChTDRP2" render={() => <Ch_TDRP2 w_Height={this.state.W_Height} w_Width={this.state.W_Width} />} />
+
                   <Route exact path="/help" component={Help} />
-
-
 
                   <Route exact path="/Main_Save1" render={() => <Main_Save1 />} />
                   <Route exact path="/Main_Save2" render={() => <Main_Save2 />} />

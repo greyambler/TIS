@@ -2,23 +2,23 @@ import React, { Component, PropTypes } from 'react';
 
 import {
    get_Date, Get_StartDate, Get_StopDate,
-   GetDateNow, contains, GetDatFromColChart, dataStart, dataStop
-} from './core/core_Function.jsx';
+   GetDateNow, contains, GetDatFromColChart, dateStart, dateStop
+} from '../core/core_Function.jsx';
 
 //import TotalIndication from './chart/TotalIndication.jsx'
 //import RightIndication from './chart/RightIndication.jsx'
-//import Histogram from './chart/Histogram.jsx'
-
-import CircularGraph from './chart/CircularGraph.jsx';
 
 
-import Header_Main from './chart/Header_Main.jsx';
-import Header_Main_Chart from './chart/Header_Main_Chart.jsx';
+import CircularGraph from '../chart/Save_Old/CircularGraph.jsx';
 
-import ColumnChart from './chart/ColumnChart.jsx';
-import LinesChart from './chart/LinesChart.jsx';
-import Histogram_2 from './chart/Histogram_2.jsx';
-import HistogramGroup from './chart/HistogramGroup.jsx';
+
+//import Header_Main from '../chart/Save_Old/Header_Main.jsx';
+import Header_Main_Chart from '../chart/Header_Main_Chart.jsx';
+
+import ColumnChart from '../chart/Save_Old/ColumnChart.jsx';
+import LinesChart from '../chart/Save_Old/LinesChart.jsx';
+import Histogram_2 from '../chart/Save_Old/Histogram_2.jsx';
+import HistogramGroup from '../chart/Save_Old/HistogramGroup.jsx';
 
 const _Debuge = true;
 
@@ -95,7 +95,7 @@ class MainWindow_Save8 extends React.Component {
                         <tr><td colSpan='2'><hr /><br /><br /><br /></td></tr>
                         <tr>
                            <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} ><ColumnChart Data={dataCol_Char1}
-                              dataStart={dataStart} dataStop={dataStop}
+                              dateStart={dateStart} dateStop={dateStop}
                               w_Width={this.state.W_Width} />
                            </td>
                            <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} ><LinesChart Data={dataCol_Char1}
@@ -125,7 +125,7 @@ class MainWindow_Save8 extends React.Component {
                         <tr>
                            <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
                               <CircularGraph Data={dataCol_Char1}
-                                 dataStart={dataStart} dataStop={dataStop}
+                                 dateStart={dateStart} dateStop={dateStop}
                                  w_Width={this.state.W_Width} />
                            </td>
                         </tr>

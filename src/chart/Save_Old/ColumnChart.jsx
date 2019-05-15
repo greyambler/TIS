@@ -29,18 +29,6 @@ class ColumnChart extends Component {
    }
 
    render() {
-      const data = [
-         { genre: 'Sports', sold: 275, income: 2300 },
-         { genre: 'Strategy', sold: 115, income: 667 },
-         { genre: 'Action', sold: 120, income: 982 },
-         { genre: 'Shooter', sold: 350, income: 5271 },
-         { genre: 'Other', sold: 150, income: 3710 }
-      ];
-
-      const cols = {
-         sold: { alias: 'Первы1' },
-         genre: { alias: 'Второй2' }
-      };
 
       const cols1 = {
          N: { alias: 'Событий' },
@@ -54,7 +42,7 @@ class ColumnChart extends Component {
                   <tr>
 
                      <th rowSpan='2'>
-                        <Link to="/Ch_TDRP">
+                        <Link to="/ChTDRP">
                            <img src={'../images/JDownloader.ico'} width='30' />
                         </Link>
                      </th>
@@ -66,7 +54,7 @@ class ColumnChart extends Component {
                   </tr>
                   <tr>
                      <td className="td_Date">
-                        <center>{this.props.dataStart}  -  {this.props.dataStop}</center>
+                        <center>{this.props.dateStart}  -  {this.props.dateStop}</center>
                      </td>
                   </tr>
 

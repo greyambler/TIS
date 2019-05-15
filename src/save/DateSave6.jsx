@@ -16,7 +16,7 @@ import {
    DayPicker, DayPickerSingleDateController, SingleDatePicker
 } from 'react-dates';
 
-import { isSameDay } from './core/core_Function.jsx';
+import { isSameDay } from '../core/core_Function.jsx';
 
 class DateSave6 extends React.Component {
    constructor() {

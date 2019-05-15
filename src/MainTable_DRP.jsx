@@ -6,7 +6,7 @@ import "react-table/react-table.css"; // Импорт стилей путем в
 
 import {isSameDay, presets,
    get_Date, Get_StartDate, Get_StopDate,
-   GetDateNow, contains, GetDatFromColChart, dataStart, dataStop
+   GetDateNow, contains, GetDatFromColChart, dateStart, dateStop
 } from './core/core_Function.jsx';
 
 import { DateRangePicker } from 'react-dates';
@@ -21,8 +21,8 @@ const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 
 class MainTable_DRP extends React.Component {
-   constructor() {
-      super();
+   constructor(props) {
+      super(props);
       this.onDatesChange = this.onDatesChange.bind(this);
       this.renderDatePresets = this.renderDatePresets.bind(this);
 

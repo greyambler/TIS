@@ -1,7 +1,7 @@
 import React from "react";
 import {
    get_Date, GetDateNow
-} from './core/core_Function.jsx';
+} from '../core/core_Function.jsx';
 import ReactTable from "react-table";
 import "react-table/react-table.css"; // Импорт стилей путем включения
 

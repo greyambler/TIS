@@ -1,20 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { render } from "react-dom";
 import ReactTable from "react-table";
-
-import "react-table/react-table.css"; // Импорт стилей путем включения
-import { Chart, Geom, Axis, Tooltip, Legend, Coord, Label, Guide } from 'bizcharts';
-
-
-
-import {
-   isSameDay, presets,
-   get_Date, Get_StartDate, Get_StopDate,
-   GetDateNow, contains, GetDatFromColChart, dateStart, dateStop
-} from './core/core_Function.jsx';
-
-import { DateRangePicker } from 'react-dates';
-import moment from 'moment';
 
 import ReactExport from "react-data-export";
 const ExcelFile = ReactExport.ExcelFile;
@@ -22,46 +7,27 @@ const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 
-
-
-class Chart_Table_DRP extends React.Component {
+export default class w_table extends Component {
    constructor(props) {
       super(props);
-
-      this.onDatesChange = this.onDatesChange.bind(this);
-      this.renderDatePresets = this.renderDatePresets.bind(this);
-
       this.Filter_DataExcel = this.Filter_DataExcel.bind(this);
       this.get_DatFilters = this.get_DatFilters.bind(this);
 
       this.state = {
-         Full_Data: get_Date(),
-         currentDate: GetDateNow(),
-         Excel_Data: get_Date(),
-
-         startDate: moment(),
-         endDate: moment(),
-
-         W_Width: window.innerWidth / 2 - 25,
-
-         //Data: this.props.Data,
-      };
-
-   }
-
-   inputChangedHandler = (event) => {
-      this.setState({ currentDate: event.target.value })
+         Data: this.props.Data,
+         Excel_Data: this.props.Data,
+      }
    }
 
    Filter_DataExcel(e) {
-      let _excel_Data = get_Date();
+      let _excel_Data = this.props.Data;
       for (const itemF of e) {
          _excel_Data = this.get_DatFilters(_excel_Data, itemF);
       }
       this.setState({ Excel_Data: _excel_Data });
    }
-   get_DatFilters(_E_Data, itemF) {
 
+   get_DatFilters(_E_Data, itemF) {
       let _return_Data = new Array();
       if (itemF != null) {
          let index = 0;
@@ -244,99 +210,17 @@ class Chart_Table_DRP extends React.Component {
       }
       return _return_Data;
    }
-
-
-   componentDidMount() {
-      this.setState({ W_Width: this.props.w_Width / 2 - 25 });
-   }
-
-   componentDidUpdate(prevProps) {
-      if (this.props.w_Width != prevProps.w_Width) {
-         this.setState({ W_Width: this.props.w_Width });
-      }
-   }
-
-   onDatesChange({ startDate, endDate }) {
-      this.setState({ startDate, endDate });
-   }
-
-   renderDatePresets() {
-      const { startDate, endDate } = this.state;
-
-      return (
-         <div>
-            {presets.map(({ text, start, end }) => {
-               let isSelected = isSameDay(start, startDate) && isSameDay(end, endDate);
-               return (
-                  <button
-                     key={text}
-                     className={!isSelected
-                        ? ("btn_Date")
-                        : ("btn_Date_Select")}
-                     type="button"
-                     onClick={() => this.onDatesChange({ startDate: start, endDate: end })}>
-                     {text}
-                  </button>
-               );
-            })}
-         </div>
-      );
-   }
-
+//<img src={'../images/JDownloader.ico'} width='30' />
+//<ExcelFile element={<button><img src={'../images/JDownloader.ico'} width='30'>Выгрузка в EXCEL</img></button>}>
+//<button>Выгрузка в EXCEL</button>
    render() {
-      let dataCol_Char1 = GetDatFromColChart(get_Date());
-      const cols1 = {
-         N: { alias: 'Событий' },
-         CASHIER_ID: { alias: 'Кассир' }
-      };
       return (
          <div>
-
-            <table className='tbl'>
+            <table>
                <tbody>
                   <tr>
-                     <th colspan="4">
-                        <center><strong>Недоступность касс за период на АЗК</strong></center>
-                     </th>
-                  </tr>
-                  <tr>
-                     <td width="25%"></td>
-                     <td width="25%">
-                        <select>
-                           <option>АЗК № 100</option>
-                           <option>АЗК № 101</option>
-                        </select>
-                     </td>
-                     <td width="25%">
-                        <center>
-                           <DateRangePicker
-                              startDate={this.state.startDate}
-                              startDateId="your_unique_start_date_id"
-                              endDate={this.state.endDate}
-                              endDateId="your_unique_end_date_id"
-                              onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
-
-
-                              focusedInput={this.state.focusedInput}
-                              onFocusChange={focusedInput => this.setState({ focusedInput })}
-
-                              renderCalendarInfo={this.renderDatePresets}
-
-                              small={true}
-                              displayFormat={'DD/MM/YYYY'}
-                              noBorder={true}
-                              isOutsideRange={() => false}
-                              minimumNights={0}
-
-                           />
-
-                        </center>
-                     </td>
-
-
-
-                     <td width="25%">
-                        <ExcelFile element={<button>Выгрузка в EXCEL</button>}>
+                  <td width="100%" align="right">
+                        <ExcelFile element={<button><img src={'../images/Office Excel.ico'} width='25' /></button>}>
                            <ExcelSheet data={this.state.Excel_Data} name="Employees">
                               <ExcelColumn label="Дата" value="Datetime" />
                               <ExcelColumn label="№ магазина" value="SHOP_NUM" />
@@ -352,37 +236,19 @@ class Chart_Table_DRP extends React.Component {
                      </td>
                   </tr>
 
-                  <tr >
-                     <td colSpan='4'>
-                        <center>
-                           <Chart
-                              forceFit
-                              width={this.state.W_Width}
-                              height={200}
-                              data={dataCol_Char1}
-                              scale={cols1}>
-                              <Axis name="N" />
-                              <Axis name="CASHIER_ID" />
-                              <Tooltip />
-                              <Geom type="interval" position="CASHIER_ID*N" color="N" />
-                           </Chart>
-                        </center>
-                     </td>
-                  </tr>
-
                   <tr>
-                     <td colspan="4">
+                     <td colspan="2">
 
                         <ReactTable
                            onFilteredChange={this.Filter_DataExcel}
-                           data={this.state.Full_Data}
+                           data={this.state.Data}
                            columns={[
                               {
                                  Header: "Дата",
                                  accessor: "Datetime"
                               },
                               {
-                                 Header: "Магазин",
+                                 Header: "Магазин111",
                                  columns: [
                                     {
                                        Header: "№ магазина",
@@ -438,14 +304,11 @@ class Chart_Table_DRP extends React.Component {
                            className="-striped -highlight"
                         >
                         </ReactTable>
-
                      </td>
                   </tr>
                </tbody>
             </table>
-
          </div>
       );
    }
 }
-export default Chart_Table_DRP;

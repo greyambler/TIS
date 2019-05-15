@@ -6,10 +6,10 @@ import "react-table/react-table.css"; // Импорт стилей путем в
 
 import {
    get_Date, Get_StartDate, Get_StopDate,
-   GetDateNow, contains, GetDatFromColChart, dataStart, dataStop,
+   GetDateNow, contains, GetDatFromColChart, dateStart, dateStop,
    makeData, Logo, Tips
 
-} from './core/core_Function.jsx';
+} from '../core/core_Function.jsx';
 
 
 import matchSorter from 'match-sorter'

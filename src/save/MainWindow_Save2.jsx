@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 
 import { get_Date, Get_StartDate, Get_StopDate, 
-   GetDateNow ,contains } from './core/core_Function.jsx';
+   GetDateNow ,contains } from '../core/core_Function.jsx';
 
 
-import TotalIndication from './chart/TotalIndication.jsx';
+import TotalIndication from '../chart/TotalIndication.jsx';
 
 import { LineChart, PieChart, ColumnChart } from 'react-chartkick'
 

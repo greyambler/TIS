@@ -2,20 +2,25 @@ import React, { Component, PropTypes } from 'react';
 
 import {
    get_Date, Get_StartDate, Get_StopDate,
-   GetDateNow, contains, GetDatFromColChart, dataStart, dataStop
+   GetDateNow, contains, GetDatFromColChart, dateStart, dateStop
 } from './core/core_Function.jsx';
 
 //import TotalIndication from './chart/TotalIndication.jsx'
 //import RightIndication from './chart/RightIndication.jsx'
-//import Histogram from './chart/Histogram.jsx'
 
-import Header_Main from './chart/Header_Main.jsx';
+
+//import Header_Main from './chart/Save_Old/Header_Main.jsx';
 import Header_Main_Chart from './chart/Header_Main_Chart.jsx';
 
-import ColumnChart from './chart/ColumnChart.jsx';
-import LinesChart from './chart/LinesChart.jsx';
-import Histogram_2 from './chart/Histogram_2.jsx';
-import HistogramGroup from './chart/HistogramGroup.jsx';
+
+import First_Chart from './chart/First_Chart.jsx';
+
+import LinesChart from './chart/Save_Old/LinesChart.jsx';
+import Histogram_2 from './chart/Save_Old/Histogram_2.jsx';
+import HistogramGroup from './chart/Save_Old/HistogramGroup.jsx';
+
+import moment from 'moment';
+
 
 const _Debuge = true;
 
@@ -53,6 +58,11 @@ class MainWindow extends React.Component {
       let dataCol_Char1 = GetDatFromColChart(get_Date());
 
       let _Objects = this.state.Object;
+
+
+      let S_Date = this.props.S_Date;//moment().add(-3, 'month');
+      let E_Date = this.props.E_Date;//moment();
+
       return (
          <div>
 
@@ -61,32 +71,30 @@ class MainWindow extends React.Component {
                <tbody>
                   <tr>
                      <td colSpan='2' >
-                        {!_Debuge ? (
-                           <Header_Main numObjects={_Objects} Rss={Rss} />
-                        ) : (
-                              <Header_Main_Chart numObjects={_Objects} Rss={Rss} />
-                           )}
+                        <Header_Main_Chart numObjects={_Objects} Rss={Rss} 
+                           S_Date_Head={this.props.S_Date_Head} E_Date_Head={this.props.E_Date_Head}
+                        />
                      </td>
                   </tr>
                   <tr><td colSpan='2'><hr /><br /><br /><br /></td></tr>
                   <tr>
-                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} ><ColumnChart Data={dataCol_Char1}
-                        dataStart={dataStart} dataStop={dataStop}
-                        w_Width={this.state.W_Width} />
+                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} ><First_Chart Data={dataCol_Char1}
+                        dateStart={S_Date} dateStop={E_Date}
+                        w_Width={this.state.W_Width} IsTable={false} />
                      </td>
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} ><LinesChart Data={dataCol_Char1}
-                        dataStart={dataStart} dataStop={dataStop}
+                        dateStart={S_Date} dateStop={E_Date}
                         w_Width={this.state.W_Width} />
                      </td>
                   </tr>
                   <tr><td colSpan='2'><br /><br /><br /></td></tr>
                   <tr>
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} ><HistogramGroup Data={dataCol_Char1}
-                        dataStart={dataStart} dataStop={dataStop}
+                        dateStart={S_Date} dateStop={E_Date}
                         w_Width={this.state.W_Width} />
                      </td>
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} ><Histogram_2 Data={dataCol_Char1}
-                        dataStart={dataStart} dataStop={dataStop}
+                        dateStart={S_Date} dateStop={E_Date}
                         w_Width={this.state.W_Width} />
                      </td>
                   </tr>

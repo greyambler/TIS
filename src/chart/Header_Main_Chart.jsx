@@ -32,13 +32,13 @@ const _Debuge = true;
 class Header_Main_Chart extends Component {
    constructor(props, context) {
       super(props, context);
-      this.onDatesChange = this.onDatesChange.bind(this);
+      this.on_DatesChange = this.on_DatesChange.bind(this);
       this.renderDatePresets = this.renderDatePresets.bind(this);
       this.tick = this.tick.bind(this);
       //moment.locale('ru');
       this.state = {
-         startDate: moment(),
-         endDate: moment(),
+         startDate: this.props.S_Date_Head,
+         endDate: this.props.E_Date_Head,
 
          ch1: true,
          ch2: true,
@@ -130,9 +130,8 @@ class Header_Main_Chart extends Component {
       }
    }
 
-   onDatesChange({ startDate, endDate }) {
-      this.setState({ startDate, endDate });
-      this.tick();
+   on_DatesChange({ startDate, endDate }) {
+      this.setState({ startDate, endDate },this.tick);
    }
 
    renderDatePresets() {
@@ -151,7 +150,7 @@ class Header_Main_Chart extends Component {
                         :
                         ("btn_Date_Select")}
                      type="button"
-                     onClick={() => this.onDatesChange({ startDate: start, endDate: end })}>
+                     onClick={({ startDate, endDate }) => this.on_DatesChange({ startDate: start, endDate: end })}>
                      {text}
                   </button>
                );
@@ -239,8 +238,15 @@ class Header_Main_Chart extends Component {
                                              startDateId="S_DRP_id"
                                              endDate={this.state.endDate}
                                              endDateId="E_DRP_id"
-                                             onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate }, this.tick)}
+
                                              
+                                             
+                                             //onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate }, this.tick)}                                             
+                                             onDatesChange={({ startDate, endDate }) => this.on_DatesChange({ startDate, endDate })}
+
+
+
+
                                              focusedInput={this.state.focusedInput}
                                              onFocusChange={focusedInput => this.setState({ focusedInput })}
 
@@ -259,7 +265,6 @@ class Header_Main_Chart extends Component {
                                     </center>
                                  </td>
                                  </tr>
-
 
                                  <tr height={H_Stage_tr} className="tr_Date">
                                     <td>

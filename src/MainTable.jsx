@@ -6,7 +6,7 @@ import "react-table/react-table.css"; // Импорт стилей путем в
 
 import {
    get_Date, Get_StartDate, Get_StopDate,
-   GetDateNow, contains, GetDatFromColChart, dataStart, dataStop
+   GetDateNow, contains, GetDatFromColChart, dateStart, dateStop
 } from './core/core_Function.jsx';
 
 import ReactExport from "react-data-export";
@@ -18,8 +18,8 @@ const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 
 class MainTable extends React.Component {
-   constructor() {
-      super();
+   constructor(props) {
+      super(props);
       this.Filter_DataExcel = this.Filter_DataExcel.bind(this);
       this.get_DatFilters = this.get_DatFilters.bind(this);
       this.state = {

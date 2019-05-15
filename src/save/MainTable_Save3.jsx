@@ -6,8 +6,8 @@ import "react-table/react-table.css"; // Импорт стилей путем в
 
 import {
    get_Date, Get_StartDate, Get_StopDate,
-   GetDateNow, contains, GetDatFromColChart, dataStart, dataStop
-} from './core/core_Function.jsx';
+   GetDateNow, contains, GetDatFromColChart, dateStart, dateStop
+} from '../core/core_Function.jsx';
 
 
 

@@ -3,14 +3,14 @@ import React, { Component, PropTypes } from 'react';
 
 import {
    get_Date, Get_StartDate, Get_StopDate,
-   GetDateNow, contains, GetDatFromColChart, dataStart, dataStop
-} from './core/core_Function.jsx';
+   GetDateNow, contains, GetDatFromColChart
+} from '../core/core_Function.jsx';
 
 
 
 
 import { render } from "react-dom";
-import { makeData, Logo, Tips } from "./core/core_Function.jsx";
+import { makeData, Logo, Tips } from "../core/core_Function.jsx";
 
 // Import React Table
 import ReactTable from "react-table";

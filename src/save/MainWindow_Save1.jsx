@@ -3,14 +3,14 @@ import React, { Component, PropTypes } from 'react';
 import {
    get_Date, Get_StartDate, Get_StopDate,
    GetDateNow, contains
-} from './core/core_Function.jsx';
+} from '../core/core_Function.jsx';
 
-import TotalIndication from './chart/TotalIndication.jsx'
+import TotalIndication from '../chart/TotalIndication.jsx'
 
-import ColumnChart from './chart/ColumnChart_Save.jsx'
-import LinesChart from './chart/LinesChart_Save.jsx'
-import Histogram from './chart/Histogram.jsx'
-import HistogramGroup from './chart/HistogramGroup_Save.jsx'
+import ColumnChart from '../chart/Save_Old/ColumnChart_Save.jsx'
+import LinesChart from '../chart/Save_Old/LinesChart_Save.jsx'
+import Histogram from '../chart/Save_Old/Histogram.jsx'
+import HistogramGroup from '../chart/Save_Old/HistogramGroup_Save.jsx'
 
 const _Debuge = true;
 

@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 
-import RDR_Calendar from './chart/RDR_Calendar.jsx'
-import Header_Main from './chart/Header_Main.jsx'
+import RDR_Calendar from '../chart/RDR_Calendar.jsx'
+import Header_Main from '../chart/Save_Old/Header_Main.jsx'
 
 
-import { GetDateNowDMY } from './core/core_Function.jsx';
+import { GetDateNowDMY } from '../core/core_Function.jsx';
 import { ru } from 'date-fns/esm/locale';
 import { DateRangePicker, DefinedRange, DateRange } from 'react-date-range';
 

@@ -86,7 +86,7 @@ class HistogramGroup extends React.Component {
                </tr>
                <tr>
                      <td className="td_Date">
-                        <center>{this.props.dataStart}  -  {this.props.dataStop}</center>
+                     <center>{this.props.dateStart.format('DD/MM/YYYY')}  -  {this.props.dateStop.format('DD/MM/YYYY')}</center>
                      </td>
                   </tr>
                <tr>
