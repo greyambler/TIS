@@ -42,7 +42,7 @@ class DateSave5 extends React.Component {
          'initialStartDate',
          'initialEndDate',
          'presets',
-       ]);
+      ]);
 
 
       return (
@@ -54,7 +54,7 @@ class DateSave5 extends React.Component {
                      <center><input type='text' value={this.state.currentDate} /></center>
                   </td>
                </tr>
-               
+
             </table>
             <br />
             <hr />
@@ -76,7 +76,7 @@ export default DateSave5;
 /*
 
 <DateRangePicker
-                     
+
                      startDate={this.state.startDate}
                      startDateId="your_unique_start_date_id"
                      endDate={this.state.endDate}

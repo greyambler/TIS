@@ -33,19 +33,41 @@ import { presets } from './core/core_Function.jsx';
 //import Header from './core/Header';
 import moment from 'moment';
 
-const _Debuge = true;
+const _Debuge = false;
+
+/*// Правильно :)
+   
+   this.setState((prevState, props) => ({
+      temperature: prevState.temperature + props.delta
+    }));
+   */
 
 class Main extends Component {
-   constructor(props) {
-      super(props);
-   }
    render() {
-      return (
-         <MainWindow w_Height={this.props.w_Height} w_Width={this.props.w_Width}
-            S_Date_Head={this.props.S_Date_Head} E_Date_Head={this.props.E_Date_Head}
-            S_Date={this.props.S_Date} E_Date={this.props.E_Date}
-         />
-      );
+      if (_Debuge) {
+
+         return (
+            <First_Chart
+               w_Height={this.props.w_Height} w_Width={this.props.w_Width}
+               IsTable={false}
+
+               dateStart={this.props.S_Date} dateStop={this.props.E_Date}
+               updateData={this.props.updateData}
+            />
+         );
+      } else {
+
+         return (
+            <MainWindow
+               w_Height={this.props.w_Height} w_Width={this.props.w_Width}
+
+               S_Date_Head={this.props.S_Date_Head} E_Date_Head={this.props.E_Date_Head}
+               S_Date={this.props.S_Date} E_Date={this.props.E_Date}
+               updateData={this.props.updateData}
+            />
+         );
+
+      }
    }
 }
 class Reports extends Component {
@@ -68,16 +90,21 @@ class Settings extends Component {
       return <center><h2>Настройки</h2></center>;
    }
 }
-
 class Ch_TDRP extends Component {
    constructor(props) {
       super(props);
    }
    render() {
       return (
-         <First_Chart w_Height={this.props.w_Height} w_Width={this.props.w_Width}
+         <First_Chart
+            w_Height={this.props.w_Height} w_Width={this.props.w_Width}
+
             IsTable={true}
+
             dateStart={this.props.S_Date} dateStop={this.props.E_Date}
+
+            updateData={this.props.updateData}
+
          />
       );
    }
@@ -89,7 +116,6 @@ class Ch_TDRP2 extends Component {
       );
    }
 }
-
 class NotFound extends Component {
    render() {
       return <center><h2>Ресурс не найден</h2></center>;
@@ -255,7 +281,6 @@ class Nav extends Component {
       );
    }
 }
-
 function refreshPage() {
    window.location.reload();
 }
@@ -269,6 +294,7 @@ class App extends Component {
       this.state = {
          W_Width: window.innerWidth,
          W_Height: window.innerHeight,
+         /**/
          S_Date_Head: moment().add(-3, 'month'),
          E_Date_Head: moment().add(-3, 'month').add(10, 'day'),
 
@@ -288,7 +314,9 @@ class App extends Component {
    componentWillUnmount() {
       window.addEventListener("resize", null);
    }
-
+   updateData = ({ startDate, endDate }) => {
+      this.setState({ S_Date: startDate, E_Date: endDate });
+   }
    render() {
       return (
          <Router>
@@ -298,12 +326,15 @@ class App extends Component {
                   <Route exact path="/" render={() => <Main w_Height={this.state.W_Height} w_Width={this.state.W_Width}
                      S_Date_Head={this.state.S_Date_Head} E_Date_Head={this.state.E_Date_Head}
                      S_Date={this.state.S_Date} E_Date={this.state.E_Date}
+                     updateData={this.updateData}
                   />} />
                   <Route exact path="/reports" render={() => <Reports w_Height={this.state.W_Height} w_Width={this.state.W_Width} />} />
 
                   <Route exact path="/settings" component={Settings} />
                   <Route exact path="/ChTDRP" render={() => <Ch_TDRP w_Height={this.state.W_Height} w_Width={this.state.W_Width}
-                     S_Date={this.state.S_Date} E_Date={this.state.E_Date} />} />
+                     S_Date={this.state.S_Date} E_Date={this.state.E_Date}
+                     updateData={this.updateData}
+                  />} />
                   <Route exact path="/ChTDRP2" render={() => <Ch_TDRP2 w_Height={this.state.W_Height} w_Width={this.state.W_Width} />} />
 
                   <Route exact path="/help" component={Help} />
@@ -330,7 +361,6 @@ class App extends Component {
 
             </div>
          </Router>
-
       );
    }
 }

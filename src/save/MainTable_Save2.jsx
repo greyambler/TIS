@@ -30,7 +30,7 @@ class MainTable_Save2 extends React.Component {
    };
 
    onChange = e => this.refs.reactTable.filterColumn(this.columns[10], 4);
-   
+
    ON_Click(e) {
       const tems = document.getElementById('Col_F');
       const R_tems = this.refs.Col_F;
@@ -103,7 +103,7 @@ class MainTable_Save2 extends React.Component {
             <hr />
             <ReactTable id="ReactTable"
                ref="reactTable"
-               
+
                data={data}
                columns={[
                   {
@@ -155,15 +155,15 @@ class MainTable_Save2 extends React.Component {
                   {
                      Header: "Частотность",
                      accessor: "F",
-                     id:"Col_F",
-                     ref:"Col_F"
+                     id: "Col_F",
+                     ref: "Col_F"
                   },
                   {
                      Header: "Важность",
                      accessor: "M",
                   }
                ]}
-               
+
                defaultPageSize={10}
 
                filterable={true}

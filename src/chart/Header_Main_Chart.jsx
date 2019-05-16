@@ -232,20 +232,14 @@ class Header_Main_Chart extends Component {
                                        <legend>
                                           Общие показатели за период
 
-
                                        <DateRangePicker
                                              startDate={this.state.startDate}
                                              startDateId="S_DRP_id"
                                              endDate={this.state.endDate}
                                              endDateId="E_DRP_id"
 
-                                             
-                                             
                                              //onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate }, this.tick)}                                             
                                              onDatesChange={({ startDate, endDate }) => this.on_DatesChange({ startDate, endDate })}
-
-
-
 
                                              focusedInput={this.state.focusedInput}
                                              onFocusChange={focusedInput => this.setState({ focusedInput })}

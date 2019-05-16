@@ -13,7 +13,7 @@ export default class First_Chart_Table extends React.Component {
       let date_Stop = dateStop;
       let dataTable = get_Date();
       let dataCol_Char1 = GetDatFromColChart(dataTable);
-      
+
 
       return (
          <W_main_table

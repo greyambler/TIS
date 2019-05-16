@@ -112,7 +112,7 @@ class MainTable_Save7 extends React.Component {
                            <ExcelColumn label="SHOP_NUM" value="SHOP_NUM" />
                            <ExcelColumn label="TimeKey" value="TimeKey" />
                            <ExcelColumn label="M2" value="M2" />
-                           
+
 
                         </ExcelSheet>
 

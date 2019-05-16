@@ -4,7 +4,8 @@ import ReactTable from "react-table";
 
 import "react-table/react-table.css"; // Импорт стилей путем включения
 
-import {isSameDay, presets,
+import {
+   isSameDay, presets,
    get_Date, Get_StartDate, Get_StopDate,
    GetDateNow, contains, GetDatFromColChart, dateStart, dateStop
 } from './core/core_Function.jsx';
@@ -235,14 +236,14 @@ class MainTable_DRP extends React.Component {
    }
 
 
-   
+
    onDatesChange({ startDate, endDate }) {
       this.setState({ startDate, endDate });
    }
 
    renderDatePresets() {
       const { startDate, endDate } = this.state;
-     
+
       return (
          <div>
             {presets.map(({ text, start, end }) => {

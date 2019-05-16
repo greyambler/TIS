@@ -9,6 +9,7 @@ export default class w_headDate extends Component {
       super(props);
       this.on_DatesChange = this.on_DatesChange.bind(this);
       this.renderDatePresets = this.renderDatePresets.bind(this);
+
       this.state = {
          startDate: this.props.startDate,
          endDate: this.props.endDate,
@@ -16,8 +17,19 @@ export default class w_headDate extends Component {
    }
 
    on_DatesChange({ startDate, endDate }) {
-      this.setState({ startDate, endDate },this.props.updateData({ startDate, endDate }));
+      this.setState({ startDate, endDate }, this.props.updateData({ startDate, endDate }));
+      //this.props.updateData({ startDate, endDate });
    }
+   /*
+      componentDidUpdate(prevProps) {
+         if (this.props.startDate != prevProps.startDate) {
+            this.setState({ startDate: this.props.startDate });
+         }
+         if (this.props.endDate != prevProps.endDate) {
+            this.setState({ endDate: this.props.endDate });
+         }
+      }
+      */
 
    renderDatePresets() {
       const { startDate, endDate } = this.state;
@@ -43,8 +55,9 @@ export default class w_headDate extends Component {
 
    render() {
       return (
-         <center>
-            <td>
+
+         <td>
+            <center>
                <DateRangePicker
                   startDate={this.state.startDate}
                   startDateId="S_DRP_id"
@@ -65,8 +78,9 @@ export default class w_headDate extends Component {
                   disabled={this.props.isDisable}
 
                />
-            </td>
-         </center>
+            </center>
+         </td>
+
       );
    }
 }

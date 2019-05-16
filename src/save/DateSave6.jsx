@@ -91,7 +91,7 @@ class DateSave6 extends React.Component {
                renderCalendarInfo={this.renderDatePresets}
 
                //locale={ru}
-               
+
                noBorder="false"
 
                small={true}

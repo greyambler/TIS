@@ -6,7 +6,7 @@ export default class w_chart extends Component {
       super(props);
       this.state = {
          W_Width: this.props.w_Width / 2 - 25,
-         //Data: this.props.DataChart,
+         Data: this.props.DataChart,
       }
    }
 
@@ -18,17 +18,25 @@ export default class w_chart extends Component {
       if (this.props.w_Width != prevProps.w_Width) {
          this.setState({ W_Width: this.props.w_Width / 2 - 25 });
       }
-      /*
       if (this.props.DataChart != prevProps.DataChart) {
          this.setState({ Data: this.props.DataChart });
-      }*/
+      }
    }
 
    render() {
+      const data = [
+         { genre: 'Москва', sold: 4, income: 2300 },
+         { genre: 'Смоленск', sold: 5, income: 667 },
+         { genre: 'Башнефть', sold: 11, income: 982 },
+         { genre: 'Пенза', sold: 14, income: 5271 },
+         { genre: 'Ростов', sold: 7, income: 3710 }
+      ];
+
       const cols = {
-         N: { alias: 'Событий' },
-         CASHIER_ID: { alias: 'Кассир' }
+         sold: { alias: 'Событий' },
+         genre: { alias: 'Второй2' }
       };
+
       return (
          <td colSpan='2'>
             <center>
@@ -36,12 +44,13 @@ export default class w_chart extends Component {
                   forceFit
                   width={this.state.W_Width}
                   height={200}
-                  data={this.props.DataChart}
+                  data={data}
                   scale={cols}>
-                  <Axis name="N" />
-                  <Axis name="CASHIER_ID" />
+                  <Axis name="genre" />
+                  <Axis name="sold" />
+                  <Legend position="bottom" dy={-10} />
                   <Tooltip />
-                  <Geom type="interval" position="CASHIER_ID*N" color="N" />
+                  <Geom type="interval" position="genre*sold" />
                </Chart>
             </center>
          </td>

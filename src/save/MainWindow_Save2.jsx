@@ -1,10 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 
-import { get_Date, Get_StartDate, Get_StopDate, 
-   GetDateNow ,contains } from '../core/core_Function.jsx';
+import {
+   get_Date, Get_StartDate, Get_StopDate,
+   GetDateNow, contains
+} from '../core/core_Function.jsx';
 
 
-import TotalIndication from '../chart/TotalIndication.jsx';
+import TotalIndication from '../chart/Save_Old/TotalIndication.jsx';
 
 import { LineChart, PieChart, ColumnChart } from 'react-chartkick'
 
@@ -35,7 +37,7 @@ class MainWindow_Save2 extends React.Component {
       this.setState({ currentDate: event.target.value })
    }
 
-   
+
    render() {
       let data_DB = get_Date();
       let dataCol_Char1 = Array();

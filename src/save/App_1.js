@@ -66,10 +66,10 @@ class Nav_1 extends React.Component {
                         </a>
                      </div>
                      <div className="header_Text">
-                     <a href="/users/" className="active">
-                        <img className="header_Img" src={'../images/User.png'} alt="React"
-                           width="20" height="20" />
-                     </a>
+                        <a href="/users/" className="active">
+                           <img className="header_Img" src={'../images/User.png'} alt="React"
+                              width="20" height="20" />
+                        </a>
                      </div>
                   </div>
 

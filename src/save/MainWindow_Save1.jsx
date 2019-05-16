@@ -5,7 +5,7 @@ import {
    GetDateNow, contains
 } from '../core/core_Function.jsx';
 
-import TotalIndication from '../chart/TotalIndication.jsx'
+import TotalIndication from '../chart/Save_Old/TotalIndication.jsx'
 
 import ColumnChart from '../chart/Save_Old/ColumnChart_Save.jsx'
 import LinesChart from '../chart/Save_Old/LinesChart_Save.jsx'

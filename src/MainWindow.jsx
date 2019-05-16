@@ -14,6 +14,10 @@ import Header_Main_Chart from './chart/Header_Main_Chart.jsx';
 
 
 import First_Chart from './chart/First_Chart.jsx';
+import Second_Chart from './chart/Second_Chart.jsx';
+import Third_Chart from './chart/Third_Chart.jsx';
+import Fourth_Chart from './chart/Fourth_Chart.jsx';
+
 
 import LinesChart from './chart/Save_Old/LinesChart.jsx';
 import Histogram_2 from './chart/Save_Old/Histogram_2.jsx';
@@ -44,6 +48,9 @@ class MainWindow extends React.Component {
          Object: null,
       }
    }
+   updateData = ({ startDate, endDate }) => {
+      this.props.updateData({ startDate, endDate });
+   }
 
    async componentDidMount() {
       this.setState({ W_Width: this.props.w_Width });
@@ -55,48 +62,51 @@ class MainWindow extends React.Component {
    }
 
    render() {
-      let dataCol_Char1 = GetDatFromColChart(get_Date());
-
-      let _Objects = this.state.Object;
-
-
-      let S_Date = this.props.S_Date;//moment().add(-3, 'month');
-      let E_Date = this.props.E_Date;//moment();
-
       return (
          <div>
-
 
             <table>
                <tbody>
                   <tr>
                      <td colSpan='2' >
-                        <Header_Main_Chart numObjects={_Objects} Rss={Rss} 
+                        <Header_Main_Chart numObjects={this.state.Object} Rss={Rss}
                            S_Date_Head={this.props.S_Date_Head} E_Date_Head={this.props.E_Date_Head}
                         />
                      </td>
                   </tr>
                   <tr><td colSpan='2'><hr /><br /><br /><br /></td></tr>
                   <tr>
-                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} ><First_Chart Data={dataCol_Char1}
-                        dateStart={S_Date} dateStop={E_Date}
-                        w_Width={this.state.W_Width} IsTable={false} />
+
+                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
+                        <First_Chart
+                           dateStart={this.props.S_Date} dateStop={this.props.E_Date}
+                           w_Width={this.state.W_Width} IsTable={false}
+                           updateData={this.updateData}
+                        />
                      </td>
-                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} ><LinesChart Data={dataCol_Char1}
-                        dateStart={S_Date} dateStop={E_Date}
-                        w_Width={this.state.W_Width} />
+
+                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
+                        <Second_Chart
+                           dateStart={this.props.S_Date} dateStop={this.props.E_Date}
+                           w_Width={this.state.W_Width} IsTable={false} />
                      </td>
+
                   </tr>
                   <tr><td colSpan='2'><br /><br /><br /></td></tr>
                   <tr>
-                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} ><HistogramGroup Data={dataCol_Char1}
-                        dateStart={S_Date} dateStop={E_Date}
-                        w_Width={this.state.W_Width} />
+
+                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
+                        <Third_Chart
+                           dateStart={this.props.S_Date} dateStop={this.props.E_Date}
+                           w_Width={this.state.W_Width} IsTable={false} />
                      </td>
-                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} ><Histogram_2 Data={dataCol_Char1}
-                        dateStart={S_Date} dateStop={E_Date}
-                        w_Width={this.state.W_Width} />
+
+                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
+                        <Fourth_Chart
+                           dateStart={this.props.S_Date} dateStop={this.props.E_Date}
+                           w_Width={this.state.W_Width} IsTable={false} />
                      </td>
+                     
                   </tr>
                </tbody>
             </table>
@@ -106,3 +116,23 @@ class MainWindow extends React.Component {
 }
 
 export default MainWindow;
+/*
+
+                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} ><LinesChart Data={dataCol_Char1}
+                        dateStart={S_Date} dateStop={E_Date}
+                        w_Width={this.state.W_Width} />
+                     </td>
+
+
+                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} ><HistogramGroup Data={dataCol_Char1}
+                        dateStart={S_Date} dateStop={E_Date}
+                        w_Width={this.state.W_Width} />
+                     </td>
+
+                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} ><Histogram_2 Data={dataCol_Char1}
+                        dateStart={S_Date} dateStop={E_Date}
+                        w_Width={this.state.W_Width} />
+                     </td>
+
+
+*/

@@ -58,7 +58,7 @@ class Histogram_2 extends Component {
                   </tr>
                   <tr>
                      <td className="td_Date">
-                     <center>{this.props.dateStart.format('DD/MM/YYYY')}  -  {this.props.dateStop.format('DD/MM/YYYY')}</center>
+                        <center>{this.props.dateStart.format('DD/MM/YYYY')}  -  {this.props.dateStop.format('DD/MM/YYYY')}</center>
                      </td>
                   </tr>
                   <tr>
