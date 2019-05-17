@@ -240,10 +240,8 @@ export default class w_table extends Component {
                         </ExcelFile>
                      </td>
                   </tr>
-
                   <tr>
-                     <td colspan="2">
-
+                     <td>
                         <ReactTable
                            onFilteredChange={this.Filter_DataExcel}
                            data={this.state.Data}

@@ -9,31 +9,11 @@ import { get_Date_Filter, get_Date, GetDatFromColChart } from '../../core/core_F
 export default class w_main_Icon extends Component {
    constructor(props) {
       super(props);
-      /*// let _dataTable = get_Date_Filter(get_Date(), this.props.startDate, this.props.endDate);
-       this.state = {
-          startDate: this.props.startDate,
-          endDate: this.props.endDate,
-          //dataCol_Char1: GetDatFromColChart(_dataTable),
-       }
-       */
    }
    updateData = ({ startDate, endDate }) => {
       this.props.updateData({ startDate, endDate });
    }
-   /*
-   componentDidUpdate(prevProps) {
-      if (this.props.startDate != prevProps.startDate) {
-         this.setState({ startDate: this.props.startDate });
-      }
-      if (this.props.endDate != prevProps.endDate) {
-         this.setState({ endDate: this.props.endDate });
-      }
-   }
-*/
-
    render() {
-      //let _dataTable = get_Date_Filter(get_Date(), this.props.startDate, this.props.endDate);
-      //let dataCol_Char1 = GetDatFromColChart(_dataTable);
       let _dataTable = get_Date_Filter(get_Date(), this.props.startDate, this.props.endDate);
       let dataCol_Char1 = GetDatFromColChart(_dataTable);
       return (
@@ -61,4 +41,3 @@ export default class w_main_Icon extends Component {
       );
    }
 }
-//StartDate={this.props.StartDate} StopDate={this.props.StopDate}
