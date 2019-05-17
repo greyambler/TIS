@@ -64,17 +64,15 @@ class MainWindow extends React.Component {
    render() {
       return (
          <div>
+            <Header_Main_Chart numObjects={this.state.Object} Rss={Rss}
+               S_Date_Head={this.props.S_Date_Head} E_Date_Head={this.props.E_Date_Head}
+            />
+
+            <hr /><hr /><br />
 
             <table>
                <tbody>
-                  <tr>
-                     <td colSpan='2' >
-                        <Header_Main_Chart numObjects={this.state.Object} Rss={Rss}
-                           S_Date_Head={this.props.S_Date_Head} E_Date_Head={this.props.E_Date_Head}
-                        />
-                     </td>
-                  </tr>
-                  <tr><td colSpan='2'><hr /><br /><br /><br /></td></tr>
+
                   <tr>
 
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
@@ -106,7 +104,7 @@ class MainWindow extends React.Component {
                            dateStart={this.props.S_Date} dateStop={this.props.E_Date}
                            w_Width={this.state.W_Width} IsTable={false} />
                      </td>
-                     
+
                   </tr>
                </tbody>
             </table>

@@ -296,7 +296,7 @@ class App extends Component {
          W_Height: window.innerHeight,
          /**/
          S_Date_Head: moment().add(-3, 'month'),
-         E_Date_Head: moment().add(-3, 'month').add(10, 'day'),
+         E_Date_Head: moment().add(-3, 'month').add(3, 'day'),
 
          S_Date: moment().add(-3, 'month'),
          E_Date: moment(),

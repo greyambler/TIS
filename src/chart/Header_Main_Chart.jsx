@@ -386,7 +386,6 @@ class Header_Main_Chart extends Component {
                   </tr>
                </tbody>
             </table>
-<hr/>
          </div>
       );
    }

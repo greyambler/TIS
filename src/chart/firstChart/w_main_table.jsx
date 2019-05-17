@@ -44,18 +44,49 @@ export default class w_main_table extends Component {
       let _dataTable = get_Date_Filter(get_Date(), this.props.startDate, this.props.endDate);
       let dataCol_Char1 = GetDatFromColChart(_dataTable);
       return (
-         <table id='table_main' name='table_main' >
-            <tbody>
-               <tr>
-                  <W_head header={this.props.header} />
-               </tr>
+         <div>
+            <table id='table_main' name='table_main' >
+               <tbody>
+                  <tr >
+                     <th rowSpan='3' width='65px'>
+                        <Link to="/">
+                           <img src={'../images/Library.ico'} width='30' />
+                        </Link>
+                     </th>
+                  </tr>
+                  <tr>
+                     <W_head header={this.props.header} />
+                  </tr>
+                  <tr>
+                     <W_headDate updateData={this.updateData}
+                        startDate={this.props.startDate} endDate={this.props.endDate}
+                        isDisable={false}
+                     />
+                  </tr>
+               </tbody>
+            </table>
+            <hr /><hr /><br />
+            <table>
+               <tbody>
+                  <tr>
+                     <W_chart DataChart={dataCol_Char1} w_Width={this.props.w_Width} />
+                  </tr>
+                  <hr /><hr />
+                  <tr>
+                     <W_table Data={_dataTable} w_Width={this.props.w_Width}
+                     />
+                  </tr>
 
-               <tr>
-                  <W_headDate updateData={this.updateData}
-                     startDate={this.props.startDate} endDate={this.props.endDate}
-                     isDisable={false}
-                  />
-               </tr>
+               </tbody>
+            </table>
+         </div>
+      );
+   }
+}
+
+
+/*
+
 
                <hr /><hr /><br />
 
@@ -67,14 +98,10 @@ export default class w_main_table extends Component {
                   <W_table Data={_dataTable} w_Width={this.props.w_Width}
                   />
                </tr>
-            </tbody>
-         </table>
-      );
-   }
-}
 
 
-/*
+
+
 
 
 
