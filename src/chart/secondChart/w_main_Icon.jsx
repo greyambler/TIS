@@ -21,8 +21,8 @@ export default class w_main_Icon extends Component {
             <tbody>
                <tr>
                   <th rowSpan='3'>
-                     <Link to="/ChTDRP">
-                        <img src={'../images/JDownloader.ico'} width='30' />
+                     <Link to="/ChSecond">
+                        <img src={'../images/JDownloader.ico'} className='ICO_Link'/>
                      </Link>
                   </th>
                </tr>

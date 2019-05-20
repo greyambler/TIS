@@ -8,35 +8,42 @@ import moment from 'moment';
 export default class Third_Chart extends React.Component {
    constructor(props) {
       super(props);
+      this.state = {
+         startDate: this.props.dateStart,
+         endDate: this.props.dateStop,
+      };
+   }
+   updateData = ({ startDate, endDate }) => {
+      let NumberChart = 3;
+      this.props.updateData({ startDate, endDate, NumberChart });
+   }
+   componentDidUpdate(prevProps) {
+      if (this.props.dateStart != prevProps.dateStart) {
+         this.setState({ startDate: this.props.dateStart });
+      }
+      if (this.props.dateStop != prevProps.dateStop) {
+         this.setState({ endDate: this.props.dateStop });
+      }
    }
    render() {
-      let S_tDate = this.props.dateStart; //dateStart;
-      let E_Date = this.props.dateStop;   //dateStop;
-      let dataCol_Char1 = this.props.Data;   //GetDatFromColChart(get_Date());
-
-
       if (!this.props.IsTable) {
-
          return (
             <W_main_Icon
                header='Отклонение от нормы за период по зависшим транзакциям на ТРК'
-               DataChart={dataCol_Char1}
                w_Width={this.props.w_Width}
-               startDate={S_tDate}
-               endDate={E_Date}
+               startDate={this.state.startDate}
+               endDate={this.state.endDate}
+               updateData={this.updateData}
             />
          );
       } else {
-
-         let dataTable = get_Date();
-         dataCol_Char1 = GetDatFromColChart(dataTable);
          return (
             <W_main_table
                header='Отклонение от нормы за период по зависшим транзакциям на ТРК'
-               DataChart={dataCol_Char1}
                w_Width={this.props.w_Width}
-               startDate={S_tDate}
-               endDate={E_Date}
+               startDate={this.state.startDate}
+               endDate={this.state.endDate}
+               updateData={this.updateData}
             />
          );
       }

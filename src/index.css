@@ -217,8 +217,8 @@ table {
    /*  background: white;
    Цвет фона таблицы */
    color: black;
-   /* Цвет текста
-   border: 1px solid black;   */
+   /* Цвет текста  
+   border: 1px solid black;     */
    width: 99.9%;
 }
 
@@ -314,6 +314,18 @@ td, th, tr {
    text-align: left;
    padding-left: 10px;
    width: 50%;
+}
+
+.Head_Center {
+   text-align: center;
+}
+.Head_Left {
+   text-align: left;
+   padding-left: 10px;
+}
+.Head_Right {
+   text-align: right;
+   padding-right: 10px;
 }
 
 /*******************************/
@@ -466,3 +478,11 @@ width="35" height="35" />
 }
 
 /****PresetDateRangePicker********************************/
+
+.ICO_Link{
+   width: 25px;  
+}
+
+.td_C_Chart{
+   vertical-align: top;
+}

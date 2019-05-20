@@ -28,7 +28,7 @@ export default class w_main_table extends Component {
                   <tr >
                      <th rowSpan='3' width='65px'>
                         <Link to="/">
-                           <img src={'../images/Library.ico'} width='30' />
+                           <img src={'../images/Library.ico'} className='ICO_Link'/>
                         </Link>
                      </th>
                   </tr>

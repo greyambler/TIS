@@ -14,26 +14,90 @@ import { get_Date_Filter, get_Date, GetDatFromColChart } from '../../core/core_F
 export default class w_main_table extends Component {
    constructor(props) {
       super(props);
+      this.tick = this.tick.bind(this);
+      this.state = {
+         Object: null,
+         Rss: this.props.RssDate,
+         isExistError: false,
+      }
+   }
+   componentDidMount() {
+      this.tick();
+      this.timerID = setInterval(() => this.tick(), 30000);
    }
    updateData = ({ startDate, endDate }) => {
       this.props.updateData({ startDate, endDate });
    }
+   componentDidUpdate(prevProps) {
+      if (this.props.RssDate != prevProps.RssDate) {
+         this.setState({ Rss: this.props.RssDate }, this.tick);
+      }
+   }
+   async tick() {
+      let rss = this.state.Rss;
+      var myRequest = new Request(rss);
+
+      try {
+         var response = await fetch(myRequest,
+            {
+               method: 'GET',
+               headers:
+               {
+                  'Accept': 'application/json',
+               },
+            }
+         );
+         if (response.ok) {
+            const Jsons = await response.json();
+            this.setState({ Object: Jsons });
+         }
+         else {
+            throw Error(response.statusText);
+         }
+         this.setState({ isExistError: false })
+      }
+      catch (error) {
+         this.setState({ isExistError: true })
+         console.log(error);
+      }
+   }
+
    render() {
-      let _dataTable = get_Date_Filter(get_Date(), this.props.startDate, this.props.endDate);
-      let dataCol_Char1 = GetDatFromColChart(_dataTable);
+      let _dataTable = null;
+      let dataCol_Char1 = null;
+
+      if (this.state.Object != null) {
+         _dataTable = this.state.Object.incidents
+         dataCol_Char1 = GetDatFromColChart(_dataTable);
+      }
+      /*
+     else 
+     {
+        _dataTable = get_Date_Filter(get_Date(), this.props.startDate, this.props.endDate);
+        dataCol_Char1 = GetDatFromColChart(_dataTable);
+     }*/
+      let err = null;
+      if (this.state.isExistError) {
+         err = 'Ошибка! Сервер не ответил!';
+      }
       return (
          <div>
-            <table id='table_main' name='table_main' >
+            <table id='table_main' name='table_main'>
                <tbody>
                   <tr >
                      <th rowSpan='3' width='65px'>
                         <Link to="/">
-                           <img src={'../images/Library.ico'} width='30' />
+                           <img src={'../images/Library.ico'} className='ICO_Link' />
                         </Link>
                      </th>
                   </tr>
                   <tr>
-                     <W_head header={this.props.header} />
+                     {this.state.isExistError ? (
+                        <W_head header={err} equal='left' color='red' />
+                     ) : (
+                           <W_head header={this.props.header} />
+                        )
+                     }
                   </tr>
                   <tr>
                      <W_headDate updateData={this.updateData}
@@ -49,7 +113,9 @@ export default class w_main_table extends Component {
             <table>
                <tbody>
                   <tr>
-                     <W_chart DataChart={dataCol_Char1} w_Width={this.props.w_Width} />
+                     {dataCol_Char1 != null &&
+                        <W_chart DataChart={dataCol_Char1} w_Width={this.props.w_Width} />
+                     }
                   </tr>
                </tbody>
             </table>
@@ -58,7 +124,9 @@ export default class w_main_table extends Component {
                <tbody>
                   <tr>
                      <td>
-                        <W_table Data={_dataTable} w_Width={this.props.w_Width} />
+                        {_dataTable != null &&
+                           <W_table Data={_dataTable} w_Width={this.props.w_Width} />
+                        }
                      </td>
                   </tr>
                </tbody>

@@ -2,9 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import ReactTable from "react-table";
 
 import ReactExport from "react-data-export";
+import Moment from 'moment';
+
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
+
+
 
 
 export default class w_table extends Component {
@@ -228,11 +232,13 @@ export default class w_table extends Component {
                         <ExcelFile element={<button><img src={'../images/Office Excel.ico'} width='25' /></button>}>
                            <ExcelSheet data={this.state.Excel_Data} name="Employees">
                               <ExcelColumn label="Дата" value="Datetime" />
+
                               <ExcelColumn label="№ магазина" value="SHOP_NUM" />
                               <ExcelColumn label="№ кассы" value="KASS_NUM" />
                               <ExcelColumn label="Смена" value="SHIFT_NUM" />
                               <ExcelColumn label="Кассир" value="CASHIER_ID" />
-                              <ExcelColumn label="Тип" value="EVENT_NAME" />
+                              <ExcelColumn label="Тип" value="EVENT_TYPE" />
+                              <ExcelColumn label="Название типа" value="EVENT_NAME" />
                               <ExcelColumn label="Продолжительность" value="Duration" />
                               <ExcelColumn label="Дата" value="DateKey" />
                               <ExcelColumn label="Время" value="TimeKey" />
@@ -247,11 +253,16 @@ export default class w_table extends Component {
                            data={this.state.Data}
                            columns={[
                               {
+                                 id: "Datetime",
                                  Header: "Дата",
-                                 accessor: "Datetime"
+                                 accessor: d => {
+                                    return Moment(d.Datetime)
+                                       .local('ru')
+                                       .format('DD/MM/YYYY  hh:mm:ss a')
+                                 },
                               },
                               {
-                                 Header: "Магазин111",
+                                 Header: "Магазин",
                                  columns: [
                                     {
                                        Header: "№ магазина",
@@ -268,7 +279,7 @@ export default class w_table extends Component {
                                     {
                                        Header: "Кассир",
                                        accessor: "CASHIER_ID"
-                                    }
+                                    },
                                  ]
                               },
                               {
@@ -276,6 +287,10 @@ export default class w_table extends Component {
                                  columns: [
                                     {
                                        Header: "Тип",
+                                       accessor: "EVENT_TYPE"
+                                    },
+                                    {
+                                       Header: "Название типа",
                                        accessor: "EVENT_NAME"
                                     },
                                     {
@@ -315,3 +330,5 @@ export default class w_table extends Component {
       );
    }
 }
+
+

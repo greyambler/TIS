@@ -3,12 +3,11 @@ import W_head from '../controls/w_head.jsx';
 import W_headDate from '../controls/w_headDate.jsx';
 
 //import W_headFilter from './w_headFilter.jsx';
+//import moment from 'moment';
 
 import W_chart from './w_chart.jsx';
 import W_table from './w_table.jsx';
-
 import { Link } from "react-router-dom";
-import moment from 'moment';
 import { get_Date_Filter, get_Date, GetDatFromColChart } from '../../core/core_Function.jsx';
 
 export default class w_main_table extends Component {
@@ -28,7 +27,7 @@ export default class w_main_table extends Component {
                   <tr >
                      <th rowSpan='3' width='65px'>
                         <Link to="/">
-                           <img src={'../images/Library.ico'} width='30' />
+                           <img src={'../images/Library.ico'} className='ICO_Link'/>
                         </Link>
                      </th>
                   </tr>

@@ -228,21 +228,22 @@ export function GetDateYMD_moment(_moment) {
 }
 
 export function D1_D1_Eq_moment(_M1, _M2) {
+   if (_M1 != null && _M2 != null) {
+      try {
+         var d1 = _M1.date();
+         var m1 = _M1.month();
+         var y1 = _M1.year();
 
-   try {
-      var d1 = _M1.date();
-      var m1 = _M1.month();
-      var y1 = _M1.year();
+         var d2 = _M2.date();
+         var m2 = _M2.month();
+         var y2 = _M2.year();
 
-      var d2 = _M2.date();
-      var m2 = _M2.month();
-      var y2 = _M2.year();
-
-      if ((y1 == y2) && (m1 == m2) && (d1 == d2)) {
-         return true;
+         if ((y1 == y2) && (m1 == m2) && (d1 == d2)) {
+            return true;
+         }
       }
+      catch{ }
    }
-   catch{ }
    return false;
 }
 
@@ -259,6 +260,24 @@ export function GetDateDMY_moment(_moment) {
    else {
       return GetDateNow();
    }
+}
+
+export function Get_RSS(Rss, startDate, endDate) {
+   
+   var rss = Rss;
+   if (startDate != null && endDate != null) {
+      let IsOne = D1_D1_Eq_moment(startDate, endDate);
+      if (IsOne) {
+         rss = rss + "?date=" + GetDateYMD_moment(startDate);
+      }
+      else {
+         rss = rss + "?from="
+            + GetDateYMD_moment(startDate)
+            + "&to="
+            + GetDateYMD_moment(endDate);
+      }
+   }
+   return rss;
 }
 
 export function GetDateNowDMY() {

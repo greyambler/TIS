@@ -21,19 +21,22 @@ import DateSave5 from './save/DateSave5.jsx'
 import DateSave6 from './save/DateSave6.jsx'
 import MainTable_Save7 from './save/MainTable_Save7.jsx'
 
-
-
 import { dateStart, dateStop } from './core/core_Function.jsx';
 
-import First_Chart from './chart/First_Chart.jsx'
 
 
 import { presets } from './core/core_Function.jsx';
 
 //import Header from './core/Header';
+
 import moment from 'moment';
 
-const _Debuge = false;
+import First_Chart from './chart/First_Chart.jsx'
+import Second_Chart from './chart/Second_Chart.jsx'
+import Third_Chart from './chart/Third_Chart.jsx'
+import Fourth_Chart from './chart/Fourth_Chart.jsx'
+
+const _Debuge = true;
 
 /*// Правильно :)
    
@@ -42,31 +45,46 @@ const _Debuge = false;
     }));
    */
 
+
+
+
+const Rss = "http://172.23.16.18:11000/msg";
+const RssIncident = "http://172.23.16.18:11000/incident";
+
+//"http://172.23.16.18:11000/msg";
+
+//"http://172.23.16.18:11000/incident";
+
+//"http://172.23.16.125:11000/msg?from=DateTime&to=DateTime";
+//http://172.23.16.125:11000/msg?from=2019-02-17T23:01:22Z&to=2019-02-018T18:00:36Z
+
+//"get_01.json";
+//"http://172.23.16.125:8000/dpfacade-1.0-SNAPSHOT/webresources/ru.expertek.dp.dpfacade.dvc/";
+
+
+
 class Main extends Component {
    render() {
+      /*
       if (_Debuge) {
-
          return (
-            <First_Chart
+            <First_Chart RssIncident={RssIncident}
                w_Height={this.props.w_Height} w_Width={this.props.w_Width}
-               IsTable={false}
-
+               IsTable={true}
                dateStart={this.props.S_Date} dateStop={this.props.E_Date}
                updateData={this.props.updateData}
             />
          );
-      } else {
-
+      } else*/
+       {
          return (
-            <MainWindow
+            <MainWindow Rss={Rss} RssIncident={RssIncident}
                w_Height={this.props.w_Height} w_Width={this.props.w_Width}
-
                S_Date_Head={this.props.S_Date_Head} E_Date_Head={this.props.E_Date_Head}
                S_Date={this.props.S_Date} E_Date={this.props.E_Date}
                updateData={this.props.updateData}
             />
          );
-
       }
    }
 }
@@ -90,21 +108,63 @@ class Settings extends Component {
       return <center><h2>Настройки</h2></center>;
    }
 }
-class Ch_TDRP extends Component {
+
+class ChFirst extends Component {
    constructor(props) {
       super(props);
    }
    render() {
       return (
-         <First_Chart
+         <First_Chart Rss={Rss}  RssIncident={RssIncident}
             w_Height={this.props.w_Height} w_Width={this.props.w_Width}
-
             IsTable={true}
-
             dateStart={this.props.S_Date} dateStop={this.props.E_Date}
-
             updateData={this.props.updateData}
-
+         />
+      );
+   }
+}
+class ChSecond extends Component {
+   constructor(props) {
+      super(props);
+   }
+   render() {
+      return (
+         <Second_Chart
+            w_Height={this.props.w_Height} w_Width={this.props.w_Width}
+            IsTable={true}
+            dateStart={this.props.S_Date} dateStop={this.props.E_Date}
+            updateData={this.props.updateData}
+         />
+      );
+   }
+}
+class ChThird extends Component {
+   constructor(props) {
+      super(props);
+   }
+   render() {
+      return (
+         <Third_Chart
+            w_Height={this.props.w_Height} w_Width={this.props.w_Width}
+            IsTable={true}
+            dateStart={this.props.S_Date} dateStop={this.props.E_Date}
+            updateData={this.props.updateData}
+         />
+      );
+   }
+}
+class ChFourth extends Component {
+   constructor(props) {
+      super(props);
+   }
+   render() {
+      return (
+         <Fourth_Chart
+            w_Height={this.props.w_Height} w_Width={this.props.w_Width}
+            IsTable={true}
+            dateStart={this.props.S_Date} dateStop={this.props.E_Date}
+            updateData={this.props.updateData}
          />
       );
    }
@@ -269,10 +329,12 @@ class Nav extends Component {
                      <li><Link to="/" >Главная</Link></li>
                      <li><Link to="/settings">Настройки</Link></li>
 
+                     <li><Link to="/ChFirst">Недоступность касс</Link></li>
+                     <li><Link to="/ChSecond">Недоступность оборудования</Link></li>
+                     <li><Link to="/ChThird">Отклонение от нормы по транзакциям</Link></li>
+                     <li><Link to="/ChFourth">Недоступность СВН</Link></li>
 
-                     <li><Link to="/ChTDRP">Недоступность касс</Link></li>
                      <li><Link to="/help">Помощь</Link></li>
-
 
                   </ul>
                </li>
@@ -294,12 +356,27 @@ class App extends Component {
       this.state = {
          W_Width: window.innerWidth,
          W_Height: window.innerHeight,
-         /**/
+
          S_Date_Head: moment().add(-3, 'month'),
          E_Date_Head: moment().add(-3, 'month').add(3, 'day'),
 
-         S_Date: moment().add(-3, 'month'),
-         E_Date: moment(),
+
+         //        S_Date: moment().add(-3, 'month'),
+         //        E_Date: moment(),
+
+
+         S_Date_First: moment().add(-5, 'month'),
+         E_Date_First: moment(),
+
+         S_Date_Second: moment().add(-3, 'month'),
+         E_Date_Second: moment(),
+
+         S_Date_Third: moment().add(-3, 'month'),
+         E_Date_Third: moment(),
+
+         S_Date_Fourth: moment().add(-3, 'month'),
+         E_Date_Fourth: moment(),
+
 
       }
       this.handleResize = this.handleResize.bind(this);
@@ -314,8 +391,28 @@ class App extends Component {
    componentWillUnmount() {
       window.addEventListener("resize", null);
    }
-   updateData = ({ startDate, endDate }) => {
-      this.setState({ S_Date: startDate, E_Date: endDate });
+   updateData = ({ startDate, endDate, NumberChart }) => {
+      switch (NumberChart) {
+         case 0:
+            this.setState({ S_Date_Head: startDate, E_Date_Head: endDate });
+            break;
+         case 1:
+            this.setState({ S_Date_First: startDate, E_Date_First: endDate });
+            break;
+         case 2:
+            this.setState({ S_Date_Second: startDate, E_Date_Second: endDate });
+            break;
+         case 3:
+            this.setState({ S_Date_Third: startDate, E_Date_Third: endDate });
+            break;
+         case 4:
+            this.setState({ S_Date_Fourth: startDate, E_Date_Fourth: endDate });
+            break;
+
+         default:
+            break;
+      }
+
    }
    render() {
       return (
@@ -325,16 +422,34 @@ class App extends Component {
                <Switch>
                   <Route exact path="/" render={() => <Main w_Height={this.state.W_Height} w_Width={this.state.W_Width}
                      S_Date_Head={this.state.S_Date_Head} E_Date_Head={this.state.E_Date_Head}
-                     S_Date={this.state.S_Date} E_Date={this.state.E_Date}
+                     S_Date={this.state.S_Date_First} E_Date={this.state.E_Date_First}
                      updateData={this.updateData}
                   />} />
                   <Route exact path="/reports" render={() => <Reports w_Height={this.state.W_Height} w_Width={this.state.W_Width} />} />
 
                   <Route exact path="/settings" component={Settings} />
-                  <Route exact path="/ChTDRP" render={() => <Ch_TDRP w_Height={this.state.W_Height} w_Width={this.state.W_Width}
-                     S_Date={this.state.S_Date} E_Date={this.state.E_Date}
+
+                  <Route exact path="/ChFirst" render={() => <ChFirst
+                     w_Height={this.state.W_Height} w_Width={this.state.W_Width}
+                     S_Date={this.state.S_Date_First} E_Date={this.state.E_Date_First}
                      updateData={this.updateData}
                   />} />
+                  <Route exact path="/ChSecond" render={() => <ChSecond
+                     w_Height={this.state.W_Height} w_Width={this.state.W_Width}
+                     S_Date={this.state.S_Date_Second} E_Date={this.state.E_Date_Second}
+                     updateData={this.updateData}
+                  />} />
+                  <Route exact path="/ChThird" render={() => <ChThird
+                     w_Height={this.state.W_Height} w_Width={this.state.W_Width}
+                     S_Date={this.state.S_Date_Third} E_Date={this.state.E_Date_Third}
+                     updateData={this.updateData}
+                  />} />
+                  <Route exact path="/ChFourth" render={() => <ChFourth
+                     w_Height={this.state.W_Height} w_Width={this.state.W_Width}
+                     S_Date={this.state.S_Date_Fourth} E_Date={this.state.E_Date_Fourth}
+                     updateData={this.updateData}
+                  />} />
+
                   <Route exact path="/ChTDRP2" render={() => <Ch_TDRP2 w_Height={this.state.W_Height} w_Width={this.state.W_Width} />} />
 
                   <Route exact path="/help" component={Help} />

@@ -10,8 +10,9 @@ import {
 
 
 //import Header_Main from './chart/Save_Old/Header_Main.jsx';
-import Header_Main_Chart from './chart/Header_Main_Chart.jsx';
+//import Header_Main_Chart from './chart/Header_Main_Chart.jsx';
 
+import HeaderCh_Main from './chart/HeaderCh_Main.jsx';
 
 import First_Chart from './chart/First_Chart.jsx';
 import Second_Chart from './chart/Second_Chart.jsx';
@@ -26,17 +27,8 @@ import HistogramGroup from './chart/Save_Old/HistogramGroup.jsx';
 import moment from 'moment';
 
 
-const _Debuge = true;
+const _Debuge = false;
 
-
-const Rss = "http://172.23.16.18:11000/msg";
-
-//"http://172.23.16.18:11000/msg";
-//"http://172.23.16.125:11000/msg?from=DateTime&to=DateTime";
-//http://172.23.16.125:11000/msg?from=2019-02-17T23:01:22Z&to=2019-02-018T18:00:36Z
-
-//"get_01.json";
-//"http://172.23.16.125:8000/dpfacade-1.0-SNAPSHOT/webresources/ru.expertek.dp.dpfacade.dvc/";
 
 class MainWindow extends React.Component {
    constructor(props) {
@@ -48,13 +40,15 @@ class MainWindow extends React.Component {
          Object: null,
       }
    }
-   updateData = ({ startDate, endDate }) => {
-      this.props.updateData({ startDate, endDate });
+
+   updateData = ({ startDate, endDate, NumberChart }) => {
+      this.props.updateData({ startDate, endDate, NumberChart });
    }
 
    async componentDidMount() {
       this.setState({ W_Width: this.props.w_Width });
    }
+   
    componentDidUpdate(prevProps) {
       if (this.props.w_Width != prevProps.w_Width) {
          this.setState({ W_Width: this.props.w_Width });
@@ -64,19 +58,18 @@ class MainWindow extends React.Component {
    render() {
       return (
          <div>
-            <Header_Main_Chart numObjects={this.state.Object} Rss={Rss}
+            <HeaderCh_Main numObjects={this.state.Object} Rss={this.props.Rss}
                S_Date_Head={this.props.S_Date_Head} E_Date_Head={this.props.E_Date_Head}
+               updateData={this.updateData}
             />
 
             <hr /><hr /><br />
 
             <table>
                <tbody>
-
                   <tr>
-
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
-                        <First_Chart
+                        <First_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
                            dateStart={this.props.S_Date} dateStop={this.props.E_Date}
                            w_Width={this.state.W_Width} IsTable={false}
                            updateData={this.updateData}
@@ -86,23 +79,31 @@ class MainWindow extends React.Component {
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
                         <Second_Chart
                            dateStart={this.props.S_Date} dateStop={this.props.E_Date}
-                           w_Width={this.state.W_Width} IsTable={false} />
+                           w_Width={this.state.W_Width} IsTable={false}
+                           updateData={this.updateData}
+                        />
                      </td>
 
                   </tr>
-                  <tr><td colSpan='2'><br /><br /><br /></td></tr>
+                  <tr>
+                     <td colSpan='2'><hr /><hr /><br /></td>
+                  </tr>
                   <tr>
 
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
                         <Third_Chart
                            dateStart={this.props.S_Date} dateStop={this.props.E_Date}
-                           w_Width={this.state.W_Width} IsTable={false} />
+                           w_Width={this.state.W_Width} IsTable={false}
+                           updateData={this.updateData}
+                        />
                      </td>
 
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
                         <Fourth_Chart
                            dateStart={this.props.S_Date} dateStop={this.props.E_Date}
-                           w_Width={this.state.W_Width} IsTable={false} />
+                           w_Width={this.state.W_Width} IsTable={false}
+                           updateData={this.updateData}
+                        />
                      </td>
 
                   </tr>
