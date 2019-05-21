@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import {
    get_Date, Get_StartDate, Get_StopDate,
-   GetDateNow, contains, GetDatFromColChart, dateStart, dateStop
+//   GetDateNow, contains, GetDatFromColChart, dateStart, dateStop
 } from './core/core_Function.jsx';
 
 //import TotalIndication from './chart/TotalIndication.jsx'
@@ -34,7 +34,7 @@ class MainWindow extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
-         currentDate: GetDateNow(),
+         //currentDate: moment(),//GetDateNow(),
          W_Width: this.props.w_Width,
          W_Height: this.props.w_Height,
          Object: null,
@@ -115,6 +115,7 @@ class MainWindow extends React.Component {
 }
 
 export default MainWindow;
+
 /*
 
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} ><LinesChart Data={dataCol_Char1}

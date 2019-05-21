@@ -4,20 +4,54 @@ import { throws } from 'assert';
 export default class w_head extends Component {
 
    render() {
-      let _className = 'Head_Center';
-      switch (this.props.equal) {
-         case 'left': _className = 'Head_Left'; break;
-         case 'right': _className = 'Head_Right'; break;
-         default: _className = 'Head_Center'; break;
+      let StyleHead = {
+         textAlign: "center",
       }
       if (this.props.color == 'red') {
-         _className = 'T_Error';
+         StyleHead = {
+            textAlign: "center",
+            color: "red",
+         }
+      }
+      switch (this.props.equal) {
+         case 'left':
+            {
+               StyleHead = {
+                  textAlign: "left",
+                  paddingLeft: "10px",
+               }
+               if (this.props.color == 'red') {
+                  StyleHead = {
+                     textAlign: "left",
+                     paddingLeft: "10px",
+                     color: "red",
+                  }
+               }
+
+               break;
+            }
+         case 'right':
+            {
+               StyleHead = {
+                  textAlign: "right",
+                  paddingRight: "10px",
+               }
+               if (this.props.color == 'red') {
+                  StyleHead = {
+                     textAlign: "right",
+                     paddingRight: "10px",
+                     color: "red",
+                  }
+               }
+               break;
+            }
+         default: break;
       }
 
       return (
-         < th className={_className}>
+         <th style={StyleHead} >
             <legend>{this.props.header}</legend>
-         </th >
+         </th>
       );
    }
 }

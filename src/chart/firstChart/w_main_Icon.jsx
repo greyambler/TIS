@@ -18,14 +18,14 @@ export default class w_main_Icon extends Component {
    }
    componentDidMount() {
       this.tick();
-      this.timerID = setInterval(() => this.tick(), 30000);
+      //this.timerID = setInterval(() => this.tick(), 30000);
    }
    updateData = ({ startDate, endDate }) => {
       this.props.updateData({ startDate, endDate });
    }
    componentDidUpdate(prevProps) {
       if (this.props.RssDate != prevProps.RssDate) {
-         this.setState({ RssDate: this.props.RssDate }, this.tick);
+         this.setState({ Rss: this.props.RssDate }, this.tick);
       }
    }
    async tick() {
@@ -89,7 +89,7 @@ export default class w_main_Icon extends Component {
                </tr>
                <tr>
                   {this.state.isExistError ? (
-                     <W_head header={err} equal='left' color='red' />
+                     <W_head header={err} color='red' />
                   ) : (
                         <W_head header={this.props.header} />
                      )

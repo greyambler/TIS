@@ -23,7 +23,7 @@ export default class w_main_table extends Component {
    }
    componentDidMount() {
       this.tick();
-      this.timerID = setInterval(() => this.tick(), 30000);
+      //this.timerID = setInterval(() => this.tick(), 30000);
    }
    updateData = ({ startDate, endDate }) => {
       this.props.updateData({ startDate, endDate });
@@ -93,7 +93,7 @@ export default class w_main_table extends Component {
                   </tr>
                   <tr>
                      {this.state.isExistError ? (
-                        <W_head header={err} equal='left' color='red' />
+                        <W_head header={err} color='red' />
                      ) : (
                            <W_head header={this.props.header} />
                         )

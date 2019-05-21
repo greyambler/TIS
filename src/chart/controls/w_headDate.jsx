@@ -41,14 +41,53 @@ export default class w_headDate extends Component {
    }
 
    render() {
-      let _className = 'Head_Center';
-      switch (this.props.equal) {
-         case 'left': _className = 'Head_Left'; break;
-         case 'right': _className = 'Head_Right'; break;
-         default: _className = 'Head_Center'; break;
+      let StyleHead = {
+         textAlign: "center",
+      }
+      if (this.props.color == 'red') {
+         StyleHead = {
+            textAlign: "center",
+            color: "red",
+         }
+      }
+      if (this.props.color != 'red') {
+         switch (this.props.equal) {
+            case 'left':
+               {
+                  StyleHead = {
+                     textAlign: "left",
+                     paddingLeft: "10px",
+                  }
+                  if (this.props.color == 'red') {
+                     StyleHead = {
+                        textAlign: "left",
+                        paddingLeft: "10px",
+                        color: "red",
+                     }
+                  }
+
+                  break;
+               }
+            case 'right':
+               {
+                  StyleHead = {
+                     textAlign: "right",
+                     paddingLeft: "10px",
+                  }
+                  if (this.props.color == 'red') {
+                     StyleHead = {
+                        textAlign: "right",
+                        paddingLeft: "10px",
+                        color: "red",
+                     }
+                  }
+                  break;
+               }
+            default: break;
+         }
       }
       return (
-         <td className={_className}>
+         <td style={StyleHead}>
             <DateRangePicker
                startDate={this.props.startDate}
                startDateId="S_DRP_id"

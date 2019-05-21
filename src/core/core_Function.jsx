@@ -436,5 +436,4 @@ export function isSameDay(a, b) {
       && a.month() === b.month()
       && a.year() === b.year();
 }
-
 /****PresetDateRangePicker********************************/

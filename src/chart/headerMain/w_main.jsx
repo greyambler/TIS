@@ -81,11 +81,11 @@ export default class w_main extends Component {
          else {
             throw Error(response.statusText);
          }
-         this.setState({isExistError : false})
+         this.setState({ isExistError: false })
 
       }
       catch (error) {
-         this.setState({isExistError : true})
+         this.setState({ isExistError: true })
          console.log(error);
       }
    }
@@ -111,10 +111,16 @@ export default class w_main extends Component {
             <table>
                <tbody>
                   <tr>
-                     <W_head header={this.props.header} equal='right' />
+                     {this.state.isExistError ? (
+                        <W_head header={err} equal='right' color='red' />
+                     ) : (
+                           <W_head header={this.props.header} equal='right' />
+                        )
+                     }
+
                      <W_headDate updateData={this.updateData} equal='left'
                         startDate={this.props.startDate} endDate={this.props.endDate} isDisable={false} />
-                     <W_head header={err} equal='left' color='red' />
+
                   </tr>
                </tbody>
             </table>
@@ -139,7 +145,7 @@ export default class w_main extends Component {
                      </td>
                      <td>
                         <center>
-                           <W_sectorCircle N_text={proc_H3} proc='true'/>
+                           <W_sectorCircle N_text={proc_H3} proc='true' />
                         </center>
                      </td>
                      <td className='td_t_Right'></td>
