@@ -1,12 +1,18 @@
 import "babel-polyfill"
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+
+//E
+
+import 'react-app-polyfill/ie9'; 
+import 'react-app-polyfill/ie11';  
+//E
+
 import './index.css';
 //import './index_Menu.css';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
 
 ReactDOM.render(
    <App />,

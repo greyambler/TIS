@@ -222,6 +222,13 @@ export default class w_table extends Component {
    //<img src={'../images/JDownloader.ico'} width='30' />
    //<ExcelFile element={<button><img src={'../images/JDownloader.ico'} width='30'>Выгрузка в EXCEL</img></button>}>
    //<button>Выгрузка в EXCEL</button>
+   //
+   //value="Datetime" />
+   // <ExcelColumn label="Дата" value={(col) 
+   // => Moment(col.Datetime).local('ru').format('DD.MM.YYYY hh:mm:ss')} />
+
+   //<ExcelColumn label="Дата" value="Datetime" />
+
    render() {
       return (
          <div>
@@ -231,7 +238,8 @@ export default class w_table extends Component {
                      <td width="100%" align="right">
                         <ExcelFile element={<button><img src={'../images/Office Excel.ico'} width='25' /></button>}>
                            <ExcelSheet data={this.state.Excel_Data} name="Employees">
-                              <ExcelColumn label="Дата" value="Datetime" />
+                              <ExcelColumn label="Дата" value={(col) =>
+                                 Moment(col.Datetime).local('ru').format('DD.MM.YYYY hh:mm:ss')} />
 
                               <ExcelColumn label="№ магазина" value="SHOP_NUM" />
                               <ExcelColumn label="№ кассы" value="KASS_NUM" />
@@ -252,14 +260,21 @@ export default class w_table extends Component {
                            onFilteredChange={this.Filter_DataExcel}
                            data={this.state.Data}
                            columns={[
+
                               {
-                                 id: "Datetime",
-                                 Header: "Дата",
-                                 accessor: d => {
-                                    return Moment(d.Datetime)
-                                       .local('ru')
-                                       .format('DD/MM/YYYY  hh:mm:ss a')
-                                 },
+                                 Header: "",
+                                 columns: [
+                                    {
+                                       id: "Datetime",
+                                       Header: "Дата",
+                                       /*accessor: "Datetime",*/
+                                       accessor: d => {
+                                          return Moment(d.Datetime)
+                                             .local('ru')
+                                             .format('DD.MM.YYYY hh:mm:ss')
+                                       },
+                                    },
+                                 ]
                               },
                               {
                                  Header: "Магазин",

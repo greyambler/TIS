@@ -102,7 +102,6 @@ export function get_Date_Filter(data, S_date, E_date) {
    return date_Test;
 }
 
-
 export function Get_StartDate(CurentDate, Date_time) {
    if (CurentDate == null) {
       return Date_time;

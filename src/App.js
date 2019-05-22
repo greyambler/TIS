@@ -36,6 +36,9 @@ import Second_Chart from './chart/Second_Chart.jsx'
 import Third_Chart from './chart/Third_Chart.jsx'
 import Fourth_Chart from './chart/Fourth_Chart.jsx'
 
+
+
+
 const _Debuge = true;
 
 /*// Правильно :)
@@ -76,7 +79,7 @@ class Main extends Component {
             />
          );
       } else*/
-       {
+      {
          return (
             <MainWindow Rss={Rss} RssIncident={RssIncident}
                w_Height={this.props.w_Height} w_Width={this.props.w_Width}
@@ -115,7 +118,7 @@ class ChFirst extends Component {
    }
    render() {
       return (
-         <First_Chart Rss={Rss}  RssIncident={RssIncident}
+         <First_Chart Rss={Rss} RssIncident={RssIncident}
             w_Height={this.props.w_Height} w_Width={this.props.w_Width}
             IsTable={true}
             dateStart={this.props.S_Date} dateStop={this.props.E_Date}
@@ -351,20 +354,20 @@ function ShowError() {
 }
 
 class App extends Component {
-   constructor() {
-      super();
+   constructor(props) {
+      super(props);
       this.state = {
          W_Width: window.innerWidth,
          W_Height: window.innerHeight,
 
-         S_Date_Head: moment().add(-3, 'month'),
-         E_Date_Head: moment().add(-3, 'month').add(3, 'day'),
+         S_Date_Head: moment('2019-02-17'),        // .add(-3, 'month'),
+         E_Date_Head: moment('2019-02-17'),        // .add(-3, 'month').add(3, 'day'),
 
-         //        S_Date: moment().add(-3, 'month'),
-         //        E_Date: moment(),
+                                                   // S_Date: moment().add(-3, 'month'),
+                                                   // E_Date: moment(),
 
-         S_Date_First: moment().add(-4, 'month'),
-         E_Date_First: moment(),
+         S_Date_First: moment('2019-02-19'),       // .add(-3, 'month'),
+         E_Date_First: moment('2019-05-19'),
 
          S_Date_Second: moment().add(-3, 'month'),
          E_Date_Second: moment(),
@@ -374,7 +377,6 @@ class App extends Component {
 
          S_Date_Fourth: moment().add(-3, 'month'),
          E_Date_Fourth: moment(),
-
 
       }
       this.handleResize = this.handleResize.bind(this);
@@ -412,26 +414,32 @@ class App extends Component {
       }
 
    }
+
+
    render() {
       return (
          <Router>
             <Nav />
             <div className="content">
                <Switch>
-                  <Route exact path="/" render={() => <Main w_Height={this.state.W_Height} w_Width={this.state.W_Width}
+                  <Route exact path="/" render={() => <Main
+                     w_Height={this.state.W_Height} w_Width={this.state.W_Width}
                      S_Date_Head={this.state.S_Date_Head} E_Date_Head={this.state.E_Date_Head}
                      S_Date={this.state.S_Date_First} E_Date={this.state.E_Date_First}
                      updateData={this.updateData}
                   />} />
-                  <Route exact path="/reports" render={() => <Reports w_Height={this.state.W_Height} w_Width={this.state.W_Width} />} />
-
-                  <Route exact path="/settings" component={Settings} />
-
                   <Route exact path="/ChFirst" render={() => <ChFirst
                      w_Height={this.state.W_Height} w_Width={this.state.W_Width}
                      S_Date={this.state.S_Date_First} E_Date={this.state.E_Date_First}
                      updateData={this.updateData}
                   />} />
+
+
+
+                  <Route exact path="/reports" render={() => <Reports w_Height={this.state.W_Height} w_Width={this.state.W_Width} />} />
+
+                  <Route exact path="/settings" component={Settings} />
+
                   <Route exact path="/ChSecond" render={() => <ChSecond
                      w_Height={this.state.W_Height} w_Width={this.state.W_Width}
                      S_Date={this.state.S_Date_Second} E_Date={this.state.E_Date_Second}

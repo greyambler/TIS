@@ -6,6 +6,7 @@ import DataSet from "@antv/data-set";
 
 import W_main from './headerMain/w_main.jsx';
 import 'moment/locale/ru';
+import { get_Date_Filter, get_Date, GetDatFromColChart, Get_RSS } from '../core/core_Function.jsx';
 import { DateRangePicker } from 'react-dates';
 
 
@@ -21,10 +22,13 @@ export default class HeaderCh_Main extends Component {
       this.props.updateData({ startDate, endDate, NumberChart });
    }
    render() {
+
+      let rss = Get_RSS(this.props.Rss, this.props.S_Date_Head, this.props.E_Date_Head);
+
       return (
          <W_main
             header='Общие показатели за период'
-            Rss={this.props.Rss}            
+            Rss={rss}
             startDate={this.props.S_Date_Head}
             endDate={this.props.E_Date_Head}
             updateData={this.updateData}

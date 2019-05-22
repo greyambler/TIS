@@ -49,7 +49,7 @@ export default class w_head extends Component {
       }
 
       return (
-         <th style={StyleHead} >
+         <th style={StyleHead}>
             <legend>{this.props.header}</legend>
          </th>
       );

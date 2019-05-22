@@ -10,12 +10,7 @@ export default class w_main extends Component {
    constructor(props) {
       super(props);
       this.tick = this.tick.bind(this);
-      this.Get_RSS = this.Get_RSS.bind(this);
-
       this.state = {
-         startDate: this.props.startDate,
-         endDate: this.props.endDate,
-
          Rss: this.props.Rss,
          Object: null,
          isExistError: false,
@@ -25,45 +20,18 @@ export default class w_main extends Component {
    updateData = ({ startDate, endDate }) => {
       this.setState({ Object: null }, this.props.updateData({ startDate, endDate }));
    }
-
-   /*
-      componentDidUpdate(prevProps) {
-         if (this.props.startDate != prevProps.startDate) {
-            this.setState({ startDate: this.props.startDate }, this.tick);
-         }
-         if (this.props.endDate != prevProps.endDate) {
-            this.setState({ endDate: this.props.endDate }, this.tick);
-         }
-      }
-      */
    async componentDidMount() {
       await this.tick();
       //this.timerID = setInterval(() => this.tick(), 30000);
    }
-
-   Get_RSS() {
-      ///this.setState({ Object: null });
-      var rss = this.state.Rss;
-
-      if (this.state.startDate != null && this.state.endDate != null) {
-         let IsOne = D1_D1_Eq_moment(this.state.startDate, this.state.endDate);
-         if (IsOne) {
-            rss = rss + "?date=" + GetDateYMD_moment(this.state.startDate);
-         }
-         else {
-            rss = rss + "?from="
-               + GetDateYMD_moment(this.state.startDate)
-               + "&to="
-               + GetDateYMD_moment(this.state.endDate);
-         }
+   componentDidUpdate(prevProps) {
+      if (this.props.Rss != prevProps.Rss) {
+         this.setState({ Rss: this.props.Rss }, this.tick);
       }
-      return rss;
    }
-
    async tick() {
-      let rss = this.Get_RSS();
+      let rss = this.state.Rss;
       var myRequest = new Request(rss);
-
       try {
          var response = await fetch(myRequest,
             {
@@ -111,16 +79,16 @@ export default class w_main extends Component {
             <table>
                <tbody>
                   <tr>
+                     <td></td>
                      {this.state.isExistError ? (
                         <W_head header={err} equal='right' color='red' />
                      ) : (
                            <W_head header={this.props.header} equal='right' />
                         )
                      }
-
                      <W_headDate updateData={this.updateData} equal='left'
                         startDate={this.props.startDate} endDate={this.props.endDate} isDisable={false} />
-
+                     <td></td>
                   </tr>
                </tbody>
             </table>
@@ -159,7 +127,6 @@ export default class w_main extends Component {
                      <td className='td_Name' ><center>Системные инциденты</center></td>
                      <td />
                   </tr>
-
                </tbody>
             </table>
          </div>
