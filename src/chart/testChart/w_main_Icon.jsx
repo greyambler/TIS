@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import W_head from '../controls/w_head.jsx';
 import W_headDate from '../controls/w_headDate.jsx';
-import W_charts from './w_charts.jsx';
+import W_chart from './w_chart.jsx';
+
+
 import { Link } from "react-router-dom";
 import moment from 'moment';
-
-import { get_Date_Filter, get_Date, GetDatFromColChart } from '../../core/core_Function.jsx';
+import { get_Date_Filter, get_Date, GetDatFromColChart, GetDatFromColChart_month } from '../../core/core_Function.jsx';
 
 export default class w_main_Icon extends Component {
    constructor(props) {
@@ -57,22 +58,16 @@ export default class w_main_Icon extends Component {
       }
    }
 
+
    render() {
       let _dataTable = null;
       let dataCol_Char1 = null;
 
       if (this.state.Object != null) {
          _dataTable = this.state.Object.incidents
-         //dataCol_Char1 = GetDatFromColChart(_dataTable);
+         dataCol_Char1 = GetDatFromColChart_month(_dataTable);
       }
-      /*
-      else
-      {
-         _dataTable = get_Date_Filter(get_Date(), this.props.startDate, this.props.endDate);
-         dataCol_Char1 = GetDatFromColChart(_dataTable);
-      }
-      */
-
+      
       let err = null;
       if (this.state.isExistError) {
          err = 'Ошибка! Сервер не ответил!';
@@ -82,7 +77,7 @@ export default class w_main_Icon extends Component {
             <tbody>
                <tr>
                   <th rowSpan='3'>
-                     <Link to="/ChFirst">
+                     <Link to="/ChTest">
                         <img src={'../images/JDownloader.ico'} className='ICO_Link' />
                      </Link>
                   </th>
@@ -97,12 +92,15 @@ export default class w_main_Icon extends Component {
                </tr>
                <tr>
                   <W_headDate updateData={this.updateData}
-                     startDate={this.props.startDate} endDate={this.props.endDate} isDisable={false} />
+                     startDate={this.props.startDate} endDate={this.props.endDate} 
+                     isDisable={false} 
+                     />
                </tr>
-
-               {_dataTable != null &&
-                  <W_charts Data={_dataTable} w_Width={this.props.w_Width} isLegend={false} />
-               }
+               <tr>
+                  {dataCol_Char1 != null &&
+                     <W_chart DataChart={dataCol_Char1} w_Width={this.props.w_Width} />
+                  }
+               </tr>
             </tbody>
          </table>
       );

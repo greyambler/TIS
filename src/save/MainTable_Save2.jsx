@@ -14,8 +14,8 @@ import {
 
 
 class MainTable_Save2 extends React.Component {
-   constructor() {
-      super();
+   constructor(props) {
+      super(props);
       this.ON_Click = this.ON_Click.bind(this);
       this.onChange = this.onChange.bind(this);
       this.state = {

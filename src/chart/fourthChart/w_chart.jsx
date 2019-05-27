@@ -50,7 +50,9 @@ export default class w_chart extends Component {
                   <Axis name="sold" />
                   <Legend position="bottom" dy={-10} />
                   <Tooltip />
-                  <Geom type="interval" position="genre*sold" />
+                  <Geom type="interval" position="genre*sold"
+                     color={"genre"}
+                  />
                </Chart>
             </center>
          </td>

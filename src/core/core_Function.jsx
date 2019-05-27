@@ -262,7 +262,7 @@ export function GetDateDMY_moment(_moment) {
 }
 
 export function Get_RSS(Rss, startDate, endDate) {
-   
+
    var rss = Rss;
    if (startDate != null && endDate != null) {
       let IsOne = D1_D1_Eq_moment(startDate, endDate);
@@ -289,11 +289,12 @@ export function GetDateNowDMY() {
    var today = day + "." + month + "." + year;
    return today;
 }
+
 export function contains(arr, elem) {
    let Exist = false;
    if (arr != null && elem != null) {
       for (const iterator of arr) {
-         Exist = (iterator.CASHIER_ID == elem);
+         Exist = (iterator.n == elem);
          if (Exist) {
             break;
          }
@@ -301,30 +302,172 @@ export function contains(arr, elem) {
    }
    return Exist;
 }
-
-
-
+export function contains_Mouth(arr, elem) {
+   let Exist = false;
+   if (arr != null && elem != null) {
+      for (const iterator of arr) {
+         Exist = (iterator.date_month == elem);
+         if (Exist) {
+            break;
+         }
+      }
+   }
+   return Exist;
+}
+export function contains_AZS(arr, elem) {
+   let Exist = false;
+   if (arr != null && elem != null) {
+      for (const iterator of arr) {
+         Exist = (iterator.n == elem);
+         if (Exist) {
+            break;
+         }
+      }
+   }
+   return Exist;
+}
+export function contains_CODE(arr, elem) {
+   let Exist = false;
+   if (arr != null && elem != null) {
+      for (const iterator of arr) {
+         Exist = (iterator.n == elem);
+         if (Exist) {
+            break;
+         }
+      }
+   }
+   return Exist;
+}
+export function contains_KASS(arr, elem) {
+   let Exist = false;
+   if (arr != null && elem != null) {
+      for (const iterator of arr) {
+         Exist = (iterator.n == elem);
+         if (Exist) {
+            break;
+         }
+      }
+   }
+   return Exist;
+}
 export let dateStart = null;
 export let dateStop = null;
 
-export function GetDatFromColChart(data_DB) {
+export function GetDatFromColChart(data_DB, cashier) {
    let dataCol_Char1 = Array();
    let t = 0;
    for (const element of data_DB) {
-      let ttt = 0;
-      dateStart = Get_StartDate(dateStart, element.Datetime);
-      dateStop = Get_StopDate(dateStop, element.Datetime);
-
-      let Cashier = "Кассир " + element.CASHIER_ID;
-      if (!contains(dataCol_Char1, Cashier)) {
-
-         dataCol_Char1[t] = { CASHIER_ID: Cashier, F: element.F, N: 1 };
-         t++;
+      //let ttt = 0;
+      //dateStart = Get_StartDate(dateStart, element.Datetime);
+      //dateStop = Get_StopDate(dateStop, element.Datetime);
+      if (cashier != null) {
+         if (cashier == element.CASHIER_ID) {
+            let code = element.CASHIER_ID;
+            if (!contains(dataCol_Char1, code)) {
+               dataCol_Char1[t] = { n: code, CASHIER_ID: "" + code + "", F: element.F, sales: 1 };
+               t++;
+            }
+            else {
+               for (const iterator of dataCol_Char1) {
+                  if (iterator.n == code) {
+                     iterator.sales = iterator.sales + 1;
+                  }
+               }
+            }
+         }
+      } else {
+         let code = element.CASHIER_ID;
+         if (!contains(dataCol_Char1, code)) {
+            dataCol_Char1[t] = { n: code, CASHIER_ID: "" + code + "", F: element.F, sales: 1 };
+            t++;
+         }
+         else {
+            for (const iterator of dataCol_Char1) {
+               if (iterator.n == code) {
+                  iterator.sales = iterator.sales + 1;
+               }
+            }
+         }
       }
-      else {
+   }
+   return dataCol_Char1;
+}
+
+
+export function GetDatFromColChart_month(data_DB) {
+   let dataCol_Char1 = Array();
+   let t = 0;
+   for (const element of data_DB) {
+      //let ttt = 0;
+      let date = moment(element.Datetime.toString()).local('ru').format('MM/YYYY');
+      let date_month = moment(element.Datetime.toString()).local('ru').format('MM');
+
+      if (!contains_Mouth(dataCol_Char1, date_month)) {
+         dataCol_Char1[t] = { date_month: date_month, date: date, sales: 1 };
+         t++;
+      } else {
          for (const iterator of dataCol_Char1) {
-            if (iterator.CASHIER_ID == Cashier) {
-               iterator.N = iterator.N + 1;
+            if (iterator.date_month == date_month) {
+               iterator.sales = iterator.sales + 1;
+            }
+         }
+      }
+
+   }
+   return dataCol_Char1;
+}
+
+export function GetDatFromColChart_AZS(data_DB) {
+   let dataCol_Char1 = Array();
+   let t = 0;
+   for (const element of data_DB) {
+      let code = element.SHOP_NUM;
+
+      if (!contains_AZS(dataCol_Char1, code)) {
+         dataCol_Char1[t] = { n: code, azs: "" + code + "", sales: 1 };
+         t++;
+      } else {
+         for (const iterator of dataCol_Char1) {
+            if (iterator.n == code) {
+               iterator.sales = iterator.sales + 1;
+            }
+         }
+      }
+   }
+   return dataCol_Char1;
+}
+export function GetDatFromColChart_CODE(data_DB) {
+   let dataCol_Char1 = Array();
+   let t = 0;
+   for (const element of data_DB) {
+      let code = element.EVENT_TYPE;
+
+      if (!contains_CODE(dataCol_Char1, code)) {
+         dataCol_Char1[t] = { n: code, azs: "" + code + "", sales: 1 };
+         t++;
+      } else {
+         for (const iterator of dataCol_Char1) {
+            if (iterator.n == code) {
+               iterator.sales = iterator.sales + 1;
+            }
+         }
+      }
+   }
+   return dataCol_Char1;
+}
+export function GetDatFromColChart_KASS(data_DB) {
+   let dataCol_Char1 = Array();
+   let t = 0;
+   for (const element of data_DB) {
+      let code = element.KASS_NUM;
+
+      if (!contains_KASS(dataCol_Char1, code)) {
+         dataCol_Char1[t] = { n: code, KASS_NUM: "" + code + "", sales: 1 };
+         t++;
+      } else {
+         for (const iterator of dataCol_Char1) {
+            if (iterator.n == code) {
+               iterator.sales = iterator.sales + 1;
             }
          }
       }
@@ -385,18 +528,46 @@ export const Tips = () =>
 /****PresetDateRangePicker********************************/
 
 const today = moment();
-const tomorrow = moment().add(1, 'day');
 const yesterday = moment().add(-1, 'day');
+
+const startPast_Week = moment().startOf('week').isoWeekday(1).add(-7, 'day');
+const endPast_Week = moment().startOf('week').isoWeekday(0);
+
+const startPast_Month = moment().subtract(1, 'months').startOf('month');
+const endPast_Month = moment().subtract(1, 'months').endOf('month');
+
+//let cDate = '2020/01/20';
+
+const quarter = moment().quarter();
+const quarterLast = (quarter == 1) ? 4 : quarter - 1;
+let startPast_Quarter = moment().quarter(quarterLast).startOf('quarter');
+let endPast_Quarter = moment().quarter(quarterLast).endOf('quarter');
+
+if (quarterLast == 4) {
+   startPast_Quarter = moment().add(-1, "year").quarter(quarterLast).startOf('quarter');
+   endPast_Quarter = moment().add(-1, "year").quarter(quarterLast).endOf('quarter');
+}
+
 export const presets = [
    {
+      text: 'Прошлый квартал',
+      start: startPast_Quarter,
+      end: endPast_Quarter,
+   },
+   {
       text: 'Прошлый месяц',
-      start: moment().add(-1, 'month'),
+      start: startPast_Month,
+      end: endPast_Month,
+   },
+   {
+      text: 'Прошлые 30 дней',
+      start: moment().add(-30, 'day'),
       end: today,
    },
    {
       text: 'Прошлая неделя',
-      start: moment().add(-1, 'week'),
-      end: today,
+      start: startPast_Week,
+      end: endPast_Week,
    },
    {
       text: 'Вчера',
@@ -407,30 +578,23 @@ export const presets = [
       text: 'Сегодня',
       start: today,
       end: today,
-   },
-   {
-      text: 'Завтра',
-      start: tomorrow,
-      end: tomorrow,
-   },
-   {
-      text: 'Следующая неделя',
-      start: today,
-      end: moment().add(1, 'week'),
-   },
-   {
-      text: 'Следующий месяц',
-      start: today,
-      end: moment().add(1, 'month'),
    }];
 
 
 export function isSameDay(a, b) {
    moment.locale('ru');
-
+   /*
+      alert(quarter + "\n" +
+         quarterLast + "\n" +
+         startPast_Quarter.format('DD/MM/YYYY') + "\n" +
+         endPast_Quarter.format('DD/MM/YYYY')
+      );
+   */
    if (!moment.isMoment(a) || !moment.isMoment(b)) return false;
    // Compare least significant, most likely to change units first
    // Moment's isSame clones moment inputs and is a tad slow
+
+
    return a.date() === b.date()
       && a.month() === b.month()
       && a.year() === b.year();

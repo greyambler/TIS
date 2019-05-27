@@ -1,7 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import { isSameDay, presets, GetDateNow, StartDate_Big_EndDate, D1_D1_Eq_moment, GetDateYMD_moment } from '../core/core_Function.jsx';
+
+import { isSameDay, presets, GetDateNow, StartDate_Big_EndDate, 
+   D1_D1_Eq_moment, GetDateYMD_moment } from '../../core/core_Function.jsx';
+
 import { Stage, Layer, Rect, Text, Circle } from 'react-konva';
-import { G2, Chart, Geom, Axis, Tooltip, Coord, Label, Legend, View, Guide, Shape, Facet, Util } from "bizcharts";
+
+import { G2, Chart, Geom, Axis, Tooltip, Coord, Label, Legend, View, 
+   Guide, Shape, Facet, Util } from "bizcharts";
+
 import DataSet from "@antv/data-set";
 
 import 'moment/locale/ru';

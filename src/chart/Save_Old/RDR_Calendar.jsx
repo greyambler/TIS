@@ -10,7 +10,7 @@ import { ru } from 'date-fns/esm/locale';
 import {
    get_Date, Get_StartDate, Get_StopDate, GetDateNowDMY,
    GetDateNow, contains, GetDatFromColChart, dataStart, dataStop
-} from '../core/core_Function.jsx';
+} from '../../core/core_Function.jsx';
 
 
 

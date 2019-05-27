@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import { GetDateNow } from '../core/core_Function.jsx';
+import { GetDateNow } from '../../core/core_Function.jsx';
 
 class RightIndication extends Component {
    constructor(props) {

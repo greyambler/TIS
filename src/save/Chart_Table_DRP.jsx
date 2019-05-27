@@ -3,12 +3,15 @@ import { render } from "react-dom";
 import ReactTable from "react-table";
 
 import "react-table/react-table.css"; // Импорт стилей путем включения
+import { Chart, Geom, Axis, Tooltip, Legend, Coord, Label, Guide } from 'bizcharts';
+
+
 
 import {
    isSameDay, presets,
    get_Date, Get_StartDate, Get_StopDate,
    GetDateNow, contains, GetDatFromColChart, dateStart, dateStop
-} from './core/core_Function.jsx';
+} from '../core/core_Function.jsx';
 
 import { DateRangePicker } from 'react-dates';
 import moment from 'moment';
@@ -21,14 +24,16 @@ const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 
 
-class MainTable_DRP extends React.Component {
+class Chart_Table_DRP extends React.Component {
    constructor(props) {
       super(props);
+
       this.onDatesChange = this.onDatesChange.bind(this);
       this.renderDatePresets = this.renderDatePresets.bind(this);
 
       this.Filter_DataExcel = this.Filter_DataExcel.bind(this);
       this.get_DatFilters = this.get_DatFilters.bind(this);
+
       this.state = {
          Full_Data: get_Date(),
          currentDate: GetDateNow(),
@@ -36,7 +41,12 @@ class MainTable_DRP extends React.Component {
 
          startDate: moment(),
          endDate: moment(),
+
+         W_Width: window.innerWidth / 2 - 25,
+
+         //Data: this.props.Data,
       };
+
    }
 
    inputChangedHandler = (event) => {
@@ -236,6 +246,15 @@ class MainTable_DRP extends React.Component {
    }
 
 
+   componentDidMount() {
+      this.setState({ W_Width: this.props.w_Width / 2 - 25 });
+   }
+
+   componentDidUpdate(prevProps) {
+      if (this.props.w_Width != prevProps.w_Width) {
+         this.setState({ W_Width: this.props.w_Width });
+      }
+   }
 
    onDatesChange({ startDate, endDate }) {
       this.setState({ startDate, endDate });
@@ -251,11 +270,9 @@ class MainTable_DRP extends React.Component {
                return (
                   <button
                      key={text}
-
-                     className={!isSelected ?
-                        ("btn_Date")
-                        :
-                        ("btn_Date_Select")}
+                     className={!isSelected
+                        ? ("btn_Date")
+                        : ("btn_Date_Select")}
                      type="button"
                      onClick={() => this.onDatesChange({ startDate: start, endDate: end })}>
                      {text}
@@ -266,20 +283,15 @@ class MainTable_DRP extends React.Component {
       );
    }
 
-
-
-   /*
-   <td className='td_Left'>
-      <input type='date' className='date_h' value={this.state.currentDate}
-      onChange={(event) => this.inputChangedHandler(event)} />
-   </td>
-   */
-
-
-
    render() {
+      let dataCol_Char1 = GetDatFromColChart(get_Date());
+      const cols1 = {
+         N: { alias: 'Событий' },
+         CASHIER_ID: { alias: 'Кассир' }
+      };
       return (
          <div>
+
             <table className='tbl'>
                <tbody>
                   <tr>
@@ -320,6 +332,9 @@ class MainTable_DRP extends React.Component {
 
                         </center>
                      </td>
+
+
+
                      <td width="25%">
                         <ExcelFile element={<button>Выгрузка в EXCEL</button>}>
                            <ExcelSheet data={this.state.Excel_Data} name="Employees">
@@ -336,6 +351,25 @@ class MainTable_DRP extends React.Component {
                         </ExcelFile>
                      </td>
                   </tr>
+
+                  <tr >
+                     <td colSpan='4'>
+                        <center>
+                           <Chart
+                              forceFit
+                              width={this.state.W_Width}
+                              height={200}
+                              data={dataCol_Char1}
+                              scale={cols1}>
+                              <Axis name="N" />
+                              <Axis name="CASHIER_ID" />
+                              <Tooltip />
+                              <Geom type="interval" position="CASHIER_ID*N" color="N" />
+                           </Chart>
+                        </center>
+                     </td>
+                  </tr>
+
                   <tr>
                      <td colspan="4">
 
@@ -414,4 +448,4 @@ class MainTable_DRP extends React.Component {
       );
    }
 }
-export default MainTable_DRP;
+export default Chart_Table_DRP;
