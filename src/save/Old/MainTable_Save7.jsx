@@ -129,10 +129,10 @@ class MainTable_Save7 extends React.Component {
                               accessor: "Datetime"
                            },
                            {
-                              Header: "Магазин",
+                              Header: "АЗК",
                               columns: [
                                  {
-                                    Header: "№ магазина",
+                                    Header: "№ АЗК",
                                     accessor: "SHOP_NUM"
                                  },
                                  {

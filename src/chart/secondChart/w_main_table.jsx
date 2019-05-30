@@ -24,15 +24,13 @@ export default class w_main_table extends Component {
          <div>
             <table id='table_main' name='table_main' >
                <tbody>
-                  <tr >
+                  <tr>
+                     <W_head header={this.props.header} />
                      <th rowSpan='3' width='65px'>
                         <Link to="/">
                            <img src={'../images/Library.ico'} className='ICO_Link'/>
                         </Link>
                      </th>
-                  </tr>
-                  <tr>
-                     <W_head header={this.props.header} />
                   </tr>
                   <tr>
                      <W_headDate updateData={this.updateData}

@@ -241,7 +241,7 @@ export default class w_table extends Component {
                               <ExcelColumn label="Дата" value={(col) =>
                                  Moment(col.Datetime).local('ru').format('DD.MM.YYYY hh:mm:ss')} />
 
-                              <ExcelColumn label="№ магазина" value="SHOP_NUM" />
+                              <ExcelColumn label="№ АЗК" value="SHOP_NUM" />
                               <ExcelColumn label="№ кассы" value="KASS_NUM" />
                               <ExcelColumn label="Смена" value="SHIFT_NUM" />
                               <ExcelColumn label="Кассир" value="CASHIER_ID" />
@@ -276,10 +276,10 @@ export default class w_table extends Component {
                                  ]
                               },
                               {
-                                 Header: "Магазин",
+                                 Header: "АЗК",
                                  columns: [
                                     {
-                                       Header: "№ магазина",
+                                       Header: "№ АЗК",
                                        accessor: "SHOP_NUM"
                                     },
                                     {

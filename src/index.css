@@ -13,11 +13,15 @@ html, body {
    margin: 0;
    padding: 0;
 }
+h3{
+   color: white;
+}
 
 html, body {
    margin-left: 2px;
    margin-right: 5px;
    height: 96.5%;
+   
 }
 
 .content {
@@ -290,6 +294,7 @@ td, th, tr {
    /* Поля вокруг текста 
    border: 1px solid black;    */
    min-width: 20px;
+
 }
 
 .tr_char {

@@ -21,7 +21,12 @@ export default class w_chartASZ extends Component {
          this.setState({ W_Width: this.props.w_Width / 2 - 25 });
       }
    }
-
+   ClickAZS(v) {
+      try {
+         this.props.updateAZS(v.ev.data._origin.n);
+      } catch (error) {
+      }
+   }
    render() {
 
       const data = this.props.DataChart;
@@ -45,7 +50,9 @@ export default class w_chartASZ extends Component {
             height={200}
             data={data}
             scale={cols}
+            onClick={ev => { this.ClickAZS({ ev }) }}
          >
+         <center><span>По АЗК</span></center>
             <Axis name="azs" />
             <Axis name="sales" title />
             <Legend position="bottom" dy={-10} />
@@ -60,7 +67,4 @@ export default class w_chartASZ extends Component {
          </Chart>
       );
    }
-
-
 }
-

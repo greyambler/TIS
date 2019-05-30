@@ -51,7 +51,7 @@ class Main extends Component {
             w_Height={this.props.w_Height} w_Width={this.props.w_Width}
 
             S_Date_Head={this.props.S_Date_Head} E_Date_Head={this.props.E_Date_Head}
-            
+
             S_Date_Test={this.props.S_Date_Test} E_Date_Test={this.props.E_Date_Test}
 
             S_Date={this.props.S_Date} E_Date={this.props.E_Date}
@@ -208,7 +208,9 @@ class Nav extends Component {
                         <div className='headermenu'>Меню</div>
                      </Link>
                      <div className="header_Text">
-                        <h3>Временная ИС по системным инцидентам</h3>
+                        <Link to="/">
+                           <h3>Временная ИС по системным инцидентам</h3>
+                        </Link>
                      </div>
                      <table className="header_Left">
                         <tbody>
@@ -399,7 +401,6 @@ export default class App extends Component {
 
                   <Route exact component={NotFound} />
                </Switch>
-
             </div>
          </Router>
       );

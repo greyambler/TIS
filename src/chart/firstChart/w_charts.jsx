@@ -3,6 +3,7 @@ import { Chart, Geom, Axis, Tooltip, Legend, Coord, Label, Guide } from 'bizchar
 import { get_Date_Filter, get_Date, GetDatFromColChart, GetDatFromColChart_month, GetDatFromColChart_AZS, GetDatFromColChart_CODE, GetDatFromColChart_KASS } from '../../core/core_Function.jsx';
 
 import W_choos from './w_choos.jsx';
+import W_choosed from './w_choosed.jsx';
 import W_chartCashir from './w_chartCashir.jsx';
 import W_chartDate from './w_chartDate.jsx';
 import W_chartASZ from './w_chartASZ.jsx';
@@ -13,40 +14,39 @@ import W_chartKASS from './w_chartKASS.jsx';
 export default class w_charts extends Component {
    constructor(props) {
       super(props);
-      this.updateType = this.updateType.bind(this);
-      this.updateCashir = this.updateCashir.bind(this);
-      this.state = {
-         typeChart: "cashir",
-         n_Cashir: null,
-
-         localData: null,
-         isLocalData: false,
-      }
+      //this.updateCashir = this.updateCashir.bind(this);
    }
    updateType = (TypeChart) => {
-      this.setState({ typeChart: TypeChart });
+      this.props.updateType(TypeChart);
    }
+
    updateCashir = (N_Cashir) => {
-
-      //const conf =  window.confirm(`Ограничить данные?`);
-      this.setState({ n_Cashir: N_Cashir });
-
+      this.props.updateCashir(N_Cashir);
    }
+   updateKass = (N_Kassa) => {
+      this.props.updateKass(N_Kassa);
+   }
+   updateAZS = (N_AZS) => {
+      this.props.updateAZS(N_AZS);
+   }
+   updateCode = (N_Code) => {
+      this.props.updateCode(N_Code);
+   }
+   updateMonth = (N_Month) => {
+      this.props.updateMonth(N_Month);
+   }
+
+   deleteFilet = (N_Text) => {
+      this.props.deleteFilet(N_Text);
+   }
+
 
    render() {
-      switch (this.state.typeChart) {
+      switch (this.props.typeChart) {
          case "cashir": {
             let dataCol_Char1 = null;
             if (this.props.Data != null) {
-
-               //if (this.state.n_Cashir != null) {
-                  //alert(this.state.n_Cashir);
-               //   dataCol_Char1 = GetDatFromColChart(this.props.Data, this.state.n_Cashir);
-               //} else 
-               {
-
-                  dataCol_Char1 = GetDatFromColChart(this.props.Data);
-               }
+               dataCol_Char1 = GetDatFromColChart(this.props.Data);
             }
             return (
                <tr>
@@ -55,9 +55,13 @@ export default class w_charts extends Component {
                         updateCashir={this.updateCashir}
                      />
                   </td>
-                  {this.props.isLegend &&
-                     <td width='110px' className="td_C_Chart">
-                        <W_choos updateType={this.updateType} />
+                  {
+                     this.props.isLegend &&
+                     <td width='120px' className="td_C_Chart">
+                        <W_choos updateType={this.updateType} typeChart={this.props.typeChart} />
+                        <W_choosed filterCurent={this.props.filterCurent}
+                           deleteFilet={this.props.deleteFilet}
+                        />
                      </td>
                   }
                </tr>
@@ -72,11 +76,18 @@ export default class w_charts extends Component {
             return (
                <tr>
                   <td colSpan='2' className='tr_Chart'>
-                     <W_chartDate DataChart={dataCol_Char1} w_Width={this.props.w_Width} isLegend={this.props.isLegend} />
+                     <W_chartDate DataChart={dataCol_Char1} w_Width={this.props.w_Width} isLegend={this.props.isLegend}
+                        updateMonth={this.updateMonth}
+                     />
                   </td>
                   {this.props.isLegend &&
-                     <td width='110px' className="td_C_Chart">
-                        <W_choos updateType={this.updateType} />
+
+                     <td width='120px' className="td_C_Chart">
+                        <W_choos updateType={this.updateType}
+                           typeChart={this.props.typeChart} />
+                        <W_choosed filterCurent={this.props.filterCurent}
+                           deleteFilet={this.props.deleteFilet}
+                        />
                      </td>
                   }
                </tr>
@@ -91,11 +102,16 @@ export default class w_charts extends Component {
             return (
                <tr>
                   <td colSpan='2' className='tr_Chart'>
-                     <W_chartASZ DataChart={dataCol_Char1} w_Width={this.props.w_Width} isLegend={this.props.isLegend} />
+                     <W_chartASZ DataChart={dataCol_Char1} w_Width={this.props.w_Width} isLegend={this.props.isLegend}
+                        updateAZS={this.updateAZS}
+                     />
                   </td>
                   {this.props.isLegend &&
-                     <td width='110px' className="td_C_Chart">
-                        <W_choos updateType={this.updateType} />
+                     <td width='120px' className="td_C_Chart">
+                        <W_choos updateType={this.updateType} typeChart={this.props.typeChart} />
+                        <W_choosed filterCurent={this.props.filterCurent}
+                           deleteFilet={this.props.deleteFilet}
+                        />
                      </td>
                   }
                </tr>
@@ -110,11 +126,16 @@ export default class w_charts extends Component {
             return (
                <tr>
                   <td colSpan='2' className='tr_Chart'>
-                     <W_chartCODE DataChart={dataCol_Char1} w_Width={this.props.w_Width} isLegend={this.props.isLegend} />
+                     <W_chartCODE DataChart={dataCol_Char1} w_Width={this.props.w_Width} isLegend={this.props.isLegend}
+                        updateCode={this.updateCode}
+                     />
                   </td>
                   {this.props.isLegend &&
-                     <td width='110px' className="td_C_Chart">
-                        <W_choos updateType={this.updateType} />
+                     <td width='120px' className="td_C_Chart">
+                        <W_choos updateType={this.updateType} typeChart={this.props.typeChart} />
+                        <W_choosed filterCurent={this.props.filterCurent}
+                           deleteFilet={this.props.deleteFilet}
+                        />
                      </td>
                   }
                </tr>
@@ -129,18 +150,22 @@ export default class w_charts extends Component {
             return (
                <tr>
                   <td colSpan='2' className='tr_Chart'>
-                     <W_chartKASS DataChart={dataCol_Char1} w_Width={this.props.w_Width} isLegend={this.props.isLegend} />
+                     <W_chartKASS DataChart={dataCol_Char1} w_Width={this.props.w_Width} isLegend={this.props.isLegend}
+                        updateKass={this.updateKass}
+                     />
                   </td>
                   {this.props.isLegend &&
-                     <td width='110px' className="td_C_Chart">
-                        <W_choos updateType={this.updateType} />
+                     <td width='120px' className="td_C_Chart">
+                        <W_choos updateType={this.updateType} typeChart={this.props.typeChart} />
+                        <W_choosed filterCurent={this.props.filterCurent}
+                           deleteFilet={this.props.deleteFilet}
+                        />
                      </td>
                   }
                </tr>
             );
             break;
          }
-
          default:
             return (
                <tr>
@@ -148,8 +173,11 @@ export default class w_charts extends Component {
                      НЕТ
                   </td>
                   {this.props.isLegend &&
-                     <td width='110px' className="td_C_Chart">
+                     <td width='120px' className="td_C_Chart">
                         <W_choos updateType={this.updateType} />
+                        <W_choosed filterCurent={this.props.filterCurent}
+                           deleteFilet={this.props.deleteFilet}
+                        />
                      </td>
                   }
                </tr>
@@ -158,28 +186,3 @@ export default class w_charts extends Component {
       }
    }
 }
-
-/*
-
-<td colSpan='2' className='tr_Chart'>
-               <Chart
-                  forceFit
-                  width={this.state.W_Width}
-                  height={200}
-                  data={this.props.DataChart}
-                  scale={cols}>
-                  <Axis name="N" title />
-                  <Axis name="CASHIER_ID" label={label} />
-
-                  {this.props.isLegend &&
-                     <Legend position='bottom' visible={true} offsetY={-20} />
-                  }
-
-                  <Tooltip />
-                  <Geom type="interval" position="CASHIER_ID*N" color="N"
-                     color={"CASHIER_ID"}
-                  />
-               </Chart>
-            </td>
-
-*/

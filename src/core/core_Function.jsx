@@ -353,47 +353,43 @@ export function contains_KASS(arr, elem) {
 export let dateStart = null;
 export let dateStop = null;
 
-export function GetDatFromColChart(data_DB, cashier) {
+export function GetDatFromColChart(data_DB) {
    let dataCol_Char1 = Array();
    let t = 0;
    for (const element of data_DB) {
       //let ttt = 0;
       //dateStart = Get_StartDate(dateStart, element.Datetime);
       //dateStop = Get_StopDate(dateStop, element.Datetime);
-      if (cashier != null) {
-         if (cashier == element.CASHIER_ID) {
-            let code = element.CASHIER_ID;
-            if (!contains(dataCol_Char1, code)) {
-               dataCol_Char1[t] = { n: code, CASHIER_ID: "" + code + "", F: element.F, sales: 1 };
-               t++;
-            }
-            else {
-               for (const iterator of dataCol_Char1) {
-                  if (iterator.n == code) {
-                     iterator.sales = iterator.sales + 1;
-                  }
-               }
-            }
-         }
-      } else {
-         let code = element.CASHIER_ID;
-         if (!contains(dataCol_Char1, code)) {
-            dataCol_Char1[t] = { n: code, CASHIER_ID: "" + code + "", F: element.F, sales: 1 };
-            t++;
-         }
-         else {
-            for (const iterator of dataCol_Char1) {
-               if (iterator.n == code) {
-                  iterator.sales = iterator.sales + 1;
-               }
+
+      let code = element.CASHIER_ID;
+      if (!contains(dataCol_Char1, code)) {
+         dataCol_Char1[t] = { n: code, CASHIER_ID: "" + code + "", F: element.F, sales: 1 };
+         t++;
+      }
+      else {
+         for (const iterator of dataCol_Char1) {
+            if (iterator.n == code) {
+               iterator.sales = iterator.sales + 1;
             }
          }
       }
    }
    return dataCol_Char1;
 }
-
-
+export function GetFilterData_Cashir(data_DB, n_Cashir) {
+   let data_db = null;
+   if (data_DB) {
+      data_db = Array();
+      let t = 0;
+      for (const element of data_DB) {
+         if (n_Cashir == element.CASHIER_ID) {
+            data_db[t] = element;
+            t++;
+         }
+      }
+   }
+   return data_db;
+}
 export function GetDatFromColChart_month(data_DB) {
    let dataCol_Char1 = Array();
    let t = 0;
@@ -416,6 +412,24 @@ export function GetDatFromColChart_month(data_DB) {
    }
    return dataCol_Char1;
 }
+export function GetFilterData_Month(data_DB, n_Month) {
+   let data_db = null;
+   if (data_DB) {
+      data_db = Array();
+      let t = 0;
+      for (const element of data_DB) {
+         let date = moment(element.Datetime.toString()).local('ru').format('MM/YYYY');
+         let date_month = moment(element.Datetime.toString()).local('ru').format('MM');
+
+         if (n_Month == date_month) {
+            data_db[t] = element;
+            t++;
+         }
+      }
+   }
+   return data_db;
+}
+
 
 export function GetDatFromColChart_AZS(data_DB) {
    let dataCol_Char1 = Array();
@@ -436,6 +450,20 @@ export function GetDatFromColChart_AZS(data_DB) {
    }
    return dataCol_Char1;
 }
+export function GetFilterData_AZS(data_DB, n_AZS) {
+   let data_db = null;
+   if (data_DB) {
+      data_db = Array();
+      let t = 0;
+      for (const element of data_DB) {
+         if (n_AZS == element.SHOP_NUM) {
+            data_db[t] = element;
+            t++;
+         }
+      }
+   }
+   return data_db;
+}
 export function GetDatFromColChart_CODE(data_DB) {
    let dataCol_Char1 = Array();
    let t = 0;
@@ -454,6 +482,20 @@ export function GetDatFromColChart_CODE(data_DB) {
       }
    }
    return dataCol_Char1;
+}
+export function GetFilterData_CODE(data_DB, n_Code) {
+   let data_db = null;
+   if (data_DB) {
+      data_db = Array();
+      let t = 0;
+      for (const element of data_DB) {
+         if (n_Code == element.EVENT_TYPE) {
+            data_db[t] = element;
+            t++;
+         }
+      }
+   }
+   return data_db;
 }
 export function GetDatFromColChart_KASS(data_DB) {
    let dataCol_Char1 = Array();
@@ -474,6 +516,47 @@ export function GetDatFromColChart_KASS(data_DB) {
    }
    return dataCol_Char1;
 }
+export function GetFilterData_Kassa(data_DB, n_Kass) {
+   let data_db = null;
+   if (data_DB) {
+      data_db = Array();
+      let t = 0;
+      for (const element of data_DB) {
+         if (n_Kass == element.KASS_NUM) {
+            data_db[t] = element;
+            t++;
+         }
+      }
+   }
+   return data_db;
+}
+
+export function IsExist_Filter(filterArray, filterNew ) {
+   let isExist = false;
+   if(filterArray != null){
+      for (const iterator of filterArray) {
+         if(iterator == filterNew){
+            isExist= true;
+            break;
+         }
+      }
+   }
+   return isExist;
+}
+export function Delete_Item_Filter(filterArray, filterNew ) {
+   let NewfilterArray = new Array();
+   let t =0;
+   if(filterArray != null){
+      for (const iterator of filterArray) {
+         if(iterator != filterNew){
+            NewfilterArray[t] = iterator;
+            t++;
+         }
+      }
+   }
+   return NewfilterArray;
+}
+
 /******************************************************************/
 
 

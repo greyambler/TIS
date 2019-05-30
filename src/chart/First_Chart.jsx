@@ -25,6 +25,7 @@ export default class First_Chart extends React.Component {
       let NumberChart = 1;
       this.props.updateData({ startDate, endDate, NumberChart});
    }
+   
    render() { 
       let rss = Get_RSS(this.props.RssIncident, this.props.dateStart, this.props.dateStop);
 

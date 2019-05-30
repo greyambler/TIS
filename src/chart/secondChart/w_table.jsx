@@ -228,7 +228,7 @@ export default class w_table extends Component {
                         <ExcelFile element={<button><img src={'../images/Office Excel.ico'} width='25' /></button>}>
                            <ExcelSheet data={this.state.Excel_Data} name="Employees">
                               <ExcelColumn label="Дата" value="Datetime" />
-                              <ExcelColumn label="№ магазина" value="SHOP_NUM" />
+                              <ExcelColumn label="№ АЗК" value="SHOP_NUM" />
                               <ExcelColumn label="№ кассы" value="KASS_NUM" />
                               <ExcelColumn label="Смена" value="SHIFT_NUM" />
                               <ExcelColumn label="Кассир" value="CASHIER_ID" />
@@ -251,10 +251,10 @@ export default class w_table extends Component {
                                  accessor: "Datetime"
                               },
                               {
-                                 Header: "Магазин111",
+                                 Header: "АЗК",
                                  columns: [
                                     {
-                                       Header: "№ магазина",
+                                       Header: "№ АЗК",
                                        accessor: "SHOP_NUM"
                                     },
                                     {

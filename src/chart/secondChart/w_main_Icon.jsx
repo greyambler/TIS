@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import W_head from '../controls/w_head.jsx';
+import W_head from '../controls/w_head_link.jsx';
 import W_headDate from '../controls/w_headDate.jsx';
 import W_chart from './w_chart.jsx';
 import { Link } from "react-router-dom";
@@ -20,13 +20,6 @@ export default class w_main_Icon extends Component {
          <table>
             <tbody>
                <tr>
-                  <th rowSpan='3'>
-                     <Link to="/ChSecond">
-                        <img src={'../images/JDownloader.ico'} className='ICO_Link'/>
-                     </Link>
-                  </th>
-               </tr>
-               <tr>
                   <W_head header={this.props.header} />
                </tr>
                <tr>
@@ -41,3 +34,15 @@ export default class w_main_Icon extends Component {
       );
    }
 }
+/*
+               <tr>
+                  <th rowSpan='3'>
+                     <Link to="/ChSecond">
+                        <img src={'../images/JDownloader.ico'} className='ICO_Link' />
+                     </Link>
+                  </th>
+               </tr>
+
+
+
+*/

@@ -21,7 +21,12 @@ export default class w_chartKASS extends Component {
          this.setState({ W_Width: this.props.w_Width / 2 - 25 });
       }
    }
-
+   ClickKass(v) {
+      try {
+         this.props.updateKass(v.ev.data._origin.n);
+      } catch (error) {
+      }
+   }
    render() {
 
       const data = this.props.DataChart;
@@ -45,12 +50,14 @@ export default class w_chartKASS extends Component {
             height={200}
             data={data}
             scale={cols}
+            onClick={ev => { this.ClickKass({ ev }) }}
          >
+         <center><span>По кассам</span></center>
             <Axis name="KASS_NUM" />
             <Axis name="sales" title />
 
-            <Legend position="bottom" dy={-10} 
-               
+            <Legend position="bottom" dy={-10}
+
             />
             <Tooltip crosshairs={{ type: "y" }} />
             <Geom type="interval" position="KASS_NUM*sales"

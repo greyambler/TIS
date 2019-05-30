@@ -324,7 +324,7 @@ class MainTable_DRP extends React.Component {
                         <ExcelFile element={<button>Выгрузка в EXCEL</button>}>
                            <ExcelSheet data={this.state.Excel_Data} name="Employees">
                               <ExcelColumn label="Дата" value="Datetime" />
-                              <ExcelColumn label="№ магазина" value="SHOP_NUM" />
+                              <ExcelColumn label="№ АЗК" value="SHOP_NUM" />
                               <ExcelColumn label="№ кассы" value="KASS_NUM" />
                               <ExcelColumn label="Смена" value="SHIFT_NUM" />
                               <ExcelColumn label="Кассир" value="CASHIER_ID" />
@@ -348,10 +348,10 @@ class MainTable_DRP extends React.Component {
                                  accessor: "Datetime"
                               },
                               {
-                                 Header: "Магазин",
+                                 Header: "АЗК",
                                  columns: [
                                     {
-                                       Header: "№ магазина",
+                                       Header: "№ АЗК",
                                        accessor: "SHOP_NUM"
                                     },
                                     {

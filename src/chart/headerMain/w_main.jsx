@@ -59,6 +59,12 @@ export default class w_main extends Component {
    }
 
    render() {
+      let StyleHead = {
+         textAlign: "center",
+         color: "black",
+         fontSize: '21px',
+      }
+
       let numfiles = 0;
       let numincidents = 0;
 
@@ -80,11 +86,11 @@ export default class w_main extends Component {
                <tbody>
                   <tr>
                      <td></td>
-                     {this.state.isExistError ? (
-                        <W_head header={err} equal='right' color='red' />
-                     ) : (
-                           <W_head header={this.props.header} equal='right' />
-                        )
+                     {this.state.isExistError
+                        ?
+                        (<W_head header={err} equal='right' color='red' />)
+                        :
+                        (<W_head header={this.props.header} equal='right' />)
                      }
                      <W_headDate updateData={this.updateData} equal='left'
                         startDate={this.props.startDate} endDate={this.props.endDate} isDisable={false} />
@@ -96,15 +102,12 @@ export default class w_main extends Component {
                <tbody>
                   <tr className='td_t_Main'>
                      <td className='td_t_Left'></td>
-                     <td>
-                        <center>
-                           <W_circle N_text={numfiles} />
-                        </center>
+
+                     <td style={StyleHead}>
+                        {numfiles}
                      </td>
-                     <td>
-                        <center>
-                           <W_circle N_text={numincidents} />
-                        </center>
+                     <td style={StyleHead}>
+                        {numincidents}
                      </td>
                      <td>
                         <center>
@@ -133,3 +136,19 @@ export default class w_main extends Component {
       );
    }
 }
+/*
+
+                     <td>
+                        <center>
+                           <W_circle N_text={numfiles} />
+                        </center>
+                     </td>
+                     <td>
+                        <center>
+                           <W_circle N_text={numincidents} />
+                        </center>
+                     </td>
+
+
+
+*/

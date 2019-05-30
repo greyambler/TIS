@@ -21,7 +21,12 @@ export default class w_chartCODE extends Component {
          this.setState({ W_Width: this.props.w_Width / 2 - 25 });
       }
    }
-
+   ClickCode(v) {
+      try {
+         this.props.updateCode(v.ev.data._origin.n);
+      } catch (error) {
+      }
+   }
    render() {
 
       const data = this.props.DataChart;
@@ -44,22 +49,22 @@ export default class w_chartCODE extends Component {
             width={this.state.W_Width}
             height={200}
             data={data}
-            scale={cols}>
-
+            scale={cols}
+            onClick={ev => { this.ClickCode({ ev }) }}
+         >
+            <center><span>По кодам ошибок</span></center>
             <Axis name="azs" />
             <Axis name="sales" title />
 
             <Legend position="bottom" dy={-10} />
 
             <Tooltip crosshairs={{ type: "y" }} />
-            
+
             <Geom type="interval" position="azs*sales"
                color={"azs"}
             />
          </Chart>
       );
    }
-
-
 }
 

@@ -3,14 +3,25 @@ import { Stage, Layer, Text, Circle } from 'react-konva';
 import { G2, Chart, Geom, Axis, Tooltip, Coord, Label, Legend, View, Guide, Shape, Facet, Util } from "bizcharts";
 import DataSet from "@antv/data-set";
 
+
+
+
+
 export default class w_circle extends Component {
     constructor(props) {
         super(props);
+        this.state= {
+            T1:20,
+            T2:21,
+            T3:17,
+            T4:13,
+        }
     }
 
     render() {
 
         const { DataView } = DataSet;
+
 
         const { Html } = Guide;
         const data = [
@@ -64,14 +75,20 @@ export default class w_circle extends Component {
                         offsetY={0}
                         offsetX={10}
                     />
+                    
                     <Tooltip
                         showTitle={false}
                         itemTpl="<li><span style=&quot;background-color:{color};&quot; class=&quot;g2-tooltip-marker&quot;></span>{name}: {value}</li>"
                     />
+
                     <Guide>
                         <Html
                             position={["50%", "49%"]}
-                            html="<div className='T_Chart' style=&quot;color:#000; z-index='4';font-size:0.8em;text-align: center;font-family: 'Open Sans', sans-serif;width: 4em;&quot;> 24 </div>"
+                            html="<div className='T_Chart' style=&quot;color:#000; z-index='4';font-size:0.8em;text-align: center;font-family: 'Open Sans', sans-serif;width: 4em;&quot;> 
+
+                            24 
+                            
+                            </div>"
                             alignX="middle"
                             alignY="middle"
                         />
@@ -84,7 +101,7 @@ export default class w_circle extends Component {
                         tooltip={[
                             "item*percent",
                             (item, percent) => {
-                                percent = percent * 100 + "%";
+                                percent = Math.round(percent * 10000)/100 + "%";
                                 return {
                                     name: item,
                                     value: percent

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import W_head from '../controls/w_head.jsx';
+import W_head from '../controls/w_head_link.jsx';
 import W_headDate from '../controls/w_headDate.jsx';
 import W_charts from './w_charts.jsx';
 import { Link } from "react-router-dom";
@@ -81,16 +81,12 @@ export default class w_main_Icon extends Component {
          <table>
             <tbody>
                <tr>
-                  <th rowSpan='3'>
-                     <Link to="/ChFirst">
-                        <img src={'../images/JDownloader.ico'} className='ICO_Link' />
-                     </Link>
-                  </th>
-               </tr>
-               <tr>
-                  {this.state.isExistError ? (
-                     <W_head header={err} color='red' />
-                  ) : (
+
+                  {this.state.isExistError
+                     ?
+                     (<W_head header={err} color='red' />)
+                     :
+                     (
                         <W_head header={this.props.header} />
                      )
                   }
@@ -101,10 +97,23 @@ export default class w_main_Icon extends Component {
                </tr>
 
                {_dataTable != null &&
-                  <W_charts Data={_dataTable} w_Width={this.props.w_Width} isLegend={false} />
+                  <W_charts Data={_dataTable} w_Width={this.props.w_Width} isLegend={false}
+                     typeChart="cashir"
+                  />
                }
             </tbody>
          </table>
       );
    }
 }
+/*
+               <tr>
+                  <th rowSpan='3'>
+                     <Link to="/ChFirst">
+                        <img src={'../images/JDownloader.ico'} className='ICO_Link' />
+                     </Link>
+                  </th>
+               </tr>
+
+
+*/

@@ -21,7 +21,12 @@ export default class w_chartDate extends Component {
          this.setState({ W_Width: this.props.w_Width / 2 - 25 });
       }
    }
-
+   ClickMonth(v) {
+      try {
+         this.props.updateMonth(v.ev.data._origin.date_month);
+      } catch (error) {
+      }
+   }
    render() {
 
       const data = this.props.DataChart;
@@ -45,9 +50,11 @@ export default class w_chartDate extends Component {
             height={200}
             data={data}
             scale={cols}
+            onClick={ev => { this.ClickMonth({ ev }) }}
          >
-            <Axis name="date_month" />
-            <Axis name="sales" />
+         <center><span>По месяцам</span></center>
+            <Axis name="date_month"/>
+            <Axis name="sales" title/>
             <Legend position="bottom" dy={-10} />
             <Tooltip
                crosshairs={{

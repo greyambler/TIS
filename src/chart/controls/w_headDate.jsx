@@ -43,11 +43,14 @@ export default class w_headDate extends Component {
    render() {
       let StyleHead = {
          textAlign: "center",
+         color: "blue",
+         fontSize: '16px',
       }
       if (this.props.color == 'red') {
          StyleHead = {
             textAlign: "center",
             color: "red",
+            fontSize: '16px',
          }
       }
       if (this.props.color != 'red') {
@@ -57,12 +60,14 @@ export default class w_headDate extends Component {
                   StyleHead = {
                      textAlign: "left",
                      paddingLeft: "10px",
+                     fontSize: '16px',
                   }
                   if (this.props.color == 'red') {
                      StyleHead = {
                         textAlign: "left",
                         paddingLeft: "10px",
                         color: "red",
+                        fontSize: '16px',
                      }
                   }
 
@@ -73,12 +78,14 @@ export default class w_headDate extends Component {
                   StyleHead = {
                      textAlign: "right",
                      paddingLeft: "10px",
+                     fontSize: '16px',
                   }
                   if (this.props.color == 'red') {
                      StyleHead = {
                         textAlign: "right",
                         paddingLeft: "10px",
                         color: "red",
+                        fontSize: '16px',
                      }
                   }
                   break;
