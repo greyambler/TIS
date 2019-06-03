@@ -10,7 +10,7 @@ import Test_Chart from './chart/Test_Chart.jsx';
 
 import moment from 'moment';
 
-const _Debuge = true;
+const _Debuge = false;
 
 export default class MainWindow extends React.Component {
    constructor(props) {
@@ -51,16 +51,14 @@ export default class MainWindow extends React.Component {
                   <tr className="tr_Chart">
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
                         <First_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
-
                            dateStart={this.props.S_Date} dateStop={this.props.E_Date}
-
                            w_Width={this.state.W_Width} IsTable={false}
                            updateData={this.updateData}
                         />
                      </td>
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
-                        <Second_Chart
-                           dateStart={this.props.S_Date_2} dateStop={this.props.E_Date_2}
+                        <First_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
+                           dateStart={this.props.S_Date} dateStop={this.props.E_Date}
                            w_Width={this.state.W_Width} IsTable={false}
                            updateData={this.updateData}
                         />
@@ -79,11 +77,19 @@ export default class MainWindow extends React.Component {
                      </td>
 
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
-                        <Fourth_Chart
-                           dateStart={this.props.S_Date_4} dateStop={this.props.E_Date_4}
-                           w_Width={this.state.W_Width} IsTable={false}
-                           updateData={this.updateData}
-                        />
+                        {!_Debuge ? (
+                           <Second_Chart
+                              dateStart={this.props.S_Date_2} dateStop={this.props.E_Date_2}
+                              w_Width={this.state.W_Width} IsTable={false}
+                              updateData={this.updateData}
+                           />
+                        ) : (
+                              <Fourth_Chart
+                                 dateStart={this.props.S_Date_4} dateStop={this.props.E_Date_4}
+                                 w_Width={this.state.W_Width} IsTable={false}
+                                 updateData={this.updateData}
+                              />
+                           )}
                      </td>
                   </tr>
                </tbody>
