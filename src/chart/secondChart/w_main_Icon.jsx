@@ -20,7 +20,7 @@ export default class w_main_Icon extends Component {
          <table>
             <tbody>
                <tr>
-                  <W_head header={this.props.header} />
+                  <W_head header={this.props.header}  AhrefBack='/ChSecond' />
                </tr>
                <tr>
                   <W_headDate updateData={this.updateData}
@@ -34,15 +34,3 @@ export default class w_main_Icon extends Component {
       );
    }
 }
-/*
-               <tr>
-                  <th rowSpan='3'>
-                     <Link to="/ChSecond">
-                        <img src={'../images/JDownloader.ico'} className='ICO_Link' />
-                     </Link>
-                  </th>
-               </tr>
-
-
-
-*/

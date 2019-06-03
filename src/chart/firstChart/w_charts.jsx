@@ -51,14 +51,16 @@ export default class w_charts extends Component {
             return (
                <tr>
                   <td colSpan='2' className='tr_Chart'>
-                     <W_chartCashir DataChart={dataCol_Char1} w_Width={this.props.w_Width} isLegend={this.props.isLegend}
+                     <W_chartCashir DataChart={dataCol_Char1} w_Width={this.props.w_Width}
+                        isLegend={this.props.isLegend}
                         updateCashir={this.updateCashir}
                      />
                   </td>
                   {
                      this.props.isLegend &&
                      <td width='120px' className="td_C_Chart">
-                        <W_choos updateType={this.updateType} typeChart={this.props.typeChart} />
+                        <W_choos updateType={this.updateType}
+                           typeChart={this.props.typeChart} />
                         <W_choosed filterCurent={this.props.filterCurent}
                            deleteFilet={this.props.deleteFilet}
                         />
@@ -76,7 +78,8 @@ export default class w_charts extends Component {
             return (
                <tr>
                   <td colSpan='2' className='tr_Chart'>
-                     <W_chartDate DataChart={dataCol_Char1} w_Width={this.props.w_Width} isLegend={this.props.isLegend}
+                     <W_chartDate DataChart={dataCol_Char1} w_Width={this.props.w_Width}
+                        isLegend={this.props.isLegend}
                         updateMonth={this.updateMonth}
                      />
                   </td>
@@ -102,13 +105,15 @@ export default class w_charts extends Component {
             return (
                <tr>
                   <td colSpan='2' className='tr_Chart'>
-                     <W_chartASZ DataChart={dataCol_Char1} w_Width={this.props.w_Width} isLegend={this.props.isLegend}
+                     <W_chartASZ DataChart={dataCol_Char1} w_Width={this.props.w_Width}
+                        isLegend={this.props.isLegend}
                         updateAZS={this.updateAZS}
                      />
                   </td>
                   {this.props.isLegend &&
                      <td width='120px' className="td_C_Chart">
-                        <W_choos updateType={this.updateType} typeChart={this.props.typeChart} />
+                        <W_choos updateType={this.updateType}
+                           typeChart={this.props.typeChart} />
                         <W_choosed filterCurent={this.props.filterCurent}
                            deleteFilet={this.props.deleteFilet}
                         />
@@ -126,13 +131,16 @@ export default class w_charts extends Component {
             return (
                <tr>
                   <td colSpan='2' className='tr_Chart'>
-                     <W_chartCODE DataChart={dataCol_Char1} w_Width={this.props.w_Width} isLegend={this.props.isLegend}
+                     <W_chartCODE DataChart={dataCol_Char1}
+                        w_Width={this.props.w_Width}
+                        isLegend={this.props.isLegend}
                         updateCode={this.updateCode}
                      />
                   </td>
                   {this.props.isLegend &&
                      <td width='120px' className="td_C_Chart">
-                        <W_choos updateType={this.updateType} typeChart={this.props.typeChart} />
+                        <W_choos updateType={this.updateType}
+                           typeChart={this.props.typeChart} />
                         <W_choosed filterCurent={this.props.filterCurent}
                            deleteFilet={this.props.deleteFilet}
                         />
@@ -150,13 +158,15 @@ export default class w_charts extends Component {
             return (
                <tr>
                   <td colSpan='2' className='tr_Chart'>
-                     <W_chartKASS DataChart={dataCol_Char1} w_Width={this.props.w_Width} isLegend={this.props.isLegend}
+                     <W_chartKASS DataChart={dataCol_Char1} w_Width={this.props.w_Width}
+                        isLegend={this.props.isLegend}
                         updateKass={this.updateKass}
                      />
                   </td>
                   {this.props.isLegend &&
                      <td width='120px' className="td_C_Chart">
-                        <W_choos updateType={this.updateType} typeChart={this.props.typeChart} />
+                        <W_choos updateType={this.updateType}
+                           typeChart={this.props.typeChart} />
                         <W_choosed filterCurent={this.props.filterCurent}
                            deleteFilet={this.props.deleteFilet}
                         />

@@ -6,6 +6,35 @@ import W_circle from './w_circle.jsx';
 import W_sectorCircle from './w_sectorCircle.jsx';
 import { D1_D1_Eq_moment, GetDateYMD_moment } from '../../core/core_Function.jsx';
 
+
+class Item_Fail {
+   constructor(_id, _item, _count, _checked) {
+      this.id = _id;
+      this.item = _item;
+      this.count = _count;
+      this.checked = _checked;
+   }
+}
+export function get_ListFals(list) {
+   let children = Array();
+   let t = 0;
+   for (const Item of list) {
+      children[t] = new Item_Fail(Item.id, Item.item, Item.count, Item.checked);
+      t++;
+   }
+   return children;
+}
+export function get_Rss() {
+   return '{"testValue":[' +
+      '{"id":1,"item":"1 Сбой кассы","count":20,"checked":true},' +
+      '{"id":2,"item":"2 Сбой ТРК","count":21,"checked":true},' +
+      '{"id":3,"item":"3 Сбой периферия","count":17,"checked":true},' +
+      '{"id":4,"item":"4 Сбой СВН","count":13, "checked":true}' +
+      ']}';
+}
+
+
+
 export default class w_main extends Component {
    constructor(props) {
       super(props);
@@ -59,6 +88,12 @@ export default class w_main extends Component {
    }
 
    render() {
+      let testValeu = get_Rss();
+      let J_testValeu = JSON.parse(testValeu);
+      let ListFalls = get_ListFals(J_testValeu.testValue);
+
+      let r = 0;
+
       let StyleHead = {
          textAlign: "center",
          color: "black",
@@ -116,7 +151,8 @@ export default class w_main extends Component {
                      </td>
                      <td>
                         <center>
-                           <W_sectorCircle N_text={proc_H3} proc='true' />
+                           <W_sectorCircle data={ListFalls} proc='true'
+                           />
                         </center>
                      </td>
                      <td className='td_t_Right'></td>

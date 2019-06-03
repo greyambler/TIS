@@ -58,7 +58,7 @@ export default class w_chartCODE extends Component {
 
             <Legend position="bottom" dy={-10} />
 
-            <Tooltip crosshairs={{ type: "y" }} />
+            <Tooltip crosshairs={{ type: "y" }}  showTitle={false}/>
 
             <Geom type="interval" position="azs*sales"
                color={"azs"}

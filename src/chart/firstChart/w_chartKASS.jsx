@@ -52,14 +52,13 @@ export default class w_chartKASS extends Component {
             scale={cols}
             onClick={ev => { this.ClickKass({ ev }) }}
          >
-         <center><span>По кассам</span></center>
+            <center><span>По кассам</span></center>
             <Axis name="KASS_NUM" />
             <Axis name="sales" title />
 
-            <Legend position="bottom" dy={-10}
+            <Legend position="bottom" dy={-10} />
 
-            />
-            <Tooltip crosshairs={{ type: "y" }} />
+            <Tooltip crosshairs={{ type: "y" }}  showTitle={false}/>
             <Geom type="interval" position="KASS_NUM*sales"
                color={"KASS_NUM"}
             />

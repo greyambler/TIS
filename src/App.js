@@ -242,7 +242,7 @@ class Nav extends Component {
 
                               <li><Link to="/ChTDRP2">Старый Недоступность касс</Link></li>
                               <li><Link to="/ChFirst">Недоступность касс</Link></li>
-                              <li><Link to="/ChSecond">Недоступность оборудования</Link></li>
+                              <li><Link to="/ChSecond">Недоступность периферийного оборудования и ТРК</Link></li>
                               <li><Link to="/ChThird">Отклонение от нормы по транзакциям</Link></li>
                               <li><Link to="/ChFourth">Недоступность СВН</Link></li>
 
@@ -253,6 +253,7 @@ class Nav extends Component {
                      }
 
                      <li><Link to="/" >Главная</Link></li>
+                     <li><Link to="/ChSecond">Недоступность периферийного оборудования и ТРК</Link></li>
                      <li><Link to="/settings">Настройки</Link></li>
 
 

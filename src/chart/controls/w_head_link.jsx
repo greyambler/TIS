@@ -8,13 +8,13 @@ export default class w_head_link extends Component {
       let StyleHead = {
          textAlign: "center",
          color: "black",
-         fontSize: '16px',
+         fontSize: '12px',
       }
       if (this.props.color == 'red') {
          StyleHead = {
             textAlign: "center",
             color: "red",
-            fontSize: '16px',
+            fontSize: '12px',
          }
       }
       switch (this.props.equal) {
@@ -23,7 +23,7 @@ export default class w_head_link extends Component {
                StyleHead = {
                   textAlign: "left",
                   paddingLeft: "10px",
-                  fontSize: '16px',
+                  fontSize: '12px',
                   color: "black",
                }
                if (this.props.color == 'red') {
@@ -31,7 +31,7 @@ export default class w_head_link extends Component {
                      textAlign: "left",
                      paddingLeft: "10px",
                      color: "red",
-                     fontSize: '16px',
+                     fontSize: '12px',
                   }
                }
 
@@ -42,7 +42,7 @@ export default class w_head_link extends Component {
                StyleHead = {
                   textAlign: "right",
                   paddingRight: "10px",
-                  fontSize: '16px',
+                  fontSize: '12px',
                   color: "black",
                }
                if (this.props.color == 'red') {
@@ -50,7 +50,7 @@ export default class w_head_link extends Component {
                      textAlign: "right",
                      paddingRight: "10px",
                      color: "red",
-                     fontSize: '16px',
+                     fontSize: '12px',
                   }
                }
                break;
@@ -60,10 +60,17 @@ export default class w_head_link extends Component {
 
       return (
          <th style={StyleHead}>
-            <Link to="/ChFirst" style={StyleHead}>
+            <Link to={this.props.AhrefBack} style={StyleHead}>
                {this.props.header}
             </Link>
          </th>
       );
    }
 }
+/*
+            <Link to="/ChFirst" style={StyleHead}>
+               {this.props.header}
+            </Link>
+
+
+*/

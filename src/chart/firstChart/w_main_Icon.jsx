@@ -59,20 +59,9 @@ export default class w_main_Icon extends Component {
 
    render() {
       let _dataTable = null;
-      let dataCol_Char1 = null;
-
       if (this.state.Object != null) {
          _dataTable = this.state.Object.incidents
-         //dataCol_Char1 = GetDatFromColChart(_dataTable);
       }
-      /*
-      else
-      {
-         _dataTable = get_Date_Filter(get_Date(), this.props.startDate, this.props.endDate);
-         dataCol_Char1 = GetDatFromColChart(_dataTable);
-      }
-      */
-
       let err = null;
       if (this.state.isExistError) {
          err = 'Ошибка! Сервер не ответил!';
@@ -84,21 +73,23 @@ export default class w_main_Icon extends Component {
 
                   {this.state.isExistError
                      ?
-                     (<W_head header={err} color='red' />)
+                     (<W_head header={err} color='red' AhrefBack='/ChFirst'/>)
                      :
                      (
-                        <W_head header={this.props.header} />
+                        <W_head header={this.props.header} AhrefBack='/ChFirst'/>
                      )
                   }
                </tr>
                <tr>
                   <W_headDate updateData={this.updateData}
-                     startDate={this.props.startDate} endDate={this.props.endDate} isDisable={false} />
+                     startDate={this.props.startDate} 
+                     endDate={this.props.endDate} 
+                     isDisable={false} />
                </tr>
 
                {_dataTable != null &&
                   <W_charts Data={_dataTable} w_Width={this.props.w_Width} isLegend={false}
-                     typeChart="cashir"
+                     typeChart="azs"
                   />
                }
             </tbody>
@@ -106,14 +97,3 @@ export default class w_main_Icon extends Component {
       );
    }
 }
-/*
-               <tr>
-                  <th rowSpan='3'>
-                     <Link to="/ChFirst">
-                        <img src={'../images/JDownloader.ico'} className='ICO_Link' />
-                     </Link>
-                  </th>
-               </tr>
-
-
-*/

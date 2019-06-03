@@ -56,7 +56,7 @@ export default class w_chartASZ extends Component {
             <Axis name="azs" />
             <Axis name="sales" title />
             <Legend position="bottom" dy={-10} />
-            <Tooltip
+            <Tooltip  showTitle={false}
                crosshairs={{
                   type: "y"
                }}

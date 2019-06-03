@@ -10,7 +10,7 @@ import Test_Chart from './chart/Test_Chart.jsx';
 
 import moment from 'moment';
 
-const _Debuge = false;
+const _Debuge = true;
 
 export default class MainWindow extends React.Component {
    constructor(props) {
@@ -44,39 +44,27 @@ export default class MainWindow extends React.Component {
                updateData={this.updateData}
             />
 
-            <hr/><hr/><br/>
+            <hr /><hr /><br />
 
             <table>
                <tbody>
                   <tr className="tr_Chart">
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
                         <First_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
-                           
+
                            dateStart={this.props.S_Date} dateStop={this.props.E_Date}
-                           
+
                            w_Width={this.state.W_Width} IsTable={false}
                            updateData={this.updateData}
                         />
                      </td>
-                     {_Debuge ? (
-                        <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
-                           <Test_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
-                              
-                              dateStart={this.props.S_Date_Test} dateStop={this.props.E_Date_Test}
-                              
-                              w_Width={this.state.W_Width} IsTable={false}
-                              updateData={this.updateData}                              
-                           />
-                        </td>
-                     ) : (
-                           <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
-                              <Second_Chart
-                                 dateStart={this.props.S_Date_2} dateStop={this.props.E_Date_2}
-                                 w_Width={this.state.W_Width} IsTable={false}
-                                 updateData={this.updateData}
-                              />
-                           </td>
-                        )}
+                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
+                        <Second_Chart
+                           dateStart={this.props.S_Date_2} dateStop={this.props.E_Date_2}
+                           w_Width={this.state.W_Width} IsTable={false}
+                           updateData={this.updateData}
+                        />
+                     </td>
                   </tr>
                   <tr>
                      <td colSpan='2'><hr /><hr /><br /></td>

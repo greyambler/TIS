@@ -51,14 +51,14 @@ export default class w_chartCashir extends Component {
             <center><span>По кассирам</span></center>
 
 
-            <Axis name="CASHIER_ID" label={label} />
+            <Axis name="CASHIER_ID" label={label}/>
             <Axis name="sales" title />
 
             <Legend position='bottom' visible={true}
             //offsetY={-5}
             />
 
-            <Tooltip crosshairs={{ type: "y" }} />
+            <Tooltip crosshairs={{ type: "y" }} showTitle={false}/>
 
             <Geom type="interval"
                position="CASHIER_ID*sales"

@@ -32,7 +32,7 @@ export default class First_Chart extends React.Component {
       if (!this.props.IsTable) {
          return (
             <W_main_Icon
-               header='Недоступность касс за период на АЗК'
+               header='Недоступность касс за период по АЗК'
                w_Width={this.props.w_Width}
                startDate={this.props.dateStart}
                endDate={this.props.dateStop}
@@ -43,7 +43,7 @@ export default class First_Chart extends React.Component {
       } else {
          return (
             <W_main_table
-               header='Недоступность касс за период на АЗК'
+               header='Недоступность касс за период по АЗК'
                w_Width={this.props.w_Width}
                startDate={this.props.dateStart}
                endDate={this.props.dateStop}

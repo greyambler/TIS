@@ -56,7 +56,7 @@ export default class w_chartDate extends Component {
             <Axis name="date_month"/>
             <Axis name="sales" title/>
             <Legend position="bottom" dy={-10} />
-            <Tooltip
+            <Tooltip showTitle={false}
                crosshairs={{
                   type: "y"
                }}
