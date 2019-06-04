@@ -8,17 +8,17 @@ export default class w_chartCODE extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         W_Width: this.props.w_Width / 2 - 25,
+         W_Width: this.props.w_Width,
       }
    }
 
    componentDidMount() {
-      this.setState({ W_Width: this.props.w_Width / 2 - 25 });
+      this.setState({ W_Width: this.props.w_Width });
    }
 
    componentDidUpdate(prevProps) {
       if (this.props.w_Width != prevProps.w_Width) {
-         this.setState({ W_Width: this.props.w_Width / 2 - 25 });
+         this.setState({ W_Width: this.props.w_Width });
       }
    }
    ClickCode(v) {
@@ -46,7 +46,7 @@ export default class w_chartCODE extends Component {
          <Chart
             padding="auto"
             forceFit
-            width={this.state.W_Width}
+            width={this.state.W_Width / 2 - 50}
             height={200}
             data={data}
             scale={cols}
@@ -58,7 +58,7 @@ export default class w_chartCODE extends Component {
 
             <Legend position="bottom" dy={-10} />
 
-            <Tooltip crosshairs={{ type: "y" }}  showTitle={false}/>
+            <Tooltip crosshairs={{ type: "y" }} showTitle={false} />
 
             <Geom type="interval" position="azs*sales"
                color={"azs"}

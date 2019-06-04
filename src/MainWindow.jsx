@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 
 import HeaderCh_Main from './chart/HeaderCh_Main.jsx';
 import First_Chart from './chart/First_Chart.jsx';
+//import First_Chart_191 from './chart/First_Chart_191.jsx';
+
 import Second_Chart from './chart/Second_Chart.jsx';
 import Third_Chart from './chart/Third_Chart.jsx';
 import Fourth_Chart from './chart/Fourth_Chart.jsx';
@@ -58,9 +60,10 @@ export default class MainWindow extends React.Component {
                      </td>
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
                         <First_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
-                           dateStart={this.props.S_Date} dateStop={this.props.E_Date}
+                           dateStart={this.props.S_Date_191} dateStop={this.props.E_Date_191}
                            w_Width={this.state.W_Width} IsTable={false}
                            updateData={this.updateData}
+                           NeedCode={'191'}
                         />
                      </td>
                   </tr>
@@ -77,15 +80,15 @@ export default class MainWindow extends React.Component {
                      </td>
 
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
-                        {!_Debuge ? (
-                           <Second_Chart
-                              dateStart={this.props.S_Date_2} dateStop={this.props.E_Date_2}
+                        {_Debuge ? (
+                           <Fourth_Chart
+                              dateStart={this.props.S_Date_4} dateStop={this.props.E_Date_4}
                               w_Width={this.state.W_Width} IsTable={false}
                               updateData={this.updateData}
                            />
                         ) : (
-                              <Fourth_Chart
-                                 dateStart={this.props.S_Date_4} dateStop={this.props.E_Date_4}
+                              <Second_Chart
+                                 dateStart={this.props.S_Date_2} dateStop={this.props.E_Date_2}
                                  w_Width={this.state.W_Width} IsTable={false}
                                  updateData={this.updateData}
                               />

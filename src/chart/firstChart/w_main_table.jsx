@@ -13,7 +13,7 @@ import {
    Delete_Item_Filter,
    get_Date_Filter, get_Date, GetDatFromColChart,
    GetFilterData_Cashir, GetFilterData_Kassa, GetFilterData_AZS,
-   GetFilterData_CODE, GetFilterData_Month, IsExist_Filter
+   GetFilterData_CODE, GetFilterData_Month, IsExist_Filter,GetData_NeedCode
 } from '../../core/core_Function.jsx';
 
 export default class w_main_table extends Component {
@@ -169,6 +169,9 @@ export default class w_main_table extends Component {
       let _dataTable = null;
       if (this.state.Object != null) {
          _dataTable = this.state.Object.incidents
+         if(this.props.NeedCode != null){
+            _dataTable = GetData_NeedCode(_dataTable,this.props.NeedCode);
+         }
          if (this.state.Is_LocalData) {
             if (this.state.n_Cashir != null) {
                _dataTable = GetFilterData_Cashir(_dataTable, this.state.n_Cashir);
@@ -233,6 +236,8 @@ export default class w_main_table extends Component {
 
                         updateType={this.updateType}
                         typeChart={this.state.typeChart}
+
+                        NeedCode={this.props.NeedCode}
                      />
                   }
                </tbody>
@@ -243,7 +248,9 @@ export default class w_main_table extends Component {
                   <tr>
                      <td>
                         {_dataTable != null &&
-                           <W_table Data={_dataTable} w_Width={this.props.w_Width} />
+                           <W_table Data={_dataTable} w_Width={this.props.w_Width} 
+                              NeedCode={this.props.NeedCode}
+                           />
                         }
                      </td>
                   </tr>

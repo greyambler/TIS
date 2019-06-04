@@ -8,17 +8,20 @@ export default class w_chartASZ extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         W_Width: this.props.w_Width / 2 - 25,
+         //W_Width: (this.props.w_Width / 2) - 25,
+         W_Width: this.props.w_Width,
       }
    }
 
    componentDidMount() {
-      this.setState({ W_Width: this.props.w_Width / 2 - 25 });
+      //this.setState({ W_Width: (this.props.w_Width / 2) - 25 });
+      this.setState({ W_Width: this.props.w_Width});
    }
 
    componentDidUpdate(prevProps) {
       if (this.props.w_Width != prevProps.w_Width) {
-         this.setState({ W_Width: this.props.w_Width / 2 - 25 });
+         //this.setState({ W_Width: (this.props.w_Width / 2) - 25 });
+         this.setState({ W_Width: this.props.w_Width});
       }
    }
    ClickAZS(v) {
@@ -46,7 +49,7 @@ export default class w_chartASZ extends Component {
          <Chart
             padding="auto"
             forceFit
-            width={this.state.W_Width}
+            width={this.state.W_Width /2 - 50}
             height={200}
             data={data}
             scale={cols}

@@ -8,9 +8,9 @@ import { D1_D1_Eq_moment, GetDateYMD_moment } from '../../core/core_Function.jsx
 
 
 class Item_Fail {
-   constructor(_id, _item, _count, _checked) {
-      this.id = _id;
-      this.item = _item;
+   constructor(_case, _name, _count, _checked) {
+      this.id = _case;
+      this.item = _name;
       this.count = _count;
       this.checked = _checked;
    }
@@ -18,22 +18,23 @@ class Item_Fail {
 export function get_ListFals(list) {
    let children = Array();
    let t = 0;
-   for (const Item of list) {
-      children[t] = new Item_Fail(Item.id, Item.item, Item.count, Item.checked);
-      t++;
+   if (list != null) {
+      for (const Item of list) {
+         children[t] = new Item_Fail(Item.case, Item.name, Item.count, true);
+         t++;
+      }
    }
    return children;
 }
 export function get_Rss() {
-   return '{"testValue":[' +
-      '{"id":1,"item":"1 Сбой кассы","count":20,"checked":true},' +
-      '{"id":2,"item":"2 Сбой ТРК","count":21,"checked":true},' +
-      '{"id":3,"item":"3 Сбой периферия","count":17,"checked":true},' +
-      '{"id":4,"item":"4 Сбой СВН","count":13, "checked":true}' +
+
+   return '{"cases":[' +
+      '{"case":"BC02","name":"БК2 ошибки взаимодействия с подключаемым оборудованием","count":9},' +
+      '{"case":"BC03","name":"БК3 зависшие транзакции","count":0},' +
+      '{"case":"BC04","name":"БК4 доступность сервера СВН","count":0},' +
+      '{"case":"BC01","name":"БК1 включение питания","count":0}' +
       ']}';
 }
-
-
 
 export default class w_main extends Component {
    constructor(props) {
@@ -43,19 +44,27 @@ export default class w_main extends Component {
          Rss: this.props.Rss,
          Object: null,
          isExistError: false,
+
+         RssSector: this.props.RssSector,
+         ObjectSector: null,
       }
    }
 
    updateData = ({ startDate, endDate }) => {
-      this.setState({ Object: null }, this.props.updateData({ startDate, endDate }));
+      this.setState({ Object: null, ObjectSector: null },
+         this.props.updateData({ startDate, endDate }));
    }
    async componentDidMount() {
       await this.tick();
+      await this.tickSector();
       //this.timerID = setInterval(() => this.tick(), 30000);
    }
    componentDidUpdate(prevProps) {
       if (this.props.Rss != prevProps.Rss) {
          this.setState({ Rss: this.props.Rss }, this.tick);
+      }
+      if (this.props.RssSector != prevProps.RssSector) {
+         this.setState({ RssSector: this.props.RssSector }, this.tickSector);
       }
    }
    async tick() {
@@ -86,13 +95,45 @@ export default class w_main extends Component {
          console.log(error);
       }
    }
+   async tickSector() {
+      let rss = this.state.RssSector;
+      var myRequest = new Request(rss);
+      try {
+         var response = await fetch(myRequest,
+            {
+               method: 'GET',
+               headers:
+               {
+                  'Accept': 'application/json',
+               },
+            }
+         );
+         if (response.ok) {
+            const Jsons = await response.json();
+
+            this.setState({ ObjectSector: Jsons });
+         }
+         else {
+            throw Error(response.statusText);
+         }
+         this.setState({ isExistError: false })
+
+      }
+      catch (error) {
+         this.setState({ isExistError: true })
+         console.log(error);
+      }
+   }
 
    render() {
-      let testValeu = get_Rss();
-      let J_testValeu = JSON.parse(testValeu);
-      let ListFalls = get_ListFals(J_testValeu.testValue);
-
-      let r = 0;
+      /*  let testValeu = get_Rss();
+          let ListFalls = JSON.parse(testValeu);
+          let J_testValeu = get_ListFals(ListFalls.cases);    
+     */
+      let J_testValeu = new Array();
+      if (this.state.ObjectSector != null) {
+         J_testValeu = get_ListFals(this.state.ObjectSector.cases);
+      }
 
       let StyleHead = {
          textAlign: "center",
@@ -122,10 +163,8 @@ export default class w_main extends Component {
                   <tr>
                      <td></td>
                      {this.state.isExistError
-                        ?
-                        (<W_head header={err} equal='right' color='red' />)
-                        :
-                        (<W_head header={this.props.header} equal='right' />)
+                        ? (<W_head header={err} equal='right' color='red' />)
+                        : (<W_head header={this.props.header} equal='right' />)
                      }
                      <W_headDate updateData={this.updateData} equal='left'
                         startDate={this.props.startDate} endDate={this.props.endDate} isDisable={false} />
@@ -151,7 +190,7 @@ export default class w_main extends Component {
                      </td>
                      <td>
                         <center>
-                           <W_sectorCircle data={ListFalls} proc='true'
+                           <W_sectorCircle data={J_testValeu} proc='true'
                            />
                         </center>
                      </td>
@@ -172,6 +211,7 @@ export default class w_main extends Component {
       );
    }
 }
+
 /*
 
                      <td>

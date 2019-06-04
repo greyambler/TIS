@@ -12,15 +12,21 @@ import MainWindow_Save8 from './save/MainWindow_Save8.jsx';
 
 import Main_Test_Tree from './save/Main_Test_Tree.jsx';
 
+
+
 import moment from 'moment';
 import 'moment/locale/ru';
 
 import First_Chart from './chart/First_Chart.jsx';
+//import First_Chart_191 from './chart/First_Chart_191.jsx';
+
 import Second_Chart from './chart/Second_Chart.jsx';
 import Third_Chart from './chart/Third_Chart.jsx';
 import Fourth_Chart from './chart/Fourth_Chart.jsx';
 
 import Test_Chart from './chart/Test_Chart.jsx';
+
+import { _startPast_Quarter, _endPast_Quarter } from './core/core_Function.jsx';
 
 const _Debuge = true;
 
@@ -30,8 +36,14 @@ const _Debuge = true;
    }));
 */
 
-const Rss = "http://172.23.16.18:11000/data/msg";
+const Rss = "http://172.23.16.18:11000/data";
+
+const Rss_msg = "http://172.23.16.18:11000/data/msg";
 const RssIncident = "http://172.23.16.18:11000/data/incident";
+const Rss_Sector = "http://172.23.16.18:11000/data/sectorchart";
+
+//сестрок
+//http://172.23.16.18:11000/data/sectorchart?from=2019-03-20&to=2019-03-27
 
 //"http://172.23.16.18:11000/msg";
 
@@ -55,6 +67,8 @@ class Main extends Component {
             S_Date_Test={this.props.S_Date_Test} E_Date_Test={this.props.E_Date_Test}
 
             S_Date={this.props.S_Date} E_Date={this.props.E_Date}
+            S_Date_191={this.props.S_Date_191} E_Date_191={this.props.E_Date_191}
+
             S_Date_2={this.props.S_Date_2} E_Date_2={this.props.E_Date_2}
             S_Date_3={this.props.S_Date_3} E_Date_3={this.props.E_Date_3}
             S_Date_4={this.props.S_Date_4} E_Date_4={this.props.E_Date_4}
@@ -85,6 +99,22 @@ class ChFirst extends Component {
             IsTable={true}
             dateStart={this.props.S_Date} dateStop={this.props.E_Date}
             updateData={this.props.updateData}
+         />
+      );
+   }
+}
+class ChFirst_191 extends Component {
+   constructor(props) {
+      super(props);
+   }
+   render() {
+      return (
+         <First_Chart Rss={Rss} RssIncident={RssIncident}
+            w_Height={this.props.w_Height} w_Width={this.props.w_Width}
+            IsTable={true}
+            dateStart={this.props.S_Date} dateStop={this.props.E_Date}
+            updateData={this.props.updateData}
+            NeedCode={'191'}
          />
       );
    }
@@ -241,10 +271,14 @@ class Nav extends Component {
                               <li><Link to="/Main_Save3" >Тестовая шапка</Link></li>
 
                               <li><Link to="/ChTDRP2">Старый Недоступность касс</Link></li>
-                              <li><Link to="/ChFirst">Недоступность касс</Link></li>
+
+                              <li><Link to="/ChFirst">Недоступность касс за период по АЗК</Link></li>
+                              <li><Link to="/ChFirst_191">Зависшие транзакции</Link></li>
+
+
                               <li><Link to="/ChSecond">Недоступность периферийного оборудования и ТРК</Link></li>
                               <li><Link to="/ChThird">Отклонение от нормы по транзакциям</Link></li>
-                              
+
 
 
                               <li><Link to="/TestTree">Тест Дерево</Link></li>
@@ -278,14 +312,17 @@ export default class App extends Component {
          W_Width: window.innerWidth,
          W_Height: window.innerHeight,
 
-         S_Date_Head: moment('2019-02-17'),        // .add(-3, 'month'),
-         E_Date_Head: moment('2019-02-17'),        // .add(-3, 'month').add(3, 'day'),
+         S_Date_Head: _startPast_Quarter,//moment('2019-02-17'),        // .add(-3, 'month'),
+         E_Date_Head: _endPast_Quarter,//moment('2019-02-17'),        // .add(-3, 'month').add(3, 'day'),
 
          // S_Date: moment().add(-3, 'month'),
          // E_Date: moment(),
 
-         S_Date_First: moment('2019-04-1'),       // .add(-3, 'month'),
-         E_Date_First: moment('2019-05-1'),
+         S_Date_First: moment('2019-03-1'),       // .add(-3, 'month'),
+         E_Date_First: moment('2019-04-1'),
+
+         S_Date_First_191: _startPast_Quarter,//moment().add(-30, 'day'),       // .add(-3, 'month'),
+         E_Date_First_191: _endPast_Quarter,//moment(),
 
          S_Date_Test: moment('2019-02-1'),
          E_Date_Test: moment('2019-05-30'),
@@ -320,6 +357,9 @@ export default class App extends Component {
          case 1:
             this.setState({ S_Date_First: startDate, E_Date_First: endDate });
             break;
+         case 11:
+            this.setState({ S_Date_First_191: startDate, E_Date_First_191: endDate });
+            break;
          case 2:
             this.setState({ S_Date_Second: startDate, E_Date_Second: endDate });
             break;
@@ -347,8 +387,11 @@ export default class App extends Component {
                <Switch>
                   <Route exact path="/" render={() => <Main
                      w_Height={this.state.W_Height} w_Width={this.state.W_Width}
+
                      S_Date_Head={this.state.S_Date_Head} E_Date_Head={this.state.E_Date_Head}
+
                      S_Date={this.state.S_Date_First} E_Date={this.state.E_Date_First}
+                     S_Date_191={this.state.S_Date_First_191} E_Date_191={this.state.E_Date_First_191}
 
                      S_Date_Test={this.state.S_Date_Test} E_Date_Test={this.state.E_Date_Test}
 
@@ -367,6 +410,11 @@ export default class App extends Component {
                   <Route exact path="/ChFirst" render={() => <ChFirst
                      w_Height={this.state.W_Height} w_Width={this.state.W_Width}
                      S_Date={this.state.S_Date_First} E_Date={this.state.E_Date_First}
+                     updateData={this.updateData}
+                  />} />
+                  <Route exact path="/ChFirst_191" render={() => <ChFirst_191
+                     w_Height={this.state.W_Height} w_Width={this.state.W_Width}
+                     S_Date={this.state.S_Date_First_191} E_Date={this.state.E_Date_First_191}
                      updateData={this.updateData}
                   />} />
 

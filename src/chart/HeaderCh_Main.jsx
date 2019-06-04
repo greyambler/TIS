@@ -23,12 +23,14 @@ export default class HeaderCh_Main extends Component {
    }
    render() {
 
-      let rss = Get_RSS(this.props.Rss, this.props.S_Date_Head, this.props.E_Date_Head);
+      let rss = Get_RSS(this.props.Rss + '/msg', this.props.S_Date_Head, this.props.E_Date_Head);
+      let rssSector = Get_RSS(this.props.Rss + '/sectorchart', this.props.S_Date_Head, this.props.E_Date_Head);
 
       return (
          <W_main
             header='Общие показатели за период'
             Rss={rss}
+            RssSector={rssSector}
             startDate={this.props.S_Date_Head}
             endDate={this.props.E_Date_Head}
             updateData={this.updateData}

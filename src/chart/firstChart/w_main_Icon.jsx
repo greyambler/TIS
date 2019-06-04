@@ -66,29 +66,34 @@ export default class w_main_Icon extends Component {
       if (this.state.isExistError) {
          err = 'Ошибка! Сервер не ответил!';
       }
+
+      let _AhrefBack = '/ChFirst';
+      if (this.props.NeedCode == '191') {
+         _AhrefBack = '/ChFirst_191';
+      }
+
       return (
          <table>
             <tbody>
                <tr>
-
                   {this.state.isExistError
                      ?
-                     (<W_head header={err} color='red' AhrefBack='/ChFirst'/>)
+                     (<W_head header={err} color='red' AhrefBack={_AhrefBack} />)
                      :
                      (
-                        <W_head header={this.props.header} AhrefBack='/ChFirst'/>
+                        <W_head header={this.props.header} AhrefBack={_AhrefBack} />
                      )
                   }
                </tr>
                <tr>
                   <W_headDate updateData={this.updateData}
-                     startDate={this.props.startDate} 
-                     endDate={this.props.endDate} 
+                     startDate={this.props.startDate}
+                     endDate={this.props.endDate}
                      isDisable={false} />
                </tr>
-
                {_dataTable != null &&
                   <W_charts Data={_dataTable} w_Width={this.props.w_Width} isLegend={false}
+                     NeedCode={this.props.NeedCode}
                      typeChart="azs"
                   />
                }

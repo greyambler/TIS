@@ -305,6 +305,7 @@ export default class w_table extends Component {
                                        Header: "Тип",
                                        accessor: "EVENT_TYPE"
                                     },
+                                    /*
                                     {
                                        Header: "Название типа",
                                        accessor: "EVENT_NAME"
@@ -321,6 +322,7 @@ export default class w_table extends Component {
                                        Header: "Время",
                                        accessor: "TimeKey"
                                     }
+                                    */
                                  ]
                               }
                            ]}

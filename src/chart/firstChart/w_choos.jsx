@@ -60,12 +60,14 @@ export default class w_choos extends Component {
                         onClick={({ typeChart }) => this.setState({ typeChart: "azs" }, this.Radio_Check)} />по АЗК
                   </td>
                </tr>
+               {!(this.props.NeedCode != null) &&
                <tr>
                   <td>
                      <input type='radio' name="r" value="code"
                         onClick={({ typeChart }) => this.setState({ typeChart: "code" }, this.Radio_Check)} />по коду ошибки
                   </td>
                </tr>
+               }
             </tbody>
          </table>
       );
