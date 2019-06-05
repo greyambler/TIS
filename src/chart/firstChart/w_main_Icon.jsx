@@ -56,7 +56,6 @@ export default class w_main_Icon extends Component {
          console.log(error);
       }
    }
-
    render() {
       let _dataTable = null;
       if (this.state.Object != null) {

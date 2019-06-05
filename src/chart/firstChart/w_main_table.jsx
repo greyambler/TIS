@@ -13,7 +13,7 @@ import {
    Delete_Item_Filter,
    get_Date_Filter, get_Date, GetDatFromColChart,
    GetFilterData_Cashir, GetFilterData_Kassa, GetFilterData_AZS,
-   GetFilterData_CODE, GetFilterData_Month, IsExist_Filter,GetData_NeedCode
+   GetFilterData_CODE, GetFilterData_Month, IsExist_Filter
 } from '../../core/core_Function.jsx';
 
 export default class w_main_table extends Component {
@@ -78,16 +78,12 @@ export default class w_main_table extends Component {
          console.log(error);
       }
    }
-
    updateType = (TypeChart) => {
       this.setState({ typeChart: TypeChart });
    }
-
    updateCashir = (N_Cashir) => {
       if (this.state.Object != null) {
-
          this.setState({ Is_LocalData: true });
-
          if (!IsExist_Filter(this.state.filterCurent, 'по кассиру')) {
             this.setState({ n_Cashir: N_Cashir });
             this.state.filterCurent[this.state.filterCurent.length] = 'по кассиру';
@@ -97,9 +93,7 @@ export default class w_main_table extends Component {
    }
    updateKass = (N_Kassa) => {
       if (this.state.Object != null) {
-
          this.setState({ Is_LocalData: true, typeChart: "cashir" });
-
          if (!IsExist_Filter(this.state.filterCurent, 'по кассе')) {
             this.setState({ n_Kassa: N_Kassa });
             this.state.filterCurent[this.state.filterCurent.length] = 'по кассе';
@@ -109,9 +103,7 @@ export default class w_main_table extends Component {
    }
    updateAZS = (N_AZS) => {
       if (this.state.Object != null) {
-
          this.setState({ Is_LocalData: true, typeChart: "cashir" });
-
          if (!IsExist_Filter(this.state.filterCurent, 'по АЗК')) {
             this.setState({ n_AZS: N_AZS });
             this.state.filterCurent[this.state.filterCurent.length] = 'по АЗК';
@@ -121,7 +113,6 @@ export default class w_main_table extends Component {
    }
    updateCode = (N_Code) => {
       if (this.state.Object != null) {
-
          this.setState({ Is_LocalData: true, typeChart: "cashir" });
          if (!IsExist_Filter(this.state.filterCurent, 'по коду ошибки')) {
             this.setState({ n_Code: N_Code });
@@ -132,7 +123,6 @@ export default class w_main_table extends Component {
    }
    updateMonth = (N_Month) => {
       if (this.state.Object != null) {
-
          this.setState({ Is_LocalData: true, typeChart: "cashir" });
          if (!IsExist_Filter(this.state.filterCurent, 'по месяцу')) {
             this.setState({ n_Month: N_Month });
@@ -141,7 +131,6 @@ export default class w_main_table extends Component {
          }
       }
    }
-
    deleteFilet = (N_Text) => {
       let newfilterCurent = Delete_Item_Filter(this.state.filterCurent, N_Text);
       switch (N_Text) {
@@ -169,9 +158,6 @@ export default class w_main_table extends Component {
       let _dataTable = null;
       if (this.state.Object != null) {
          _dataTable = this.state.Object.incidents
-         if(this.props.NeedCode != null){
-            _dataTable = GetData_NeedCode(_dataTable,this.props.NeedCode);
-         }
          if (this.state.Is_LocalData) {
             if (this.state.n_Cashir != null) {
                _dataTable = GetFilterData_Cashir(_dataTable, this.state.n_Cashir);
@@ -248,9 +234,7 @@ export default class w_main_table extends Component {
                   <tr>
                      <td>
                         {_dataTable != null &&
-                           <W_table Data={_dataTable} w_Width={this.props.w_Width} 
-                              NeedCode={this.props.NeedCode}
-                           />
+                           <W_table Data={_dataTable} w_Width={this.props.w_Width} />
                         }
                      </td>
                   </tr>

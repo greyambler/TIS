@@ -22,23 +22,23 @@ export default class First_Chart extends React.Component {
       super(props);
       this.state = {
          NeedCode: this.props.NeedCode,
-         header: (this.props.NeedCode == '191') 
-         ? 'Зависшие транзакции' : 'Недоступность касс за период по АЗК',
+         header: (this.props.NeedCode == '191')
+            ? 'Зависшие транзакции' : 'Недоступность касс за период по АЗК',
       }
    }
    updateData = ({ startDate, endDate }) => {
-      let NumberChart = this.state.NeedCode == '191' ?  11 : 1;
+      let NumberChart = this.state.NeedCode == '191' ? 11 : 1;
       this.props.updateData({ startDate, endDate, NumberChart });
    }
 
    render() {
-      let rss = Get_RSS(this.props.RssIncident, this.props.dateStart, this.props.dateStop);
+      let rss = Get_RSS(this.props.RssIncident, this.props.dateStart, this.props.dateStop, this.props.NeedCode);
 
       if (!this.props.IsTable) {
          return (
             <W_main_Icon
                header={this.state.header}//'Недоступность касс за период по АЗК'
-               w_Width={this.props.w_Width }
+               w_Width={this.props.w_Width}
                startDate={this.props.dateStart}
                endDate={this.props.dateStop}
                updateData={this.updateData}
@@ -50,7 +50,7 @@ export default class First_Chart extends React.Component {
          return (
             <W_main_table
                header={this.state.header}//'Недоступность касс за период по АЗК'
-               w_Width={this.props.w_Width }
+               w_Width={this.props.w_Width}
                startDate={this.props.dateStart}
                endDate={this.props.dateStop}
                updateData={this.updateData}

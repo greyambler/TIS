@@ -1,7 +1,5 @@
-import React from "react"
-
+import React from "react";
 import namor from "namor";
-
 import moment from 'moment';
 import 'moment/locale/ru';
 
@@ -78,7 +76,6 @@ export function get_Date() {
 
    return date_Test;
 }
-
 export function get_Date_Filter(data, S_date, E_date) {
    var date_Test = Array();
    let r = 0;
@@ -101,7 +98,6 @@ export function get_Date_Filter(data, S_date, E_date) {
       }
    return date_Test;
 }
-
 export function Get_StartDate(CurentDate, Date_time) {
    if (CurentDate == null) {
       return Date_time;
@@ -225,7 +221,6 @@ export function GetDateYMD_moment(_moment) {
       return GetDateNow();
    }
 }
-
 export function D1_D1_Eq_moment(_M1, _M2) {
    if (_M1 != null && _M2 != null) {
       try {
@@ -245,7 +240,6 @@ export function D1_D1_Eq_moment(_M1, _M2) {
    }
    return false;
 }
-
 export function GetDateDMY_moment(_moment) {
    if (_moment != null) {
       var day = _moment.date();
@@ -260,9 +254,7 @@ export function GetDateDMY_moment(_moment) {
       return GetDateNow();
    }
 }
-
-export function Get_RSS(Rss, startDate, endDate) {
-
+export function Get_RSS(Rss, startDate, endDate, needCode) {
    var rss = Rss;
    if (startDate != null && endDate != null) {
       let IsOne = D1_D1_Eq_moment(startDate, endDate);
@@ -276,10 +268,15 @@ export function Get_RSS(Rss, startDate, endDate) {
             + GetDateYMD_moment(endDate);
       }
    }
+   if (needCode != null) {
+      if (rss.includes('?')) {
+         rss = rss + "&event=" + needCode;
+      } else {
+         rss = rss + "?event=" + needCode;
+      }
+   }
    return rss;
 }
-
-
 export function GetDateNowDMY() {
    var date = new Date();
    var day = date.getDate();
@@ -290,7 +287,6 @@ export function GetDateNowDMY() {
    var today = day + "." + month + "." + year;
    return today;
 }
-
 export function contains(arr, elem) {
    let Exist = false;
    if (arr != null && elem != null) {
@@ -351,55 +347,22 @@ export function contains_KASS(arr, elem) {
    }
    return Exist;
 }
+
 export let dateStart = null;
 export let dateStop = null;
 
-
-export function GetData_NeedCode(data_DB, _NeedCode) {
-   let _dataCol = Array();
-   for (const iterator of data_DB) {
-      if (iterator.EVENT_TYPE == parseInt(_NeedCode)) {
-         _dataCol[_dataCol.length] = iterator;
-      }
-   }
-   return _dataCol;
-}
-
-
-export function GetDatFromColChart(data_DB, _NeedCode) {
+export function GetDatFromColChart(data_DB) {
    let dataCol_Char1 = Array();
    let t = 0;
    for (const element of data_DB) {
-      //let ttt = 0;
-      //dateStart = Get_StartDate(dateStart, element.Datetime);
-      //dateStop = Get_StopDate(dateStop, element.Datetime);
-      if (_NeedCode == null) {
-         let code = element.CASHIER_ID;
-         if (!contains(dataCol_Char1, code)) {
-            dataCol_Char1[t] = { n: code, CASHIER_ID: "" + code + "", F: element.F, sales: 1 };
-            t++;
-         }
-         else {
-            for (const iterator of dataCol_Char1) {
-               if (iterator.n == code) {
-                  iterator.sales = iterator.sales + 1;
-               }
-            }
-         }
+      let code = element.CASHIER_ID;
+      if (!contains(dataCol_Char1, code)) {
+         dataCol_Char1[t] = { n: code, CASHIER_ID: "" + code + "", F: element.F, sales: 1 };
+         t++;
       } else {
-
-         if (element.EVENT_TYPE == parseInt(_NeedCode)) {
-            let code = element.CASHIER_ID;
-            if (!contains(dataCol_Char1, code)) {
-               dataCol_Char1[t] = { n: code, CASHIER_ID: "" + code + "", F: element.F, sales: 1 };
-               t++;
-            }
-            else {
-               for (const iterator of dataCol_Char1) {
-                  if (iterator.n == code) {
-                     iterator.sales = iterator.sales + 1;
-                  }
-               }
+         for (const iterator of dataCol_Char1) {
+            if (iterator.n == code) {
+               iterator.sales = iterator.sales + 1;
             }
          }
       }
@@ -420,43 +383,22 @@ export function GetFilterData_Cashir(data_DB, n_Cashir) {
    }
    return data_db;
 }
-export function GetDatFromColChart_month(data_DB, _NeedCode) {
+export function GetDatFromColChart_month(data_DB) {
    let dataCol_Char1 = Array();
    let t = 0;
    for (const element of data_DB) {
-      if (_NeedCode == null) {
-         //let ttt = 0;
-         let date = moment(element.Datetime.toString()).local('ru').format('MM/YYYY');
-         let date_month = moment(element.Datetime.toString()).local('ru').format('MM');
-
-         if (!contains_Mouth(dataCol_Char1, date_month)) {
-            dataCol_Char1[t] = { date_month: date_month, date: date, sales: 1 };
-            t++;
-         } else {
-            for (const iterator of dataCol_Char1) {
-               if (iterator.date_month == date_month) {
-                  iterator.sales = iterator.sales + 1;
-               }
-            }
-         }
+      let date = moment(element.Datetime.toString()).local('ru').format('MM/YYYY');
+      let date_month = moment(element.Datetime.toString()).local('ru').format('MM');
+      if (!contains_Mouth(dataCol_Char1, date_month)) {
+         dataCol_Char1[t] = { date_month: date_month, date: date, sales: 1 };
+         t++;
       } else {
-         if (element.EVENT_TYPE == parseInt(_NeedCode)) {
-            let date = moment(element.Datetime.toString()).local('ru').format('MM/YYYY');
-            let date_month = moment(element.Datetime.toString()).local('ru').format('MM');
-
-            if (!contains_Mouth(dataCol_Char1, date_month)) {
-               dataCol_Char1[t] = { date_month: date_month, date: date, sales: 1 };
-               t++;
-            } else {
-               for (const iterator of dataCol_Char1) {
-                  if (iterator.date_month == date_month) {
-                     iterator.sales = iterator.sales + 1;
-                  }
-               }
+         for (const iterator of dataCol_Char1) {
+            if (iterator.date_month == date_month) {
+               iterator.sales = iterator.sales + 1;
             }
          }
       }
-
    }
    return dataCol_Char1;
 }
@@ -477,38 +419,18 @@ export function GetFilterData_Month(data_DB, n_Month) {
    }
    return data_db;
 }
-
-
-export function GetDatFromColChart_AZS(data_DB, _NeedCode) {
+export function GetDatFromColChart_AZS(data_DB) {
    let dataCol_Char1 = Array();
    let t = 0;
    for (const element of data_DB) {
-      if (_NeedCode == null) {
-         let code = element.SHOP_NUM;
-
-         if (!contains_AZS(dataCol_Char1, code)) {
-            dataCol_Char1[t] = { n: code, azs: "" + code + "", sales: 1 };
-            t++;
-         } else {
-            for (const iterator of dataCol_Char1) {
-               if (iterator.n == code) {
-                  iterator.sales = iterator.sales + 1;
-               }
-            }
-         }
+      let code = element.SHOP_NUM;
+      if (!contains_AZS(dataCol_Char1, code)) {
+         dataCol_Char1[t] = { n: code, azs: "" + code + "", sales: 1 };
+         t++;
       } else {
-         if (element.EVENT_TYPE == parseInt(_NeedCode)) {
-            let code = element.SHOP_NUM;
-
-            if (!contains_AZS(dataCol_Char1, code)) {
-               dataCol_Char1[t] = { n: code, azs: "" + code + "", sales: 1 };
-               t++;
-            } else {
-               for (const iterator of dataCol_Char1) {
-                  if (iterator.n == code) {
-                     iterator.sales = iterator.sales + 1;
-                  }
-               }
+         for (const iterator of dataCol_Char1) {
+            if (iterator.n == code) {
+               iterator.sales = iterator.sales + 1;
             }
          }
       }
@@ -529,36 +451,18 @@ export function GetFilterData_AZS(data_DB, n_AZS) {
    }
    return data_db;
 }
-export function GetDatFromColChart_CODE(data_DB, _NeedCode) {
+export function GetDatFromColChart_CODE(data_DB) {
    let dataCol_Char1 = Array();
    let t = 0;
    for (const element of data_DB) {
-      if (_NeedCode == null) {
-         let code = element.EVENT_TYPE;
-
-         if (!contains_CODE(dataCol_Char1, code)) {
-            dataCol_Char1[t] = { n: code, azs: "" + code + "", sales: 1 };
-            t++;
-         } else {
-            for (const iterator of dataCol_Char1) {
-               if (iterator.n == code) {
-                  iterator.sales = iterator.sales + 1;
-               }
-            }
-         }
+      let code = element.EVENT_TYPE;
+      if (!contains_CODE(dataCol_Char1, code)) {
+         dataCol_Char1[t] = { n: code, azs: "" + code + "", sales: 1 };
+         t++;
       } else {
-         if (element.EVENT_TYPE == parseInt(_NeedCode)) {
-            let code = element.EVENT_TYPE;
-
-            if (!contains_CODE(dataCol_Char1, code)) {
-               dataCol_Char1[t] = { n: code, azs: "" + code + "", sales: 1 };
-               t++;
-            } else {
-               for (const iterator of dataCol_Char1) {
-                  if (iterator.n == code) {
-                     iterator.sales = iterator.sales + 1;
-                  }
-               }
+         for (const iterator of dataCol_Char1) {
+            if (iterator.n == code) {
+               iterator.sales = iterator.sales + 1;
             }
          }
       }
@@ -579,36 +483,18 @@ export function GetFilterData_CODE(data_DB, n_Code) {
    }
    return data_db;
 }
-export function GetDatFromColChart_KASS(data_DB, _NeedCode) {
+export function GetDatFromColChart_KASS(data_DB) {
    let dataCol_Char1 = Array();
    let t = 0;
    for (const element of data_DB) {
-      if (_NeedCode == null) {
-         let code = element.KASS_NUM;
-
-         if (!contains_KASS(dataCol_Char1, code)) {
-            dataCol_Char1[t] = { n: code, KASS_NUM: "" + code + "", sales: 1 };
-            t++;
-         } else {
-            for (const iterator of dataCol_Char1) {
-               if (iterator.n == code) {
-                  iterator.sales = iterator.sales + 1;
-               }
-            }
-         }
+      let code = element.KASS_NUM;
+      if (!contains_KASS(dataCol_Char1, code)) {
+         dataCol_Char1[t] = { n: code, KASS_NUM: "" + code + "", sales: 1 };
+         t++;
       } else {
-         if (element.EVENT_TYPE == parseInt(_NeedCode)) {
-            let code = element.KASS_NUM;
-
-            if (!contains_KASS(dataCol_Char1, code)) {
-               dataCol_Char1[t] = { n: code, KASS_NUM: "" + code + "", sales: 1 };
-               t++;
-            } else {
-               for (const iterator of dataCol_Char1) {
-                  if (iterator.n == code) {
-                     iterator.sales = iterator.sales + 1;
-                  }
-               }
+         for (const iterator of dataCol_Char1) {
+            if (iterator.n == code) {
+               iterator.sales = iterator.sales + 1;
             }
          }
       }
@@ -722,8 +608,8 @@ const endPast_Month = moment().subtract(1, 'months').endOf('month');
 
 const quarter = moment().quarter();
 const quarterLast = (quarter == 1) ? 4 : quarter - 1;
-export let startPast_Quarter = moment().quarter(quarterLast).startOf('quarter');
-export let endPast_Quarter = moment().quarter(quarterLast).endOf('quarter');
+let startPast_Quarter = moment().quarter(quarterLast).startOf('quarter');
+let endPast_Quarter = moment().quarter(quarterLast).endOf('quarter');
 
 if (quarterLast == 4) {
    startPast_Quarter = moment().add(-1, "year").quarter(quarterLast).startOf('quarter');

@@ -57,7 +57,6 @@ export default class w_head_link extends Component {
             }
          default: break;
       }
-
       return (
          <th style={StyleHead}>
             <Link to={this.props.AhrefBack} style={StyleHead}>

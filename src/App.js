@@ -28,7 +28,7 @@ import Test_Chart from './chart/Test_Chart.jsx';
 
 import { _startPast_Quarter, _endPast_Quarter } from './core/core_Function.jsx';
 
-const _Debuge = true;
+const _Debuge = false;
 
 /*// Правильно :)
    this.setState((prevState, props) => ({
@@ -321,8 +321,8 @@ export default class App extends Component {
          S_Date_First: moment('2019-03-1'),       // .add(-3, 'month'),
          E_Date_First: moment('2019-04-1'),
 
-         S_Date_First_191: _startPast_Quarter,//moment().add(-30, 'day'),       // .add(-3, 'month'),
-         E_Date_First_191: _endPast_Quarter,//moment(),
+         S_Date_First_191: _startPast_Quarter,//moment().add(-30, 'day'),       // _startPast_Quarter,//.add(-3, 'month'),
+         E_Date_First_191: moment(), //_endPast_Quarter,//
 
          S_Date_Test: moment('2019-02-1'),
          E_Date_Test: moment('2019-05-30'),

@@ -46,7 +46,7 @@ export default class w_charts extends Component {
          case "cashir": {
             let dataCol_Char1 = null;
             if (this.props.Data != null) {
-               dataCol_Char1 = GetDatFromColChart(this.props.Data,this.props.NeedCode);
+               dataCol_Char1 = GetDatFromColChart(this.props.Data);
             }
             return (
                <tr>
@@ -73,7 +73,7 @@ export default class w_charts extends Component {
          case "date": {
             let dataCol_Char1 = null;
             if (this.props.Data != null) {
-               dataCol_Char1 = GetDatFromColChart_month(this.props.Data,this.props.NeedCode);
+               dataCol_Char1 = GetDatFromColChart_month(this.props.Data);
             }
             return (
                <tr>
@@ -100,7 +100,7 @@ export default class w_charts extends Component {
          case "azs": {
             let dataCol_Char1 = null;
             if (this.props.Data != null) {
-               dataCol_Char1 = GetDatFromColChart_AZS(this.props.Data,this.props.NeedCode);
+               dataCol_Char1 = GetDatFromColChart_AZS(this.props.Data);
             }
             return (
                <tr>
@@ -126,7 +126,7 @@ export default class w_charts extends Component {
          case "code": {
             let dataCol_Char1 = null;
             if (this.props.Data != null) {
-               dataCol_Char1 = GetDatFromColChart_CODE(this.props.Data,this.props.NeedCode);
+               dataCol_Char1 = GetDatFromColChart_CODE(this.props.Data);
             }
             return (
                <tr>
@@ -153,7 +153,7 @@ export default class w_charts extends Component {
          case "kass": {
             let dataCol_Char1 = null;
             if (this.props.Data != null) {
-               dataCol_Char1 = GetDatFromColChart_KASS(this.props.Data,this.props.NeedCode);
+               dataCol_Char1 = GetDatFromColChart_KASS(this.props.Data);
             }
             return (
                <tr>

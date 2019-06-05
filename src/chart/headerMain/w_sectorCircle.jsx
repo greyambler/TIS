@@ -102,6 +102,7 @@ export default class w_circle extends Component {
                 as: "percent"
             });
 
+
             return (
                 <div className='T_Chart'>
                     <Chart className="W_Chart"
@@ -111,11 +112,12 @@ export default class w_circle extends Component {
                         forceFit={false}
                         onClick={ev => { this.on_Click({ ev }) }}
                     >
+
                         <Coord type={"theta"} radius={0.70} innerRadius={0.2} />
 
                         <Legend position="right" offsetY={0} offsetX={10} />
                         <Tooltip showTitle={false} itemTpl={get_itemTpl()} />
-                        <Guide>
+                        <Guide >
                             <Html
                                 position={["50%", "49%"]}
                                 html={get_Html(this.state.sum)}
@@ -143,6 +145,7 @@ export default class w_circle extends Component {
                             }}
                         >
                         </Geom>
+
                     </Chart>
                 </div>
             );
