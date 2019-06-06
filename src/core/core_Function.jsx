@@ -367,8 +367,13 @@ export function GetDatFromColChart(data_DB) {
          }
       }
    }
-   return dataCol_Char1;
+   return dataCol_Char1.sort(compare_N);
 }
+function compare_N(a, b) {
+   if (a.n > b.n) return 1;
+   if (a.n < b.n) return -1;
+}
+
 export function GetFilterData_Cashir(data_DB, n_Cashir) {
    let data_db = null;
    if (data_DB) {
@@ -383,6 +388,7 @@ export function GetFilterData_Cashir(data_DB, n_Cashir) {
    }
    return data_db;
 }
+
 export function GetDatFromColChart_month(data_DB) {
    let dataCol_Char1 = Array();
    let t = 0;
@@ -400,8 +406,13 @@ export function GetDatFromColChart_month(data_DB) {
          }
       }
    }
-   return dataCol_Char1;
+   return dataCol_Char1.sort(compareDate);
 }
+function compareDate(a, b) {
+   if (a.date_month > b.date_month ) return 1;
+   if (a.date_month < b.date_month) return -1;
+}
+
 export function GetFilterData_Month(data_DB, n_Month) {
    let data_db = null;
    if (data_DB) {
@@ -425,7 +436,7 @@ export function GetDatFromColChart_AZS(data_DB) {
    for (const element of data_DB) {
       let code = element.SHOP_NUM;
       if (!contains_AZS(dataCol_Char1, code)) {
-         dataCol_Char1[t] = { n: code, azs: "" + code + "", sales: 1};
+         dataCol_Char1[t] = { n: code, azs: "" + code + "", sales: 1 };
          t++;
       } else {
          for (const iterator of dataCol_Char1) {
@@ -435,8 +446,10 @@ export function GetDatFromColChart_AZS(data_DB) {
          }
       }
    }
-   return dataCol_Char1;
+   return dataCol_Char1.sort(compare_N);
 }
+
+
 export function GetFilterData_AZS(data_DB, n_AZS) {
    let data_db = null;
    if (data_DB) {
@@ -499,7 +512,7 @@ export function GetDatFromColChart_KASS(data_DB) {
          }
       }
    }
-   return dataCol_Char1;
+   return dataCol_Char1.sort(compare_N); 
 }
 export function GetFilterData_Kassa(data_DB, n_Kass) {
    let data_db = null;

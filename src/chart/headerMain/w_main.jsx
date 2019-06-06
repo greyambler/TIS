@@ -24,8 +24,13 @@ export function get_ListFals(list) {
          t++;
       }
    }
-   return children;
+   return children.sort(compareCase);
 }
+function compareCase(a, b) {
+   if (a.id > b.id ) return 1;
+   if (a.id < b.id) return -1;
+}
+
 export function get_Rss() {
 
    return '{"cases":[' +
