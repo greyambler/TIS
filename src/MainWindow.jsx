@@ -53,17 +53,18 @@ export default class MainWindow extends React.Component {
                   <tr className="tr_Chart">
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
                         <First_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
-                           dateStart={this.props.S_Date} dateStop={this.props.E_Date}
+                           dateStart={this.props.S_Date_122} dateStop={this.props.E_Date_122}
                            w_Width={this.state.W_Width} IsTable={false}
                            updateData={this.updateData}
+                           NeedCode={'122'}
                         />
                      </td>
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
-                        <First_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
-                           dateStart={this.props.S_Date_191} dateStop={this.props.E_Date_191}
+
+                        <Second_Chart
+                           dateStart={this.props.S_Date_2} dateStop={this.props.E_Date_2}
                            w_Width={this.state.W_Width} IsTable={false}
                            updateData={this.updateData}
-                           NeedCode={'191'}
                         />
                      </td>
                   </tr>
@@ -72,27 +73,21 @@ export default class MainWindow extends React.Component {
                   </tr>
                   <tr className="tr_Chart">
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
-                        <Third_Chart
-                           dateStart={this.props.S_Date_3} dateStop={this.props.E_Date_3}
+                        <First_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
+                           dateStart={this.props.S_Date_191} dateStop={this.props.E_Date_191}
                            w_Width={this.state.W_Width} IsTable={false}
                            updateData={this.updateData}
+                           NeedCode={'191'}
                         />
+
                      </td>
 
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
-                        {_Debuge ? (
-                           <Fourth_Chart
-                              dateStart={this.props.S_Date_4} dateStop={this.props.E_Date_4}
-                              w_Width={this.state.W_Width} IsTable={false}
-                              updateData={this.updateData}
-                           />
-                        ) : (
-                              <Second_Chart
-                                 dateStart={this.props.S_Date_2} dateStop={this.props.E_Date_2}
-                                 w_Width={this.state.W_Width} IsTable={false}
-                                 updateData={this.updateData}
-                              />
-                           )}
+                        <Fourth_Chart
+                           dateStart={this.props.S_Date_4} dateStop={this.props.E_Date_4}
+                           w_Width={this.state.W_Width} IsTable={false}
+                           updateData={this.updateData}
+                        />
                      </td>
                   </tr>
                </tbody>
@@ -101,3 +96,16 @@ export default class MainWindow extends React.Component {
       );
    }
 }
+
+
+/*
+<Third_Chart
+                           dateStart={this.props.S_Date_3} dateStop={this.props.E_Date_3}
+                           w_Width={this.state.W_Width} IsTable={false}
+                           updateData={this.updateData}
+                        />
+
+
+
+
+*/

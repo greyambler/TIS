@@ -29,7 +29,7 @@ export default class Second_Chart extends React.Component {
       if (!this.props.IsTable) {
          return (
             <W_main_Icon
-               header='Недоступность периферийного оборудования и ТРК (количество сбоев)'
+               header='Недоступность периферийного оборудования и ТРК (количество сбоев 211)'
                w_Width={this.props.w_Width}
                startDate={this.state.startDate}
                endDate={this.state.endDate}
@@ -39,7 +39,7 @@ export default class Second_Chart extends React.Component {
       } else {
          return (
             <W_main_table
-               header='Недоступность периферийного оборудования и ТРК (количество сбоев)'
+               header='Недоступность периферийного оборудования и ТРК (количество сбоев 211)'
                w_Width={this.props.w_Width}
                startDate={this.state.startDate}
                endDate={this.state.endDate}

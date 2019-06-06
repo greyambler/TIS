@@ -18,7 +18,7 @@ export default class w_main_Icon extends Component {
       }
    }
    componentDidMount() {
-      this.tick();
+      //this.tick();
       //this.timerID = setInterval(() => this.tick(), 30000);
    }
    updateData = ({ startDate, endDate }) => {
@@ -60,6 +60,7 @@ export default class w_main_Icon extends Component {
 
 
    render() {
+      /*
       let _dataTable = null;
       let dataCol_Char1 = null;
 
@@ -67,7 +68,8 @@ export default class w_main_Icon extends Component {
          _dataTable = this.state.Object.incidents
          dataCol_Char1 = GetDatFromColChart_month(_dataTable);
       }
-      
+      */
+
       let err = null;
       if (this.state.isExistError) {
          err = 'Ошибка! Сервер не ответил!';
@@ -92,17 +94,27 @@ export default class w_main_Icon extends Component {
                </tr>
                <tr>
                   <W_headDate updateData={this.updateData}
-                     startDate={this.props.startDate} endDate={this.props.endDate} 
-                     isDisable={false} 
-                     />
+                     startDate={this.props.startDate} endDate={this.props.endDate}
+                     isDisable={false}
+                  />
                </tr>
                <tr>
-                  {dataCol_Char1 != null &&
-                     <W_chart DataChart={dataCol_Char1} w_Width={this.props.w_Width} />
-                  }
+                  <td colSpan='2'>
+                     <W_chart w_Width={this.props.w_Width} />
+                  </td>
                </tr>
             </tbody>
          </table>
       );
    }
 }
+/*
+<W_chart  w_Width={this.props.w_Width} />
+
+                  {dataCol_Char1 != null &&
+                     <W_chart DataChart={dataCol_Char1} w_Width={this.props.w_Width} />
+                  }
+
+
+
+*/

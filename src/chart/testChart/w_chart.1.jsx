@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Chart, Geom, Axis, Tooltip, Legend, Coord, Label, Guide } from 'bizcharts';
-
 import { max } from 'moment';
 /*
 import {
@@ -37,43 +36,45 @@ export default class w_chart extends Component {
          {
             date:"02/2019",
             date_moth:"02",
-            norm:8,
+            type:'val',
             sales:8
          },
          {
             date:"03/2019",
             date_moth:"03",
-            norm:8,
+            type:'val',
             sales:11
          },
          {
             date:"04/2019",
             date_moth:"04",
-            norm:8,
+            type:'val',
             sales:1
+         },
+
+         {
+            date:"02/2019",
+            date_moth:"02",
+            type:'norm',
+            sales:2
+         },
+         {
+            date:"03/2019",
+            date_moth:"03",
+            type:'norm',
+            sales:2
+         },
+         {
+            date:"04/2019",
+            date_moth:"04",
+            type:'norm',
+            sales:2
          }
+
       ];
-      
-      let VertMax = 1;
-      for (const iterator of data) {
-         if (VertMax < iterator.sales) {
-            VertMax = iterator.sales;
-         }
-         if (VertMax < iterator.norm) {
-            VertMax = iterator.norm;
-         }
-      }
       const cols = {
          date_moth: {
-            
-         },
-         norm: {
-            min: 0,
-            max: Math.ceil(VertMax)
-         },
-         sales: {
-            min: 0,
-            max: Math.ceil(VertMax)
+           
          }
        };
       return (
@@ -86,15 +87,15 @@ export default class w_chart extends Component {
            <Geom
              type="interval"
              position="date_moth*sales"
-             color={"sales"}             
+             color={"type"}             
            />
 
 
            <Geom
                type="line"
-               position="date_moth*norm"
+               position="date_moth*sales"
                size={4}
-               color={"red"}
+               color={"type"}
                
              />
 

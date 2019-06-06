@@ -35,11 +35,20 @@ export default class w_chartDate extends Component {
          if (VertMax < iterator.sales) {
             VertMax = iterator.sales;
          }
+         if (VertMax < iterator.norm) {
+            VertMax = iterator.norm;
+         }
       }
       const cols = {
          sales: {
             alias: 'Событий',
-            tickInterval: Math.ceil(VertMax / 4)
+            min: 0,
+            //tickInterval: Math.ceil(VertMax / 4)
+            max: Math.ceil(VertMax)
+         },
+         norm: {
+            min: 0,
+            max: Math.ceil(VertMax)
          }
       };
       return (
@@ -55,16 +64,52 @@ export default class w_chartDate extends Component {
          <center><span>По месяцам</span></center>
             <Axis name="date_month"/>
             <Axis name="sales" title/>
+            <Axis name="norm" title/>
             <Legend position="bottom" dy={-10} />
             <Tooltip showTitle={false}
                crosshairs={{
                   type: "y"
                }}
             />
-            <Geom type="interval" position="date*sales"
+            <Geom type="interval" 
+               position="date*sales"
                color={"date"}
-            />
+               />
+              
+
+            <Geom type="line"
+                  position="date*norm"
+                  size={4}
+                  color={'red'}
+               />
+               <Geom
+                  type="point"
+                  position="date*norm"
+                  size={2}
+                  shape={"circle"}
+                  color={'red'}
+                  style={{
+                     stroke: "#fff",
+                     lineWidth: 3
+                  }}
+               />
          </Chart>
       );
    }
 }
+/*
+
+ <Geom
+                  type="point"
+                  position="date*sales"
+                  size={2}
+                  shape={"circle"}
+                  color={'date'}
+                  style={{
+                     stroke: "#fff",
+                     lineWidth: 3
+                  }}
+               />
+
+
+*/

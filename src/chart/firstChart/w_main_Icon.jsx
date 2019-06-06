@@ -67,9 +67,24 @@ export default class w_main_Icon extends Component {
       }
 
       let _AhrefBack = '/ChFirst';
-      if (this.props.NeedCode == '191') {
-         _AhrefBack = '/ChFirst_191';
+      let ChooSeChart = 'azs'
+      switch (this.props.NeedCode) {
+         case '191': {
+            _AhrefBack = '/ChFirst_191';
+            ChooSeChart = 'date'
+         } break;
+         case '122': {
+            _AhrefBack = '/ChFirst_122';
+            ChooSeChart = 'azs'
+         } break;
+         default:
+            {
+               _AhrefBack = '/ChFirst';
+               ChooSeChart = 'azs'
+            } break;
       }
+
+
 
       return (
          <table>
@@ -93,7 +108,7 @@ export default class w_main_Icon extends Component {
                {_dataTable != null &&
                   <W_charts Data={_dataTable} w_Width={this.props.w_Width} isLegend={false}
                      NeedCode={this.props.NeedCode}
-                     typeChart="azs"
+                     typeChart={ChooSeChart}
                   />
                }
             </tbody>

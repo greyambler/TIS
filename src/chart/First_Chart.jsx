@@ -20,14 +20,39 @@ this.setState((prevState, props) => ({
 export default class First_Chart extends React.Component {
    constructor(props) {
       super(props);
+      let _header = 'Недоступность касс за период по АЗК';
+      switch (this.props.NeedCode) {
+         case '191':
+            _header = 'Отклонение от нормы за период по зависшим транзакциям на ТРК (191)';
+            break;
+         case '122':
+            _header = 'Недоступность касс за период по АЗК (122)';
+            break;
+         default:
+            _header = 'Недоступность касс за период по АЗК (all)';
+            break;
+      }
       this.state = {
          NeedCode: this.props.NeedCode,
-         header: (this.props.NeedCode == '191')
-            ? 'Зависшие транзакции' : 'Недоступность касс за период по АЗК',
+         header: _header,
       }
    }
    updateData = ({ startDate, endDate }) => {
-      let NumberChart = this.state.NeedCode == '191' ? 11 : 1;
+      let NumberChart = 1;
+      switch (this.state.NeedCode) {
+         case '191':
+            NumberChart = 11;
+            break;
+         case '122':
+            NumberChart = 12;
+            break;
+         default:
+            NumberChart = 1;
+            break;
+      }
+
+
+
       this.props.updateData({ startDate, endDate, NumberChart });
    }
 

@@ -11,16 +11,16 @@ export default class w_choos extends Component {
          typeChart: this.props.typeChart,
       }
    }
-   
+
    componentDidMount() {
       this.Radio_Check();
    }
-   
+
    Radio_Check() {
       this.props.updateType(this.state.typeChart);
       this.RadioCheck(this.state.typeChart);
    }
-   
+
    RadioCheck(_typeChart) {
       var inp = document.getElementsByName('r');
       for (var i = 0; i < inp.length; i++) {
@@ -61,13 +61,14 @@ export default class w_choos extends Component {
                   </td>
                </tr>
                {!(this.props.NeedCode != null) &&
-               <tr>
-                  <td>
-                     <input type='radio' name="r" value="code"
-                        onClick={({ typeChart }) => this.setState({ typeChart: "code" }, this.Radio_Check)} />по коду ошибки
+                  <tr>
+                     <td>
+                        <input type='radio' name="r" value="code"
+                           onClick={({ typeChart }) => this.setState({ typeChart: "code" }, this.Radio_Check)} />по коду ошибки
                   </td>
-               </tr>
+                  </tr>
                }
+
             </tbody>
          </table>
       );

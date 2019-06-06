@@ -28,7 +28,7 @@ export default class Test_Chart extends React.Component {
    render() { 
       let rss = Get_RSS(this.props.RssIncident, this.props.dateStart, this.props.dateStop);
 
-      if (!this.props.IsTable) {
+      if (this.props.IsTable) {
          return (
             <W_main_Icon
                header='Недоступность касс за период на АЗК'

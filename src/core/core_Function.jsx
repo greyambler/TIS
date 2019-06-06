@@ -390,7 +390,7 @@ export function GetDatFromColChart_month(data_DB) {
       let date = moment(element.Datetime.toString()).local('ru').format('MM/YYYY');
       let date_month = moment(element.Datetime.toString()).local('ru').format('MM');
       if (!contains_Mouth(dataCol_Char1, date_month)) {
-         dataCol_Char1[t] = { date_month: date_month, date: date, sales: 1 };
+         dataCol_Char1[t] = { date_month: date_month, date: date, sales: 1, norm: 2 };
          t++;
       } else {
          for (const iterator of dataCol_Char1) {
@@ -425,7 +425,7 @@ export function GetDatFromColChart_AZS(data_DB) {
    for (const element of data_DB) {
       let code = element.SHOP_NUM;
       if (!contains_AZS(dataCol_Char1, code)) {
-         dataCol_Char1[t] = { n: code, azs: "" + code + "", sales: 1 };
+         dataCol_Char1[t] = { n: code, azs: "" + code + "", sales: 1};
          t++;
       } else {
          for (const iterator of dataCol_Char1) {
