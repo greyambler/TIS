@@ -6,18 +6,20 @@ export default class w_chart extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         W_Width: this.props.w_Width / 2 - 25,
+         //W_Width: this.props.w_Width / 2 - 25,
          Data: this.props.DataChart,
       }
    }
 
    componentDidMount() {
-      this.setState({ W_Width: this.props.w_Width / 2 - 25 });
+      //this.setState({ W_Width: this.props.w_Width / 2 - 25 });
+      this.setState({ W_Width: this.props.w_Width});
    }
 
    componentDidUpdate(prevProps) {
       if (this.props.w_Width != prevProps.w_Width) {
-         this.setState({ W_Width: this.props.w_Width / 2 - 25 });
+         //this.setState({ W_Width: this.props.w_Width / 2 - 25 });
+         this.setState({ W_Width: this.props.w_Width});
       }
       if (this.props.DataChart != prevProps.DataChart) {
          this.setState({ Data: this.props.DataChart });
@@ -119,10 +121,11 @@ export default class w_chart extends Component {
          <td colSpan='2'>
             <center>
                <Chart
-                  width={this.state.W_Width}
+                  width={this.state.W_Width /2 - 50}
                   height={200}
                   data={dv} scale={cols}
                   forceFit>
+                  <br/><br/><br/>
                   <Legend />
                   <Axis name="month" />
                   <Axis

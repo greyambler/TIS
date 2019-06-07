@@ -68,6 +68,7 @@ export default class w_chart extends Component {
                   height={200}
                   data={dv}
                   forceFit
+                  
                >
                   <Axis name="月份" />
                   <Axis name="月均降雨量" />

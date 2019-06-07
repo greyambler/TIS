@@ -51,7 +51,9 @@ export default class MainWindow extends React.Component {
             <table>
                <tbody>
                   <tr className="tr_Chart">
-                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
+                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2}       
+                                       
+                     >
                         <First_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
                            dateStart={this.props.S_Date_122} dateStop={this.props.E_Date_122}
                            w_Width={this.state.W_Width} IsTable={false}
@@ -72,7 +74,9 @@ export default class MainWindow extends React.Component {
                      <td colSpan='2'><hr /><hr /><br /></td>
                   </tr>
                   <tr className="tr_Chart">
-                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
+                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2}
+                        height='150px'
+                     >
                         <First_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
                            dateStart={this.props.S_Date_191} dateStop={this.props.E_Date_191}
                            w_Width={this.state.W_Width} IsTable={false}

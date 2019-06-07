@@ -18,7 +18,6 @@ import moment from 'moment';
 import 'moment/locale/ru';
 
 import First_Chart from './chart/First_Chart.jsx';
-//import First_Chart_191 from './chart/First_Chart_191.jsx';
 
 import Second_Chart from './chart/Second_Chart.jsx';
 import Third_Chart from './chart/Third_Chart.jsx';

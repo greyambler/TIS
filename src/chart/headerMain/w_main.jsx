@@ -15,6 +15,7 @@ class Item_Fail {
       this.checked = _checked;
    }
 }
+
 export function get_ListFals(list) {
    let children = Array();
    let t = 0;
@@ -27,7 +28,7 @@ export function get_ListFals(list) {
    return children.sort(compareCase);
 }
 function compareCase(a, b) {
-   if (a.id > b.id ) return 1;
+   if (a.id > b.id) return 1;
    if (a.id < b.id) return -1;
 }
 

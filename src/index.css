@@ -291,8 +291,8 @@ select {
 td, th, tr {
    /*background: maroon;  Цвет фона ячеек */
    padding: 0px;
-   /* Поля вокруг текста  
-   border: 1px solid black;   */
+   /* Поля вокруг текста 
+   border: 1px solid black;    */
    min-width: 20px;
 
 }
@@ -476,10 +476,15 @@ width="35" height="35" />
 
 .td_C_Chart {
    vertical-align: top;
+   height: 150px;
 }
+C_Chart {
+   vertical-align: bottom;
 
+}
 .tr_Chart {
-   /* height: 220px; */
+   /*
+   max-height: 20px; */ 
    widows: 100%;
    
    /* min-height: 200px; */ 

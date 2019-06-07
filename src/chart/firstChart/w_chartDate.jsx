@@ -13,7 +13,7 @@ export default class w_chartDate extends Component {
    }
 
    componentDidMount() {
-      this.setState({ W_Width: this.props.w_Width  });
+      this.setState({ W_Width: this.props.w_Width });
    }
 
    componentDidUpdate(prevProps) {
@@ -23,7 +23,7 @@ export default class w_chartDate extends Component {
    }
    ClickMonth(v) {
       try {
-         this.props.updateMonth(v.ev.data._origin.date_month);
+         this.props.updateMonth(v.ev.data._origin.date);
       } catch (error) {
       }
    }
@@ -47,57 +47,84 @@ export default class w_chartDate extends Component {
             max: Math.ceil(VertMax)
          },
          norm: {
+            alias: 'Порог',
             min: 0,
-            max: Math.ceil(VertMax)
+            max: Math.ceil(VertMax),
+            x: 2
          }
       };
       return (
          <Chart
             padding="auto"
             forceFit
-            width={this.state.W_Width /2 - 50}
+            width={this.state.W_Width / 2 - 50}
             height={200}
             data={data}
             scale={cols}
             onClick={ev => { this.ClickMonth({ ev }) }}
          >
-         <center><span>По месяцам</span></center>
-            <Axis name="date_month"/>
-            <Axis name="sales" title/>
-            <Axis name="norm" title/>
+            <center><span>По месяцам</span></center>
+            <Axis name="sales" title />
+            <Axis name="date" />            
+            <Axis name="norm" />
+
             <Legend position="bottom" dy={-10} />
             <Tooltip showTitle={false}
                crosshairs={{
                   type: "y"
                }}
             />
-            <Geom type="interval" 
+
+            <Geom type="interval"
                position="date*sales"
                color={"date"}
-               />
-              
-
+            />
             <Geom type="line"
-                  position="date*norm"
-                  size={4}
-                  color={'red'}
-               />
-               <Geom
-                  type="point"
-                  position="date*norm"
-                  size={2}
-                  shape={"circle"}
-                  color={'red'}
-                  style={{
-                     stroke: "#fff",
-                     lineWidth: 3
-                  }}
-               />
+               position="date*norm"
+               size={4}
+               color={'red'}
+            />
+            <Geom
+               type="point"
+               position="date*norm"
+               size={2}
+               shape={"circle"}
+               color={'red'}
+               style={{
+                  stroke: "#fff",
+                  lineWidth: 3
+               }}
+            />
+
          </Chart>
       );
    }
 }
 /*
+
+
+            <Geom type="interval"
+               position="date*norm"
+               size={(this.state.W_Width / data.length - 80) }
+               color={'pink'}
+               border={'2px solid black'}
+            />
+
+
+            <Geom type="line"
+               position="date*norm"
+               size={4}
+               color={'red'}
+            />
+
+
+            <Geom type="interval"
+               position="date*norm"
+               size={(this.state.W_Width / 2 - 50) / data.length}
+               color={'pink'}
+               border={ '2px solid black'}
+            />
+
 
  <Geom
                   type="point"

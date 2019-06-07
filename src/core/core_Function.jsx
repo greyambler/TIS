@@ -303,7 +303,7 @@ export function contains_Mouth(arr, elem) {
    let Exist = false;
    if (arr != null && elem != null) {
       for (const iterator of arr) {
-         Exist = (iterator.date_month == elem);
+         Exist = (iterator.date == elem);
          if (Exist) {
             break;
          }
@@ -394,13 +394,13 @@ export function GetDatFromColChart_month(data_DB) {
    let t = 0;
    for (const element of data_DB) {
       let date = moment(element.Datetime.toString()).local('ru').format('MM/YYYY');
-      let date_month = moment(element.Datetime.toString()).local('ru').format('MM');
-      if (!contains_Mouth(dataCol_Char1, date_month)) {
-         dataCol_Char1[t] = { date_month: date_month, date: date, sales: 1, norm: 2 };
+      
+      if (!contains_Mouth(dataCol_Char1, date)) {
+         dataCol_Char1[t] = {date: date, sales: 1, norm: 2 };
          t++;
       } else {
          for (const iterator of dataCol_Char1) {
-            if (iterator.date_month == date_month) {
+            if (iterator.date == date) {
                iterator.sales = iterator.sales + 1;
             }
          }
@@ -409,8 +409,8 @@ export function GetDatFromColChart_month(data_DB) {
    return dataCol_Char1.sort(compareDate);
 }
 function compareDate(a, b) {
-   if (a.date_month > b.date_month ) return 1;
-   if (a.date_month < b.date_month) return -1;
+   if (a.date > b.date) return 1;
+   if (a.date < b.date) return -1;
 }
 
 export function GetFilterData_Month(data_DB, n_Month) {
@@ -420,9 +420,7 @@ export function GetFilterData_Month(data_DB, n_Month) {
       let t = 0;
       for (const element of data_DB) {
          let date = moment(element.Datetime.toString()).local('ru').format('MM/YYYY');
-         let date_month = moment(element.Datetime.toString()).local('ru').format('MM');
-
-         if (n_Month == date_month) {
+         if (n_Month == date) {
             data_db[t] = element;
             t++;
          }

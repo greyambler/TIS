@@ -38,14 +38,15 @@ export default class w_chart extends Component {
       };
 
       return (
-         <td colSpan='2'>
+         <td colSpan='2' className='C_Chart'>
             <center>
-               <Chart
+               <Chart 
                   forceFit
                   width={this.state.W_Width}
                   height={200}
                   data={data}
                   scale={cols}>
+                  <br/><br/><br/>
                   <Axis name="genre" />
                   <Axis name="sold" />
                   <Legend position="bottom" dy={-10} />

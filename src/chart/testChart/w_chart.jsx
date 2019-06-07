@@ -34,24 +34,35 @@ export default class w_chart extends Component {
 
    render() {
       const data = [
+         /*
+         {
+            date:"01/2019",
+            date_moth:"01",
+            norm:2,
+            sales:0
+         },
+         */
          {
             date:"02/2019",
-            date_moth:"02",
-            norm:8,
+            norm:2,
             sales:8
          },
          {
             date:"03/2019",
-            date_moth:"03",
-            norm:8,
+            norm:2,
             sales:11
          },
          {
             date:"04/2019",
-            date_moth:"04",
-            norm:8,
+            norm:2,
             sales:1
          }
+         /*,{
+            date:"01/2019",
+            date_moth:"05",
+            norm:2,
+            sales:0
+         }*/
       ];
       
       let VertMax = 1;
@@ -63,44 +74,96 @@ export default class w_chart extends Component {
             VertMax = iterator.norm;
          }
       }
+
+      const cols1 = {
+         month: {
+           range: [0, 1]
+         }
+       };
+       const cols2 = {
+         value: {
+           min: 0
+         },
+         month: {
+           range: [0, 1]
+         }
+       };
+
       const cols = {
-         date_moth: {
+         sales: {
+            alias: 'Событий',
+            min: 0,
+            max: Math.ceil(VertMax),
             
          },
          norm: {
             min: 0,
-            max: Math.ceil(VertMax)
+            max: Math.ceil(VertMax),
+            
          },
-         sales: {
-            min: 0,
-            max: Math.ceil(VertMax)
-         }
        };
+
       return (
          <div>
-         <Chart height={400} data={data} scale={cols} forceFit>
-           
+         <Chart 
+         height={400} 
+         data={data} 
+         scale={cols} 
+         forceFit>     
+         <Legend position="bottom" dy={-10} title 
+             custom={true}
+            allowAllCanceled={true}
+            items={[
+              {
+                value: "sales",
+                marker: {
+                  symbol: "square",
+                  fill: "#3182bd",
+                  radius: 5
+                }
+              },
+              {
+                value: "norm",
+                marker: {
+                  symbol: "hyphen",
+                  stroke: "#ffae6b",
+                  radius: 5,
+                  lineWidth: 3
+                }
+              }
+            ]}
+         />     
            <Axis name="date_moth" />
-           <Axis name="sales" />
-
+           <Axis name="sales" title/>
+           <Axis name="norm" title/>
+           
+           <Tooltip showTitle={false}
+               crosshairs={{
+                  type: "y"
+               }}
+            />
            <Geom
              type="interval"
              position="date_moth*sales"
              color={"sales"}             
            />
-
-
            <Geom
                type="line"
-               position="date_moth*norm"
+               position="date*norm"
                size={4}
-               color={"red"}
-               
+               color={"red"}               
              />
-
-           
-        
-
+             <Geom
+                  type="point"
+                  position="date*norm"
+                  size={2}
+                  shape={"circle"}
+                  color={'red'}
+                  style={{
+                     stroke: "#fff",
+                     lineWidth: 3
+                  }}
+               />
          </Chart>
        </div>
          );
