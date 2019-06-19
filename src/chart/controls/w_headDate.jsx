@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { DateRangePicker } from 'react-dates';
-import { isSameDay, presets } from '../../core/core_Function.jsx';
+import { isSameDay, presets, Title_Date } from '../../core/core_Function.jsx';
 
 export default class w_headDate extends Component {
    constructor(props) {
@@ -22,10 +22,11 @@ export default class w_headDate extends Component {
       const { startDate, endDate } = this.state;
       return (
          <div>
-            {presets.map(({ text, start, end }) => {
+            {presets.map(({ text, title, start, end }) => {
                let isSelected = isSameDay(start, startDate) && isSameDay(end, endDate);
                return (
                   <button
+                     title={title}
                      key={text}
                      className={!isSelected
                         ? ("btn_Date")
@@ -39,7 +40,7 @@ export default class w_headDate extends Component {
          </div>
       );
    }
-
+   /*  title={Title_Date} */
    render() {
       let StyleHead = {
          textAlign: "center",
@@ -113,6 +114,11 @@ export default class w_headDate extends Component {
                isOutsideRange={() => false}
                minimumNights={0}
                disabled={this.props.isDisable}
+
+               hideKeyboardShortcutsPanel={true}//?
+
+
+
             />
          </td>
       );

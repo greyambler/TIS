@@ -51,7 +51,6 @@ const Rss_Sector = "http://172.23.16.18:11000/data/sectorchart";
 //"http://172.23.16.125:11000/msg?from=DateTime&to=DateTime";
 //http://172.23.16.125:11000/msg?from=2019-02-17T23:01:22Z&to=2019-02-018T18:00:36Z&191
 
-
 //"get_01.json";
 //"http://172.23.16.125:8000/dpfacade-1.0-SNAPSHOT/webresources/ru.expertek.dp.dpfacade.dvc/";
 

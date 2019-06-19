@@ -394,9 +394,9 @@ export function GetDatFromColChart_month(data_DB) {
    let t = 0;
    for (const element of data_DB) {
       let date = moment(element.Datetime.toString()).local('ru').format('MM/YYYY');
-      
+
       if (!contains_Mouth(dataCol_Char1, date)) {
-         dataCol_Char1[t] = {date: date, sales: 1, norm: 2 };
+         dataCol_Char1[t] = { date: date, sales: 1, norm: 2 };
          t++;
       } else {
          for (const iterator of dataCol_Char1) {
@@ -510,7 +510,7 @@ export function GetDatFromColChart_KASS(data_DB) {
          }
       }
    }
-   return dataCol_Char1.sort(compare_N); 
+   return dataCol_Char1.sort(compare_N);
 }
 export function GetFilterData_Kassa(data_DB, n_Kass) {
    let data_db = null;
@@ -630,7 +630,7 @@ if (quarterLast == 4) {
 export const _startPast_Quarter = startPast_Quarter;
 export const _endPast_Quarter = endPast_Quarter;
 
-export const presets = [
+export const presets_Old = [
    {
       text: 'Прошлый квартал',
       start: startPast_Quarter,
@@ -662,6 +662,115 @@ export const presets = [
       end: today,
    }];
 
+export const presets = [
+   {
+      title: 'Сегодня',
+      text: 'С',
+      start: moment(),
+      end: moment(),
+   },
+   {
+      title: 'Вчера',
+      text: 'В',
+      start: moment().subtract(1, 'day'),
+      end: moment().subtract(1, 'day'),
+   },
+   {
+      title: 'Текущая неделя',
+      text: 'Н',
+      start: moment().startOf('week'),
+      end: moment(),
+   },
+   {
+      title: 'Текущий Месяц',
+      text: 'М',
+      start: moment().startOf('months'),
+      end: moment(),
+   },
+   {
+      title: 'Текущий квартал',
+      text: 'К',
+      start: moment().startOf('quarters'),
+      end: moment(),
+   },
+   {
+      title: 'Текущий год',
+      text: 'Г',
+      start: moment().startOf('year'),
+      end: moment(),
+   },
+   {
+      title: 'Прошлая неделя',
+      text: 'Н-1',
+      start: moment().startOf('week').subtract(7, 'day'),
+      end: moment().startOf('week').isoWeekday(0),
+   },
+   {
+      title: 'Прошлый месяц',
+      text: 'М-1',
+      start:  moment().subtract(1, 'months').startOf('month'),
+      end: moment().subtract(1, 'months').endOf('month'),
+   },
+   {
+      title: 'Прошлый квартал',
+      text: 'К-1',
+      start: _startPast_Quarter,
+      end: _endPast_Quarter,
+   },
+   {
+      title: 'Прошлый год',
+      text: 'Г-1',
+      start: moment().subtract(1, 'year').startOf('year'),
+      end: moment().subtract(1, 'year').endOf('year'),
+   },
+   /*
+   {
+      title: 'Последние 24 часа',
+      text: '24',
+      start: moment().subtract(24, 'hour'),
+      end: moment(),
+   },*/
+   {
+      title: 'Последние 7 дней',
+      text: '7',
+      start: moment().subtract(6, 'day'),
+      end: moment(),
+   },
+   {
+      title: 'Последние 30 дней',
+      text: '30',
+      start: moment().subtract(29, 'day'),
+      end: moment(),
+   },
+   {
+      title: 'Последние 90 дней',
+      text: '90',
+      start: moment().subtract(89, 'day'),
+      end: moment(),
+   },
+   {
+      title: 'Последние 365 дней',
+      text: '365',
+      start: moment().subtract(364, 'day'),
+      end: moment(),
+   },
+];
+export const Title_Date =
+   "С\t– Сегодня\n" +
+   "В\t– Вчера\n" +
+   "Н\t– Текущая неделя\n" +
+   "М\t– Текущий Месяц\n" +
+   "К\t– Текущий квартал\n" +
+   "Г\t– Текущий год\n" +
+   "Н-1\t– Прошлая неделя\n" +
+   "М-1\t– Прошлый месяц\n" +
+   "К-1\t– Прошлый квартал\n" +
+   "Г-1\t– Прошлый год\n" +
+   "24\t– Последние 24 часа\n" +
+   "7\t– Последние 7 дней\n" +
+   "30\t– Последние 30 дней\n" +
+   "90\t– Последние 90 дней\n" +
+   "365\t– Последние 365 дней";
 
 export function isSameDay(a, b) {
    moment.locale('ru');
