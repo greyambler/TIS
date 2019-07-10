@@ -19,7 +19,6 @@ export default class w_charts extends Component {
    updateType = (TypeChart) => {
       this.props.updateType(TypeChart);
    }
-
    updateCashir = (N_Cashir) => {
       this.props.updateCashir(N_Cashir);
    }
@@ -35,7 +34,6 @@ export default class w_charts extends Component {
    updateMonth = (N_Month) => {
       this.props.updateMonth(N_Month);
    }
-
    deleteFilet = (N_Text) => {
       this.props.deleteFilet(N_Text);
    }

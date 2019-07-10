@@ -22,6 +22,9 @@ export default class w_table extends Component {
          Excel_Data: this.props.Data,
       }
    }
+   componentDidMount() {
+      this.setState({ Data: this.props.Data });
+   }
    componentDidUpdate(prevProps) {
       if (this.props.Data != prevProps.Data) {
          this.setState({ Data: this.props.Data });

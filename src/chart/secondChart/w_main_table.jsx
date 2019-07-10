@@ -6,48 +6,125 @@ import W_headDate from '../controls/w_headDate.jsx';
 //import moment from 'moment';
 
 import W_chart from './w_chart.jsx';
+import W_charts from './w_charts.jsx';
 import W_table from './w_table.jsx';
+
 import { Link } from "react-router-dom";
-import { get_Date_Filter, get_Date, GetDatFromColChart } from '../../core/core_Function.jsx';
+import { get_Date_Filter, get_Date, GetDatFromColChart, GetDatFromErrorEqv, GetFilterData_Month } from '../../core/core_Function.jsx';
 
 export default class w_main_table extends Component {
    constructor(props) {
       super(props);
+      this.tick = this.tick.bind(this);
+      this.state = {
+         Object: null,
+         Rss: this.props.RssDate,
+         isExistError: false,
+
+         Is_LocalData: false,
+         filterCurent: Array(),
+         typeChart: "date",
+      }
+   }
+   componentDidMount() {
+      this.tick();
+      //this.timerID = setInterval(() => this.tick(), 30000);
    }
    updateData = ({ startDate, endDate }) => {
       this.props.updateData({ startDate, endDate });
+      this.setState({ Is_LocalData: false });
+      this.setState({ filterCurent: Array() });
+   }
+   componentDidUpdate(prevProps) {
+      if (this.props.RssDate != prevProps.RssDate) {
+         this.setState({ Rss: this.props.RssDate }, this.tick);
+      }
+   }
+
+   async tick() {
+      let rss = this.state.Rss;
+      var myRequest = new Request(rss);
+
+      try {
+         var response = await fetch(myRequest,
+            {
+               method: 'GET',
+               headers:
+               {
+                  'Accept': 'application/json',
+               },
+            }
+         );
+         if (response.ok) {
+            const Jsons = await response.json();
+            this.setState({ Object: Jsons });
+         }
+         else {
+            throw Error(response.statusText);
+         }
+         this.setState({ isExistError: false })
+      }
+      catch (error) {
+         this.setState({ isExistError: true })
+         console.log(error);
+      }
+   }
+   updateType = (TypeChart) => {
+      this.setState({ typeChart: TypeChart });
    }
    render() {
-      let _dataTable = get_Date_Filter(get_Date(), this.props.startDate, this.props.endDate);
-      let dataCol_Char1 = GetDatFromColChart(_dataTable);
+      let _dataTable = null;
+      if (this.state.Object != null) {
+         //_dataTable = GetDatFromErrorEqv(this.state.Object.incidents);
+         _dataTable = this.state.Object.incidents;
+      }
+      let err = null;
+      if (this.state.isExistError) {
+         err = 'Ошибка! Сервер не ответил!';
+      }
       return (
          <div>
-            <table id='table_main' name='table_main' >
+            <table id='table_main' name='table_main'>
                <tbody>
                   <tr>
-                     <W_head header={this.props.header} />
+                     {this.state.isExistError ? (
+                        <W_head header={err} color='red' />
+                     ) : (
+                           <W_head header={this.props.header} />
+                        )
+                     }
                      <th rowSpan='3' width='65px'>
                         <Link to="/">
-                           <img src={'../images/Library.ico'} className='ICO_Link'/>
+                           <img src={'../images/Library.ico'} className='ICO_Link' />
                         </Link>
                      </th>
                   </tr>
                   <tr>
                      <W_headDate updateData={this.updateData}
                         startDate={this.props.startDate} endDate={this.props.endDate}
-                        isDisable={false}
-                     />
+                        isDisable={false} />
                   </tr>
                </tbody>
             </table>
 
-            <hr /><hr /><br />
+            <hr /><hr />
 
             <table>
                <tbody>
-                  <tr>
-                     <W_chart DataChart={dataCol_Char1} w_Width={this.props.w_Width} />
-                  </tr>
+                  {_dataTable != null &&
+                     <W_charts Data={_dataTable}
+                        w_Width={this.props.w_Width} isLegend={true}
+
+                        filterCurent={this.state.filterCurent}
+
+                        deleteFilet={this.deleteFilet}
+
+                        updateType={this.updateType}
+                        typeChart='date'
+
+                        NeedCode='211'
+                     />
+                  }
                </tbody>
             </table>
             <hr /><hr />
@@ -55,7 +132,9 @@ export default class w_main_table extends Component {
                <tbody>
                   <tr>
                      <td>
-                        <W_table Data={_dataTable} w_Width={this.props.w_Width} />
+                        {_dataTable != null &&
+                           <W_table Data={_dataTable} w_Width={this.props.w_Width} />
+                        }
                      </td>
                   </tr>
                </tbody>

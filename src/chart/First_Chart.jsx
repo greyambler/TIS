@@ -17,6 +17,8 @@ this.setState((prevState, props) => ({
  }));
 */
 
+const _Debuge = false;
+
 export default class First_Chart extends React.Component {
    constructor(props) {
       super(props);
@@ -24,12 +26,23 @@ export default class First_Chart extends React.Component {
       switch (this.props.NeedCode) {
          case '191':
             _header = 'Отклонение от нормы за период по зависшим транзакциям на ТРК (191)';
+            if (_Debuge)
+               _header += " - First_Chart";
             break;
          case '122':
             _header = 'Недоступность касс за период по АЗК (122)';
+            if (_Debuge)
+               _header += " - First_Chart";
+            break;
+         case '33':
+            _header = 'Событие аннуляции чека (33)';
+            if (_Debuge)
+               _header += " - First_Chart";
             break;
          default:
             _header = 'Недоступность касс за период по АЗК (all)';
+            if (_Debuge)
+               _header += " - First_Chart";
             break;
       }
       this.state = {
@@ -46,13 +59,13 @@ export default class First_Chart extends React.Component {
          case '122':
             NumberChart = 12;
             break;
+         case '33':
+            NumberChart = 14;
+            break;
          default:
             NumberChart = 1;
             break;
       }
-
-
-
       this.props.updateData({ startDate, endDate, NumberChart });
    }
 

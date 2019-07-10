@@ -1,0 +1,86 @@
+import React, { Component, PropTypes } from 'react';
+import { Chart, Geom, Axis, Tooltip, Legend, Coord, Label, Guide } from 'bizcharts';
+import { get_Date_Filter, get_Date, GetDatFromErrorEqv, GetDatFromColChart, GetDatFromColChart_month, GetDatFromColChart_AZS, GetDatFromColChart_CODE, GetDatFromColChart_KASS } from '../../core/core_Function.jsx';
+
+import W_choos from './w_choos.jsx';
+import W_choosed from './w_choosed.jsx';
+import W_chartDate from './w_chartDate.jsx';
+
+
+export default class w_charts extends Component {
+   constructor(props) {
+      super(props);
+      //this.updateCashir = this.updateCashir.bind(this);
+   }
+   updateType = (TypeChart) => {
+      this.props.updateType(TypeChart);
+   }
+   updateCashir = (N_Cashir) => {
+      this.props.updateCashir(N_Cashir);
+   }
+   updateKass = (N_Kassa) => {
+      this.props.updateKass(N_Kassa);
+   }
+   updateAZS = (N_AZS) => {
+      this.props.updateAZS(N_AZS);
+   }
+   updateCode = (N_Code) => {
+      this.props.updateCode(N_Code);
+   }
+   updateMonth = (N_Month) => {
+      this.props.updateMonth(N_Month);
+   }
+   deleteFilet = (N_Text) => {
+      this.props.deleteFilet(N_Text);
+   }
+
+
+   render() {
+      switch (this.props.typeChart) {
+         case "date": {
+            let dataCol_Char1 = null;
+            if (this.props.Data != null) {
+               dataCol_Char1 = GetDatFromErrorEqv(this.props.Data);
+            }
+            return (
+               <tr>
+                  <td colSpan='2' className='tr_Chart'>
+                     <W_chartDate DataChart={dataCol_Char1} w_Width={this.props.w_Width}
+                        isLegend={this.props.isLegend}
+                        updateMonth={this.updateMonth}
+                     />
+                  </td>
+                  {this.props.isLegend &&
+
+                     <td width='120px' className="td_C_Chart">
+                        <W_choos updateType={this.updateType}
+                           typeChart={this.props.typeChart} NeedCode={this.props.NeedCode} />
+                        <W_choosed filterCurent={this.props.filterCurent}
+                           deleteFilet={this.props.deleteFilet}
+                        />
+                     </td>
+                  }
+               </tr>
+            );
+            break;
+         }
+         default:
+            return (
+               <tr>
+                  <td colSpan='2' className='tr_Chart'>
+                     НЕТ
+                  </td>
+                  {this.props.isLegend &&
+                     <td width='120px' className="td_C_Chart">
+                        <W_choos updateType={this.updateType} NeedCode={this.props.NeedCode} />
+                        <W_choosed filterCurent={this.props.filterCurent}
+                           deleteFilet={this.props.deleteFilet}
+                        />
+                     </td>
+                  }
+               </tr>
+            );
+            break;
+      }
+   }
+}

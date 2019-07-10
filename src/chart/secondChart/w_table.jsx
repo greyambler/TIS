@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import ReactTable from "react-table";
 
 import ReactExport from "react-data-export";
+import Moment from 'moment';
+
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
@@ -215,9 +217,7 @@ export default class w_table extends Component {
       }
       return _return_Data;
    }
-   //<img src={'../images/JDownloader.ico'} width='30' />
-   //<ExcelFile element={<button><img src={'../images/JDownloader.ico'} width='30'>Выгрузка в EXCEL</img></button>}>
-   //<button>Выгрузка в EXCEL</button>
+
    render() {
       return (
          <div>
@@ -227,19 +227,15 @@ export default class w_table extends Component {
                      <td width="100%" align="right">
                         <ExcelFile element={<button><img src={'../images/Office Excel.ico'} width='25' /></button>}>
                            <ExcelSheet data={this.state.Excel_Data} name="Employees">
-                              <ExcelColumn label="Дата" value="Datetime" />
-                              <ExcelColumn label="№ АЗК" value="SHOP_NUM" />
-                              <ExcelColumn label="№ кассы" value="KASS_NUM" />
-                              <ExcelColumn label="Смена" value="SHIFT_NUM" />
-                              <ExcelColumn label="Кассир" value="CASHIER_ID" />
-                              <ExcelColumn label="Тип" value="EVENT_NAME" />
-                              <ExcelColumn label="Продолжительность" value="Duration" />
-                              <ExcelColumn label="Дата" value="DateKey" />
-                              <ExcelColumn label="Время" value="TimeKey" />
+                              <ExcelColumn label="Дата" value="month" />
+                              <ExcelColumn label="Код устройства" value="DEVICE_TYPE" />
+                              <ExcelColumn label="Название устройства" value="equip" />
+                              <ExcelColumn label="Код cобытия" value="EVENT_TYPE" />
                            </ExcelSheet>
                         </ExcelFile>
                      </td>
                   </tr>
+
                   <tr>
                      <td>
                         <ReactTable
@@ -247,48 +243,24 @@ export default class w_table extends Component {
                            data={this.state.Data}
                            columns={[
                               {
-                                 Header: "Дата",
-                                 accessor: "Datetime"
-                              },
-                              {
-                                 Header: "АЗК",
+                                 Header: "",
                                  columns: [
                                     {
-                                       Header: "№ АЗК",
-                                       accessor: "SHOP_NUM"
-                                    },
-                                    {
-                                       Header: "№ кассы",
-                                       accessor: "KASS_NUM"
-                                    },
-                                    {
-                                       Header: "Смена",
-                                       accessor: "SHIFT_NUM"
-                                    },
-                                    {
-                                       Header: "Кассир",
-                                       accessor: "CASHIER_ID"
-                                    }
-                                 ]
-                              },
-                              {
-                                 Header: "События",
-                                 columns: [
-                                    {
-                                       Header: "Тип",
-                                       accessor: "EVENT_NAME"
-                                    },
-                                    {
-                                       Header: "Продолжительность",
-                                       accessor: "Duration"
-                                    },
-                                    {
+                                       id: "month",
                                        Header: "Дата",
-                                       accessor: "DateKey"
+                                       accessor: "month"
                                     },
                                     {
-                                       Header: "Время",
-                                       accessor: "TimeKey"
+                                       Header: "Код устройства",
+                                       accessor: "DEVICE_TYPE"
+                                    },
+                                    {
+                                       Header: "Название устройства",
+                                       accessor: "equip"
+                                    },
+                                    {
+                                       Header: "Код cобытия",
+                                       accessor: "EVENT_TYPE"
                                     }
                                  ]
                               }

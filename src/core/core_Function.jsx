@@ -554,6 +554,332 @@ export function Delete_Item_Filter(filterArray, filterNew) {
 }
 
 /******************************************************************/
+export function contains_device(arr, _equip, _month) {
+   let Exist = false;
+   if (arr != null && _equip != null && _month != "") {
+      for (const iterator of arr) {
+         Exist = (iterator.equip == _equip && iterator.month  == _month);
+         if (Exist) {
+            break;
+         }
+      }
+   }
+   return Exist;
+}
+function get_Name_DEVICE(_code){
+switch (_code) {
+   case 1: return "ФР";
+   case 2: return "ТУ";
+   case 4: return "ТРК";
+   case 7: return "Дисплей";
+   default:
+      return "_";
+}
+}
+
+
+export function GetDatFromErrorEqv(data_DB) {
+   let dataCol_Char1 = new Array();
+   let t = 0;
+   for (const element of data_DB) {
+      let code = get_Name_DEVICE(element.DEVICE_TYPE);
+      let _month = moment(element.Datetime).local('ru').format('MM/YYYY');
+      if (!contains_device(dataCol_Char1, code, _month)) {
+         //dataCol_Char1[t] = { n: code, CASHIER_ID: "" + code + "", F: element.F, sales: 1 };
+         
+         dataCol_Char1[t] = {month: _month, equip: code.toString(), value: 1 , DEVICE_TYPE :element.DEVICE_TYPE,EVENT_TYPE:element.EVENT_TYPE};
+         t++;
+      } else {
+         for (const iterator of dataCol_Char1) {
+            if (iterator.equip == code && iterator.month  == _month) {
+               iterator.value = iterator.value + 1;
+            }
+         }
+      }
+   }
+   /*
+      {
+         month: "Янв",
+         equip: "ТРК",
+         value: 37
+      },
+   */
+   return dataCol_Char1.sort(compare_Date);
+}
+function compare_Date(a, b) {
+   if (a.month > b.month) return 1;
+   if (a.month < b.month) return -1;
+}
+export function GetDatFromErrorEqv_TEST(data_DB) {
+   /*
+   let data = [
+      {
+         month: "Янв.",
+         ТРК: 7.0,
+         ФР: 7.0,
+         ТУ: 23.9
+      },
+      {
+         month: "Фев.",
+         ТРК: 3.0,
+         ФР: 6.9,
+         ТУ: 24.2
+      },
+      {
+         month: "Мар.",
+         ТРК: 4.0,
+         ФР: 9.5,
+         ТУ: 21.7
+      },
+      {
+         month: "Апр.",
+         ТРК: 7.0,
+         ФР: 16.5,
+         ТУ: 18.5
+      },
+      {
+         month: "Май.",
+         ТРК: 8.0,
+         ФР: 22.4,
+         ТУ: 15.9
+      },
+      {
+         month: "Июн.",
+         ТРК: 6.0,
+         ФР: 17.5,
+         ТУ: 18.2
+      },
+      {
+         month: "Июл.",
+         ТРК: 7.0,
+         ФР: 12.2,
+         ТУ: 19.0
+      },
+      {
+         month: "Авг.",
+         ТРК: 4.0,
+         ФР: 17.5,
+         ТУ: 17.6
+      },
+      {
+         month: "Сен.",
+         ТРК: 3.0,
+         ФР: 21.3,
+         ТУ: 14.2
+      },
+      {
+         month: "Окт.",
+         ТРК: 5.0,
+         ФР: 22.3,
+         ТУ: 10.3
+      },
+      {
+         month: "Ноя.",
+         ТРК: 7.0,
+         ФР: 23.9,
+         ТУ: 6.6
+      },
+      {
+         month: "Дек.",
+         ТРК: 3.0,
+         ФР: 29.6,
+         ТУ: 4.8
+      }
+   ];
+   */
+   const data = [
+      {
+         month: "Янв",
+         equip: "ТРК",
+         value: 37
+      },
+      {
+         month: "Фев",
+         equip: "ТРК",
+         value: 19.2
+      },
+      {
+         month: "Мар",
+         equip: "ТРК",
+         value: 15.7
+      },
+      {
+         month: "Апр",
+         equip: "ТРК",
+         value: 8.5
+      },
+      {
+         month: "Май",
+         equip: "ТРК",
+         value: 28.4
+      },
+      {
+         month: "Июн",
+         equip: "ТРК",
+         value: 21.5
+      },
+      {
+         month: "Июл",
+         equip: "ТРК",
+         value: 25.2
+      },
+      {
+         month: "Авг",
+         equip: "ТРК",
+         value: 29.5
+      },
+      {
+         month: "Сен",
+         ciequipty: "ТРК",
+         value: 23.3
+      },
+      {
+         month: "Окт",
+         equip: "ТРК",
+         value: 18.3
+      },
+      {
+         month: "Ноя",
+         equip: "ТРК",
+         value: 13.9
+      },
+      {
+         month: "Дек",
+         equip: "ТРК",
+         value: 9.6
+      },
+/**** */
+
+      {
+         month: "Янв",
+         equip: "ФР",
+         value: 7.6
+      },
+      {
+         month: "Фев",
+         equip: "ФР",
+         value: 12.2
+      },
+      {
+         month: "Мар",
+         equip: "ФР",
+         value: 12.7
+      },
+      {
+         month: "Апр",
+         equip: "ФР",
+         value: 13.5
+      },
+      {
+         month: "Май",
+         equip: "ФР",
+         value: 4.4
+      },
+      {
+         month: "Июн",
+         equip: "ФР",
+         value: 5.5
+      },
+      {
+         month: "Июл",
+         equip: "ФР",
+         value: 6.2
+      },
+      {
+         month: "Авг",
+         equip: "ФР",
+         value: 7.5
+      },
+      {
+         month: "Сен",
+         equip: "ФР",
+         value: 5.3
+      },
+      {
+         month: "Окт",
+         equip: "ФР",
+         value: 4.3
+      },
+      {
+         month: "Ноя",
+         equip: "ФР",
+         value: 3.9
+      },
+      {
+         month: "Дек",
+         equip: "ФР",
+         value: 3.6
+      },
+
+
+      /**** */
+
+      {
+         month: "Янв",
+         equip: "ТУ",
+         value: 14
+      },
+      {
+         month: "Фев",
+         equip: "ТУ",
+         value: 23.2
+      },
+      {
+         month: "Мар",
+         equip: "ТУ",
+         value: 22.7
+      },
+      {
+         month: "Апр",
+         equip: "ТУ",
+         value: 23.5
+      },
+      {
+         month: "Май",
+         equip: "ТУ",
+         value: 12.4
+      },
+      {
+         month: "Июн",
+         equip: "ТУ",
+         value: 15.5
+      },
+      {
+         month: "Июл",
+         equip: "ТУ",
+         value: 16.2
+      },
+      {
+         month: "Авг",
+         equip: "ТУ",
+         value: 37.5
+      },
+      {
+         month: "Сен",
+         equip: "ТУ",
+         value: 25.3
+      },
+      {
+         month: "Окт",
+         equip: "ТУ",
+         value: 24.3
+      },
+      {
+         month: "Ноя",
+         equip: "ТУ",
+         value: 13.9
+      },
+      {
+         month: "Дек",
+         equip: "ТУ",
+         value: 23.6
+      },
+
+   ];
+   return data;
+}
+
+/******************************************************************/
 
 
 const range = len => {
@@ -708,7 +1034,7 @@ export const presets = [
    {
       title: 'Прошлый месяц',
       text: 'М-1',
-      start:  moment().subtract(1, 'months').startOf('month'),
+      start: moment().subtract(1, 'months').startOf('month'),
       end: moment().subtract(1, 'months').endOf('month'),
    },
    {

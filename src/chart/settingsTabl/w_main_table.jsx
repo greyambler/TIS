@@ -1,28 +1,22 @@
 import React, { Component, PropTypes } from 'react';
 import W_head from '../controls/w_head_link.jsx';
-import W_headDate from '../controls/w_headDate.jsx';
-import W_charts from './w_charts.jsx';
 import { Link } from "react-router-dom";
 import moment from 'moment';
 
 import { get_Date_Filter, get_Date, GetDatFromColChart } from '../../core/core_Function.jsx';
 
-export default class w_main_Icon extends Component {
+export default class w_main_table extends Component {
    constructor(props) {
       super(props);
-      this.tick = this.tick.bind(this);
       this.state = {
          Object: null,
-         Rss: this.props.RssDate,
+         Rss: this.props.Rss,
          isExistError: false,
       }
    }
    componentDidMount() {
       this.tick();
       //this.timerID = setInterval(() => this.tick(), 30000);
-   }
-   updateData = ({ startDate, endDate }) => {
-      this.props.updateData({ startDate, endDate });
    }
    componentDidUpdate(prevProps) {
       if (this.props.RssDate != prevProps.RssDate) {
@@ -57,11 +51,10 @@ export default class w_main_Icon extends Component {
          console.log(error);
       }
    }
+
+
    render() {
-      let _dataTable = null;
-      if (this.state.Object != null) {
-         _dataTable = this.state.Object.incidents
-      }
+
       let err = null;
       if (this.state.isExistError) {
          err = 'Ошибка! Сервер не ответил!';
@@ -78,10 +71,6 @@ export default class w_main_Icon extends Component {
             _AhrefBack = '/ChFirst_122';
             ChooSeChart = 'azs'
          } break;
-         case '33': {
-            _AhrefBack = '/ChFirst_33';
-            ChooSeChart = 'azs'
-         } break;
          default:
             {
                _AhrefBack = '/ChFirst';
@@ -90,35 +79,37 @@ export default class w_main_Icon extends Component {
       }
 
       return (
-         <table>
-            <tbody>
-               <tr>
-                  {this.state.isExistError
-                     ?
-                     (<W_head header={err} color='red' AhrefBack={_AhrefBack} />)
-                     :
-                     (
-                        <W_head header={this.props.header} AhrefBack={_AhrefBack} />
-                     )
-                  }
-               </tr>
-               <tr>
-                  <W_headDate updateData={this.updateData}
-                     startDate={this.props.startDate}
-                     endDate={this.props.endDate}
-                     isDisable={false} />
-               </tr>
-               {_dataTable != null &&
-                  <W_charts
-                     Data={_dataTable}
-                     w_Width={this.props.w_Width}
-                     isLegend={false}
-                     NeedCode={this.props.NeedCode}
-                     typeChart={ChooSeChart}
-                  />
-               }
-            </tbody>
-         </table>
+         <div>
+            <table>
+               <tbody>
+                  <tr>
+                     {this.state.isExistError
+                        ?
+                        (<W_head header={err} color='red' />)
+                        :
+                        (
+                           <W_head header={this.props.header} />
+                        )
+                     }
+                     <th rowSpan='3' width='65px'>
+                        <Link to="/">
+                           <img src={'../images/Library.ico'} className='ICO_Link' />
+                        </Link>
+                     </th>
+                  </tr>
+               </tbody>
+            </table>
+
+            <hr /> <hr /> <br />
+
+            <table>
+               <tbody>
+                  <tr>
+                     <h1><center>Таблица с настройками</center></h1>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
       );
    }
 }

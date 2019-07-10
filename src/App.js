@@ -18,12 +18,13 @@ import moment from 'moment';
 import 'moment/locale/ru';
 
 import First_Chart from './chart/First_Chart.jsx';
-
 import Second_Chart from './chart/Second_Chart.jsx';
 import Third_Chart from './chart/Third_Chart.jsx';
 import Fourth_Chart from './chart/Fourth_Chart.jsx';
-
 import Test_Chart from './chart/Test_Chart.jsx';
+
+import Settings_Tabl from './chart/Settings_Tabl.jsx';
+
 
 import { _startPast_Quarter, _endPast_Quarter } from './core/core_Function.jsx';
 
@@ -69,6 +70,7 @@ class Main extends Component {
             S_Date_191={this.props.S_Date_191} E_Date_191={this.props.E_Date_191}
 
             S_Date_122={this.props.S_Date_122} E_Date_122={this.props.E_Date_122}
+            S_Date_33={this.props.S_Date_33} E_Date_33={this.props.E_Date_33}
 
             S_Date_2={this.props.S_Date_2} E_Date_2={this.props.E_Date_2}
             S_Date_3={this.props.S_Date_3} E_Date_3={this.props.E_Date_3}
@@ -86,7 +88,15 @@ class Help extends Component {
 }
 class Settings extends Component {
    render() {
-      return <center><h2>Настройки</h2></center>;
+      /*return <center><h2>Настройки</h2></center>;*/
+      return (
+         <Settings_Tabl Rss={Rss} RssIncident={RssIncident}
+            w_Height={this.props.w_Height} w_Width={this.props.w_Width}
+
+
+
+         />
+      );
    }
 }
 class ChFirst extends Component {
@@ -136,17 +146,35 @@ class ChFirst_122 extends Component {
       );
    }
 }
+class ChFirst_33 extends Component {
+   constructor(props) {
+      super(props);
+   }
+   render() {
+      return (
+         <First_Chart Rss={Rss} RssIncident={RssIncident}
+            w_Height={this.props.w_Height} w_Width={this.props.w_Width}
+            IsTable={true}
+            dateStart={this.props.S_Date} dateStop={this.props.E_Date}
+            updateData={this.props.updateData}
+            NeedCode={'33'}
+         />
+      );
+   }
+}
+
 class ChSecond extends Component {
    constructor(props) {
       super(props);
    }
    render() {
       return (
-         <Second_Chart
+         <Second_Chart Rss={Rss} RssIncident={RssIncident}
             w_Height={this.props.w_Height} w_Width={this.props.w_Width}
             IsTable={true}
             dateStart={this.props.S_Date} dateStop={this.props.E_Date}
             updateData={this.props.updateData}
+            NeedCode={'211'}
          />
       );
    }
@@ -292,7 +320,8 @@ class Nav extends Component {
                               <li><Link to="/ChFirst">Общая таблица инцидентов</Link></li>
                               <li><Link to="/ChFirst_191">Зависшие транзакции 191</Link></li>
                               <li><Link to="/ChFirst_122">Зависшие транзакции 122</Link></li>
-                              
+                              <li><Link to="/ChFirst_33">Зависшие транзакции 33</Link></li>
+
 
                               <li><Link to="/ChSecond">Недоступность периферийного оборудования и ТРК</Link></li>
                               <li><Link to="/ChThird">Отклонение от нормы по транзакциям</Link></li>
@@ -347,6 +376,9 @@ export default class App extends Component {
          S_Date_First_122: moment('2019-01-1'),
          E_Date_First_122: moment('2019-12-1'),
 
+         S_Date_First_33: moment('2019-01-1'),
+         E_Date_First_33: moment('2019-02-1'),
+
          S_Date_Test: moment('2019-02-1'),
          E_Date_Test: moment('2019-05-30'),
 
@@ -385,6 +417,9 @@ export default class App extends Component {
          case 12:
             this.setState({ S_Date_First_122: startDate, E_Date_First_122: endDate });
             break;
+         case 14:
+            this.setState({ S_Date_First_33: startDate, E_Date_First_33: endDate });
+            break;
          case 2:
             this.setState({ S_Date_Second: startDate, E_Date_Second: endDate });
             break;
@@ -418,6 +453,7 @@ export default class App extends Component {
                      S_Date={this.state.S_Date_First} E_Date={this.state.E_Date_First}
                      S_Date_191={this.state.S_Date_First_191} E_Date_191={this.state.E_Date_First_191}
                      S_Date_122={this.state.S_Date_First_122} E_Date_122={this.state.E_Date_First_122}
+                     S_Date_33={this.state.S_Date_First_33} E_Date_33={this.state.E_Date_First_33}
 
                      S_Date_Test={this.state.S_Date_Test} E_Date_Test={this.state.E_Date_Test}
 
@@ -450,6 +486,11 @@ export default class App extends Component {
                      updateData={this.updateData}
                   />} />
 
+                  <Route exact path="/ChFirst_33" render={() => <ChFirst_33
+                     w_Height={this.state.W_Height} w_Width={this.state.W_Width}
+                     S_Date={this.state.S_Date_First_33} E_Date={this.state.E_Date_First_33}
+                     updateData={this.updateData}
+                  />} />
 
                   <Route exact path="/settings" component={Settings} />
 
