@@ -4,7 +4,7 @@ import { Chart, Geom, Axis, Tooltip, Legend, Coord, Label, Guide } from 'bizchar
 
 const _Debuge = true;
 
-export default class w_chartDate extends Component {
+export default class w_chartEquip extends Component {
    constructor(props) {
       super(props);
       this.state = {
@@ -23,7 +23,8 @@ export default class w_chartDate extends Component {
    }
    ClickMonth(v) {
       try {
-         this.props.updateMonth(v.ev.data._origin.date);
+         this.props.updateEquip(v.ev.data._origin.DEVICE_TYPE);
+         //this.props.updateEquip(v.ev.data._origin.equip);
       } catch (error) {
       }
    }

@@ -10,7 +10,11 @@ import W_charts from './w_charts.jsx';
 import W_table from './w_table.jsx';
 
 import { Link } from "react-router-dom";
-import { get_Date_Filter, get_Date, GetDatFromColChart, GetDatFromErrorEqv, GetFilterData_Month } from '../../core/core_Function.jsx';
+import {
+   Delete_Item_Filter,
+   get_Date_Filter, get_Date, GetDatFromColChart,GetFilterData_Equip,
+   GetDatFromErrorEqv, GetFilterData_Month, IsExist_Filter
+} from '../../core/core_Function.jsx';
 
 export default class w_main_table extends Component {
    constructor(props) {
@@ -22,8 +26,9 @@ export default class w_main_table extends Component {
          isExistError: false,
 
          Is_LocalData: false,
+         n_Equip: null,
          filterCurent: Array(),
-         typeChart: "date",
+         typeChart: "month",
       }
    }
    componentDidMount() {
@@ -35,6 +40,7 @@ export default class w_main_table extends Component {
       this.setState({ Is_LocalData: false });
       this.setState({ filterCurent: Array() });
    }
+
    componentDidUpdate(prevProps) {
       if (this.props.RssDate != prevProps.RssDate) {
          this.setState({ Rss: this.props.RssDate }, this.tick);
@@ -72,11 +78,52 @@ export default class w_main_table extends Component {
    updateType = (TypeChart) => {
       this.setState({ typeChart: TypeChart });
    }
+
+   updateEquip = (N_Equip) => {
+      if (this.state.Object != null) {
+         this.setState({ Is_LocalData: true });
+         if (!IsExist_Filter(this.state.filterCurent, 'по устройству')) {
+            this.setState({ n_Equip: N_Equip });
+            this.state.filterCurent[this.state.filterCurent.length] = 'по устройству';
+            this.setState({ filterCurent: this.state.filterCurent });
+         }
+      }
+   }
+   deleteFilet = (N_Text) => {
+      let newfilterCurent = Delete_Item_Filter(this.state.filterCurent, N_Text);
+      switch (N_Text) {
+         case 'по устройству':
+            this.setState({ n_Equip: null, filterCurent: newfilterCurent });
+            break;
+         case 'по кассе':
+            this.setState({ n_Kassa: null, filterCurent: newfilterCurent });
+            break;
+         case 'по АЗК':
+            this.setState({ n_AZS: null, filterCurent: newfilterCurent });
+            break;
+         case 'по коду ошибки':
+            this.setState({ n_Code: null, filterCurent: newfilterCurent });
+            break;
+         case 'по месяцу':
+            this.setState({ n_Month: null, filterCurent: newfilterCurent });
+            break;
+         default:
+            break;
+      }
+   }
+
    render() {
       let _dataTable = null;
       if (this.state.Object != null) {
          //_dataTable = GetDatFromErrorEqv(this.state.Object.incidents);
          _dataTable = this.state.Object.incidents;
+         if (this.state.Is_LocalData) {
+            if (this.state.n_Equip != null) {
+               _dataTable = GetFilterData_Equip(_dataTable, this.state.n_Equip);
+            }
+
+
+         }
       }
       let err = null;
       if (this.state.isExistError) {
@@ -113,14 +160,16 @@ export default class w_main_table extends Component {
                <tbody>
                   {_dataTable != null &&
                      <W_charts Data={_dataTable}
-                        w_Width={this.props.w_Width} isLegend={true}
+                        w_Width={this.props.w_Width}
+                        isLegend={true}
 
+                        updateEquip={this.updateEquip}
                         filterCurent={this.state.filterCurent}
 
                         deleteFilet={this.deleteFilet}
 
                         updateType={this.updateType}
-                        typeChart='date'
+                        typeChart={this.state.typeChart}
 
                         NeedCode='211'
                      />
@@ -133,7 +182,7 @@ export default class w_main_table extends Component {
                   <tr>
                      <td>
                         {_dataTable != null &&
-                           <W_table Data={_dataTable} w_Width={this.props.w_Width} />
+                           <W_table Data={_dataTable} w_Width={this.props.w_Width} typeChart={this.state.typeChart} />
                         }
                      </td>
                   </tr>

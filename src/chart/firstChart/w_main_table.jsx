@@ -210,7 +210,10 @@ export default class w_main_table extends Component {
             <table>
                <tbody>
                   {_dataTable != null &&
-                     <W_charts Data={_dataTable} w_Width={this.props.w_Width} isLegend={true}
+                     <W_charts Data={_dataTable} w_Width={this.props.w_Width}
+
+                        isLegend={true}
+
                         updateCashir={this.updateCashir}
                         updateKass={this.updateKass}
                         updateAZS={this.updateAZS}

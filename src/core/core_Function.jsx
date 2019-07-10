@@ -527,6 +527,21 @@ export function GetFilterData_Kassa(data_DB, n_Kass) {
    return data_db;
 }
 
+export function GetFilterData_Equip(data_DB, n_Equip) {
+   let data_db = null;
+   if (data_DB) {
+      data_db = Array();
+      let t = 0;
+      for (const element of data_DB) {
+         if (n_Equip == element.DEVICE_TYPE) {
+            data_db[t] = element;
+            t++;
+         }
+      }
+   }
+   return data_db;
+}
+
 export function IsExist_Filter(filterArray, filterNew) {
    let isExist = false;
    if (filterArray != null) {
@@ -578,12 +593,19 @@ switch (_code) {
 }
 
 
-export function GetDatFromErrorEqv(data_DB) {
+export function GetDatFromErrorEqv(data_DB, period) {
    let dataCol_Char1 = new Array();
    let t = 0;
    for (const element of data_DB) {
       let code = get_Name_DEVICE(element.DEVICE_TYPE);
+      
       let _month = moment(element.Datetime).local('ru').format('MM/YYYY');
+      switch(period){
+         case "day":_month = moment(element.Datetime).local('ru').format('DD/MM/YYYY');break;
+         case "month":_month = moment(element.Datetime).local('ru').format('MM/YYYY');break;
+         default:_month = moment(element.Datetime).local('ru').format('MM/YYYY');break;
+
+      }
       if (!contains_device(dataCol_Char1, code, _month)) {
          //dataCol_Char1[t] = { n: code, CASHIER_ID: "" + code + "", F: element.F, sales: 1 };
          

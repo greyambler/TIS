@@ -70,7 +70,7 @@ export default class w_main_Icon extends Component {
       }
       
       let _AhrefBack = '/ChSecond';
-      let ChooSeChart = 'date'
+      let ChooSeChart = 'month'
       return (
          <table>
             <tbody>

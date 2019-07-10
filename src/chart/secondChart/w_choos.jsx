@@ -38,37 +38,16 @@ export default class w_choos extends Component {
                <tr><th>График</th></tr>
                <tr>
                   <td>
-                     <input type='radio' name="r" value="cashir"
-                        onClick={({ typeChart }) => this.setState({ typeChart: "cashir" }, this.Radio_Check)} />по кассирам
+                     <input type='radio' name="r" value="month"
+                        onClick={({ typeChart }) => this.setState({ typeChart: "month" }, this.Radio_Check)} />по месяцу
                   </td>
                </tr>
                <tr>
                   <td>
-                     <input type='radio' name="r" value="kass"
-                        onClick={({ typeChart }) => this.setState({ typeChart: "kass" }, this.Radio_Check)} />по кассам
+                     <input type='radio' name="r" value="day"
+                        onClick={({ typeChart }) => this.setState({ typeChart: "day" }, this.Radio_Check)} />по дням
                   </td>
                </tr>
-               <tr>
-                  <td>
-                     <input type='radio' name="r" value="date"
-                        onClick={({ typeChart }) => this.setState({ typeChart: "date" }, this.Radio_Check)} />по месяцу
-                  </td>
-               </tr>
-               <tr>
-                  <td>
-                     <input type='radio' name="r" value="azs"
-                        onClick={({ typeChart }) => this.setState({ typeChart: "azs" }, this.Radio_Check)} />по АЗК
-                  </td>
-               </tr>
-               {!(this.props.NeedCode != null) &&
-                  <tr>
-                     <td>
-                        <input type='radio' name="r" value="code"
-                           onClick={({ typeChart }) => this.setState({ typeChart: "code" }, this.Radio_Check)} />по коду ошибки
-                  </td>
-                  </tr>
-               }
-
             </tbody>
          </table>
       );

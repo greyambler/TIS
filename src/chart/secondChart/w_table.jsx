@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactTable from "react-table";
+import { GetDatFromErrorEqv } from '../../core/core_Function.jsx';
 
 import ReactExport from "react-data-export";
 import Moment from 'moment';
@@ -14,16 +15,17 @@ export default class w_table extends Component {
       super(props);
       this.Filter_DataExcel = this.Filter_DataExcel.bind(this);
       this.get_DatFilters = this.get_DatFilters.bind(this);
-
+      let data = GetDatFromErrorEqv(this.props.Data, this.props.typeChart);
       this.state = {
-         Data: this.props.Data,
-         Excel_Data: this.props.Data,
+         Data: data,
+         Excel_Data: data,
       }
    }
    componentDidUpdate(prevProps) {
-      if (this.props.Data != prevProps.Data) {
-         this.setState({ Data: this.props.Data });
-         this.setState({ Excel_Data: this.props.Data });
+      if (this.props.Data != prevProps.Data || this.props.typeChart != prevProps.typeChart) {
+         let data = GetDatFromErrorEqv(this.props.Data, this.props.typeChart);
+         this.setState({ Data: data });
+         this.setState({ Excel_Data: data });
       }
    }
    Filter_DataExcel(e) {
