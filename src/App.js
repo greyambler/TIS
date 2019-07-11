@@ -26,7 +26,7 @@ import Test_Chart from './chart/Test_Chart.jsx';
 import Settings_Tabl from './chart/Settings_Tabl.jsx';
 
 
-import { _startPast_Quarter, _endPast_Quarter } from './core/core_Function.jsx';
+import { _startPast_Quarter, _endPast_Quarter, Rss, RssIncident, Rss_Settings } from './core/core_Function.jsx';
 
 const _Debuge = true;
 
@@ -36,24 +36,6 @@ const _Debuge = true;
    }));
 */
 
-const Rss = "http://172.23.16.18:11000/data";
-
-const Rss_msg = "http://172.23.16.18:11000/data/msg";
-const RssIncident = "http://172.23.16.18:11000/data/incident";
-const Rss_Sector = "http://172.23.16.18:11000/data/sectorchart";
-
-//сестрок
-//http://172.23.16.18:11000/data/sectorchart?from=2019-03-20&to=2019-03-27
-
-//"http://172.23.16.18:11000/msg";
-
-//"http://172.23.16.18:11000/incident";
-
-//"http://172.23.16.125:11000/msg?from=DateTime&to=DateTime";
-//http://172.23.16.125:11000/msg?from=2019-02-17T23:01:22Z&to=2019-02-018T18:00:36Z&191
-
-//"get_01.json";
-//"http://172.23.16.125:8000/dpfacade-1.0-SNAPSHOT/webresources/ru.expertek.dp.dpfacade.dvc/";
 
 class Main extends Component {
    render() {
@@ -90,11 +72,8 @@ class Settings extends Component {
    render() {
       /*return <center><h2>Настройки</h2></center>;*/
       return (
-         <Settings_Tabl Rss={Rss} RssIncident={RssIncident}
+         <Settings_Tabl Rss_Settings={Rss_Settings}
             w_Height={this.props.w_Height} w_Width={this.props.w_Width}
-
-
-
          />
       );
    }

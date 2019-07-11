@@ -46,7 +46,7 @@ export default class w_chartEquip extends Component {
                forceFit
                onClick={ev => { this.ClickMonth({ ev }) }}
             >
-               <center><span>По месяцам</span></center>
+               <center><span>{this.props.header}</span></center>
                <Legend />
                <Axis name="month" />
                <Axis

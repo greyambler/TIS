@@ -5,6 +5,7 @@ import W_headDate from '../controls/w_headDate.jsx';
 
 import W_charts from './w_charts.jsx';
 import W_table from './w_table.jsx';
+import W_table_Norms from '../settingsTabl/w_table.jsx';
 
 import { Link } from "react-router-dom";
 import moment from 'moment';
@@ -156,8 +157,15 @@ export default class w_main_table extends Component {
 
    render() {
       let _dataTable = null;
+      let _dataTable_Normales = null;
+
       if (this.state.Object != null) {
          _dataTable = this.state.Object.incidents
+
+         _dataTable_Normales = this.state.Object.normales;
+
+
+
          if (this.state.Is_LocalData) {
             if (this.state.n_Cashir != null) {
                _dataTable = GetFilterData_Cashir(_dataTable, this.state.n_Cashir);
@@ -243,6 +251,20 @@ export default class w_main_table extends Component {
                   </tr>
                </tbody>
             </table>
+
+            <hr /><hr />
+            <table>
+               <tbody>
+                  <tr>
+                     <td>
+                        {_dataTable_Normales != null &&
+                           <W_table_Norms Data={_dataTable_Normales} w_Width={this.props.w_Width} />
+                        }
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+
          </div>
       );
    }

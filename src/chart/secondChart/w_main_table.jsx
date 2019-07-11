@@ -8,6 +8,7 @@ import W_headDate from '../controls/w_headDate.jsx';
 import W_chart from './w_chart.jsx';
 import W_charts from './w_charts.jsx';
 import W_table from './w_table.jsx';
+import W_table_Norms from '../settingsTabl/w_table.jsx';
 
 import { Link } from "react-router-dom";
 import {
@@ -114,9 +115,14 @@ export default class w_main_table extends Component {
 
    render() {
       let _dataTable = null;
+      let _dataTable_Normales = null;
+
       if (this.state.Object != null) {
          //_dataTable = GetDatFromErrorEqv(this.state.Object.incidents);
          _dataTable = this.state.Object.incidents;
+         _dataTable_Normales = this.state.Object.normales;
+
+
          if (this.state.Is_LocalData) {
             if (this.state.n_Equip != null) {
                _dataTable = GetFilterData_Equip(_dataTable, this.state.n_Equip);
@@ -183,6 +189,19 @@ export default class w_main_table extends Component {
                      <td>
                         {_dataTable != null &&
                            <W_table Data={_dataTable} w_Width={this.props.w_Width} typeChart={this.state.typeChart} />
+                        }
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+
+            <hr /><hr />
+            <table>
+               <tbody>
+                  <tr>
+                     <td>
+                        {_dataTable_Normales != null &&
+                           <W_table_Norms Data={_dataTable_Normales} w_Width={this.props.w_Width} />
                         }
                      </td>
                   </tr>

@@ -4,6 +4,29 @@ import moment from 'moment';
 import 'moment/locale/ru';
 
 
+
+export const Rss = "http://172.23.16.18:11000/data";
+
+export const Rss_msg = "http://172.23.16.18:11000/data/msg";
+export const RssIncident = "http://172.23.16.18:11000/data/incident";
+export const Rss_Sector = "http://172.23.16.18:11000/data/sectorchart";
+
+export const Rss_Settings = "http://172.23.16.18:11000/data/matrix";
+
+//сестрок
+//http://172.23.16.18:11000/data/sectorchart?from=2019-03-20&to=2019-03-27
+
+//"http://172.23.16.18:11000/msg";
+
+//"http://172.23.16.18:11000/incident";
+
+//"http://172.23.16.125:11000/msg?from=DateTime&to=DateTime";
+//http://172.23.16.125:11000/msg?from=2019-02-17T23:01:22Z&to=2019-02-018T18:00:36Z&191
+
+//"get_01.json";
+//"http://172.23.16.125:8000/dpfacade-1.0-SNAPSHOT/webresources/ru.expertek.dp.dpfacade.dvc/";
+
+
 export function get_Date() {
    var date_Test = Array();
 
@@ -573,7 +596,7 @@ export function contains_device(arr, _equip, _month) {
    let Exist = false;
    if (arr != null && _equip != null && _month != "") {
       for (const iterator of arr) {
-         Exist = (iterator.equip == _equip && iterator.month  == _month);
+         Exist = (iterator.equip == _equip && iterator.month == _month);
          if (Exist) {
             break;
          }
@@ -581,15 +604,15 @@ export function contains_device(arr, _equip, _month) {
    }
    return Exist;
 }
-function get_Name_DEVICE(_code){
-switch (_code) {
-   case 1: return "ФР";
-   case 2: return "ТУ";
-   case 4: return "ТРК";
-   case 7: return "Дисплей";
-   default:
-      return "_";
-}
+function get_Name_DEVICE(_code) {
+   switch (_code) {
+      case 1: return "ФР";
+      case 2: return "ТУ";
+      case 4: return "ТРК";
+      case 7: return "Дисплей";
+      default:
+         return "_";
+   }
 }
 
 
@@ -598,22 +621,22 @@ export function GetDatFromErrorEqv(data_DB, period) {
    let t = 0;
    for (const element of data_DB) {
       let code = get_Name_DEVICE(element.DEVICE_TYPE);
-      
+
       let _month = moment(element.Datetime).local('ru').format('MM/YYYY');
-      switch(period){
-         case "day":_month = moment(element.Datetime).local('ru').format('DD/MM/YYYY');break;
-         case "month":_month = moment(element.Datetime).local('ru').format('MM/YYYY');break;
-         default:_month = moment(element.Datetime).local('ru').format('MM/YYYY');break;
+      switch (period) {
+         case "day": _month = moment(element.Datetime).local('ru').format('DD/MM/YYYY'); break;
+         case "month": _month = moment(element.Datetime).local('ru').format('MM/YYYY'); break;
+         default: _month = moment(element.Datetime).local('ru').format('MM/YYYY'); break;
 
       }
       if (!contains_device(dataCol_Char1, code, _month)) {
          //dataCol_Char1[t] = { n: code, CASHIER_ID: "" + code + "", F: element.F, sales: 1 };
-         
-         dataCol_Char1[t] = {month: _month, equip: code.toString(), value: 1 , DEVICE_TYPE :element.DEVICE_TYPE,EVENT_TYPE:element.EVENT_TYPE};
+
+         dataCol_Char1[t] = { month: _month, equip: code.toString(), value: 1, DEVICE_TYPE: element.DEVICE_TYPE, EVENT_TYPE: element.EVENT_TYPE };
          t++;
       } else {
          for (const iterator of dataCol_Char1) {
-            if (iterator.equip == code && iterator.month  == _month) {
+            if (iterator.equip == code && iterator.month == _month) {
                iterator.value = iterator.value + 1;
             }
          }
@@ -770,7 +793,7 @@ export function GetDatFromErrorEqv_TEST(data_DB) {
          equip: "ТРК",
          value: 9.6
       },
-/**** */
+      /**** */
 
       {
          month: "Янв",

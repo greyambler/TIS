@@ -13,13 +13,11 @@ export default class Settings_Tabl extends React.Component {
       super(props);
    }
    render() {
-      let rss = this.props.Rss;//Get_RSS(this.props.RssIncident, this.props.dateStart, this.props.dateStop, this.props.NeedCode);
       return (
          <W_main_Table
             header='Настройки'
             w_Width={this.props.w_Width}
-
-            Rss={rss}
+            Rss_Settings={this.props.Rss_Settings}
          />
       );
    }

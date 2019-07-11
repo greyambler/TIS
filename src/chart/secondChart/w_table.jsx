@@ -13,8 +13,8 @@ const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 export default class w_table extends Component {
    constructor(props) {
       super(props);
-      this.Filter_DataExcel = this.Filter_DataExcel.bind(this);
-      this.get_DatFilters = this.get_DatFilters.bind(this);
+      //this.Filter_DataExcel = this.Filter_DataExcel.bind(this);
+      //this.get_DatFilters = this.get_DatFilters.bind(this);
       let data = GetDatFromErrorEqv(this.props.Data, this.props.typeChart);
       this.state = {
          Data: data,
@@ -28,6 +28,7 @@ export default class w_table extends Component {
          this.setState({ Excel_Data: data });
       }
    }
+   /*
    Filter_DataExcel(e) {
       let _excel_Data = this.props.Data;
       for (const itemF of e) {
@@ -219,7 +220,7 @@ export default class w_table extends Component {
       }
       return _return_Data;
    }
-
+*/
    render() {
       return (
          <div>

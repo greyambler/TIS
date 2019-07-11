@@ -34,6 +34,7 @@ export default class w_charts extends Component {
                         isLegend={this.props.isLegend}
                         updateMonth={this.updateMonth}
                         updateEquip={this.updateEquip}
+                        header='По месяцам'
                         
                      />
                   </td>
@@ -63,6 +64,7 @@ export default class w_charts extends Component {
                         isLegend={this.props.isLegend}
                         updateMonth={this.updateMonth}
                         updateEquip={this.updateEquip}
+                        header='По дням'
                      />
                   </td>
                   {this.props.isLegend &&
