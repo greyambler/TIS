@@ -60,12 +60,11 @@ export default class MainWindow extends React.Component {
                      </td>
 
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
-                        <Second_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
-                           dateStart={this.props.S_Date_2} dateStop={this.props.E_Date_2}
+                        <First_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
+                           dateStart={this.props.S_Date_211} dateStop={this.props.E_Date_211}
                            w_Width={this.state.W_Width} IsTable={false}
                            updateData={this.updateData}
-                           NeedCode={'211'}
-                        />
+                           NeedCode={'211'} />
                      </td>
                   </tr>
 
@@ -100,6 +99,39 @@ export default class MainWindow extends React.Component {
 
 
 /*
+
+<td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
+                        <Second_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
+                           dateStart={this.props.S_Date_2} dateStop={this.props.E_Date_2}
+                           w_Width={this.state.W_Width} IsTable={false}
+                           updateData={this.updateData}
+                           NeedCode={'211'}
+                        />
+                     </td>
+
+
+<td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
+                        <First_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
+                           dateStart={this.props.S_Date_33} dateStop={this.props.E_Date_33}
+                           w_Width={this.state.W_Width} IsTable={false}
+                           updateData={this.updateData}
+                           NeedCode={'33'} />
+                     </td>
+
+ <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
+                        <First_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
+                           dateStart={this.props.S_Date_211} dateStop={this.props.E_Date_211}
+                           w_Width={this.state.W_Width} IsTable={false}
+                           updateData={this.updateData}
+                           NeedCode={'211'} />
+                     </td>
+
+
+
+
+
+
+
 
                         <Fourth_Chart
                            dateStart={this.props.S_Date_4} dateStop={this.props.E_Date_4}

@@ -53,6 +53,7 @@ class Main extends Component {
 
             S_Date_122={this.props.S_Date_122} E_Date_122={this.props.E_Date_122}
             S_Date_33={this.props.S_Date_33} E_Date_33={this.props.E_Date_33}
+            S_Date_211={this.props.S_Date_211} E_Date_211={this.props.E_Date_211}
 
             S_Date_2={this.props.S_Date_2} E_Date_2={this.props.E_Date_2}
             S_Date_3={this.props.S_Date_3} E_Date_3={this.props.E_Date_3}
@@ -137,6 +138,22 @@ class ChFirst_33 extends Component {
             dateStart={this.props.S_Date} dateStop={this.props.E_Date}
             updateData={this.props.updateData}
             NeedCode={'33'}
+         />
+      );
+   }
+}
+class ChFirst_211 extends Component {
+   constructor(props) {
+      super(props);
+   }
+   render() {
+      return (
+         <First_Chart Rss={Rss} RssIncident={RssIncident}
+            w_Height={this.props.w_Height} w_Width={this.props.w_Width}
+            IsTable={true}
+            dateStart={this.props.S_Date} dateStop={this.props.E_Date}
+            updateData={this.props.updateData}
+            NeedCode={'211'}
          />
       );
    }
@@ -297,9 +314,10 @@ class Nav extends Component {
                               <li><Link to="/ChTDRP2">Старый Недоступность касс</Link></li>
 
                               <li><Link to="/ChFirst">Общая таблица инцидентов</Link></li>
-                              <li><Link to="/ChFirst_191">Зависшие транзакции 191</Link></li>
-                              <li><Link to="/ChFirst_122">Зависшие транзакции 122</Link></li>
-                              <li><Link to="/ChFirst_33">Зависшие транзакции 33</Link></li>
+                              <li><Link to="/ChFirst_191">События 191</Link></li>
+                              <li><Link to="/ChFirst_122">События 122</Link></li>
+                              <li><Link to="/ChFirst_33">События 33</Link></li>
+                              <li><Link to="/ChFirst_211">События 211</Link></li>
 
 
                               <li><Link to="/ChSecond">Недоступность периферийного оборудования и ТРК</Link></li>
@@ -356,7 +374,10 @@ export default class App extends Component {
          E_Date_First_122: moment('2019-12-1'),
 
          S_Date_First_33: moment('2019-01-1'),
-         E_Date_First_33: moment('2019-02-1'),
+         E_Date_First_33: moment('2019-12-1'),
+
+         S_Date_First_211: moment('2019-01-1'),
+         E_Date_First_211: moment('2019-12-1'),
 
          S_Date_Test: moment('2019-02-1'),
          E_Date_Test: moment('2019-05-30'),
@@ -399,6 +420,9 @@ export default class App extends Component {
          case 14:
             this.setState({ S_Date_First_33: startDate, E_Date_First_33: endDate });
             break;
+         case 15:
+            this.setState({ S_Date_First_211: startDate, E_Date_First_211: endDate });
+            break;
          case 2:
             this.setState({ S_Date_Second: startDate, E_Date_Second: endDate });
             break;
@@ -433,6 +457,7 @@ export default class App extends Component {
                      S_Date_191={this.state.S_Date_First_191} E_Date_191={this.state.E_Date_First_191}
                      S_Date_122={this.state.S_Date_First_122} E_Date_122={this.state.E_Date_First_122}
                      S_Date_33={this.state.S_Date_First_33} E_Date_33={this.state.E_Date_First_33}
+                     S_Date_211={this.state.S_Date_First_211} E_Date_211={this.state.E_Date_First_211}
 
                      S_Date_Test={this.state.S_Date_Test} E_Date_Test={this.state.E_Date_Test}
 
@@ -468,6 +493,12 @@ export default class App extends Component {
                   <Route exact path="/ChFirst_33" render={() => <ChFirst_33
                      w_Height={this.state.W_Height} w_Width={this.state.W_Width}
                      S_Date={this.state.S_Date_First_33} E_Date={this.state.E_Date_First_33}
+                     updateData={this.updateData}
+                  />} />
+
+                  <Route exact path="/ChFirst_211" render={() => <ChFirst_211
+                     w_Height={this.state.W_Height} w_Width={this.state.W_Width}
+                     S_Date={this.state.S_Date_First_211} E_Date={this.state.E_Date_First_211}
                      updateData={this.updateData}
                   />} />
 

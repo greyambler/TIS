@@ -39,6 +39,11 @@ export default class First_Chart extends React.Component {
             if (_Debuge)
                _header += " - First_Chart";
             break;
+         case '211':
+            _header = 'Недоступность периферийного оборудования и ТРК (количество сбоев 211)';
+            if (_Debuge)
+               _header += " - First_Chart";
+            break;
          default:
             _header = 'Недоступность касс за период по АЗК (all)';
             if (_Debuge)
@@ -61,6 +66,9 @@ export default class First_Chart extends React.Component {
             break;
          case '33':
             NumberChart = 14;
+            break;
+         case '211':
+            NumberChart = 15;
             break;
          default:
             NumberChart = 1;

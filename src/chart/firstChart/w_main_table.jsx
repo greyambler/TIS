@@ -245,7 +245,7 @@ export default class w_main_table extends Component {
                   <tr>
                      <td>
                         {_dataTable != null &&
-                           <W_table Data={_dataTable} w_Width={this.props.w_Width} />
+                           <W_table Data={_dataTable} w_Width={this.props.w_Width} NeedCode={this.props.NeedCode}/>
                         }
                      </td>
                   </tr>

@@ -82,6 +82,10 @@ export default class w_main_Icon extends Component {
             _AhrefBack = '/ChFirst_33';
             ChooSeChart = 'azs'
          } break;
+         case '211': {
+            _AhrefBack = '/ChFirst_211';
+            ChooSeChart = 'date'
+         } break;
          default:
             {
                _AhrefBack = '/ChFirst';
