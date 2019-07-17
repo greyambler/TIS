@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { Chart, Geom, Axis, Tooltip, Legend, Coord, Label, Guide } from 'bizcharts';
-import { get_Date_Filter, get_Date, GetDatFromColChart, 
-   GetDatFromColChart_month, GetDatFromColChart_AZS, GetDatFromColChart_CODE, 
-   GetDatFromColChart_KASS, GetDatFromErrorEqv } from '../../core/core_Function.jsx';
+import {
+   get_Date_Filter, get_Date, GetDatFromColChart,
+   GetDatFromColChart_month, GetDatFromColChart_AZS, GetDatFromColChart_CODE,
+   GetDatFromColChart_KASS, GetDatFromErrorEqv
+} from '../../core/core_Function.jsx';
 
 import W_choos from './w_choos.jsx';
 import W_choosed from './w_choosed.jsx';
@@ -11,6 +13,7 @@ import W_chartDate from './w_chartDate.jsx';
 import W_chartASZ from './w_chartASZ.jsx';
 import W_chartCODE from './w_chartCODE.jsx';
 import W_chartKASS from './w_chartKASS.jsx';
+
 
 
 export default class w_charts extends Component {
@@ -39,7 +42,9 @@ export default class w_charts extends Component {
    deleteFilet = (N_Text) => {
       this.props.deleteFilet(N_Text);
    }
-
+   updateEquip = (N_Equip) => {
+      this.props.updateEquip(N_Equip);
+   }
 
    render() {
       switch (this.props.typeChart) {
@@ -70,7 +75,8 @@ export default class w_charts extends Component {
             );
             break;
          }
-         case "date": {
+         //case "date": {
+         case "month": {
             let dataCol_Char1 = null;
             if (this.props.Data != null) {
                switch (this.props.NeedCode) {
@@ -93,6 +99,40 @@ export default class w_charts extends Component {
                         isLegend={this.props.isLegend}
                         updateMonth={this.updateMonth}
                         NeedCode={this.props.NeedCode}
+                        updateEquip={this.updateEquip}
+                        header='По устройствам за месяц'
+                     />
+                  </td>
+                  {this.props.isLegend &&
+
+                     <td width='120px' className="td_C_Chart">
+                        <W_choos updateType={this.updateType}
+                           typeChart={this.props.typeChart} NeedCode={this.props.NeedCode} />
+                        <W_choosed filterCurent={this.props.filterCurent}
+                           deleteFilet={this.props.deleteFilet}
+                        />
+                     </td>
+                  }
+               </tr>
+            );
+            break;
+         }
+         case "day": {
+            let dataCol_Char1 = null;
+            if (this.props.Data != null) {
+               dataCol_Char1 = GetDatFromErrorEqv(this.props.Data, "day");
+            }
+            return (
+               <tr>
+                  <td colSpan='2' className='tr_Chart'>
+                     <W_chartDate DataChart={dataCol_Char1}
+                        w_Width={this.props.w_Width}
+                        isLegend={this.props.isLegend}
+                        //updateMonth={this.updateMonth}
+                        NeedCode={this.props.NeedCode}
+
+                        updateEquip={this.updateEquip}
+                        header='По устройствам за день'
                      />
                   </td>
                   {this.props.isLegend &&

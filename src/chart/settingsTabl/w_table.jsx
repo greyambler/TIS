@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactTable from "react-table";
-
+import { Get_ColumnsForTable } from '../../core/core_Function.jsx';
 import ReactExport from "react-data-export";
 import Moment from 'moment';
 
@@ -31,6 +31,12 @@ export default class w_table extends Component {
 
    render() {
       let index = 0;
+      let ArCol = new Array();
+
+      if (this.state.Data != null) {
+         ArCol = Get_ColumnsForTable(this.state.Data[0])
+      }
+
       return (
          <div>
             <table>
@@ -66,70 +72,8 @@ export default class w_table extends Component {
                            columns={[
                               {
                                  Header: "",
-                                 columns: [
-                                    {
-                                       Header: "case",
-                                       accessor: "case"
-                                    },
-                                    {
-                                       Header: "param_name",
-                                       accessor: "param_name"
-                                    },
-                                    {
-                                       Header: "period",
-                                       accessor: "period"
-                                    },
-                                    {
-                                       Header: "region",
-                                       accessor: "region"
-                                    },
-                                    {
-                                       Header: "ObjectNum",
-                                       accessor: "ObjectNum"
-                                    },
-                                    {
-                                       Header: "ObjectName",
-                                       accessor: "ObjectName"
-                                    },
-                                    {
-                                       Header: "KASS_NUM",
-                                       accessor: "KASS_NUM"
-                                    },
-                                    {
-                                       Header: "DEVICE_TYPE",
-                                       accessor: "DEVICE_TYPE"
-                                    },
-                                    {
-                                       Header: "DEVICE_NAME",
-                                       accessor: "DEVICE_NAME"
-                                    },
-                                    {
-                                       Header: "DEVICE_NAME",
-                                       accessor: "DEVICE_NAME"
-                                    },
-                                    {
-                                       Header: "CASHIER_ID",
-                                       accessor: "CASHIER_ID"
-                                    },
-                                    {
-                                       Header: "CASHIER_NAME",
-                                       accessor: "CASHIER_NAME"
-                                    },
-                                    {
-                                       Header: "NormStat",
-                                       accessor: "NormStat"
-                                    },
-                                    {
-                                       Header: "NormExp",
-                                       accessor: "NormExp"
-                                    },
-                                    {
-                                       Header: "AddDate",
-                                       accessor: "AddDate"
-                                    },
-                                 ]
+                                 columns: ArCol
                               }
-
                            ]}
 
                            defaultPageSize={20}
@@ -140,7 +84,7 @@ export default class w_table extends Component {
                            previousText={'<'}
                            rowsText={'строк'}
                            width={150}
-                           
+
                            pageText={'стр.'}
                            ofText={'из'}
                            className="-striped -highlight"

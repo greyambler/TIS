@@ -127,8 +127,6 @@ export default class w_main_table extends Component {
             if (this.state.n_Equip != null) {
                _dataTable = GetFilterData_Equip(_dataTable, this.state.n_Equip);
             }
-
-
          }
       }
       let err = null;

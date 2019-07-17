@@ -4,22 +4,15 @@ import { get_Date_Filter, get_Date, GetDatFromColChart, Get_RSS } from '../core/
 import W_main_Icon from './testChart/w_main_Icon.jsx';
 import W_main_table from './testChart/w_main_table.jsx';
 import moment from 'moment';
-/*
-<ColumnChart Data={dataCol_Char1}
-   dateStart={dateStart} dateStop={dateStop}
-   w_Width={this.state.W_Width} />
-*/
-
-/*// Правильно :)
-
-this.setState((prevState, props) => ({
-   temperature: prevState.temperature + props.delta
- }));
-*/
 
 export default class Test_Chart extends React.Component {
    constructor(props) {
       super(props);
+      let _header='Событие аннуляции чека (33)';
+      this.state = {
+         NeedCode: this.props.NeedCode,
+         header: _header,
+      }
    }
    updateData = ({ startDate, endDate}) => {
       let NumberChart = 10;
@@ -28,26 +21,28 @@ export default class Test_Chart extends React.Component {
    render() { 
       let rss = Get_RSS(this.props.RssIncident, this.props.dateStart, this.props.dateStop);
 
-      if (this.props.IsTable) {
+      if (!this.props.IsTable) {
          return (
             <W_main_Icon
-               header='Недоступность касс за период на АЗК'
+               header='Событие аннуляции чека (33)'
                w_Width={this.props.w_Width}
                startDate={this.props.dateStart}
                endDate={this.props.dateStop}
                updateData={this.updateData}
                RssDate={rss}
+               NeedCode={this.state.NeedCode}
             />
          );
       } else {
          return (
             <W_main_table
-               header='Недоступность касс за период на АЗК'
+               header='Событие аннуляции чека (33)'
                w_Width={this.props.w_Width}
                startDate={this.props.dateStart}
                endDate={this.props.dateStop}
                updateData={this.updateData}
                RssDate={rss}
+               NeedCode={this.state.NeedCode}
             />
          );
       }

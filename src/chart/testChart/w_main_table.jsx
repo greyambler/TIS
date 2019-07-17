@@ -67,7 +67,7 @@ export default class w_main_table extends Component {
          _dataTable = this.state.Object.incidents
          dataCol_Char1 = GetDatFromColChart_month(_dataTable);
       }
-     
+
       let err = null;
       if (this.state.isExistError) {
          err = 'Ошибка! Сервер не ответил!';
@@ -76,13 +76,6 @@ export default class w_main_table extends Component {
          <div>
             <table id='table_main' name='table_main'>
                <tbody>
-                  <tr >
-                     <th rowSpan='3' width='65px'>
-                        <Link to="/">
-                           <img src={'../images/Library.ico'} className='ICO_Link' />
-                        </Link>
-                     </th>
-                  </tr>
                   <tr>
                      {this.state.isExistError ? (
                         <W_head header={err} color='red' />
@@ -90,6 +83,11 @@ export default class w_main_table extends Component {
                            <W_head header={this.props.header} />
                         )
                      }
+                     <th rowSpan='3' width='65px'>
+                        <Link to="/">
+                           <img src={'../images/Library.ico'} className='ICO_Link' />
+                        </Link>
+                     </th>
                   </tr>
                   <tr>
                      <W_headDate updateData={this.updateData}

@@ -16,6 +16,7 @@ export default class w_choosed extends Component {
             <ol className="contrRigth_ul" >
                {this.props.filterCurent.map((text) => {
                   return <li><input type="checkbox" name="option2" checked="true" value={text}
+                     readOnly
                      onClick={this.Un_Check}
                   />{text}</li>;
                })}

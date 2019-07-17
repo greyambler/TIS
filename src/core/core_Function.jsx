@@ -1162,3 +1162,16 @@ export function isSameDay(a, b) {
       && a.year() === b.year();
 }
 /****PresetDateRangePicker********************************/
+
+
+export function Get_ColumnsForTable(F_Item){
+   let ArCol = new Array();
+      let t = 0;
+      if (F_Item != null) {
+         for (var key in F_Item) {
+            ArCol[t] = { Header: key, accessor: key };
+            t++;
+         }
+      }
+      return ArCol;
+}

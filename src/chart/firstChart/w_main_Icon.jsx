@@ -72,7 +72,8 @@ export default class w_main_Icon extends Component {
       switch (this.props.NeedCode) {
          case '191': {
             _AhrefBack = '/ChFirst_191';
-            ChooSeChart = 'date'
+            //ChooSeChart = 'date'
+            ChooSeChart = 'month'
          } break;
          case '122': {
             _AhrefBack = '/ChFirst_122';
@@ -84,7 +85,8 @@ export default class w_main_Icon extends Component {
          } break;
          case '211': {
             _AhrefBack = '/ChFirst_211';
-            ChooSeChart = 'date'
+            //ChooSeChart = 'date'
+            ChooSeChart = 'month'
          } break;
          default:
             {

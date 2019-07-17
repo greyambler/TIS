@@ -48,12 +48,30 @@ export default class w_choos extends Component {
                         onClick={({ typeChart }) => this.setState({ typeChart: "kass" }, this.Radio_Check)} />по кассам
                   </td>
                </tr>
+               {this.props.NeedCode != '211' &&
                <tr>
                   <td>
-                     <input type='radio' name="r" value="date"
-                        onClick={({ typeChart }) => this.setState({ typeChart: "date" }, this.Radio_Check)} />по месяцу
+                     <input type='radio' name="r" value="month"
+                        onClick={({ typeChart }) => this.setState({ typeChart: "month" }, this.Radio_Check)} />по  месяцу
                   </td>
                </tr>
+               }
+               {this.props.NeedCode == '211' &&
+               <tr>
+                  <td>
+                     <input type='radio' name="r" value="month"
+                        onClick={({ typeChart }) => this.setState({ typeChart: "month" }, this.Radio_Check)} />по устройству за месяцу
+                  </td>
+               </tr>
+               }
+               {this.props.NeedCode == '211' &&
+               <tr>
+                  <td>
+                     <input type='radio' name="r" value="day"
+                        onClick={({ typeChart }) => this.setState({ typeChart: "day" }, this.Radio_Check)} />по устройству за день
+                  </td>
+               </tr>
+               }
                <tr>
                   <td>
                      <input type='radio' name="r" value="azs"

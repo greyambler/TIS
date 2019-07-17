@@ -23,7 +23,12 @@ export default class w_chartDate extends Component {
    }
    ClickMonth(v) {
       try {
+         if(this.props.NeedCode == '211'){
+            this.props.updateEquip(v.ev.data._origin.DEVICE_TYPE);
+         }
+         else{
          this.props.updateMonth(v.ev.data._origin.date);
+         }
       } catch (error) {
       }
    }

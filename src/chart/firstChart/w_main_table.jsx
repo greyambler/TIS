@@ -6,6 +6,7 @@ import W_headDate from '../controls/w_headDate.jsx';
 import W_charts from './w_charts.jsx';
 import W_table from './w_table.jsx';
 import W_table_Norms from '../settingsTabl/w_table.jsx';
+import W_table_incid_All from './w_table_incid_All.jsx';
 
 import { Link } from "react-router-dom";
 import moment from 'moment';
@@ -13,7 +14,7 @@ import moment from 'moment';
 import {
    Delete_Item_Filter,
    get_Date_Filter, get_Date, GetDatFromColChart,
-   GetFilterData_Cashir, GetFilterData_Kassa, GetFilterData_AZS,
+   GetFilterData_Cashir, GetFilterData_Kassa, GetFilterData_AZS, GetFilterData_Equip,
    GetFilterData_CODE, GetFilterData_Month, IsExist_Filter
 } from '../../core/core_Function.jsx';
 
@@ -132,9 +133,24 @@ export default class w_main_table extends Component {
          }
       }
    }
+
+   updateEquip = (N_Equip) => {
+      if (this.state.Object != null) {
+         this.setState({ Is_LocalData: true , typeChart: "cashir"});
+         if (!IsExist_Filter(this.state.filterCurent, 'по устройству')) {
+            this.setState({ n_Equip: N_Equip });
+            this.state.filterCurent[this.state.filterCurent.length] = 'по устройству';
+            this.setState({ filterCurent: this.state.filterCurent });
+         }
+      }
+   }
+
    deleteFilet = (N_Text) => {
       let newfilterCurent = Delete_Item_Filter(this.state.filterCurent, N_Text);
       switch (N_Text) {
+         case 'по устройству':
+            this.setState({ n_Equip: null, filterCurent: newfilterCurent });
+            break;
          case 'по кассиру':
             this.setState({ n_Cashir: null, filterCurent: newfilterCurent });
             break;
@@ -150,6 +166,7 @@ export default class w_main_table extends Component {
          case 'по месяцу':
             this.setState({ n_Month: null, filterCurent: newfilterCurent });
             break;
+
          default:
             break;
       }
@@ -167,6 +184,9 @@ export default class w_main_table extends Component {
 
 
          if (this.state.Is_LocalData) {
+            if (this.state.n_Equip != null) {
+               _dataTable = GetFilterData_Equip(_dataTable, this.state.n_Equip);
+            }
             if (this.state.n_Cashir != null) {
                _dataTable = GetFilterData_Cashir(_dataTable, this.state.n_Cashir);
             }
@@ -227,6 +247,9 @@ export default class w_main_table extends Component {
                         updateAZS={this.updateAZS}
                         updateCode={this.updateCode}
                         updateMonth={this.updateMonth}
+                        
+                        updateEquip={this.updateEquip}
+
                         filterCurent={this.state.filterCurent}
 
                         deleteFilet={this.deleteFilet}
@@ -245,7 +268,20 @@ export default class w_main_table extends Component {
                   <tr>
                      <td>
                         {_dataTable != null &&
-                           <W_table Data={_dataTable} w_Width={this.props.w_Width} NeedCode={this.props.NeedCode}/>
+                           <W_table Data={_dataTable} w_Width={this.props.w_Width} NeedCode={this.props.NeedCode} />
+                        }
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+
+            <hr /><hr />
+            <table>
+               <tbody>
+                  <tr>
+                     <td>
+                        {_dataTable != null &&
+                           <W_table_incid_All Data={_dataTable} w_Width={this.props.w_Width}/>
                         }
                      </td>
                   </tr>

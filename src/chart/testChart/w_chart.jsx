@@ -1,445 +1,342 @@
 import React, { Component, PropTypes } from 'react';
 import { Chart, Geom, Axis, Tooltip, Legend, Coord, Label, Guide } from 'bizcharts';
 
-import { max } from 'moment';
-/*
-import {
-   get_Date, Get_StartDate, Get_StopDate, GetDateNowDMY,
-   GetDateNow, contains, GetDatFromColChart, dataStart, dataStop
-} from '../../core/core_Function.jsx';
-
-
-
 import DataSet from "@antv/data-set";
+
+import {
+   get_Date_Filter, get_Date, GetDatFromColChart_month,
+   GetDatFromColChart, GetDatFromErrorEqv, GetDatFromErrorEqv_TEST
+}
+   from '../../core/core_Function.jsx';
+
+/*
+
+{this.props.isLegend &&
+
+                     <td width='120px' className="td_C_Chart">
+                        <W_choos updateType={this.updateType}
+                           typeChart={this.props.typeChart} NeedCode={this.props.NeedCode} />
+                        <W_choosed filterCurent={this.props.filterCurent}
+                           deleteFilet={this.props.deleteFilet}
+                        />
+                     </td>
+                  }
+
 */
-const _Debuge = true;
+
+
+
+
+
+/* OLD SAVE*/
+const _Debuge = false;
 
 export default class w_chart extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         W_Width: this.props.w_Width,
+         W_Width: this.props.w_Width / 2 - 25,
       }
    }
 
    componentDidMount() {
-      this.setState({ W_Width: this.props.w_Width });
+      this.setState({ W_Width: this.props.w_Width / 2 - 25 });
    }
 
    componentDidUpdate(prevProps) {
       if (this.props.w_Width != prevProps.w_Width) {
-         this.setState({ W_Width: this.props.w_Width });
+         this.setState({ W_Width: this.props.w_Width / 2 - 25 });
       }
    }
 
    render() {
+
       const data = [
-         /*
          {
-            date:"01/2019",
-            date_moth:"01",
-            norm:2,
-            sales:0
+            month: "01/2019",
+            equip: "ФР",
+            value: 37.6,
+            E_33: 1
+         },
+         {
+            month: "02/2019",
+            equip: "ФР",
+            value: 32.2,
+            E_33: 4
+         },
+         {
+            month: "03/2019",
+            equip: "ФР",
+            value: 29.7,
+            E_33: 38
+         },
+         {
+            month: "04/2019",
+            equip: "ФР",
+            value: 23.5,
+            E_33: 3
+         },
+         {
+            month: "05/2019",
+            equip: "ФР",
+            value: 21.4,
+            E_33: 24
+         },
+         {
+            month: "06/2019",
+            equip: "ФР",
+            value: 18.5,
+            E_33: 20
+         },
+         {
+            month: "07/2019",
+            equip: "ФР",
+            value: 16.2,
+            E_33: 18
+         },
+         {
+            month: "08/2019",
+            equip: "ФР",
+            value: 14.5,
+            E_33: 12
+         },
+         {
+            month: "09/2019",
+            equip: "ФР",
+            value: 11.3,
+            E_33: 10
+         },
+         {
+            month: "10/2019",
+            equip: "ФР",
+            value: 10.3,
+            E_33: 10
+         },
+         {
+            month: "11/2019",
+            equip: "ФР",
+            value: 10.9,
+            E_33: 9
+         },
+         {
+            month: "121/2019",
+            equip: "ФР",
+            value: 9.6,
+            E_33: 10
+         },
+
+
+         /**** */
+
+         {
+            month: "01/2019",
+            equip: "ТУ",
+            value: 32.6,
+            E_33: 1
+         },
+         {
+            month: "02/2019",
+            equip: "ТУ",
+            value: 30.2,
+            E_33: 4
+         },
+         {
+            month: "03/2019",
+            equip: "ТУ",
+            value: 25.7,
+            E_33: 38
+         },
+         {
+            month: "04/2019",
+            equip: "ТУ",
+            value: 20.5,
+            E_33: 3
+         },
+         {
+            month: "05/2019",
+            equip: "ТУ",
+            value: 20.4,
+            E_33: 24
+         },
+         {
+            month: "06/2019",
+            equip: "ТУ",
+            value: 14.5,
+            E_33: 20
+         },
+         {
+            month: "07/2019",
+            equip: "ТУ",
+            value: 13.2,
+            E_33: 18
+         },
+         {
+            month: "08/2019",
+            equip: "ТУ",
+            value: 12.5,
+            E_33: 12
+         },
+         {
+            month: "09/2019",
+            equip: "ТУ",
+            value: 11.3,
+            E_33: 10
+         },
+         {
+            month: "10/2019",
+            equip: "ТУ",
+            value: 8.3,
+            E_33: 10
+         },
+         {
+            month: "11/2019",
+            equip: "ТУ",
+            value: 9.9,
+            E_33: 9
+         },
+         {
+            month: "121/2019",
+            equip: "ТУ",
+            value: 7.6,
+            E_33: 10
+         },
+
+
+         /**** *
+         {
+            month: "01/2019",
+            E_33: 1
+         },
+         {
+            month: "02/2019",
+            E_33: 4
+         },
+         {
+            month: "03/2019",
+            E_33: 38
+         },
+         {
+            month: "04/2019",
+            E_33: 3
+         },
+         {
+            month: "05/2019",
+            E_33: 24
+         },
+         {
+            month: "06/2019",
+            E_33: 20
+         },
+         {
+            month: "07/2019",
+            E_33: 18
+         },
+         {
+            month: "08/2019",
+            E_33: 12
+         },
+         {
+            month: "09/2019",
+            E_33: 10
+         },
+         {
+            month: "10/2019",
+            E_33: 10
+         },
+         {
+            month: "11/2019",
+            E_33: 9
+         },
+         {
+            month: "121/2019",
+            E_33: 10
          },
          */
-         {
-            date:"02/2019",
-            norm:2,
-            sales:8
-         },
-         {
-            date:"03/2019",
-            norm:2,
-            sales:11
-         },
-         {
-            date:"04/2019",
-            norm:2,
-            sales:1
-         }
-         /*,{
-            date:"01/2019",
-            date_moth:"05",
-            norm:2,
-            sales:0
-         }*/
       ];
-      
+
       let VertMax = 1;
       for (const iterator of data) {
-         if (VertMax < iterator.sales) {
-            VertMax = iterator.sales;
+         if (VertMax < iterator.value) {
+            VertMax = iterator.value;
          }
-         if (VertMax < iterator.norm) {
-            VertMax = iterator.norm;
+         if (VertMax < iterator.E_33) {
+            VertMax = iterator.E_33;
          }
       }
-
-      const cols1 = {
-         month: {
-           range: [0, 1]
-         }
-       };
-       const cols2 = {
-         value: {
-           min: 0
-         },
-         month: {
-           range: [0, 1]
-         }
-       };
-
       const cols = {
          sales: {
             alias: 'Событий',
             min: 0,
-            max: Math.ceil(VertMax),
-            
+            //tickInterval: Math.ceil(VertMax / 4)
+            max: Math.ceil(VertMax)
          },
-         norm: {
+         E_33: {
+            alias: 'Событие 33',
             min: 0,
             max: Math.ceil(VertMax),
-            
-         },
-       };
-
-      return (
-         <div>
-         <Chart 
-         height={400} 
-         data={data} 
-         scale={cols} 
-         forceFit>     
-         <Legend position="bottom" dy={-10} title 
-             custom={true}
-            allowAllCanceled={true}
-            items={[
-              {
-                value: "sales",
-                marker: {
-                  symbol: "square",
-                  fill: "#3182bd",
-                  radius: 5
-                }
-              },
-              {
-                value: "norm",
-                marker: {
-                  symbol: "hyphen",
-                  stroke: "#ffae6b",
-                  radius: 5,
-                  lineWidth: 3
-                }
-              }
-            ]}
-         />     
-           <Axis name="date_moth" />
-           <Axis name="sales" title/>
-           <Axis name="norm" title/>
-           
-           <Tooltip showTitle={false}
-               crosshairs={{
-                  type: "y"
-               }}
-            />
-           <Geom
-             type="interval"
-             position="date_moth*sales"
-             color={"sales"}             
-           />
-           <Geom
-               type="line"
-               position="date*norm"
-               size={4}
-               color={"red"}               
-             />
-             <Geom
-                  type="point"
-                  position="date*norm"
-                  size={2}
-                  shape={"circle"}
-                  color={'red'}
-                  style={{
-                     stroke: "#fff",
-                     lineWidth: 3
-                  }}
-               />
-         </Chart>
-       </div>
-         );
-   }
-}
-   /*
-
-render() {
-    const data = [
-      {
-          month: "Jan",
-          city: "Tokyo",
-          temperature: 7
-      },
-      {
-          month: "Jan",
-          city: "London",
-          temperature: 3.9
-      },
-      {
-          month: "Feb",
-          city: "Tokyo",
-          temperature: 6.9
-      },
-      {
-          month: "Feb",
-          city: "London",
-          temperature: 4.2
-      },
-      {
-          month: "Mar",
-          city: "Tokyo",
-          temperature: 9.5
-      },
-      {
-          month: "Mar",
-          city: "London",
-          temperature: 5.7
-      },
-      {
-          month: "Apr",
-          city: "Tokyo",
-          temperature: 14.5
-      },
-      {
-          month: "Apr",
-          city: "London",
-          temperature: 8.5
-      },
-      {
-          month: "May",
-          city: "Tokyo",
-          temperature: 18.4
-      },
-      {
-          month: "May",
-          city: "London",
-          temperature: 11.9
-      },
-      {
-          month: "Jun",
-          city: "Tokyo",
-          temperature: 21.5
-      },
-      {
-          month: "Jun",
-          city: "London",
-          temperature: 15.2
-      },
-      {
-          month: "Jul",
-          city: "Tokyo",
-          temperature: 25.2
-      },
-      {
-          month: "Jul",
-          city: "London",
-          temperature: 17
-      },
-      {
-          month: "Aug",
-          city: "Tokyo",
-          temperature: 26.5
-      },
-      {
-          month: "Aug",
-          city: "London",
-          temperature: 16.6
-      },
-      {
-          month: "Sep",
-          city: "Tokyo",
-          temperature: 23.3
-      },
-      {
-          month: "Sep",
-          city: "London",
-          temperature: 14.2
-      },
-      {
-          month: "Oct",
-          city: "Tokyo",
-          temperature: 18.3
-      },
-      {
-          month: "Oct",
-          city: "London",
-          temperature: 10.3
-      },
-      {
-          month: "Nov",
-          city: "Tokyo",
-          temperature: 13.9
-      },
-      {
-          month: "Nov",
-          city: "London",
-          temperature: 6.6
-      },
-      {
-          month: "Dec",
-          city: "Tokyo",
-          temperature: 9.6
-      },
-      {
-          month: "Dec",
-          city: "London",
-          temperature: 4.8
-      }
-    ];
-    const cols1 = {
-      month: {
-        range: [0, 1]
-      }
-    };
-    const cols = {
-      value: {
-        min: 0
-      },
-      month: {
-        range: [0, 1]
-      }
-    };
-    return (
-      <div>
-        <Chart height={400} data={data} scale={cols} forceFit>
-          <Legend />
-          <Axis name="month" />
-          <Axis
-            name="temperature"
-            label={{
-              formatter: val => `${val}°C`
-            }}
-          />
-          <Tooltip
-            crosshairs={{
-              type: "y"
-            }}
-          />
-          <Geom
-            type="line"
-            position="month*temperature"
-            size={2}
-            color={"city"}
-            shape={"smooth"}
-          />
-          
-          <Geom type="interval" 
-            position="month*temperature"
-               color={"city"}
-            />
-
-        </Chart>
-      </div>
-    );
-  }
-}
-*/
-
-
-
-
-
-
-
-
-/*
-  render() {
-
-   const data = this.props.DataChart;
-   let VertMax = 1;
-   for (const iterator of this.props.DataChart) {
-      if (VertMax < iterator.sales) {
-         VertMax = iterator.sales;
-      }
-   }
-   const cols = {
-      sales: {
-         alias: 'Событий',
-         tickInterval: Math.ceil(VertMax / 4)
-      }
-   };
-   return (
-      <Chart
-         padding="auto"
-         forceFit
-         width={this.state.W_Width /2 - 50}
-         height={200}
-         data={data}
-         scale={cols}
-         onClick={ev => { this.ClickAZS({ ev }) }}
-      >
-      <center><span>По АЗК</span></center>
-         <Axis name="azs" />
-         <Axis name="sales" title />
-         <Legend position="bottom" dy={-10} />
-         <Tooltip  showTitle={false}
-            crosshairs={{
-               type: "y"
-            }}
-         />
-         <Geom type="interval" position="azs*sales"
-            color={"azs"}
-         />
-      </Chart>
-   );
-}
-*/
-
-
-
-
-/*
-   render() {
-        const data = this.props.DataChart;
-      let VertMax = 1;//1000
-      for (const iterator of this.props.DataChart) {
-         if (VertMax < iterator.sales) {
-            VertMax = iterator.sales;
-         }
-      }
-
-      const cols = {
-         sales: {
-            alias: 'Событий',
-            tickInterval: Math.ceil(VertMax / 4)
+            x: 2
          }
       };
       return (
-         <td colSpan='2'>
-            <center>
-               <Chart height={400}
-                  forceFit
-                  data={data}
-                  scale={cols}
-                  width={this.state.W_Width}
-                  height={200}
-               >
+         <div>
 
-                  <Axis name="date_month" />
+            <Chart
+               width={this.state.W_Width}
+               height={200}
+               data={data}
+               scale={cols}
+               forceFit>
 
-                  <Axis name="sales" />
-                  <Legend position="bottom" dy={-10} />
-                  <Tooltip
-                     crosshairs={{
-                        type: "y"
-                     }}
-                  />
-                  <Geom type="interval" position="date*sales"
-                     color={"date"}
-                  />
-               </Chart>
-            </center>
-         </td>
+               
+               <center><span>По месяцам (тестовое представление!!!)</span></center>
+               <Legend />
+               <Axis name="month" />
+               <Axis name="value"
+                  label={{
+                     formatter: val => `${val}`
+                  }}
+               />
+               <Tooltip
+                  crosshairs={{
+                     type: "y"
+                  }}
+               />
+
+               <Geom
+                  type="interval"
+                  position="month*value"
+                  color={"equip"}
+                  adjust={[
+                     {
+                        type: "dodge",
+                        marginRatio: 1 / 32
+                     }
+                  ]}
+               />
+
+
+               <Geom
+                  type="line"
+                  position="month*E_33"
+                  size={2}
+                  color={"orange"}
+                  
+               />
+               <Geom
+                  type="point"
+                  position="month*E_33"
+                  size={4}
+                  shape={"circle"}
+                  color={"orange"}
+                  style={{
+                     stroke: "#fff",
+                     lineWidth: 1
+                  }}
+               />
+            </Chart>
+
+         </div>
       );
    }
 }
 
-*/
