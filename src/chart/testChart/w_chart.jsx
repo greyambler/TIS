@@ -251,6 +251,11 @@ export default class w_chart extends Component {
             month: "121/2019",
             E_33: 10
          },
+
+          n month: "121/2019",
+          azs   equip: "ТУ",
+          sales  value: 7.6,
+          norm  E_33: 10
          */
       ];
 

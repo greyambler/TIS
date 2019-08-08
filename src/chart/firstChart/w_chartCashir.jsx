@@ -10,11 +10,11 @@ export default class w_chartCashir extends Component {
       }
    }
    componentDidMount() {
-      this.setState({ W_Width: this.props.w_Width});
+      this.setState({ W_Width: this.props.w_Width });
    }
    componentDidUpdate(prevProps) {
       if (this.props.w_Width != prevProps.w_Width) {
-         this.setState({ W_Width: this.props.w_Width});
+         this.setState({ W_Width: this.props.w_Width });
       }
    }
    ClickCashier(v) {
@@ -27,8 +27,12 @@ export default class w_chartCashir extends Component {
    render() {
       const data = this.props.DataChart;
       const cols = {
-         sales: { alias: 'Событий' },
-         CASHIER_ID: { alias: 'Кассир' }
+         sales: {
+            alias: 'Событий'
+         },
+         CASHIER_ID: {
+            alias: 'Кассир'
+         }
       };
       const label = {
          textStyle: { fontSize: '11' },
@@ -39,7 +43,7 @@ export default class w_chartCashir extends Component {
             padding="auto"
             //padding={[ 10, 30, 80, 30]}
             forceFit
-            width={this.state.W_Width /2 - 50}
+            width={this.state.W_Width / 2 - 50}
             height={200}
             data={data}
             scale={cols}
@@ -49,16 +53,16 @@ export default class w_chartCashir extends Component {
          >
 
             <center><span>По кассирам</span></center>
-
-
-            <Axis name="CASHIER_ID" label={label}/>
-            <Axis name="sales" title />
-
             <Legend position='bottom' visible={true}
             //offsetY={-5}
             />
 
-            <Tooltip crosshairs={{ type: "y" }} showTitle={false}/>
+
+            <Axis name="CASHIER_ID" label={label} />
+            <Axis name="sales" title />
+
+
+            <Tooltip crosshairs={{ type: "y" }} showTitle={false} />
 
             <Geom type="interval"
                position="CASHIER_ID*sales"
@@ -68,3 +72,4 @@ export default class w_chartCashir extends Component {
       );
    }
 }
+

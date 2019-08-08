@@ -83,13 +83,13 @@ export default class w_table_incid_All extends Component {
                   </tr>
 
                   <tr>
-                     <td>
+                     <td colSpan='2'>
                         <ReactTable
                            onFilteredChange={this.Filter_DataExcel}
                            data={this.state.Data}
                            columns={[
                               {
-                                 Header: "",
+                                 Header: "incidents",
                                  columns: ArCol
                               }
                            ]}

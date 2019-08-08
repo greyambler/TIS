@@ -49,7 +49,6 @@ export default class w_circle extends Component {
     }
     componentDidUpdate(prevProps) {
         if (this.props.data != prevProps.data) {
-
             this.setState({ data: this.props.data }, this.sum_Full);
             if (this.props.data != null) {
                 if (this.props.data.length != Et_Data.length) {
@@ -81,6 +80,7 @@ export default class w_circle extends Component {
                         iterator.count = 0;
                     }
                     this.setState({ data: this.state.data }, this.sum_Full);
+                    this.props.update_mass_Inc(this.state.data)
                     break;
                 }
             }

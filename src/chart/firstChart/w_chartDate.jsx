@@ -23,11 +23,11 @@ export default class w_chartDate extends Component {
    }
    ClickMonth(v) {
       try {
-         if(this.props.NeedCode == '211'){
+         if (this.props.NeedCode == '211') {
             this.props.updateEquip(v.ev.data._origin.DEVICE_TYPE);
          }
-         else{
-         this.props.updateMonth(v.ev.data._origin.date);
+         else {
+            this.props.updateMonth(v.ev.data._origin.date);
          }
       } catch (error) {
       }
@@ -95,12 +95,16 @@ export default class w_chartDate extends Component {
             }
          default: {
             let VertMax = 1;
+            let Norm = false;
             for (const iterator of this.props.DataChart) {
                if (VertMax < iterator.sales) {
                   VertMax = iterator.sales;
                }
                if (VertMax < iterator.norm) {
                   VertMax = iterator.norm;
+               }
+               if (iterator.norm > 0) {
+                  Norm = true;
                }
             }
             const cols = {
@@ -143,22 +147,26 @@ export default class w_chartDate extends Component {
                      position="date*sales"
                      color={"date"}
                   />
-                  <Geom type="line"
-                     position="date*norm"
-                     size={4}
-                     color={'red'}
-                  />
-                  <Geom
-                     type="point"
-                     position="date*norm"
-                     size={2}
-                     shape={"circle"}
-                     color={'red'}
-                     style={{
-                        stroke: "#fff",
-                        lineWidth: 3
-                     }}
-                  />
+                  {Norm &&
+                     <Geom type="line"
+                        position="date*norm"
+                        size={4}
+                        color={'red'}
+                     />
+                  }
+                  {Norm &&
+                     <Geom
+                        type="point"
+                        position="date*norm"
+                        size={2}
+                        shape={"circle"}
+                        color={'red'}
+                        style={{
+                           stroke: "#fff",
+                           lineWidth: 3
+                        }}
+                     />
+                  }
 
                </Chart>
             );

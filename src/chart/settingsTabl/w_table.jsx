@@ -62,16 +62,14 @@ export default class w_table extends Component {
                            </ExcelSheet>
                         </ExcelFile>
                      </td>
-                  </tr>
-
-                  <tr>
-                     <td>
+                  </tr><tr>
+                     <td colSpan='2'>
                         <ReactTable
                            onFilteredChange={this.Filter_DataExcel}
                            data={this.state.Data}
                            columns={[
                               {
-                                 Header: "",
+                                 Header: "normales",
                                  columns: ArCol
                               }
                            ]}

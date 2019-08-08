@@ -15,7 +15,6 @@ export default class Main_Test_Tree extends React.Component {
          tree: tree
       };
    }
-
    renderNode = node => {
       return (
          <span className={cx('node', {
@@ -27,7 +26,6 @@ export default class Main_Test_Tree extends React.Component {
          </span>
       );
    };
-
    onClickNode = node => {
       this.setState({
          active: node
@@ -38,7 +36,6 @@ export default class Main_Test_Tree extends React.Component {
          tree: tree
       });
    };
-
    updateTree = () => {
       const { tree } = this.state;
       tree.children.push({ module: 'test' });
@@ -46,7 +43,6 @@ export default class Main_Test_Tree extends React.Component {
          tree: tree
       });
    };
-
    render() {
       return (
          <div className="app">

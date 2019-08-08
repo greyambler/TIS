@@ -15,13 +15,13 @@ export default class w_chartASZ extends Component {
 
    componentDidMount() {
       //this.setState({ W_Width: (this.props.w_Width / 2) - 25 });
-      this.setState({ W_Width: this.props.w_Width});
+      this.setState({ W_Width: this.props.w_Width });
    }
 
    componentDidUpdate(prevProps) {
       if (this.props.w_Width != prevProps.w_Width) {
          //this.setState({ W_Width: (this.props.w_Width / 2) - 25 });
-         this.setState({ W_Width: this.props.w_Width});
+         this.setState({ W_Width: this.props.w_Width });
       }
    }
    ClickAZS(v) {
@@ -49,6 +49,49 @@ export default class w_chartASZ extends Component {
          <Chart
             padding="auto"
             forceFit
+            width={this.state.W_Width / 2 - 50}
+            height={200}
+            data={data}
+            scale={cols}
+            onClick={ev => { this.ClickAZS({ ev }) }}
+         >
+            <center><span>По АЗК</span></center>
+            <Legend position="bottom" dy={-10} />
+
+            <Axis name="azs" />
+            <Axis name="sales"
+               label={{
+                  formatter: val => `${val}`
+               }}
+            />
+
+            <Tooltip showTitle={false}
+               crosshairs={{
+                  type: "y"
+               }}
+            />
+            <Geom
+               type="interval"
+               position="azs*sales"
+               color={"N_data"}
+               adjust={[
+                  {
+                     type: "dodge",
+                     marginRatio: 1 / 32
+                  }
+               ]}
+            />
+
+         </Chart>
+      );
+   }
+}
+
+/*
+return (
+         <Chart
+            padding="auto"
+            forceFit
             width={this.state.W_Width /2 - 50}
             height={200}
             data={data}
@@ -70,4 +113,5 @@ export default class w_chartASZ extends Component {
          </Chart>
       );
    }
-}
+
+*/

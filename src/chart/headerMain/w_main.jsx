@@ -53,6 +53,8 @@ export default class w_main extends Component {
 
          RssSector: this.props.RssSector,
          ObjectSector: null,
+
+         mass_Inc: null,
       }
    }
 
@@ -63,7 +65,7 @@ export default class w_main extends Component {
    async componentDidMount() {
       await this.tick();
       await this.tickSector();
-      //this.timerID = setInterval(() => this.tick(), 30000);
+      this.timerID = setInterval(() => this.tick(), 30000);
    }
    componentDidUpdate(prevProps) {
       if (this.props.Rss != prevProps.Rss) {
@@ -131,6 +133,21 @@ export default class w_main extends Component {
       }
    }
 
+   update_mass_Inc = (J_testValeu) => {
+      if (J_testValeu != null && J_testValeu.length > 0) {
+
+         for (const Item of J_testValeu) {
+            for (const item of this.state.mass_Inc) {
+               if (Item.id == item.id) {
+                  item.IsUse = Item.checked;
+                  break;
+               }
+            }
+         }
+         this.setState({ mass_Inc: this.state.mass_Inc });
+      }
+   }
+
    render() {
       /*  let testValeu = get_Rss();
           let ListFalls = JSON.parse(testValeu);
@@ -160,6 +177,27 @@ export default class w_main extends Component {
       let err = null;
       if (this.state.isExistError) {
          err = 'Ошибка! Сервер не ответил!';
+      }
+
+      if (this.state.mass_Inc == null) {
+         if (J_testValeu.length > 0) {
+            let _mass_Inc = new Array();
+            for (const iterator of J_testValeu) {
+               _mass_Inc.push({ id: iterator.id, IsUse: true });
+            }
+            this.setState({ mass_Inc: _mass_Inc });
+         }
+      } else {
+         if (J_testValeu.length > 0) {
+            for (const Item of J_testValeu) {
+               for (const item of this.state.mass_Inc) {
+                  if (Item.id == item.id) {
+                     Item.checked = item.IsUse;
+                     break;
+                  }
+               }
+            }
+         }
       }
 
       return (
@@ -197,6 +235,8 @@ export default class w_main extends Component {
                      <td>
                         <center>
                            <W_sectorCircle data={J_testValeu} proc='true'
+                              
+                              update_mass_Inc={this.update_mass_Inc}
                            />
                         </center>
                      </td>

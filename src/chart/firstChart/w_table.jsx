@@ -1,15 +1,26 @@
+import _ from 'lodash'
 import React, { Component, PropTypes } from 'react';
 import ReactTable from "react-table";
 
 import ReactExport from "react-data-export";
 import Moment from 'moment';
+import ModalModalExample from '../../save/ModalModalExample.jsx';
+
+import { Rss_BackInc } from '../../core/core_Function.jsx';
+
+import { Button, Header, Image, Modal, Input, } from 'semantic-ui-react'
+
 
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 
-
+class Hello extends React.Component {
+   render() {
+      return <h1>Привет, {this.props.name}</h1>;
+   }
+}
 
 export default class w_table extends Component {
    constructor(props) {
@@ -17,9 +28,13 @@ export default class w_table extends Component {
       this.Filter_DataExcel = this.Filter_DataExcel.bind(this);
       this.get_DatFilters = this.get_DatFilters.bind(this);
 
+      this.tick = this.tick.bind(this);
+
       this.state = {
          Data: this.props.Data,
          Excel_Data: this.props.Data,
+         Message_ID: "",
+         Data_Mess: null,
       }
    }
    componentDidMount() {
@@ -38,6 +53,7 @@ export default class w_table extends Component {
       }
       this.setState({ Excel_Data: _excel_Data });
    }
+
 
    get_DatFilters(_E_Data, itemF) {
       let _return_Data = new Array();
@@ -222,15 +238,67 @@ export default class w_table extends Component {
       }
       return _return_Data;
    }
-   //<img src={'../images/JDownloader.ico'} width='30' />
-   //<ExcelFile element={<button><img src={'../images/JDownloader.ico'} width='30'>Выгрузка в EXCEL</img></button>}>
-   //<button>Выгрузка в EXCEL</button>
-   //
-   //value="Datetime" />
-   // <ExcelColumn label="Дата" value={(col) 
-   // => Moment(col.Datetime).local('ru').format('DD.MM.YYYY hh:mm:ss')} />
 
-   //<ExcelColumn label="Дата" value="Datetime" />
+
+   closeConfigShow = (closeOnEscape, closeOnDimmerClick) => () => {
+      this.setState({ closeOnEscape, closeOnDimmerClick, open: true })
+   }
+
+
+   open(rowInfo) {
+      if (rowInfo != null) {
+         this.tick(rowInfo.original.id);
+         /*
+         let r = "ID № - " + rowInfo.original.id + ", AZK № - " + rowInfo.original.SHOP_NUM + ", КАССА № - "
+            + rowInfo.original.KASS_NUM
+            + ", КАССИР № - " + rowInfo.original.cashier_idid;
+
+
+
+         this.setState({ open: true, Message_ID: r });
+*/
+
+
+      }
+      else {
+         //         this.setState({ open: true });
+      }
+   }
+   async tick(id) {
+      let rss = Rss_BackInc + id;
+      var myRequest = new Request(rss);
+
+      try {
+         var response = await fetch(myRequest,
+            {
+               method: 'GET',
+               headers:
+               {
+                  'Accept': 'application/json',
+               },
+            }
+         );
+         if (response.ok) {
+            const Jsons = await response.json();
+            if (Jsons != null && Jsons.events != undefined) {
+               this.setState({ Data_Mess: "Jsons.events", open: true });
+            }
+         }
+         else {
+            throw Error(response.statusText);
+         }
+         this.setState({ isExistError: false })
+      }
+      catch (error) {
+         this.setState({ isExistError: true })
+         console.log(error);
+      }
+   }
+
+
+
+
+   close = () => this.setState({ open: false });
 
    render() {
       return (
@@ -257,7 +325,7 @@ export default class w_table extends Component {
                         </ExcelFile>
                      </td>
                   </tr>
-                  
+
                   <tr>
                      <td>
                         <ReactTable
@@ -296,9 +364,19 @@ export default class w_table extends Component {
                                        accessor: "SHIFT_NUM"
                                     },
                                     {
-                                       Header: "Кассир",
+                                       Header: "Кассир_CASHIER_ID",
                                        accessor: "CASHIER_ID"
                                     },
+                                    {
+                                       Header: "Кассир_cashier_idid",
+                                       accessor: "cashier_idid"
+                                    },
+
+                                    {
+                                       Header: "Кассир_cashier_name",
+                                       accessor: "cashier_name"
+                                    },
+
                                  ]
                               },
                               {
@@ -329,6 +407,14 @@ export default class w_table extends Component {
                                  ]
                               }
                            ]}
+                           getTrProps={(state, rowInfo, column, instance) => {
+                              return {
+                                 onClick: () => {
+                                    this.open(rowInfo);
+                                 }
+                              }
+                           }}
+
                            defaultPageSize={10}
 
                            filterable={true}
@@ -340,16 +426,80 @@ export default class w_table extends Component {
 
                            pageText={'стр.'}
                            ofText={'из'}
-                           className="-striped -highlight"
-                        >
+                           className="-striped -highlight">
                         </ReactTable>
                      </td>
                   </tr>
                </tbody>
             </table>
+
+            <Modal open={this.state.open} onClose={this.close}>
+               <Modal.Header>Select a Photo</Modal.Header>
+               <Modal.Content image>
+                  <Image wrapped size='tiny' src='./images/gun.png' />
+                  <Modal.Description>
+                     <Header>ID</Header>
+                     <p> {this.state.Data_Mess} </p>
+                  </Modal.Description>
+               </Modal.Content>
+               <Modal.Actions>
+                  <Button primary content='Close' onClick={this.close} />
+               </Modal.Actions>
+            </Modal>
+
          </div>
       );
    }
 }
+/*
 
 
+
+
+
+            <Modal open={this.state.open} onClose={this.close}>
+               <Modal.Header>Select a Photo</Modal.Header>
+               <Modal.Content image>
+                  <Image wrapped size='tiny' src='./images/gun.png' />
+                  <Modal.Description>
+                     <Header>ID</Header>
+                     <p> {this.state.Message_ID} </p>
+                  </Modal.Description>
+
+               </Modal.Content>
+               <Modal.Actions>
+                  <Button primary content='Close' onClick={this.close} />
+               </Modal.Actions>
+
+
+
+            </Modal>
+
+
+
+
+const ModalExampleScrollingContent = () => (
+  <Modal trigger={<Button>Scrolling Content Modal</Button>}>
+    <Modal.Header>Profile Picture</Modal.Header>
+    <Modal.Content image scrolling>
+      <Image size='medium' src='https://react.semantic-ui.com/images/wireframe/image.png' wrapped />
+
+      <Modal.Description>
+        <Header>Modal Header</Header>
+        <p>This is an example of expanded content that will cause the modal's dimmer to scroll</p>
+
+        {_.times(8, i => (
+          <Image key={i} src='https://react.semantic-ui.com/images/wireframe/paragraph.png' style={{ paddingBottom: 5 }} />
+        ))}
+      </Modal.Description>
+    </Modal.Content>
+    <Modal.Actions>
+      <Button primary>
+        Proceed <Icon name='chevron right' />
+      </Button>
+    </Modal.Actions>
+  </Modal>
+
+
+
+*/

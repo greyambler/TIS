@@ -51,7 +51,10 @@ export default class w_charts extends Component {
          case "cashir": {
             let dataCol_Char1 = null;
             if (this.props.Data != null) {
-               dataCol_Char1 = GetDatFromColChart(this.props.Data);
+               dataCol_Char1 = GetDatFromColChart(this.props.Data, this.props.Data_Norm,
+                  this.props.startDate,
+                  this.props.endDate
+               );
             }
             return (
                <tr>
@@ -80,13 +83,14 @@ export default class w_charts extends Component {
             let dataCol_Char1 = null;
             if (this.props.Data != null) {
                switch (this.props.NeedCode) {
+
                   case "211": {
                      dataCol_Char1 = GetDatFromErrorEqv(this.props.Data, "month");
                      break;
                   }
 
                   default: {
-                     dataCol_Char1 = GetDatFromColChart_month(this.props.Data);
+                     dataCol_Char1 = GetDatFromColChart_month(this.props.Data, this.props.Data_Norm);
                      break;
                   }
                }
@@ -152,7 +156,10 @@ export default class w_charts extends Component {
          case "azs": {
             let dataCol_Char1 = null;
             if (this.props.Data != null) {
-               dataCol_Char1 = GetDatFromColChart_AZS(this.props.Data);
+               dataCol_Char1 = GetDatFromColChart_AZS(this.props.Data, this.props.Data_Norm,
+                  this.props.startDate,
+                  this.props.endDate
+               );
             }
             return (
                <tr>
@@ -205,7 +212,10 @@ export default class w_charts extends Component {
          case "kass": {
             let dataCol_Char1 = null;
             if (this.props.Data != null) {
-               dataCol_Char1 = GetDatFromColChart_KASS(this.props.Data);
+               dataCol_Char1 = GetDatFromColChart_KASS(this.props.Data, this.props.Data_Norm,
+                  this.props.startDate,
+                  this.props.endDate
+               );
             }
             return (
                <tr>

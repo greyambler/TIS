@@ -8,7 +8,7 @@ export default class w_chartKASS extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         W_Width: this.props.w_Width ,
+         W_Width: this.props.w_Width,
       }
    }
 
@@ -18,7 +18,7 @@ export default class w_chartKASS extends Component {
 
    componentDidUpdate(prevProps) {
       if (this.props.w_Width != prevProps.w_Width) {
-         this.setState({ W_Width: this.props.w_Width});
+         this.setState({ W_Width: this.props.w_Width });
       }
    }
    ClickKass(v) {
@@ -27,6 +27,67 @@ export default class w_chartKASS extends Component {
       } catch (error) {
       }
    }
+   render() {
+
+      const data = this.props.DataChart;
+      let VertMax = 1;
+      for (const iterator of this.props.DataChart) {
+         if (VertMax < iterator.sales) {
+            VertMax = iterator.sales;
+         }
+      }
+      const cols = {
+         sales: {
+            alias: 'Событий',
+            tickInterval: Math.ceil(VertMax / 4)
+         }
+      };
+      return (
+         <Chart
+            padding="auto"
+            forceFit
+            width={this.state.W_Width / 2 - 50}
+            height={200}
+            data={data}
+            scale={cols}
+            onClick={ev => { this.ClickKass({ ev }) }}
+         >
+            <center><span>По кассам</span></center>
+            <Legend position="bottom" dy={-10} />
+
+            <Axis name="KASS_NUM" />
+            <Axis name="sales"
+               label={{
+                  formatter: val => `${val}`
+               }}
+            />
+
+            <Tooltip showTitle={false}
+               crosshairs={{
+                  type: "y"
+               }}
+            />
+
+            <Geom type="interval"
+               position="KASS_NUM*sales"
+               color={"N_data"}
+               adjust={[
+                  {
+                     type: "dodge",
+                     marginRatio: 1 / 32
+                  }
+               ]}
+            />
+         </Chart>
+      );
+   }
+
+
+}
+
+/*
+
+
    render() {
 
       const data = this.props.DataChart;
@@ -67,5 +128,13 @@ export default class w_chartKASS extends Component {
    }
 
 
-}
 
+
+
+
+
+
+
+
+
+*/

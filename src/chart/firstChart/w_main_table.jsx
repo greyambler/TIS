@@ -136,7 +136,7 @@ export default class w_main_table extends Component {
 
    updateEquip = (N_Equip) => {
       if (this.state.Object != null) {
-         this.setState({ Is_LocalData: true , typeChart: "cashir"});
+         this.setState({ Is_LocalData: true, typeChart: "cashir" });
          if (!IsExist_Filter(this.state.filterCurent, 'по устройству')) {
             this.setState({ n_Equip: N_Equip });
             this.state.filterCurent[this.state.filterCurent.length] = 'по устройству';
@@ -238,7 +238,14 @@ export default class w_main_table extends Component {
             <table>
                <tbody>
                   {_dataTable != null &&
-                     <W_charts Data={_dataTable} w_Width={this.props.w_Width}
+                     <W_charts Data={_dataTable}
+                        Data_Norm={_dataTable_Normales}
+
+                        startDate={this.props.startDate}
+                        endDate={this.props.endDate}
+
+
+                        w_Width={this.props.w_Width}
 
                         isLegend={true}
 
@@ -247,7 +254,7 @@ export default class w_main_table extends Component {
                         updateAZS={this.updateAZS}
                         updateCode={this.updateCode}
                         updateMonth={this.updateMonth}
-                        
+
                         updateEquip={this.updateEquip}
 
                         filterCurent={this.state.filterCurent}
@@ -281,7 +288,7 @@ export default class w_main_table extends Component {
                   <tr>
                      <td>
                         {_dataTable != null &&
-                           <W_table_incid_All Data={_dataTable} w_Width={this.props.w_Width}/>
+                           <W_table_incid_All Data={_dataTable} w_Width={this.props.w_Width} />
                         }
                      </td>
                   </tr>

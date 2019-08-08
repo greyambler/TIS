@@ -82,12 +82,14 @@ export default class MainWindow extends React.Component {
                      </td>
 
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
-                        <Test_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
-                           dateStart={this.props.S_Date_33} dateStop={this.props.E_Date_33}
+                     <First_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
+                           dateStart={this.props.S_Date_191} dateStop={this.props.E_Date_191}
                            w_Width={this.state.W_Width} IsTable={false}
                            updateData={this.updateData}
                            NeedCode={'33'} />
                      </td>
+
+                     
                   </tr>
                </tbody>
             </table>
@@ -98,6 +100,17 @@ export default class MainWindow extends React.Component {
 
 
 /*
+
+
+<td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
+                        <Test_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
+                           dateStart={this.props.S_Date_33} dateStop={this.props.E_Date_33}
+                           w_Width={this.state.W_Width} IsTable={false}
+                           updateData={this.updateData}
+                           NeedCode={'33'} />
+                     </td>
+
+
 
 <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
                         <Second_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}

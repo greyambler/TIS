@@ -12,6 +12,7 @@ import MainWindow_Save8 from './save/MainWindow_Save8.jsx';
 
 import Main_Test_Tree from './save/Main_Test_Tree.jsx';
 
+import Main_Test_ModalWind from './save/Main_Test_ModalWind.jsx';
 
 
 import moment from 'moment';
@@ -39,29 +40,37 @@ const _Debuge = true;
 
 class Main extends Component {
    render() {
+      /*
+      if(_Debuge){
+         return (
+            <Main_Test_ModalWind w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
+         );
+      }else
+      */
+      {
+         return (
+            <MainWindow Rss={Rss} RssIncident={RssIncident}
+               w_Height={this.props.w_Height} w_Width={this.props.w_Width}
 
-      return (
-         <MainWindow Rss={Rss} RssIncident={RssIncident}
-            w_Height={this.props.w_Height} w_Width={this.props.w_Width}
+               S_Date_Head={this.props.S_Date_Head} E_Date_Head={this.props.E_Date_Head}
 
-            S_Date_Head={this.props.S_Date_Head} E_Date_Head={this.props.E_Date_Head}
+               S_Date_Test={this.props.S_Date_Test} E_Date_Test={this.props.E_Date_Test}
 
-            S_Date_Test={this.props.S_Date_Test} E_Date_Test={this.props.E_Date_Test}
+               S_Date={this.props.S_Date} E_Date={this.props.E_Date}
+               S_Date_191={this.props.S_Date_191} E_Date_191={this.props.E_Date_191}
 
-            S_Date={this.props.S_Date} E_Date={this.props.E_Date}
-            S_Date_191={this.props.S_Date_191} E_Date_191={this.props.E_Date_191}
+               S_Date_122={this.props.S_Date_122} E_Date_122={this.props.E_Date_122}
+               S_Date_33={this.props.S_Date_33} E_Date_33={this.props.E_Date_33}
+               S_Date_211={this.props.S_Date_211} E_Date_211={this.props.E_Date_211}
 
-            S_Date_122={this.props.S_Date_122} E_Date_122={this.props.E_Date_122}
-            S_Date_33={this.props.S_Date_33} E_Date_33={this.props.E_Date_33}
-            S_Date_211={this.props.S_Date_211} E_Date_211={this.props.E_Date_211}
+               S_Date_2={this.props.S_Date_2} E_Date_2={this.props.E_Date_2}
+               S_Date_3={this.props.S_Date_3} E_Date_3={this.props.E_Date_3}
+               S_Date_4={this.props.S_Date_4} E_Date_4={this.props.E_Date_4}
 
-            S_Date_2={this.props.S_Date_2} E_Date_2={this.props.E_Date_2}
-            S_Date_3={this.props.S_Date_3} E_Date_3={this.props.E_Date_3}
-            S_Date_4={this.props.S_Date_4} E_Date_4={this.props.E_Date_4}
-
-            updateData={this.props.updateData}
-         />
-      );
+               updateData={this.props.updateData}
+            />
+         );
+      }
    }
 }
 class Help extends Component {
@@ -234,6 +243,7 @@ class ChTest extends Component {
 }
 
 
+
 /********DEBUGE*****/
 
 class Main_Save1 extends Component {
@@ -262,6 +272,17 @@ class Test_Tree extends Component {
    render() {
       return (
          <Main_Test_Tree w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
+      );
+   }
+}
+
+class ModalW_Test extends Component {
+   constructor(props) {
+      super(props);
+   }
+   render() {
+      return (
+         <Main_Test_ModalWind w_Height={this.props.w_Height} w_Width={this.props.w_Width} />
       );
    }
 }
@@ -326,7 +347,10 @@ class Nav extends Component {
 
                               <li><Link to="/TestTree">Тест Дерево</Link></li>
 
-                              <li><Link to="/ChTest">Тест график</Link></li>
+                              <li><Link to="/ChTest">Тест график 33 событие</Link></li>
+
+                              <li><Link to="/ModalW_Test">Тест Модальное Окно</Link></li>
+
                            </ul>
                         </li>
                      }
@@ -370,8 +394,8 @@ export default class App extends Component {
          S_Date_First_191: moment('2019-01-1'),//_startPast_Quarter,//moment().add(-30, 'day'),       // _startPast_Quarter,//.add(-3, 'month'),
          E_Date_First_191: moment('2019-12-1'), //_endPast_Quarter,//
 
-         S_Date_First_122: moment('2019-01-1'),
-         E_Date_First_122: moment('2019-12-1'),
+         S_Date_First_122: moment('2019-02-1'),
+         E_Date_First_122: moment('2019-03-2'),
 
          S_Date_First_33: moment('2019-01-1'),
          E_Date_First_33: moment('2019-12-1'),
@@ -473,6 +497,9 @@ export default class App extends Component {
                      updateData={this.updateData}
                   />} />
 
+
+
+
                   <Route exact path="/ChFirst" render={() => <ChFirst
                      w_Height={this.state.W_Height} w_Width={this.state.W_Width}
                      S_Date={this.state.S_Date_First} E_Date={this.state.E_Date_First}
@@ -531,6 +558,10 @@ export default class App extends Component {
                   <Route exact path="/Main_Save3" render={() => <Main_Save3 w_Height={this.state.W_Height} w_Width={this.state.W_Width} />} />
 
                   <Route exact path="/TestTree" render={() => <Test_Tree />} />
+
+                  <Route exact path="/ModalW_Test" render={() => <ModalW_Test />} />
+
+
 
                   <Route exact component={NotFound} />
                </Switch>

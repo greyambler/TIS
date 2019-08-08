@@ -8,10 +8,14 @@ import 'moment/locale/ru';
 export const Rss = "http://172.23.16.18:11000/data";
 
 export const Rss_msg = "http://172.23.16.18:11000/data/msg";
+
 export const RssIncident = "http://172.23.16.18:11000/data/incident";
+
 export const Rss_Sector = "http://172.23.16.18:11000/data/sectorchart";
 
 export const Rss_Settings = "http://172.23.16.18:11000/data/matrix";
+
+export const Rss_BackInc = "http://172.23.16.18:11000/data/incident/eventsrange/?incident_id=";//incident_id=30
 
 //сестрок
 //http://172.23.16.18:11000/data/sectorchart?from=2019-03-20&to=2019-03-27
@@ -374,14 +378,18 @@ export function contains_KASS(arr, elem) {
 export let dateStart = null;
 export let dateStop = null;
 
-export function GetDatFromColChart(data_DB) {
+
+export function GetDatFromColChart(data_DB, data_DB_Norm, startDate, endDate) {
    let dataCol_Char1 = Array();
-   let t = 0;
+
+   //let NoRms = Get_Nom_MONTH(data_DB_Norm);
+
    for (const element of data_DB) {
-      let code = element.CASHIER_ID;
+      let code = element.cashier_idid; //.CASHIER_ID;//
+      let name = element.cashier_name;
       if (!contains(dataCol_Char1, code)) {
-         dataCol_Char1[t] = { n: code, CASHIER_ID: "" + code + "", F: element.F, sales: 1 };
-         t++;
+         dataCol_Char1.push({ n: code, CASHIER_ID: "" + code + " " + name, F: element.F, sales: 1 });
+
       } else {
          for (const iterator of dataCol_Char1) {
             if (iterator.n == code) {
@@ -397,13 +405,19 @@ function compare_N(a, b) {
    if (a.n < b.n) return -1;
 }
 
+function compare_AZS(a, b) {
+   if (a.azs > b.azs) return 1;
+   if (a.azs < b.azs) return -1;
+}
+
 export function GetFilterData_Cashir(data_DB, n_Cashir) {
    let data_db = null;
    if (data_DB) {
       data_db = Array();
       let t = 0;
       for (const element of data_DB) {
-         if (n_Cashir == element.CASHIER_ID) {
+         //if (n_Cashir == element.CASHIER_ID) {
+         if (n_Cashir == element.cashier_idid) {
             data_db[t] = element;
             t++;
          }
@@ -411,16 +425,33 @@ export function GetFilterData_Cashir(data_DB, n_Cashir) {
    }
    return data_db;
 }
-
-export function GetDatFromColChart_month(data_DB) {
+function Get_Nom_MONTH(data_DB_Norm) {
+   let NoRms = 0;
+   if (data_DB_Norm != undefined) {
+      let Mass = new Array();
+      for (const norms of data_DB_Norm) {
+         //norms.case == "BC02" &&
+         if (norms.period == "month" && norms.TableName == "object_info") {
+            Mass.push(norms.NormStat);
+         }
+      }
+      for (const iterator of Mass) {
+         NoRms = NoRms + iterator;
+      }
+      NoRms = NoRms / Mass.length;
+   }
+   return NoRms;
+}
+export function GetDatFromColChart_month(data_DB, data_DB_Norm) {
    let dataCol_Char1 = Array();
-   let t = 0;
+
+   let NoRms = Get_Nom_MONTH(data_DB_Norm);
+
    for (const element of data_DB) {
       let date = moment(element.Datetime.toString()).local('ru').format('MM/YYYY');
 
       if (!contains_Mouth(dataCol_Char1, date)) {
-         dataCol_Char1[t] = { date: date, sales: 1, norm: 2 };
-         t++;
+         dataCol_Char1.push({ date: date, sales: 1, norm: NoRms });
       } else {
          for (const iterator of dataCol_Char1) {
             if (iterator.date == date) {
@@ -451,14 +482,53 @@ export function GetFilterData_Month(data_DB, n_Month) {
    }
    return data_db;
 }
-export function GetDatFromColChart_AZS(data_DB) {
+
+export function GetDatFromColChart_AZS(data_DB, data_DB_Norm, startDate, endDate) {
+   let is_Month = false;
+   let is_Day = false;
+   let Count_Day = 1;
+   if (startDate != undefined && endDate != undefined) {
+      is_Month = endDate.diff(startDate, 'days') < 32;
+      Count_Day = endDate.diff(startDate, 'days');
+      is_Day = Count_Day < 20;
+   }
    let dataCol_Char1 = Array();
-   let t = 0;
+
+   if (is_Day && is_Month) {
+      //по дням
+      dataCol_Char1 = get_AZS_Day(data_DB, data_DB_Norm, Count_Day);
+   }
+   else if (!is_Day && is_Month) {
+      //по месяцу
+      dataCol_Char1 = get_AZS_Mount(data_DB, data_DB_Norm);
+   }
+   else {
+      //по всему
+      dataCol_Char1 = get_AZS_All(data_DB);
+   }
+   return dataCol_Char1.sort(compare_AZS);
+}
+function get_AZS_Day(data_DB, data_DB_Norm, Count_Day) {
+   let dataCol_Char1 = Array();
    for (const element of data_DB) {
       let code = element.SHOP_NUM;
+      let name = element.shop_name
+      let NoRms = Get_Nom_AZS_Day(data_DB_Norm, name);
+      let t = 0;
+
       if (!contains_AZS(dataCol_Char1, code)) {
-         dataCol_Char1[t] = { n: code, azs: "" + code + "", sales: 1 };
-         t++;
+         dataCol_Char1.push({
+            n: code,
+            azs: "" + name + "",
+            N_data: "Реально",
+            sales: 1
+         });
+         dataCol_Char1.push({
+            n: ++t,
+            azs: "" + name + "",
+            N_data: "Порог",
+            sales: NoRms * Count_Day
+         });
       } else {
          for (const iterator of dataCol_Char1) {
             if (iterator.n == code) {
@@ -467,9 +537,93 @@ export function GetDatFromColChart_AZS(data_DB) {
          }
       }
    }
-   return dataCol_Char1.sort(compare_N);
+   return dataCol_Char1;
+}
+function Get_Nom_AZS_Day(data_DB_Norm, shop) {
+
+   let NoRms = 0;
+   if (data_DB_Norm != undefined) {
+      let Mass = new Array();
+      for (const norms of data_DB_Norm) {
+         //norms.case == "BC02" &&
+         if (norms.period == "day" && norms.ObjName == shop) {
+            NoRms = norms.NormStat;
+            break;
+         }
+      }
+   }
+   return NoRms;
 }
 
+function get_AZS_Mount(data_DB, data_DB_Norm) {
+   let dataCol_Char1 = Array();
+   for (const element of data_DB) {
+      let code = element.SHOP_NUM;
+      let name = element.shop_name
+      let NoRms = Get_Nom_AZS_Month(data_DB_Norm, name);
+
+      let t = 0;
+      if (!contains_AZS(dataCol_Char1, code)) {
+         dataCol_Char1.push({
+            n: code,
+            azs: "" + name + "",
+            N_data: "Реально",
+            sales: 1
+         });
+         dataCol_Char1.push({
+            n: ++t,
+            azs: "" + name + "",
+            N_data: "Порог",
+            sales: NoRms
+         });
+      } else {
+         for (const iterator of dataCol_Char1) {
+            if (iterator.n == code) {
+               iterator.sales = iterator.sales + 1;
+            }
+         }
+      }
+   }
+   return dataCol_Char1;
+}
+function Get_Nom_AZS_Month(data_DB_Norm, shop) {
+
+   let NoRms = 0;
+   if (data_DB_Norm != undefined) {
+      let Mass = new Array();
+      for (const norms of data_DB_Norm) {
+         //norms.case == "BC02" &&
+         if (norms.period == "month" && norms.ObjName == shop) {
+            NoRms = norms.NormStat;
+            break;
+         }
+      }
+   }
+   return NoRms;
+}
+
+function get_AZS_All(data_DB) {
+   let dataCol_Char1 = Array();
+   for (const element of data_DB) {
+      let code = element.SHOP_NUM;
+      let name = element.shop_name
+      if (!contains_AZS(dataCol_Char1, code)) {
+         dataCol_Char1.push({
+            n: code,
+            azs: "" + name + "",
+            N_data: "Реально",
+            sales: 1
+         });
+      } else {
+         for (const iterator of dataCol_Char1) {
+            if (iterator.n == code) {
+               iterator.sales = iterator.sales + 1;
+            }
+         }
+      }
+   }
+   return dataCol_Char1;
+}
 
 export function GetFilterData_AZS(data_DB, n_AZS) {
    let data_db = null;
@@ -517,14 +671,55 @@ export function GetFilterData_CODE(data_DB, n_Code) {
    }
    return data_db;
 }
-export function GetDatFromColChart_KASS(data_DB) {
+
+
+export function GetDatFromColChart_KASS(data_DB, data_DB_Norm, startDate, endDate) {
+   let is_Month = false;
+   let is_Day = false;
+   let Count_Day = 1;
+   if (startDate != undefined && endDate != undefined) {
+      is_Month = endDate.diff(startDate, 'days') < 32;
+      Count_Day = endDate.diff(startDate, 'days');
+      is_Day = Count_Day < 20;
+   }
    let dataCol_Char1 = Array();
-   let t = 0;
+
+   if (is_Day && is_Month) {
+      //по дням
+      dataCol_Char1 = get_KASS_Day(data_DB, data_DB_Norm, Count_Day);
+   }
+   else if (!is_Day && is_Month) {
+      //по месяцу
+      dataCol_Char1 = get_KASS_Mount(data_DB, data_DB_Norm);
+   }
+   else {
+      //по всему
+      dataCol_Char1 = get_KASS_All(data_DB);
+   }
+
+   return dataCol_Char1.sort(compare_N);
+}
+function get_KASS_Day(data_DB, data_DB_Norm) {
+   let dataCol_Char1 = Array();
    for (const element of data_DB) {
       let code = element.KASS_NUM;
+
+      let NoRms = Get_Nom_KASS_Day(data_DB_Norm, code);
+
+      let t = 0;
       if (!contains_KASS(dataCol_Char1, code)) {
-         dataCol_Char1[t] = { n: code, KASS_NUM: "" + code + "", sales: 1 };
-         t++;
+         dataCol_Char1.push({
+            n: code,
+            KASS_NUM: "" + code + "",
+            N_data: "Реально",
+            sales: 1
+         });
+         dataCol_Char1.push({
+            n: ++t,
+            KASS_NUM: "" + code + "",
+            N_data: "Порог",
+            sales: NoRms
+         });
       } else {
          for (const iterator of dataCol_Char1) {
             if (iterator.n == code) {
@@ -533,8 +728,90 @@ export function GetDatFromColChart_KASS(data_DB) {
          }
       }
    }
-   return dataCol_Char1.sort(compare_N);
+   return dataCol_Char1;
 }
+function Get_Nom_KASS_Day(data_DB_Norm, kass) {
+   let NoRms = 0;
+   if (data_DB_Norm != undefined && data_DB_Norm.length > 0) {
+      let Mass = new Array();
+      for (const norms of data_DB_Norm) {
+         //norms.case == "BC02" &&
+         if (norms.period == "day" && norms.TableName == "cass_info" && norms.SubName == kass) {
+            NoRms = norms.NormStat;
+            break;
+         }
+      }
+   }
+   return NoRms;
+}
+function get_KASS_Mount(data_DB, data_DB_Norm) {
+   let dataCol_Char1 = Array();
+   for (const element of data_DB) {
+      let code = element.KASS_NUM;
+
+      let NoRms = Get_Nom_KASS_Month(data_DB_Norm, code);
+
+      let t = 0;
+      if (!contains_KASS(dataCol_Char1, code)) {
+         dataCol_Char1.push({
+            n: code,
+            KASS_NUM: "" + code + "",
+            N_data: "Реально",
+            sales: 1
+         });
+         dataCol_Char1.push({
+            n: ++t,
+            KASS_NUM: "" + code + "",
+            N_data: "Порог",
+            sales: NoRms
+         });
+      } else {
+         for (const iterator of dataCol_Char1) {
+            if (iterator.n == code) {
+               iterator.sales = iterator.sales + 1;
+            }
+         }
+      }
+   }
+   return dataCol_Char1;
+}
+function Get_Nom_KASS_Month(data_DB_Norm, kass) {
+   let NoRms = 0;
+   if (data_DB_Norm != undefined && data_DB_Norm.length > 0) {
+      let Mass = new Array();
+      for (const norms of data_DB_Norm) {
+         //norms.case == "BC02" &&
+         if (norms.period == "month" && norms.TableName == "cass_info" && norms.SubName == kass) {
+            NoRms = norms.NormStat;
+            break;
+         }
+      }
+   }
+   return NoRms;
+}
+function get_KASS_All(data_DB) {
+   let dataCol_Char1 = Array();
+   for (const element of data_DB) {
+      let code = element.KASS_NUM;
+      let t = 0;
+      if (!contains_KASS(dataCol_Char1, code)) {
+         dataCol_Char1.push({
+            n: code,
+            KASS_NUM: "" + code + "",
+            N_data: "Реально",
+            sales: 1
+         });
+      } else {
+         for (const iterator of dataCol_Char1) {
+            if (iterator.n == code) {
+               iterator.sales = iterator.sales + 1;
+            }
+         }
+      }
+   }
+   return dataCol_Char1;
+}
+
 export function GetFilterData_Kassa(data_DB, n_Kass) {
    let data_db = null;
    if (data_DB) {
@@ -1164,14 +1441,14 @@ export function isSameDay(a, b) {
 /****PresetDateRangePicker********************************/
 
 
-export function Get_ColumnsForTable(F_Item){
+export function Get_ColumnsForTable(F_Item) {
    let ArCol = new Array();
-      let t = 0;
-      if (F_Item != null) {
-         for (var key in F_Item) {
-            ArCol[t] = { Header: key, accessor: key };
-            t++;
-         }
+   let t = 0;
+   if (F_Item != null) {
+      for (var key in F_Item) {
+         ArCol[t] = { Header: key, accessor: key };
+         t++;
       }
-      return ArCol;
+   }
+   return ArCol;
 }

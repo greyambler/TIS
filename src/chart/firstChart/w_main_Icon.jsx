@@ -59,8 +59,10 @@ export default class w_main_Icon extends Component {
    }
    render() {
       let _dataTable = null;
+      let _dataTable_Norm = null;
       if (this.state.Object != null) {
-         _dataTable = this.state.Object.incidents
+         _dataTable = this.state.Object.incidents;
+         _dataTable_Norm= this.state.Object.normales;
       }
       let err = null;
       if (this.state.isExistError) {
@@ -81,7 +83,7 @@ export default class w_main_Icon extends Component {
          } break;
          case '33': {
             _AhrefBack = '/ChFirst_33';
-            ChooSeChart = 'azs'
+            ChooSeChart = 'kass'
          } break;
          case '211': {
             _AhrefBack = '/ChFirst_211';
@@ -117,6 +119,11 @@ export default class w_main_Icon extends Component {
                {_dataTable != null &&
                   <W_charts
                      Data={_dataTable}
+                     Data_Norm={_dataTable_Norm}
+
+                     startDate={this.props.startDate}
+                     endDate={this.props.endDate}
+
                      w_Width={this.props.w_Width}
                      isLegend={false}
                      NeedCode={this.props.NeedCode}
