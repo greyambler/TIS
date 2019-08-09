@@ -83,7 +83,7 @@ export default class MainWindow extends React.Component {
 
                      <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
                      <First_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
-                           dateStart={this.props.S_Date_191} dateStop={this.props.E_Date_191}
+                           dateStart={this.props.S_Date_33} dateStop={this.props.E_Date_33}
                            w_Width={this.state.W_Width} IsTable={false}
                            updateData={this.updateData}
                            NeedCode={'33'} />
