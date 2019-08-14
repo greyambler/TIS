@@ -42,44 +42,80 @@ export default class w_chartKASS extends Component {
             tickInterval: Math.ceil(VertMax / 4)
          }
       };
-      return (
-         <Chart
-            padding="auto"
-            forceFit
-            width={this.state.W_Width / 2 - 50}
-            height={200}
-            data={data}
-            scale={cols}
-            onClick={ev => { this.ClickKass({ ev }) }}
-         >
-            <center><span>По кассам</span></center>
-            <Legend position="bottom" dy={-10} />
+      if (this.props.is_More_Month) {
+         return (
+            <Chart
+               padding="auto"
+               forceFit
+               width={this.state.W_Width / 2 - 50}
+               height={200}
+               data={data}
+               scale={cols}
+               onClick={ev => { this.ClickKass({ ev }) }}
+            >
+               <center><span>По кассам</span></center>
+               <Legend position="bottom" dy={-10} />
 
-            <Axis name="KASS_NUM" />
-            <Axis name="sales"
-               label={{
-                  formatter: val => `${val}`
-               }}
-            />
+               <Axis name="KASS_NUM" />
+               <Axis name="sales"
+                  label={{
+                     formatter: val => `${val}`
+                  }}
+               />
 
-            <Tooltip showTitle={false}
-               crosshairs={{
-                  type: "y"
-               }}
-            />
+               <Tooltip showTitle={false}
+                  crosshairs={{
+                     type: "y"
+                  }}
+               />
 
-            <Geom type="interval"
-               position="KASS_NUM*sales"
-               color={"N_data"}
-               adjust={[
-                  {
-                     type: "dodge",
-                     marginRatio: 1 / 32
-                  }
-               ]}
-            />
-         </Chart>
-      );
+               <Geom type="interval"
+                  position="KASS_NUM*sales"
+                  color={"KASS_NUM"}
+                  
+               />
+            </Chart>
+         );
+      } else {
+         return (
+            <Chart
+               padding="auto"
+               forceFit
+               width={this.state.W_Width / 2 - 50}
+               height={200}
+               data={data}
+               scale={cols}
+               onClick={ev => { this.ClickKass({ ev }) }}
+            >
+               <center><span>По кассам</span></center>
+               <Legend position="bottom" dy={-10} />
+
+               <Axis name="KASS_NUM" />
+               <Axis name="sales"
+                  label={{
+                     formatter: val => `${val}`
+                  }}
+               />
+
+               <Tooltip showTitle={false}
+                  crosshairs={{
+                     type: "y"
+                  }}
+               />
+
+               <Geom type="interval"
+                  position="KASS_NUM*sales"
+                  color={"N_data"}
+                  adjust={[
+                     {
+                        type: "dodge",
+                        marginRatio: 1 / 32
+                     }
+                  ]}
+               />
+            </Chart>
+         );
+      }
    }
 
 

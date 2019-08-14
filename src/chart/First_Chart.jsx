@@ -35,7 +35,7 @@ export default class First_Chart extends React.Component {
                _header += " - First_Chart";
             break;
          case '33':
-            _header = 'Событие аннуляции чека (33)';
+            _header = 'Событие аннуляции чека (33) и недоступность оборудования (количество сбоев 211)';
             if (_Debuge)
                _header += " - First_Chart";
             break;
@@ -80,6 +80,8 @@ export default class First_Chart extends React.Component {
    render() {
       let rss = Get_RSS(this.props.RssIncident, this.props.dateStart, this.props.dateStop, this.props.NeedCode);
 
+      let rss_211 = Get_RSS(this.props.RssIncident, this.props.dateStart, this.props.dateStop, "211");
+
       if (!this.props.IsTable) {
          return (
             <W_main_Icon
@@ -89,6 +91,7 @@ export default class First_Chart extends React.Component {
                endDate={this.props.dateStop}
                updateData={this.updateData}
                RssDate={rss}
+               RssDate_Two={this.props.NeedCode == "33" ? rss_211 : undefined}
                NeedCode={this.state.NeedCode}
             />
          );

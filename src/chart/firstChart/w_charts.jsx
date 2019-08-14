@@ -3,7 +3,8 @@ import { Chart, Geom, Axis, Tooltip, Legend, Coord, Label, Guide } from 'bizchar
 import {
    get_Date_Filter, get_Date, GetDatFromColChart,
    GetDatFromColChart_month, GetDatFromColChart_AZS, GetDatFromColChart_CODE,
-   GetDatFromColChart_KASS, GetDatFromErrorEqv
+   GetDatFromColChart_KASS, GetDatFromErrorEqv,
+   GetDatFromColChart_month_33, GetDatFromColChart_KASS_33
 } from '../../core/core_Function.jsx';
 
 import W_choos from './w_choos.jsx';
@@ -47,6 +48,8 @@ export default class w_charts extends Component {
    }
 
    render() {
+      let is_More_Month = this.props.endDate.diff(this.props.startDate, 'days') > 32;
+
       switch (this.props.typeChart) {
          case "cashir": {
             let dataCol_Char1 = null;
@@ -83,14 +86,23 @@ export default class w_charts extends Component {
             let dataCol_Char1 = null;
             if (this.props.Data != null) {
                switch (this.props.NeedCode) {
-
                   case "211": {
                      dataCol_Char1 = GetDatFromErrorEqv(this.props.Data, "month");
                      break;
                   }
-
+                  case "33": {
+                     if (this.props.Data != null && this.props.Data_Two == null) {
+                        dataCol_Char1 = GetDatFromColChart_month(this.props.Data,
+                           this.props.Data_Norm);
+                     } else if (this.props.Data != null && this.props.Data_Two != null) {
+                        dataCol_Char1 = GetDatFromColChart_month_33(this.props.Data, this.props.Data_Two,
+                           this.props.Data_Norm);
+                     }
+                     break;
+                  }
                   default: {
-                     dataCol_Char1 = GetDatFromColChart_month(this.props.Data, this.props.Data_Norm);
+                     dataCol_Char1 = GetDatFromColChart_month(this.props.Data,
+                        this.props.Data_Norm);
                      break;
                   }
                }
@@ -159,6 +171,7 @@ export default class w_charts extends Component {
                dataCol_Char1 = GetDatFromColChart_AZS(this.props.Data, this.props.Data_Norm,
                   this.props.startDate,
                   this.props.endDate
+
                );
             }
             return (
@@ -167,6 +180,7 @@ export default class w_charts extends Component {
                      <W_chartASZ DataChart={dataCol_Char1} w_Width={this.props.w_Width}
                         isLegend={this.props.isLegend}
                         updateAZS={this.updateAZS}
+                        is_More_Month={is_More_Month}
                      />
                   </td>
                   {this.props.isLegend &&
@@ -211,8 +225,15 @@ export default class w_charts extends Component {
          }
          case "kass": {
             let dataCol_Char1 = null;
-            if (this.props.Data != null) {
+
+            if (this.props.Data != null && this.props.Data_Two == null) {
                dataCol_Char1 = GetDatFromColChart_KASS(this.props.Data, this.props.Data_Norm,
+                  this.props.startDate,
+                  this.props.endDate
+               );
+            } else if (this.props.Data != null && this.props.Data_Two != null) {
+               dataCol_Char1 = GetDatFromColChart_KASS_33(this.props.Data, this.props.Data_Two,
+                  this.props.Data_Norm,
                   this.props.startDate,
                   this.props.endDate
                );
@@ -223,6 +244,7 @@ export default class w_charts extends Component {
                      <W_chartKASS DataChart={dataCol_Char1} w_Width={this.props.w_Width}
                         isLegend={this.props.isLegend}
                         updateKass={this.updateKass}
+                        is_More_Month={is_More_Month}
                      />
                   </td>
                   {this.props.isLegend &&

@@ -93,6 +93,183 @@ export default class w_chartDate extends Component {
                   return <br />
                }
             }
+         case "33":
+            {
+               let VertMax = 1;
+               for (const iterator of data) {
+                  if (VertMax < iterator.value) {
+                     VertMax = iterator.value;
+                  }
+                  if (VertMax < iterator.E_33) {
+                     VertMax = iterator.E_33;
+                  }
+               }
+               if (this.props.DataChart != null) {
+                  let data = this.props.DataChart;
+                  const cols = {
+                     sales: {
+                        alias: 'Событий',
+                        min: 0,
+                        //tickInterval: Math.ceil(VertMax / 4)
+                        max: Math.ceil(VertMax)
+                     },
+                     E_33: {
+                        alias: 'Событие 33',
+                        min: 0,
+                        max: Math.ceil(VertMax),
+                        x: 2
+                     }
+                  };
+                  return (
+                     <Chart
+                        padding="auto"
+                        width={this.state.W_Width / 2 - 50}
+                        height={200}
+                        data={data}
+                        scale={cols}
+                        forceFit
+                        onClick={ev => { this.ClickMonth({ ev }) }}
+                     >
+                        <center><span>{this.props.header}</span></center>
+                        <Legend />
+                        <Axis name="month" />
+                        <Axis name="value"
+                           label={{
+                              formatter: val => `${val}`
+                           }}
+                        />
+                        <Tooltip
+                           crosshairs={{
+                              type: "y"
+                           }}
+                        />
+
+                        <Geom
+                           type="interval"
+                           position="month*value"
+                           color={"equip"}
+                           adjust={[
+                              {
+                                 type: "dodge",
+                                 marginRatio: 1 / 32
+                              }
+                           ]}
+                        />
+
+
+                        <Geom
+                           type="line"
+                           position="month*E_33"
+                           size={2}
+                           color={"orange"}
+
+                        />
+                        <Geom
+                           type="point"
+                           position="month*E_33"
+                           size={4}
+                           shape={"circle"}
+                           color={"orange"}
+                           style={{
+                              stroke: "#fff",
+                              lineWidth: 1
+                           }}
+                        />
+                     </Chart>
+                  );
+               } else {
+                  return <br />
+               }
+            }
+
+         case "33 _save_Old":
+            {
+               let VertMax = 1;
+               let Norm = false;
+               for (const iterator of this.props.DataChart) {
+                  if (VertMax < iterator.sales) {
+                     VertMax = iterator.sales;
+                  }
+                  if (VertMax < iterator.value) {
+                     VertMax = iterator.value;
+                  }
+                  if (iterator.value > 0) {
+                     Norm = true;
+                  }
+               }
+
+               if (this.props.DataChart != null) {
+                  let data = this.props.DataChart;
+                  const cols = {
+                     sales: {
+                        alias: 'Событий',
+                        min: 0,
+                        //tickInterval: Math.ceil(VertMax / 4)
+                        max: Math.ceil(VertMax)
+                     },
+                     month: {
+                        range: [0, 1],
+                        max: Math.ceil(VertMax)
+                     }
+                  };
+                  return (
+                     <Chart
+                        padding="auto"
+                        width={this.state.W_Width / 2 - 50}
+                        height={200}
+                        data={data}
+                        scale={cols}
+                        forceFit
+                        onClick={ev => { this.ClickMonth({ ev }) }}
+                     >
+                        <center><span>{this.props.header}</span></center>
+                        <Legend />
+                        <Axis name="sales" title />
+                        <Axis name="month" />
+                        <Axis
+                           name="value"
+                           label={{
+                              formatter: val => `${val}`
+                           }}
+                        />
+                        <Tooltip
+                           crosshairs={{
+                              type: "y"
+                           }}
+                        />
+
+                        <Geom
+                           type="interval"
+                           position="date*sales"
+                           color={"date"}
+                        />
+
+                        <Geom
+                           type="line"
+                           position="month*value"
+                           size={2}
+                           color={"equip"}
+                           shape={"smooth"}
+                        />
+                        <Geom
+                           type="point"
+                           position="month*value"
+                           size={4}
+                           shape={"circle"}
+                           color={"equip"}
+                           style={{
+                              stroke: "#fff",
+                              lineWidth: 1
+                           }}
+                        />
+
+                     </Chart>
+                  );
+               } else {
+                  return <br />
+               }
+            }
+
          default: {
             let VertMax = 1;
             let Norm = false;
@@ -174,43 +351,3 @@ export default class w_chartDate extends Component {
       }
    }
 }
-/*
-
-
-            <Geom type="interval"
-               position="date*norm"
-               size={(this.state.W_Width / data.length - 80) }
-               color={'pink'}
-               border={'2px solid black'}
-            />
-
-
-            <Geom type="line"
-               position="date*norm"
-               size={4}
-               color={'red'}
-            />
-
-
-            <Geom type="interval"
-               position="date*norm"
-               size={(this.state.W_Width / 2 - 50) / data.length}
-               color={'pink'}
-               border={ '2px solid black'}
-            />
-
-
- <Geom
-                  type="point"
-                  position="date*sales"
-                  size={2}
-                  shape={"circle"}
-                  color={'date'}
-                  style={{
-                     stroke: "#fff",
-                     lineWidth: 3
-                  }}
-               />
-
-
-*/

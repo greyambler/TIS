@@ -338,6 +338,18 @@ export function contains_Mouth(arr, elem) {
    }
    return Exist;
 }
+export function contains_Mouth_M(arr, elem) {
+   let Exist = false;
+   if (arr != null && elem != null) {
+      for (const iterator of arr) {
+         Exist = (iterator.month == elem);
+         if (Exist) {
+            break;
+         }
+      }
+   }
+   return Exist;
+}
 export function contains_AZS(arr, elem) {
    let Exist = false;
    if (arr != null && elem != null) {
@@ -448,13 +460,13 @@ export function GetDatFromColChart_month(data_DB, data_DB_Norm) {
    let NoRms = Get_Nom_MONTH(data_DB_Norm);
 
    for (const element of data_DB) {
-      let date = moment(element.Datetime.toString()).local('ru').format('MM/YYYY');
+      let _month = moment(element.Datetime.toString()).local('ru').format('MM/YYYY');
 
-      if (!contains_Mouth(dataCol_Char1, date)) {
-         dataCol_Char1.push({ date: date, sales: 1, norm: NoRms });
+      if (!contains_Mouth(dataCol_Char1, _month)) {
+         dataCol_Char1.push({ date: _month, sales: 1, norm: NoRms });
       } else {
          for (const iterator of dataCol_Char1) {
-            if (iterator.date == date) {
+            if (iterator.date == _month) {
                iterator.sales = iterator.sales + 1;
             }
          }
@@ -462,6 +474,113 @@ export function GetDatFromColChart_month(data_DB, data_DB_Norm) {
    }
    return dataCol_Char1.sort(compareDate);
 }
+export function GetDatFromColChart_month_33(data_DB, Data_Two, data_DB_Norm) {
+
+   let dataCol_Char_2 = new Array();
+   let dataCol_Char1 = new Array();
+
+   for (const element of Data_Two) {
+      if (element.DEVICE_TYPE == 1 || element.DEVICE_TYPE == 2) {
+         let code = get_Name_DEVICE(element.DEVICE_TYPE);
+         let _month = moment(element.Datetime).local('ru').format('MM/YYYY');
+
+         if (!contains_device(dataCol_Char_2, code, _month)) {
+            dataCol_Char_2.push({
+               month: _month,
+               equip: code.toString(),
+               value: 1,
+               E_33: 0,
+            });
+         } else {
+            for (const iterator of dataCol_Char_2) {
+               if (iterator.equip == code && iterator.month == _month) {
+                  iterator.value = iterator.value + 1;
+               }
+            }
+         }
+      }
+   }
+
+   for (const element of data_DB) {
+      let _month = moment(element.Datetime.toString()).local('ru').format('MM/YYYY');
+
+      if (!contains_Mouth_M(dataCol_Char_2, _month)) {
+
+         let r=0;
+         /*dataCol_Char_2.push({
+            month: _month,
+            E_33: 1,
+         });*/
+      } else {
+         for (const iterator of dataCol_Char_2) {
+            if (iterator.month != undefined && iterator.month == _month) {
+               iterator.E_33 = iterator.E_33 + 1;
+            }
+         }
+      }
+   }
+
+
+   return dataCol_Char_2.sort(compare_Date);
+}
+
+export function GetDatFromColChart_month_33_save(data_DB, Data_Two, data_DB_Norm) {
+
+   let dataCol_Char1 = new Array();
+
+   for (const element of Data_Two) {
+      if (element.DEVICE_TYPE == 1 || element.DEVICE_TYPE == 2) {
+         let code = get_Name_DEVICE(element.DEVICE_TYPE);
+         let _month = moment(element.Datetime).local('ru').format('MM/YYYY');
+
+
+         if (!contains_device(dataCol_Char1, code, _month)) {
+            //dataCol_Char1[t] = { n: code, CASHIER_ID: "" + code + "", F: element.F, sales: 1 };
+
+            dataCol_Char1.push({
+               //event_T:"211",
+               month: _month,
+               equip: code.toString(),
+               value: 1,
+               DEVICE_TYPE: element.DEVICE_TYPE,
+               EVENT_TYPE: element.EVENT_TYPE
+            });
+
+         } else {
+            for (const iterator of dataCol_Char1) {
+               if (iterator.equip == code && iterator.month == _month) {
+                  iterator.value = iterator.value + 1;
+               }
+            }
+         }
+      }
+   }
+   //let dataCol_Char1 = Array();
+
+   let NoRms = Get_Nom_MONTH(data_DB_Norm);
+
+   for (const element of data_DB) {
+      let _month = moment(element.Datetime.toString()).local('ru').format('MM/YYYY');
+
+      if (!contains_Mouth(dataCol_Char1, _month)) {
+         dataCol_Char1.push({
+            event_T: "33",
+            date: _month,
+            sales: 1,
+            norm: NoRms
+         });
+      } else {
+         for (const iterator of dataCol_Char1) {
+            if (iterator.date != undefined && iterator.date == _month) {
+               iterator.sales = iterator.sales + 1;
+            }
+         }
+      }
+   }
+
+   return dataCol_Char1.sort(compare_Date);
+}
+
 function compareDate(a, b) {
    if (a.date > b.date) return 1;
    if (a.date < b.date) return -1;
@@ -812,6 +931,90 @@ function get_KASS_All(data_DB) {
    return dataCol_Char1;
 }
 
+export function GetDatFromColChart_KASS_33(data_DB, Data_Two, data_DB_Norm, startDate, endDate) {
+   let is_Month = false;
+   let is_Day = false;
+   let Count_Day = 1;
+   if (startDate != undefined && endDate != undefined) {
+      is_Month = endDate.diff(startDate, 'days') < 32;
+      Count_Day = endDate.diff(startDate, 'days');
+      is_Day = Count_Day < 20;
+   }
+   let dataCol_Char1 = Array();
+
+   if (is_Day && is_Month) {
+      //по дням
+      dataCol_Char1 = get_KASS_Day(data_DB, data_DB_Norm, Count_Day);
+   }
+   else if (!is_Day && is_Month) {
+      //по месяцу
+      dataCol_Char1 = get_KASS_Mount(data_DB, data_DB_Norm);
+   }
+   else {
+      //по всему
+      /*
+      if (Data_Two != null && Data_Two.length > 0) {
+         dataCol_Char1 = get_KASS_33_All(data_DB, Data_Two);
+      } else {*/
+      dataCol_Char1 = get_KASS_All(data_DB);
+      //}
+   }
+
+   return dataCol_Char1.sort(compare_N);
+}
+function get_KASS_33_All(data_DB, Data_Two) {
+   let dataCol_Char1 = Array();
+   for (const devc of Data_Two) {
+      // ТУ = 2 devc.DEVICE_TYPE
+      // ФР = 1 devc.DEVICE_TYPE
+      //      let code = get_Name_DEVICE(devc.DEVICE_TYPE);
+      if (devc.DEVICE_TYPE == 2 || devc.DEVICE_TYPE == 1) {
+         let code = devc.DEVICE_TYPE;
+         let t = 0;
+         if (!contains_KASS(dataCol_Char1, code)) {
+            dataCol_Char1.push({
+               n: code,
+               KASS_NUM: get_Name_DEVICE(devc.DEVICE_TYPE),
+               N_data: "Реально",
+               sales: 1,
+               cheack: false
+            });
+         } else {
+            for (const iterator of dataCol_Char1) {
+               if (iterator.n == code) {
+                  iterator.sales = iterator.sales + 1;
+               }
+            }
+         }
+      }
+   }
+
+
+
+   for (const element of data_DB) {
+      let code = element.KASS_NUM;
+      let t = 0;
+      if (!contains_KASS(dataCol_Char1, code)) {
+         dataCol_Char1.push({
+            n: code,
+            KASS_NUM: "" + code + "",
+            N_data: "Реально",
+            sales: 1
+         });
+      } else {
+         for (const iterator of dataCol_Char1) {
+            if (iterator.n == code) {
+               iterator.sales = iterator.sales + 1;
+            }
+         }
+      }
+   }
+
+   return dataCol_Char1;
+}
+
+
+
 export function GetFilterData_Kassa(data_DB, n_Kass) {
    let data_db = null;
    if (data_DB) {
@@ -895,7 +1098,7 @@ function get_Name_DEVICE(_code) {
 
 export function GetDatFromErrorEqv(data_DB, period) {
    let dataCol_Char1 = new Array();
-   let t = 0;
+
    for (const element of data_DB) {
       let code = get_Name_DEVICE(element.DEVICE_TYPE);
 
@@ -909,8 +1112,14 @@ export function GetDatFromErrorEqv(data_DB, period) {
       if (!contains_device(dataCol_Char1, code, _month)) {
          //dataCol_Char1[t] = { n: code, CASHIER_ID: "" + code + "", F: element.F, sales: 1 };
 
-         dataCol_Char1[t] = { month: _month, equip: code.toString(), value: 1, DEVICE_TYPE: element.DEVICE_TYPE, EVENT_TYPE: element.EVENT_TYPE };
-         t++;
+         dataCol_Char1.push({
+            month: _month,
+            equip: code.toString(),
+            value: 1,
+            DEVICE_TYPE: element.DEVICE_TYPE,
+            EVENT_TYPE: element.EVENT_TYPE
+         });
+
       } else {
          for (const iterator of dataCol_Char1) {
             if (iterator.equip == code && iterator.month == _month) {
