@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Chart, Geom, Axis, Tooltip, Legend, Coord, Label, Guide } from 'bizcharts';
-
+import { Dropdown } from 'semantic-ui-react'
 
 const _Debuge = true;
 
@@ -9,6 +9,11 @@ export default class w_chartDate extends Component {
       super(props);
       this.state = {
          W_Width: this.props.w_Width,
+         mass: [
+            { key: 1, text: '77', value: 1 },
+            { key: 2, text: '23', value: 2 },
+            { key: 3, text: '01', value: 3 },
+         ]
       }
    }
 
@@ -34,7 +39,27 @@ export default class w_chartDate extends Component {
    }
    render() {
 
-      const data = this.props.DataChart;
+      let data = new Array();
+      if (this.props.SelectValueNormals != null && this.props.DataChart != null && this.props.NeedCode == '191') {
+         for (const iterator of this.props.DataChart) {
+            if (iterator.sales != null) {
+               let S = { date: iterator.date, norm: iterator.norm, sales: iterator.sales };
+               if (this.props.SelectValueNormals != null && iterator != null) {
+                  if (iterator.sales > this.props.SelectValueNormals) {
+                     S.sales = S.sales - this.props.SelectValueNormals;
+                  } else {
+                     S.sales = 0;
+                  }
+                  data.push(S);
+               }
+            }
+         }
+      } else {
+         data = this.props.DataChart;
+      }
+
+
+
       switch (this.props.NeedCode) {
          case "211":
             {
@@ -55,7 +80,7 @@ export default class w_chartDate extends Component {
                         forceFit
                         onClick={ev => { this.ClickMonth({ ev }) }}
                      >
-                        <center><span>{this.props.header}</span></center>
+                        {/*<center><span>{this.props.header}</span></center>*/}
                         <Legend />
                         <Axis name="month" />
                         <Axis
@@ -130,7 +155,7 @@ export default class w_chartDate extends Component {
                         forceFit
                         onClick={ev => { this.ClickMonth({ ev }) }}
                      >
-                        <center><span>{this.props.header}</span></center>
+                        {/*<center><span>{this.props.header}</span></center>*/}
                         <Legend />
                         <Axis name="month" />
                         <Axis name="value"
@@ -222,7 +247,7 @@ export default class w_chartDate extends Component {
                         forceFit
                         onClick={ev => { this.ClickMonth({ ev }) }}
                      >
-                        <center><span>{this.props.header}</span></center>
+                        {/*<center><span>{this.props.header}</span></center>*/}
                         <Legend />
                         <Axis name="sales" title />
                         <Axis name="month" />
@@ -273,7 +298,7 @@ export default class w_chartDate extends Component {
          default: {
             let VertMax = 1;
             let Norm = false;
-            for (const iterator of this.props.DataChart) {
+            for (const iterator of data) {
                if (VertMax < iterator.sales) {
                   VertMax = iterator.sales;
                }
@@ -291,12 +316,12 @@ export default class w_chartDate extends Component {
                   //tickInterval: Math.ceil(VertMax / 4)
                   max: Math.ceil(VertMax)
                },
-               norm: {
+               /*norm: {
                   alias: 'Порог',
                   min: 0,
                   max: Math.ceil(VertMax),
                   x: 2
-               }
+               }*/
             };
             return (
                <Chart
@@ -308,10 +333,17 @@ export default class w_chartDate extends Component {
                   scale={cols}
                   onClick={ev => { this.ClickMonth({ ev }) }}
                >
-                  <center><span>По месяцам</span></center>
+                  {/*<center><span>По месяцам</span></center>
+
+                  <Dropdown
+                     placeholder={this.props.MassivComboBox[0].text}
+                     search selection
+                     options={this.props.MassivComboBox} />
+*/}
+
                   <Axis name="sales" title />
                   <Axis name="date" />
-                  <Axis name="norm" />
+                  {/*<Axis name="norm" />*/}
 
                   <Legend position="bottom" dy={-10} />
                   <Tooltip showTitle={false}
@@ -324,7 +356,7 @@ export default class w_chartDate extends Component {
                      position="date*sales"
                      color={"date"}
                   />
-                  {Norm &&
+                  {/*Norm &&
                      <Geom type="line"
                         position="date*norm"
                         size={4}
@@ -343,7 +375,7 @@ export default class w_chartDate extends Component {
                            lineWidth: 3
                         }}
                      />
-                  }
+                  */}
 
                </Chart>
             );

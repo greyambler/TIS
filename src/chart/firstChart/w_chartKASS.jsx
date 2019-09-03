@@ -53,7 +53,7 @@ export default class w_chartKASS extends Component {
                scale={cols}
                onClick={ev => { this.ClickKass({ ev }) }}
             >
-               <center><span>По кассам</span></center>
+               {/*<center><span>По кассам</span></center>*/}
                <Legend position="bottom" dy={-10} />
 
                <Axis name="KASS_NUM" />
@@ -71,8 +71,7 @@ export default class w_chartKASS extends Component {
 
                <Geom type="interval"
                   position="KASS_NUM*sales"
-                  color={"KASS_NUM"}
-                  
+                  color={"KASS_NUM"}                  
                />
             </Chart>
          );
@@ -87,7 +86,7 @@ export default class w_chartKASS extends Component {
                scale={cols}
                onClick={ev => { this.ClickKass({ ev }) }}
             >
-               <center><span>По кассам</span></center>
+               {/*<center><span>По кассам</span></center>*/}
                <Legend position="bottom" dy={-10} />
 
                <Axis name="KASS_NUM" />

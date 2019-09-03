@@ -4,6 +4,11 @@ import { get_Date_Filter, get_Date, GetDatFromColChart, Get_RSS } from '../core/
 import W_main_Icon from './firstChart/w_main_Icon.jsx';
 import W_main_table from './firstChart/w_main_table.jsx';
 import moment from 'moment';
+
+
+
+
+
 /*
 <ColumnChart Data={dataCol_Char1}
    dateStart={dateStart} dateStop={dateStop}
@@ -22,28 +27,38 @@ const _Debuge = false;
 export default class First_Chart extends React.Component {
    constructor(props) {
       super(props);
+      let _tooltip_text = '';
       let _header = 'Недоступность касс за период по АЗК';
       switch (this.props.NeedCode) {
-         case '191':
-            _header = 'Отклонение от нормы за период по зависшим транзакциям на ТРК (191)';
+         case '191': {
+            _tooltip_text = 'Все инциденты превысившие указанную норму';
+            _header = 'Отклонение от нормы за период по зависшим транзакциям на ТРК';// (191)';
             if (_Debuge)
                _header += " - First_Chart";
             break;
-         case '122':
-            _header = 'Недоступность касс за период по АЗК (122)';
+         }
+         case '122': {
+            _tooltip_text = 'Кол-во перезагрузок ПО кассы в сравнении с расчетным показателем на АЗК';
+            _header = 'Недоступность касс за период по АЗК';// (122)';
             if (_Debuge)
                _header += " - First_Chart";
             break;
+         }
          case '33':
-            _header = 'Событие аннуляции чека (33) и недоступность оборудования (количество сбоев 211)';
+            {
+               _tooltip_text = 'Гррафик отражает аномальные события по сбоям.';
+               _header = 'Событие аннуляции чека и недоступность оборудования.';//(33)  (количество сбоев 211)';
+               if (_Debuge)
+                  _header += " - First_Chart";
+               break;
+            }
+         case '211': {
+            _tooltip_text = 'Кол-во сбоев переферийного оборудования по месяцам.';
+            _header = 'Недоступность периферийного оборудования и ТРК';// (количество сбоев 211)';
             if (_Debuge)
                _header += " - First_Chart";
             break;
-         case '211':
-            _header = 'Недоступность периферийного оборудования и ТРК (количество сбоев 211)';
-            if (_Debuge)
-               _header += " - First_Chart";
-            break;
+         }
          default:
             _header = 'Недоступность касс за период по АЗК (all)';
             if (_Debuge)
@@ -53,6 +68,7 @@ export default class First_Chart extends React.Component {
       this.state = {
          NeedCode: this.props.NeedCode,
          header: _header,
+         tooltip_text: _tooltip_text,
       }
    }
    updateData = ({ startDate, endDate }) => {
@@ -86,6 +102,9 @@ export default class First_Chart extends React.Component {
          return (
             <W_main_Icon
                header={this.state.header}//'Недоступность касс за период по АЗК'
+
+               tooltip_text={this.state.tooltip_text}
+
                w_Width={this.props.w_Width}
                startDate={this.props.dateStart}
                endDate={this.props.dateStop}
@@ -94,6 +113,7 @@ export default class First_Chart extends React.Component {
                RssDate_Two={this.props.NeedCode == "33" ? rss_211 : undefined}
                NeedCode={this.state.NeedCode}
             />
+
          );
       } else {
          return (
@@ -104,6 +124,7 @@ export default class First_Chart extends React.Component {
                endDate={this.props.dateStop}
                updateData={this.updateData}
                RssDate={rss}
+               RssDate_Two={this.props.NeedCode == "33" ? rss_211 : undefined}
                NeedCode={this.state.NeedCode}
             />
          );

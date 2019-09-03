@@ -4,7 +4,8 @@ import {
    get_Date_Filter, get_Date, GetDatFromColChart,
    GetDatFromColChart_month, GetDatFromColChart_AZS, GetDatFromColChart_CODE,
    GetDatFromColChart_KASS, GetDatFromErrorEqv,
-   GetDatFromColChart_month_33, GetDatFromColChart_KASS_33
+   GetDatFromColChart_month_33, GetDatFromColChart_KASS_33,
+   GetMassivComboBox_Normals
 } from '../../core/core_Function.jsx';
 
 import W_choos from './w_choos.jsx';
@@ -21,6 +22,8 @@ export default class w_charts extends Component {
    constructor(props) {
       super(props);
       //this.updateCashir = this.updateCashir.bind(this);
+
+      
    }
    updateType = (TypeChart) => {
       this.props.updateType(TypeChart);
@@ -61,7 +64,7 @@ export default class w_charts extends Component {
             }
             return (
                <tr>
-                  <td colSpan='2' className='tr_Chart'>
+                  <td colSpan='4' className='tr_Chart'>
                      <W_chartCashir DataChart={dataCol_Char1} w_Width={this.props.w_Width}
                         isLegend={this.props.isLegend}
                         updateCashir={this.updateCashir}
@@ -108,15 +111,19 @@ export default class w_charts extends Component {
                }
 
             }
+            //let Mass = GetMassivComboBox_Normals(this.props.Data_Norm);
+
             return (
                <tr>
-                  <td colSpan='2' className='tr_Chart'>
+                  <td colSpan='4' className='tr_Chart'>
                      <W_chartDate DataChart={dataCol_Char1} w_Width={this.props.w_Width}
+                        //MassivComboBox={Mass}
                         isLegend={this.props.isLegend}
                         updateMonth={this.updateMonth}
                         NeedCode={this.props.NeedCode}
                         updateEquip={this.updateEquip}
                         header='По устройствам за месяц'
+                        SelectValueNormals={this.props.SelectValueNormals}
                      />
                   </td>
                   {this.props.isLegend &&
@@ -140,7 +147,7 @@ export default class w_charts extends Component {
             }
             return (
                <tr>
-                  <td colSpan='2' className='tr_Chart'>
+                  <td colSpan='4' className='tr_Chart'>
                      <W_chartDate DataChart={dataCol_Char1}
                         w_Width={this.props.w_Width}
                         isLegend={this.props.isLegend}
@@ -175,14 +182,16 @@ export default class w_charts extends Component {
                );
             }
             return (
+
                <tr>
-                  <td colSpan='2' className='tr_Chart'>
+                  <td colSpan='4' className='tr_Chart'>
                      <W_chartASZ DataChart={dataCol_Char1} w_Width={this.props.w_Width}
                         isLegend={this.props.isLegend}
                         updateAZS={this.updateAZS}
                         is_More_Month={is_More_Month}
                      />
                   </td>
+
                   {this.props.isLegend &&
                      <td width='120px' className="td_C_Chart">
                         <W_choos updateType={this.updateType}
@@ -203,7 +212,7 @@ export default class w_charts extends Component {
             }
             return (
                <tr>
-                  <td colSpan='2' className='tr_Chart'>
+                  <td colSpan='4' className='tr_Chart'>
                      <W_chartCODE DataChart={dataCol_Char1}
                         w_Width={this.props.w_Width}
                         isLegend={this.props.isLegend}
@@ -240,7 +249,7 @@ export default class w_charts extends Component {
             }
             return (
                <tr>
-                  <td colSpan='2' className='tr_Chart'>
+                  <td colSpan='4' className='tr_Chart'>
                      <W_chartKASS DataChart={dataCol_Char1} w_Width={this.props.w_Width}
                         isLegend={this.props.isLegend}
                         updateKass={this.updateKass}
@@ -263,7 +272,7 @@ export default class w_charts extends Component {
          default:
             return (
                <tr>
-                  <td colSpan='2' className='tr_Chart'>
+                  <td colSpan='4' className='tr_Chart'>
                      НЕТ
                   </td>
                   {this.props.isLegend &&

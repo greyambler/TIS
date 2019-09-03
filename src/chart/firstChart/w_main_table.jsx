@@ -11,20 +11,25 @@ import W_table_incid_All from './w_table_incid_All.jsx';
 import { Link } from "react-router-dom";
 import moment from 'moment';
 
+import { Dropdown, Header, Icon } from 'semantic-ui-react'
+
 import {
    Delete_Item_Filter,
    get_Date_Filter, get_Date, GetDatFromColChart,
    GetFilterData_Cashir, GetFilterData_Kassa, GetFilterData_AZS, GetFilterData_Equip,
-   GetFilterData_CODE, GetFilterData_Month, IsExist_Filter
+   GetFilterData_CODE, GetFilterData_Month, IsExist_Filter, GetMassivComboBox_Normals
 } from '../../core/core_Function.jsx';
 
 export default class w_main_table extends Component {
    constructor(props) {
       super(props);
       this.tick = this.tick.bind(this);
+      this.SetNormal = this.SetNormal.bind(this);
       this.state = {
          Object: null,
+         Object_Two: null,
          Rss: this.props.RssDate,
+         Rss_Two: this.props.RssDate_Two,
          isExistError: false,
 
          Is_LocalData: false,
@@ -36,10 +41,20 @@ export default class w_main_table extends Component {
          LocalData: null,
          filterCurent: Array(),
          typeChart: "cashir",
+
+         mass: [
+            { key: 1, text: '77', value: 77, content: 'Москва' },
+            { key: 2, text: '23', value: 23, content: 'Краснодарский край' },
+            { key: 3, text: '01', value: 1, content: 'Республика Адыгея' },
+            { key: 4, text: '02', value: 2, content: 'Республика Башкортостан' },
+         ],
+
+         SelectValueNormals: 0,
       }
    }
    componentDidMount() {
       this.tick();
+      this.tick_Two();
       //this.timerID = setInterval(() => this.tick(), 30000);
    }
    updateData = ({ startDate, endDate }) => {
@@ -80,6 +95,37 @@ export default class w_main_table extends Component {
          console.log(error);
       }
    }
+   async tick_Two() {
+      if (this.state.Rss_Two != undefined) {
+         let rss = this.state.Rss_Two;
+         var myRequest = new Request(rss);
+
+         try {
+            var response = await fetch(myRequest,
+               {
+                  method: 'GET',
+                  headers:
+                  {
+                     'Accept': 'application/json',
+                  },
+               }
+            );
+            if (response.ok) {
+               const Jsons = await response.json();
+               this.setState({ Object_Two: Jsons });
+            }
+            else {
+               throw Error(response.statusText);
+            }
+            this.setState({ isExistError: false })
+         }
+         catch (error) {
+            this.setState({ isExistError: true })
+            console.log(error);
+         }
+      }
+   }
+
    updateType = (TypeChart) => {
       this.setState({ typeChart: TypeChart });
    }
@@ -171,10 +217,23 @@ export default class w_main_table extends Component {
             break;
       }
    }
-
+   SetNormal(ev) {
+      try {
+         if (ev != null && ev.data != null) {
+            this.setState({ SelectValueNormals: ev.data.value });
+         }
+      } catch (error) {
+      }
+   }
    render() {
       let _dataTable = null;
       let _dataTable_Normales = null;
+      let _dataTable_33_211 = null;
+      let Mass = null;
+
+      if (this.state.Object_Two != null) {
+         _dataTable_33_211 = this.state.Object_Two.incidents;
+      }
 
       if (this.state.Object != null) {
          _dataTable = this.state.Object.incidents
@@ -204,10 +263,16 @@ export default class w_main_table extends Component {
             }
          }
       }
+      if (this.props.NeedCode == '191') {
+         Mass = GetMassivComboBox_Normals(_dataTable_Normales);
+      }
+
+
       let err = null;
       if (this.state.isExistError) {
          err = 'Ошибка! Сервер не ответил!';
       }
+
       return (
          <div>
             <table id='table_main' name='table_main'>
@@ -225,10 +290,97 @@ export default class w_main_table extends Component {
                         </Link>
                      </th>
                   </tr>
+
                   <tr>
-                     <W_headDate updateData={this.updateData}
-                        startDate={this.props.startDate} endDate={this.props.endDate}
-                        isDisable={false} />
+                     <>
+                        <table>
+                           <tbody>
+                              <tr>
+                                 <td className='td_Region'>
+                                    <div className='div_Region'>Регион {' '}
+                                       <Dropdown
+                                          inline
+                                          defaultValue={this.state.mass[0].text}
+                                          placeholder={this.state.mass[0].text}
+                                          options={this.state.mass} />
+                                    </div>
+                                 </td>
+                                 {this.props.NeedCode == '191' && Mass != null && this.state.typeChart == "month" &&
+                                    <td className='td_Norm'>
+                                       <div className='div_Norm'>Нормали {' '}
+                                          <Dropdown
+                                             inline
+                                             options={Mass}
+                                             placeholder={Mass[0].text}
+                                             defaultValue={Mass[0].text}
+                                             onChange={(ev, data) => { this.SetNormal({ ev, data }) }}
+                                          />
+                                       </div>
+                                    </td>
+                                 }
+
+                                 {/*
+                                 <td className='td_Region'>Регион</td>
+
+
+                                 <td className='td_Region'>
+                                    <Dropdown
+                                       placeholder={this.state.mass[0].text}
+                                       search selection
+                                       options={this.state.mass} compact />
+                                 </td>
+ /*}
+                                 <td className='td_Region'>
+                                    <Header>
+                                       <Icon />
+                                       <Header.Content>
+                                          Регион{' '}
+                                          <Dropdown id="Dropdown_Norm"
+                                             inline
+                                             defaultValue={this.state.mass[0].text}
+                                             placeholder={this.state.mass[0].text}
+                                             options={this.state.mass} />
+                                       </Header.Content>
+                                    </Header>
+                                 </td>
+                                 {this.props.NeedCode == '191' && Mass != null && this.state.typeChart == "month" &&
+                                    <td className='td_Norm'>
+                                       <Header>
+                                          <Icon />
+                                          <Header.Content>
+                                             Нормали{' '}
+                                             <Dropdown id="Dropdown_Norm"
+                                                inline
+                                                header='Нормали'
+                                                options={Mass}
+                                                defaultValue={Mass[0].text}
+                                                onChange={(ev, data) => { this.SetNormal({ ev, data }) }}
+                                             />
+                                          </Header.Content>
+                                       </Header>
+                                    </td>
+                                 }
+
+                                 {/*this.props.NeedCode == '191' && Mass != null && this.state.typeChart == "month" &&
+                                    <td className='td_Region'>
+                                       <Dropdown
+                                          placeholder={Mass[0].text}
+                                          search selection
+                                          options={Mass}
+                                          onChange={(ev, data) => { this.SetNormal({ ev, data }) }}
+                                       />
+                                    </td>
+                                 */}
+
+                                 <W_headDate updateData={this.updateData}
+                                    startDate={this.props.startDate} endDate={this.props.endDate}
+                                    isDisable={false} />
+
+                              </tr>
+                           </tbody>
+                        </table>
+                     </>
+
                   </tr>
                </tbody>
             </table>
@@ -238,8 +390,10 @@ export default class w_main_table extends Component {
             <table>
                <tbody>
                   {_dataTable != null &&
-                     <W_charts Data={_dataTable}
+                     <W_charts
+                        Data={_dataTable}
                         Data_Norm={_dataTable_Normales}
+                        Data_Two={_dataTable_33_211}
 
                         startDate={this.props.startDate}
                         endDate={this.props.endDate}
@@ -262,9 +416,11 @@ export default class w_main_table extends Component {
                         deleteFilet={this.deleteFilet}
 
                         updateType={this.updateType}
-                        typeChart={this.state.typeChart}
 
                         NeedCode={this.props.NeedCode}
+                        typeChart={this.state.typeChart}
+
+                        SelectValueNormals={this.state.SelectValueNormals}
                      />
                   }
                </tbody>

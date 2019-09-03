@@ -56,7 +56,7 @@ export default class w_chartASZ extends Component {
                scale={cols}
                onClick={ev => { this.ClickAZS({ ev }) }}
             >
-               <center><span>По АЗК</span></center>
+               {/*<center><span>По АЗК</span></center>*/}
                <Legend position="bottom" dy={-10} />
 
                <Axis name="azs" />
@@ -92,7 +92,7 @@ export default class w_chartASZ extends Component {
                scale={cols}
                onClick={ev => { this.ClickAZS({ ev }) }}
             >
-               <center><span>По АЗК</span></center>
+               {/*<center><span>По АЗК</span></center>*/}
                <Legend position="bottom" dy={-10} />
 
                <Axis name="azs" />

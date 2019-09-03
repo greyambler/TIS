@@ -257,20 +257,3 @@ export default class w_main extends Component {
       );
    }
 }
-
-/*
-
-                     <td>
-                        <center>
-                           <W_circle N_text={numfiles} />
-                        </center>
-                     </td>
-                     <td>
-                        <center>
-                           <W_circle N_text={numincidents} />
-                        </center>
-                     </td>
-
-
-
-*/

@@ -11,7 +11,11 @@ import Test_Chart from './chart/Test_Chart.jsx';
 
 import moment from 'moment';
 
+
+//import { Dropdown } from 'semantic-ui-react'
+
 const _Debuge = false;
+
 
 export default class MainWindow extends React.Component {
    constructor(props) {
@@ -20,6 +24,12 @@ export default class MainWindow extends React.Component {
          W_Width: this.props.w_Width,
          W_Height: this.props.w_Height,
          Object: null,
+         /*mass:[
+            { key: 1, text: 'Choice 1', value: 1 },
+            { key: 2, text: 'Choice 2', value: 2 },
+            { key: 3, text: 'Choice 3', value: 3 },
+          ]
+          */
       }
    }
 
@@ -46,6 +56,9 @@ export default class MainWindow extends React.Component {
             />
 
             <hr /><hr /><br />
+
+            
+            {/*<Dropdown clearable options={this.state.mass} selection />*/}
 
             <table>
                <tbody>

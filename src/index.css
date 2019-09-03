@@ -13,21 +13,76 @@ html, body {
    margin: 0;
    padding: 0;
 }
-h3{
+
+/*******кнопка стрела*********/
+
+#td_0 {
+   min-width: 70px;
+   max-width: 70px;
+   width: 70px;
+   z-index: 5;
+}
+
+#td_1 {
+   min-width: 140px;
+   max-width: 140px;
+   width: 140px;
+   z-index: 4;
+}
+
+#td_2 {
+   min-width: 170px;
+   max-width: 170px;
+   width: 170px;
+   z-index: 3;
+}
+
+#td_3 {
+   min-width: 150px;
+   max-width: 150px;
+   width: 150px;
+   z-index: 2;
+}
+
+#td_4 {
+   min-width: 120px;
+   max-width: 120px;
+   width: 120px;
+   z-index: 1;
+}
+
+.btn-buy:hover, .btn-buy:focus, .btn-buy:active, .btn-buy.active, .open .dropdown-toggle.btn-buy {
+   color: #fff;
+   outline: none;
+   background: rgb(9, 56, 100);
+   border-bottom: 2px solid #1b4a80;
+}
+
+.btn-buy:hover:after, .btn-buy:focus:after, .btn-buy:active:after, .btn-buy.active:after {
+   border-left-color: #2e6eae;
+}
+
+/************/
+
+h3 {
    color: white;
+}
+
+#td_122 {
+   color: white;
+   font-size: 10px;
 }
 
 html, body {
    margin-left: 2px;
    margin-right: 5px;
    height: 96.5%;
-   
 }
 
 .content {
    flex: 70 10 auto;
    min-height: 99%;
-   margin-top: 35px;
+   margin-top: 40px;
 }
 
 /*****footer****/
@@ -56,7 +111,8 @@ nav {
    top: 0;
    width: 99.9%;
    display: table;
-   z-index: 1;
+   z-index: 10000;
+   max-height: 20px;
 }
 
 .header_Inner {
@@ -65,15 +121,28 @@ nav {
    overflow: hidden;
    text-align: center;
    width: 100%;
-   height: 35px;
+   height: 32px;
+}
+
+.header_Inner_Name {
+   display: table;
+   /*margin: -100 auto;*/
+   margin-left: 60px;
+   overflow: hidden;
+   text-align: left;
+   width: 100%;
+   max-height: 20px;
+   min-height: 20px;
+   height: 20px;
 }
 
 .headermenu {
-   padding-top: 10px;
+   padding-top: 4px;
    color: white;
    text-align: left;
    position: absolute;
    left: 10px;
+   width: 100%;
 }
 
 .header_Img {
@@ -82,7 +151,9 @@ nav {
    margin-left: 10px;
 }
 
-.header_Left {
+/*.header_Left */
+
+.header_Right {
    display: table;
    width: 170px;
    position: absolute;
@@ -97,6 +168,12 @@ nav {
 
 .header_Text {
    color: rgb(235, 235, 235);
+   display: table-cell;
+   vertical-align: middle;
+}
+
+.header_2 {
+   color: red;
    display: table-cell;
    vertical-align: middle;
 }
@@ -291,10 +368,9 @@ select {
 td, th, tr {
    /*background: maroon;  Цвет фона ячеек */
    padding: 0px;
-   /* Поля вокруг текста 
-   border: 1px solid black;    */
+   /* Поля вокруг текста   
+   border: 1px solid red;     */
    min-width: 20px;
-
 }
 
 .tr_char {
@@ -478,17 +554,98 @@ width="35" height="35" />
    vertical-align: top;
    height: 150px;
 }
+
 C_Chart {
    vertical-align: bottom;
-
 }
+
 .tr_Chart {
    /*
-   max-height: 20px; */ 
+   max-height: 20px; */
    widows: 100%;
-   
-   /* min-height: 200px; */ 
+   /* min-height: 200px; */
    padding-left: 20px;
    padding-right: 20px;
    /*border: 1px solid rgb(24, 165, 158);  */
+}
+
+#testDiv {
+   margin-left: 50px;
+}
+
+#ModalTable {
+   border: 10px solid white;
+}
+
+#Z_M {
+   z-index: 100,
+}
+
+/**/
+
+.react-tooltip-lite {
+   background: #333;
+   color: white;
+}
+
+.react-tooltip-lite-arrow {
+   border-color: #333;
+}
+
+
+.td_Norm {
+   /*max-width: 160px;
+    min-width: 40px;*/
+   width: 160px;
+   max-height: 20px;
+   font-size: 10px;
+}
+.div_Norm {
+   padding: 2px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 12px;
+   font-weight: 600;
+   width: 100%;
+   height: 24px;
+   /*Скругленные углы*/
+   -webkit-border-radius: 9px;
+   -moz-border-radius: 9px;
+   border-radius: 9px;
+   background: linear-gradient(rgb(163, 203, 255), rgb(45, 123, 224)) rgb(91, 156, 241);
+   transition: 0.2s;
+   /*Тень*/
+   -webkit-box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2);
+   -moz-box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2);
+   box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.td_Region {
+   /*max-width: 160px;
+    min-width: 40px;*/
+   width: 100px;
+   height: 30px;
+   font-size: 12px;
+}
+
+.div_Region {
+   padding: 2px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 12px;
+   font-weight: 600;
+   width: 100%;
+   height: 24px;
+   /*Скругленные углы*/
+   -webkit-border-radius: 9px;
+   -moz-border-radius: 9px;
+   border-radius: 9px;
+   background: linear-gradient(rgb(163, 203, 255), rgb(45, 123, 224)) rgb(91, 156, 241);
+   transition: 0.2s;
+   /*Тень*/
+   -webkit-box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2);
+   -moz-box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2);
+   box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
 }

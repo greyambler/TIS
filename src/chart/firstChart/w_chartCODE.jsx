@@ -52,7 +52,7 @@ export default class w_chartCODE extends Component {
             scale={cols}
             onClick={ev => { this.ClickCode({ ev }) }}
          >
-            <center><span>По кодам ошибок</span></center>
+            {/*<center><span>По кодам ошибок</span></center>*/}
             <Axis name="azs" />
             <Axis name="sales" title />
 

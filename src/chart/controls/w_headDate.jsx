@@ -45,13 +45,15 @@ export default class w_headDate extends Component {
       let StyleHead = {
          textAlign: "center",
          color: "blue",
-         fontSize: '16px',
+         fontSize: '10px',
+         minWidth:'200px',
       }
       if (this.props.color == 'red') {
          StyleHead = {
             textAlign: "center",
             color: "red",
-            fontSize: '16px',
+            fontSize: '10px',
+            minWidth:'200px',
          }
       }
       if (this.props.color != 'red') {
@@ -61,14 +63,16 @@ export default class w_headDate extends Component {
                   StyleHead = {
                      textAlign: "left",
                      paddingLeft: "10px",
-                     fontSize: '16px',
+                     fontSize: '10px',
+                     minWidth:'200px',
                   }
                   if (this.props.color == 'red') {
                      StyleHead = {
                         textAlign: "left",
                         paddingLeft: "10px",
                         color: "red",
-                        fontSize: '16px',
+                        fontSize: '10px',
+                        minWidth:'200px',
                      }
                   }
 
@@ -79,14 +83,16 @@ export default class w_headDate extends Component {
                   StyleHead = {
                      textAlign: "right",
                      paddingLeft: "10px",
-                     fontSize: '16px',
+                     fontSize: '10px',
+                     minWidth:'200px',
                   }
                   if (this.props.color == 'red') {
                      StyleHead = {
                         textAlign: "right",
                         paddingLeft: "10px",
                         color: "red",
-                        fontSize: '16px',
+                        fontSize: '10px',
+                        minWidth:'200px',
                      }
                   }
                   break;
@@ -95,7 +101,7 @@ export default class w_headDate extends Component {
          }
       }
       return (
-         <td style={StyleHead}>
+         <td style={StyleHead} colspan="4">
             <DateRangePicker
                startDate={this.props.startDate}
                startDateId="S_DRP_id"

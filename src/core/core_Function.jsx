@@ -103,6 +103,23 @@ export function get_Date() {
 
    return date_Test;
 }
+export function get_Test_Json() {
+   return JSON.parse('{"state":[{"name":"Превышие по параметру подтоварная вода","code": 0},' +
+      '{"name":"Превышие по параметру минимальный объём","code": 1},' +
+      '{"name":"Требуется поставка НП","code": 2},' +
+      '{"name":"Отсутсвует информация в период","code": 3},' +
+      '{"name":"По данным ручного ввода в период","code": 4}]}'
+   );
+}
+export function get_Test_Text() {
+   return '{"state":[{"name":"Превышие по параметру подтоварная вода","code": 0},' +
+      '{"name":"Превышие по параметру минимальный объём","code": 1},' +
+      '{"name":"Требуется поставка НП","code": 2},' +
+      '{"name":"Отсутсвует информация в период","code": 3},' +
+      '{"name":"По данным ручного ввода в период","code": 4}]}'
+}
+
+
 export function get_Date_Filter(data, S_date, E_date) {
    var date_Test = Array();
    let r = 0;
@@ -474,6 +491,38 @@ export function GetDatFromColChart_month(data_DB, data_DB_Norm) {
    }
    return dataCol_Char1.sort(compareDate);
 }
+export function GetMassivComboBox_Normals(data_DB_Norm) {
+   let mass = new Array();
+   let I = 1;
+   if (data_DB_Norm != null && data_DB_Norm.length != 0) {
+
+      for (const iterator of data_DB_Norm) {
+         if (iterator.param_name == "mean_by_month_group_by_region" && iterator.period == "month") {
+
+            let _nrm = iterator.NormStat.toString();
+            if (_nrm.length > 4) {
+               _nrm = _nrm.substring(0, 4);
+            }
+            let _nrmE = iterator.NormExp.toString();
+            if (_nrmE.length > 4) {
+               _nrmE = _nrmE.substring(0, 4);
+            }
+            mass.push({ key: I, text: "без" , value: 0.0001, content: "Без нормал - 0" });
+            I++;
+            mass.push({ key: I, text: "расчет", value: Number(_nrm), content: "Расчетное - " + _nrm });
+            I++;
+            mass.push({ key: I, text: "эксперт", value: Number(_nrmE), content: "Экспертное - " + _nrmE });
+            break;
+         }
+      }
+   }
+   if (mass.length == 0) {
+      mass.push({  key: I, text: "без" , value: 0.0001, content: "Без нормал - 0"});
+   }
+   return mass;
+
+}
+
 export function GetDatFromColChart_month_33(data_DB, Data_Two, data_DB_Norm) {
 
    let dataCol_Char_2 = new Array();
@@ -506,7 +555,7 @@ export function GetDatFromColChart_month_33(data_DB, Data_Two, data_DB_Norm) {
 
       if (!contains_Mouth_M(dataCol_Char_2, _month)) {
 
-         let r=0;
+         let r = 0;
          /*dataCol_Char_2.push({
             month: _month,
             E_33: 1,
@@ -1653,9 +1702,17 @@ export function isSameDay(a, b) {
 export function Get_ColumnsForTable(F_Item) {
    let ArCol = new Array();
    let t = 0;
+   let KeyHead = '';
    if (F_Item != null) {
       for (var key in F_Item) {
-         ArCol[t] = { Header: key, accessor: key };
+         KeyHead = key;
+         switch (key) {
+            case 'EventTime': KeyHead = 'Дата и время'; break;
+            case 'EventName': KeyHead = 'Наименование события'; break;
+            case 'EventType': KeyHead = 'Тип события'; break;
+            case 'LogFileName': KeyHead = 'Источник данных'; break;
+         }
+         ArCol[t] = { Header: KeyHead, accessor: key };
          t++;
       }
    }

@@ -52,7 +52,7 @@ export default class w_chartCashir extends Component {
          //onClick={({ n_Cashir }) => this.setState({ n_Cashir: ev }, this.Radio_Check)}
          >
 
-            <center><span>По кассирам</span></center>
+            {/*<center><span>По кассирам</span></center>*/}
             <Legend position='bottom' visible={true}
             //offsetY={-5}
             />

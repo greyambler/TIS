@@ -6,9 +6,14 @@ import ReactExport from "react-data-export";
 import Moment from 'moment';
 import ModalModalExample from '../../save/ModalModalExample.jsx';
 
-import { Rss_BackInc } from '../../core/core_Function.jsx';
+import W_table_modal from './w_table_modal.jsx';
 
-import { Button, Header, Image, Modal, Input, } from 'semantic-ui-react'
+//import W_table_modal from './w_table_incid_All.jsx';
+
+
+import { Rss_BackInc, get_Date } from '../../core/core_Function.jsx';
+
+import { Button, Header, Image, Modal, Input, Container } from 'semantic-ui-react'
 
 
 const ExcelFile = ReactExport.ExcelFile;
@@ -34,7 +39,9 @@ export default class w_table extends Component {
          Data: this.props.Data,
          Excel_Data: this.props.Data,
          Message_ID: "",
-         Data_Mess: null,
+         //Data_Mess: null,
+         Data_ID: null,
+         IDCheck: null,
       }
    }
    componentDidMount() {
@@ -248,20 +255,9 @@ export default class w_table extends Component {
    open(rowInfo) {
       if (rowInfo != null) {
          this.tick(rowInfo.original.id);
-         /*
-         let r = "ID № - " + rowInfo.original.id + ", AZK № - " + rowInfo.original.SHOP_NUM + ", КАССА № - "
-            + rowInfo.original.KASS_NUM
-            + ", КАССИР № - " + rowInfo.original.cashier_idid;
-
-
-
-         this.setState({ open: true, Message_ID: r });
-*/
-
-
       }
       else {
-         //         this.setState({ open: true });
+         this.setState({ open: false });
       }
    }
    async tick(id) {
@@ -281,7 +277,8 @@ export default class w_table extends Component {
          if (response.ok) {
             const Jsons = await response.json();
             if (Jsons != null && Jsons.events != undefined) {
-               this.setState({ Data_Mess: "Jsons.events", open: true });
+               this.setState({ Data_ID: Jsons, open: true, IDCheck: id });
+               
             }
          }
          else {
@@ -293,6 +290,7 @@ export default class w_table extends Component {
          this.setState({ isExistError: true })
          console.log(error);
       }
+
    }
 
 
@@ -301,6 +299,10 @@ export default class w_table extends Component {
    close = () => this.setState({ open: false });
 
    render() {
+
+      let data = (this.state.Data_ID != null)?this.state.Data_ID.events:this.state.Data_ID;
+      //let data = get_Date();
+      let size = 'fullscreen';
       return (
          <div>
             <table>
@@ -315,7 +317,7 @@ export default class w_table extends Component {
                               <ExcelColumn label="№ АЗК" value="SHOP_NUM" />
                               <ExcelColumn label="№ кассы" value="KASS_NUM" />
                               <ExcelColumn label="Смена" value="SHIFT_NUM" />
-                              <ExcelColumn label="Кассир" value="CASHIER_ID" />
+                              {/*<ExcelColumn label="Кассир" value="CASHIER_ID" />*/}
                               <ExcelColumn label="Тип" value="EVENT_TYPE" />
                               <ExcelColumn label="Название типа" value="EVENT_NAME" />
                               <ExcelColumn label="Продолжительность" value="Duration" />
@@ -362,23 +364,28 @@ export default class w_table extends Component {
                                     {
                                        Header: "Смена",
                                        accessor: "SHIFT_NUM"
-                                    },
+                                    }/*,
                                     {
                                        Header: "Кассир_CASHIER_ID",
                                        accessor: "CASHIER_ID"
-                                    },
+                                    }*/,
                                     {
-                                       Header: "Кассир_cashier_idid",
+                                       Header: "Идентификатор кассира",
                                        accessor: "cashier_idid"
                                     },
 
                                     {
-                                       Header: "Кассир_cashier_name",
+                                       Header: "ФИО кассира",
                                        accessor: "cashier_name"
                                     },
-
+                                    {
+                                       Header: "Тип",
+                                       accessor: "EVENT_TYPE"
+                                    }
                                  ]
-                              },
+                              }
+
+                              /*,
                               {
                                  Header: "События",
                                  columns: [
@@ -403,9 +410,10 @@ export default class w_table extends Component {
                                        Header: "Время",
                                        accessor: "TimeKey"
                                     }
-                                    */
+                                    
                                  ]
                               }
+                              */
                            ]}
                            getTrProps={(state, rowInfo, column, instance) => {
                               return {
@@ -432,7 +440,20 @@ export default class w_table extends Component {
                   </tr>
                </tbody>
             </table>
+            <Modal id="ModalTable" size={size} open={this.state.open} onClose={this.close} closeIcon>
+               <Modal.Header>Данные от строке id = {this.state.IDCheck}</Modal.Header>
+               <Container>
+                  <W_table_modal Data={data} ID_ROW={this.state.IDCheck} />
+               </Container>
+            </Modal>
+         </div>
+      );
+   }
+}
 
+
+
+/*
             <Modal open={this.state.open} onClose={this.close}>
                <Modal.Header>Select a Photo</Modal.Header>
                <Modal.Content image>
@@ -446,11 +467,11 @@ export default class w_table extends Component {
                   <Button primary content='Close' onClick={this.close} />
                </Modal.Actions>
             </Modal>
+*/
 
-         </div>
-      );
-   }
-}
+
+
+
 /*
 
 
