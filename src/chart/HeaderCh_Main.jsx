@@ -9,7 +9,6 @@ import 'moment/locale/ru';
 import { get_Date_Filter, get_Date, GetDatFromColChart, Get_RSS } from '../core/core_Function.jsx';
 import { DateRangePicker } from 'react-dates';
 
-
 const _Debuge = false;
 
 export default class HeaderCh_Main extends Component {

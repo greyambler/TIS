@@ -9,11 +9,13 @@ export default class w_chartDate extends Component {
       super(props);
       this.state = {
          W_Width: this.props.w_Width,
+         /*
          mass: [
             { key: 1, text: '77', value: 1 },
             { key: 2, text: '23', value: 2 },
             { key: 3, text: '01', value: 3 },
          ]
+         */
       }
    }
 

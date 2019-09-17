@@ -4,22 +4,18 @@ import ReactTable from "react-table";
 
 import ReactExport from "react-data-export";
 import Moment from 'moment';
-import ModalModalExample from '../../save/ModalModalExample.jsx';
 
 import W_table_modal from './w_table_modal.jsx';
 
+//import ModalModalExample from '../../save/ModalModalExample.jsx';
 //import W_table_modal from './w_table_incid_All.jsx';
 
-
 import { Rss_BackInc, get_Date } from '../../core/core_Function.jsx';
-
 import { Button, Header, Image, Modal, Input, Container } from 'semantic-ui-react'
-
 
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
-
 
 class Hello extends React.Component {
    render() {
@@ -255,6 +251,7 @@ export default class w_table extends Component {
    open(rowInfo) {
       if (rowInfo != null) {
          this.tick(rowInfo.original.id);
+         //this.setState({ open: true });
       }
       else {
          this.setState({ open: false });
@@ -440,7 +437,7 @@ export default class w_table extends Component {
                   </tr>
                </tbody>
             </table>
-            <Modal id="ModalTable" size={size} open={this.state.open} onClose={this.close} closeIcon>
+            <Modal  size={size} open={this.state.open} onClose={this.close} closeIcon>
                <Modal.Header>Данные от строке id = {this.state.IDCheck}</Modal.Header>
                <Container>
                   <W_table_modal Data={data} ID_ROW={this.state.IDCheck} />

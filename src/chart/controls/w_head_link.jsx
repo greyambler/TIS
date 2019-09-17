@@ -59,32 +59,39 @@ export default class w_head_link extends Component {
             }
          default: break;
       }
+      let _AhrefBack = this.props.AhrefBack;
+
+      if (this.props.start_region != null) {
+         _AhrefBack = this.props.AhrefBack + '&' + this.props.start_region;
+      }
+
       if (this.props.tooltip_text != "") {
+         //(+ '&' + v.data._origin.id;)
          return (
             <th style={StyleHead}>
-               <Tooltip content={this.props.tooltip_text}
+               <Tooltip content={this.props.tooltip_text != undefined ? this.props.tooltip_text : this.props.header}
                   direction="right"
                   tagName="span"
                   className="target">
-                  <Link to={this.props.AhrefBack} style={StyleHead}>
+                  <Link to={_AhrefBack} style={StyleHead}>
                      {this.props.header}
                   </Link>
                </Tooltip>
             </th>
          );
-         }else {
-            return (
-               <th style={StyleHead}>
+      } else {
+         return (
+            <th style={StyleHead}>
 
-                  <Link to={this.props.AhrefBack} style={StyleHead}>
-                     {this.props.header}
-                  </Link>
+               <Link to={_AhrefBack} style={StyleHead}>
+                  {this.props.header}
+               </Link>
 
-               </th>
-            );
-         }
+            </th>
+         );
       }
    }
+}
 /*
             <Link to="/ChFirst" style={StyleHead}>
                {this.props.header}

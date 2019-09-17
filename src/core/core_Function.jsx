@@ -7,17 +7,33 @@ import 'moment/locale/ru';
 
 export const Rss = "http://172.23.16.18:11000/data";
 
-export const Rss_msg = "http://172.23.16.18:11000/data/msg";
+export const Rss_msg = "http://172.23.16.49:11000/data/msg";
 
-export const RssIncident = "http://172.23.16.18:11000/data/incident";
+export const RssIncident = "http://172.23.16.49:11000/data/incident";
 
-export const Rss_Sector = "http://172.23.16.18:11000/data/sectorchart";
+
+export const RssIncidentRegions = "http://172.23.16.49:11000/data/regions/incidents";
+
+//http://172.23.16.49:11000/data/regions/incidents/?from=2018-01-02&to=2020-06-02&region_id=77
+//http://172.23.16.49:11000/data/regions/incidents/?from=2018-01-02&to=2020-06-02
+
+export const Rss_Sector = "http://172.23.16.49:11000/data/sectorchart";
 
 export const Rss_Settings = "http://172.23.16.18:11000/data/matrix";
 
-export const Rss_BackInc = "http://172.23.16.18:11000/data/incident/eventsrange/?incident_id=";//incident_id=30
+export const Rss_BackInc = "http://172.23.16.49:11000/data/incident/eventsrange/?incident_id=";//incident_id=30
+
+export const Rss_Regions = "http://172.23.16.49:11000/data/regions";
+
+export const Rss_TOP5 = "http://172.23.16.49:11000/data/regions/incidents/top5percent"; //?from=2018-01-02&to=2020-06-02
+//http://172.23.16.49:11000/data/regions/incidents/top5percent/?from=2018-01-02&to=2020-06-02
+
 
 //сестрок
+//http://172.23.16.49:11000/data/incident/?region_id=77
+
+//http://172.23.16.49:11000/data/incident/?region_id=0&from=2018-03-20&to=2018-03-21
+
 //http://172.23.16.18:11000/data/sectorchart?from=2019-03-20&to=2019-03-27
 
 //"http://172.23.16.18:11000/msg";
@@ -30,6 +46,13 @@ export const Rss_BackInc = "http://172.23.16.18:11000/data/incident/eventsrange/
 //"get_01.json";
 //"http://172.23.16.125:8000/dpfacade-1.0-SNAPSHOT/webresources/ru.expertek.dp.dpfacade.dvc/";
 
+
+export function createGuid() {
+   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+       var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+       return v.toString(16);
+   });
+ }
 
 export function get_Date() {
    var date_Test = Array();
@@ -298,7 +321,7 @@ export function GetDateDMY_moment(_moment) {
       return GetDateNow();
    }
 }
-export function Get_RSS(Rss, startDate, endDate, needCode) {
+export function Get_RSS(Rss, startDate, endDate, needCode, Region, goupType) {
    var rss = Rss;
    if (startDate != null && endDate != null) {
       let IsOne = D1_D1_Eq_moment(startDate, endDate);
@@ -317,6 +340,20 @@ export function Get_RSS(Rss, startDate, endDate, needCode) {
          rss = rss + "&event=" + needCode;
       } else {
          rss = rss + "?event=" + needCode;
+      }
+   }
+   if (Region != null) {
+      if (rss.includes('?')) {
+         rss = rss + "&region_id=" + Region;
+      } else {
+         rss = rss + "?region_id=" + Region;
+      }
+   }
+   if (goupType != null) {
+      if (rss.includes('?')) {
+         rss = rss + "&group_type=" + goupType;
+      } else {
+         rss = rss + "?group_type=" + goupType;
       }
    }
    return rss;
@@ -499,15 +536,15 @@ export function GetMassivComboBox_Normals(data_DB_Norm) {
       for (const iterator of data_DB_Norm) {
          if (iterator.param_name == "mean_by_month_group_by_region" && iterator.period == "month") {
 
-            let _nrm = iterator.NormStat.toString();
+            let _nrm = (iterator.NormStat != null) ? iterator.NormStat.toString() : '0';
             if (_nrm.length > 4) {
                _nrm = _nrm.substring(0, 4);
             }
-            let _nrmE = iterator.NormExp.toString();
+            let _nrmE = (iterator.NormExp != null) ? iterator.NormExp.toString() : '0';
             if (_nrmE.length > 4) {
                _nrmE = _nrmE.substring(0, 4);
             }
-            mass.push({ key: I, text: "без" , value: 0.0001, content: "Без нормал - 0" });
+            mass.push({ key: I, text: "без", value: 0.0001, content: "Без нормал - 0" });
             I++;
             mass.push({ key: I, text: "расчет", value: Number(_nrm), content: "Расчетное - " + _nrm });
             I++;
@@ -517,7 +554,7 @@ export function GetMassivComboBox_Normals(data_DB_Norm) {
       }
    }
    if (mass.length == 0) {
-      mass.push({  key: I, text: "без" , value: 0.0001, content: "Без нормал - 0"});
+      mass.push({ key: I, text: "без", value: 0.0001, content: "Без нормал - 0" });
    }
    return mass;
 
@@ -1518,8 +1555,8 @@ const yesterday = moment().add(-1, 'day');
 const startPast_Week = moment().startOf('week').isoWeekday(1).add(-7, 'day');
 const endPast_Week = moment().startOf('week').isoWeekday(0);
 
-const startPast_Month = moment().subtract(1, 'months').startOf('month');
-const endPast_Month = moment().subtract(1, 'months').endOf('month');
+export const startPast_Month = moment().subtract(1, 'months').startOf('month');
+export const endPast_Month = moment().subtract(1, 'months').endOf('month');
 
 //let cDate = '2020/01/20';
 

@@ -46,14 +46,14 @@ export default class w_headDate extends Component {
          textAlign: "center",
          color: "blue",
          fontSize: '10px',
-         minWidth:'200px',
+         minWidth: '200px',
       }
       if (this.props.color == 'red') {
          StyleHead = {
             textAlign: "center",
             color: "red",
             fontSize: '10px',
-            minWidth:'200px',
+            minWidth: '200px',
          }
       }
       if (this.props.color != 'red') {
@@ -64,7 +64,7 @@ export default class w_headDate extends Component {
                      textAlign: "left",
                      paddingLeft: "10px",
                      fontSize: '10px',
-                     minWidth:'200px',
+                     minWidth: '200px',
                   }
                   if (this.props.color == 'red') {
                      StyleHead = {
@@ -72,7 +72,7 @@ export default class w_headDate extends Component {
                         paddingLeft: "10px",
                         color: "red",
                         fontSize: '10px',
-                        minWidth:'200px',
+                        minWidth: '200px',
                      }
                   }
 
@@ -84,7 +84,7 @@ export default class w_headDate extends Component {
                      textAlign: "right",
                      paddingLeft: "10px",
                      fontSize: '10px',
-                     minWidth:'200px',
+                     minWidth: '200px',
                   }
                   if (this.props.color == 'red') {
                      StyleHead = {
@@ -92,7 +92,7 @@ export default class w_headDate extends Component {
                         paddingLeft: "10px",
                         color: "red",
                         fontSize: '10px',
-                        minWidth:'200px',
+                        minWidth: '200px',
                      }
                   }
                   break;
@@ -101,7 +101,8 @@ export default class w_headDate extends Component {
          }
       }
       return (
-         <td style={StyleHead} colspan="4">
+
+         <td style={StyleHead} colSpan="4">
             <DateRangePicker
                startDate={this.props.startDate}
                startDateId="S_DRP_id"
@@ -120,11 +121,7 @@ export default class w_headDate extends Component {
                isOutsideRange={() => false}
                minimumNights={0}
                disabled={this.props.isDisable}
-
                hideKeyboardShortcutsPanel={true}//?
-
-
-
             />
          </td>
       );

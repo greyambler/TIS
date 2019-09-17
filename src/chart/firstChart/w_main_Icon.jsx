@@ -7,7 +7,6 @@ import moment from 'moment';
 
 import { Dropdown, Header, Icon } from 'semantic-ui-react'
 
-
 import { get_Date_Filter, get_Date, GetDatFromColChart, GetMassivComboBox_Normals } from '../../core/core_Function.jsx';
 
 export default class w_main_Icon extends Component {
@@ -24,13 +23,15 @@ export default class w_main_Icon extends Component {
          Rss_Two: this.props.RssDate_Two,
          isExistError: false,
 
+         mass: this.props.regions,
 
+         /*
          mass: [
             { key: 1, text: '77', value: 77, content: 'Москва' },
             { key: 2, text: '23', value: 23, content: 'Краснодарский край' },
             { key: 3, text: '01', value: 1, content: 'Республика Адыгея' },
             { key: 4, text: '02', value: 2, content: 'Республика Башкортостан' },
-         ],
+         ],*/
 
          SelectValueNormals: 0,
       }
@@ -40,9 +41,6 @@ export default class w_main_Icon extends Component {
       this.tick_Two();
       //this.timerID = setInterval(() => this.tick(), 30000);
    }
-   updateData = ({ startDate, endDate }) => {
-      this.props.updateData({ startDate, endDate });
-   }
    componentDidUpdate(prevProps) {
       if (this.props.RssDate != prevProps.RssDate) {
          this.setState({ Rss: this.props.RssDate }, this.tick);
@@ -50,6 +48,12 @@ export default class w_main_Icon extends Component {
       if (this.props.RssDate_Two != prevProps.RssDate_Two) {
          this.setState({ Rss_Two: this.props.RssDate_Two }, this.tick_Two);
       }
+      if (this.props.regions != prevProps.regions) {
+         this.setState({ mass: this.props.regions });
+      }
+   }
+   updateData = ({ startDate, endDate }) => {
+      this.props.updateData({ startDate, endDate });
    }
 
    async tick_Two() {
@@ -118,6 +122,15 @@ export default class w_main_Icon extends Component {
       } catch (error) {
       }
    }
+   SetRegion(ev) {
+      try {
+         if (ev != null && ev.data != null) {
+            let NEW_REGION = ev.data.value;
+            this.props.updateStartRegion({NEW_REGION});
+         }
+      } catch (error) {
+      }
+   }
    render() {
       let _dataTable = null;
       let _dataTable_Norm = null;
@@ -168,7 +181,14 @@ export default class w_main_Icon extends Component {
                ChooSeChart = 'azs'
             } break;
       }
+      let Dropdown_Def = 0;
+      if (this.state.mass != null) {
+         Dropdown_Def = Number(this.state.mass[0].text);
+         if (this.props.start_region != null) {
+            Dropdown_Def = Number(this.props.start_region);
+         }
 
+      }
       return (
          <table>
             <tbody>
@@ -178,7 +198,8 @@ export default class w_main_Icon extends Component {
                      (<W_head header={err} color='red' AhrefBack={_AhrefBack} />)
                      :
                      (
-                        <W_head header={this.props.header} tooltip_text={this.props.tooltip_text} AhrefBack={_AhrefBack} />
+                        <W_head header={this.props.header} tooltip_text={this.props.tooltip_text} AhrefBack={_AhrefBack}
+                        start_region={this.props.start_region} />
                      )
                   }
                </tr>
@@ -187,15 +208,19 @@ export default class w_main_Icon extends Component {
                      <table>
                         <tbody>
                            <tr>
-                              <td className='td_Region'>
-                                 <div className='div_Region'>Регион {' '}
-                                    <Dropdown
-                                       inline
-                                       defaultValue={this.state.mass[0].text}
-                                       placeholder={this.state.mass[0].text}
-                                       options={this.state.mass} />
-                                 </div>
-                              </td>
+                              {this.state.mass != null &&
+                                 <td className='td_Region'>
+                                    <div className='div_Region'>Регион {' '}
+                                       <Dropdown
+                                          inline
+                                          defaultValue={Dropdown_Def}
+                                          placeholder={Dropdown_Def}
+                                          options={this.state.mass}
+                                          onChange={(ev, data) => { this.SetRegion({ ev, data }) }}
+                                       />
+                                    </div>
+                                 </td>
+                              }
                               {this.props.NeedCode == '191' &&
                                  <td className='td_Norm'>
                                     <div className='div_Norm'>Нормали {' '}
@@ -268,7 +293,7 @@ export default class w_main_Icon extends Component {
                   />
                }
             </tbody>
-         </table >
+         </table>
       );
    }
 }

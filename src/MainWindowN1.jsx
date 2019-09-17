@@ -1,13 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 
 import HeaderCh_Main from './chart/HeaderCh_Main.jsx';
-import First_Chart from './chart/First_Chart.jsx';
 
-import Second_Chart from './chart/Second_Chart.jsx';
-import Third_Chart from './chart/Third_Chart.jsx';
-import Fourth_Chart from './chart/Fourth_Chart.jsx';
+import Dolay_IncReg from './chart/Dolay_IncReg.jsx';
 
-import Test_Chart from './chart/Test_Chart.jsx';
 
 import moment from 'moment';
 
@@ -24,14 +20,6 @@ export default class MainWindow extends React.Component {
          W_Width: this.props.w_Width,
          W_Height: this.props.w_Height,
          Object: null,
-         start_region: this.props.start_region,
-
-         /*mass:[
-            { key: 1, text: 'Choice 1', value: 1 },
-            { key: 2, text: 'Choice 2', value: 2 },
-            { key: 3, text: 'Choice 3', value: 3 },
-          ]
-          */
       }
    }
 
@@ -39,7 +27,6 @@ export default class MainWindow extends React.Component {
       this.props.updateData({ startDate, endDate, NumberChart });
    }
 
-   
    async componentDidMount() {
       this.setState({ W_Width: this.props.w_Width });
    }
@@ -51,70 +38,27 @@ export default class MainWindow extends React.Component {
    }
 
    render() {
-
       return (
          <div>
+         {/**/}
             <HeaderCh_Main numObjects={this.state.Object} Rss={this.props.Rss}
                S_Date_Head={this.props.S_Date_Head} E_Date_Head={this.props.E_Date_Head}
                updateData={this.updateData}
             />
 
-            <hr /><hr /><br />
-
-
-            {/*<Dropdown clearable options={this.state.mass} selection />*/}
 
             <table>
                <tbody>
                   <tr className="tr_Chart">
-                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2}>
-                        <First_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
-                           dateStart={this.props.S_Date_122} dateStop={this.props.E_Date_122}
-                           w_Width={this.state.W_Width} IsTable={false}
+                     <td className='td_C_Chart' width={(this.state.W_Width - 5)}>
+                        <Dolay_IncReg
+//                           dateStart={this.props.S_Date_M1}
+//                           dateStop={this.props.E_Date_M1}
+                           w_Width={this.state.W_Width} regions={this.props.regions}
                            updateData={this.updateData}
-                           
-                           NeedCode={'122'} regions={this.props.regions}
-                           start_region={this.state.start_region} />
+                           history={this.props.history}
+                           />
                      </td>
-
-                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
-                        <First_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
-                           dateStart={this.props.S_Date_211} dateStop={this.props.E_Date_211}
-                           w_Width={this.state.W_Width} IsTable={false}
-                           updateData={this.updateData}
-
-                           NeedCode={'211'} regions={this.props.regions}
-                           start_region={this.state.start_region} />
-                     </td>
-                  </tr>
-
-                  <tr>
-                     <td colSpan='2'><hr /><hr /><br /></td>
-                  </tr>
-
-                  <tr className="tr_Chart">
-                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} height='150px'>
-                        <First_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
-                           dateStart={this.props.S_Date_191} dateStop={this.props.E_Date_191}
-                           w_Width={this.state.W_Width} IsTable={false}
-                           updateData={this.updateData}
-
-                           NeedCode={'191'} regions={this.props.regions}
-                           start_region={this.state.start_region} />
-
-                     </td>
-
-                     <td className='td_C_Chart' width={(this.state.W_Width - 5) / 2} >
-                        <First_Chart Rss={this.props.Rss} RssIncident={this.props.RssIncident}
-                           dateStart={this.props.S_Date_33} dateStop={this.props.E_Date_33}
-                           w_Width={this.state.W_Width} IsTable={false}
-                           updateData={this.updateData}
-
-                           NeedCode={'33'} regions={this.props.regions}
-                           start_region={this.state.start_region} />
-                     </td>
-
-
                   </tr>
                </tbody>
             </table>

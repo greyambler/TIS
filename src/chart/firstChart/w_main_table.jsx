@@ -25,6 +25,8 @@ export default class w_main_table extends Component {
       super(props);
       this.tick = this.tick.bind(this);
       this.SetNormal = this.SetNormal.bind(this);
+      this.SetRegion = this.SetRegion.bind(this);
+      
       this.state = {
          Object: null,
          Object_Two: null,
@@ -41,13 +43,15 @@ export default class w_main_table extends Component {
          LocalData: null,
          filterCurent: Array(),
          typeChart: "cashir",
-
+         mass: this.props.regions,
+         /*
          mass: [
             { key: 1, text: '77', value: 77, content: 'Москва' },
             { key: 2, text: '23', value: 23, content: 'Краснодарский край' },
             { key: 3, text: '01', value: 1, content: 'Республика Адыгея' },
             { key: 4, text: '02', value: 2, content: 'Республика Башкортостан' },
          ],
+         */
 
          SelectValueNormals: 0,
       }
@@ -65,6 +69,9 @@ export default class w_main_table extends Component {
    componentDidUpdate(prevProps) {
       if (this.props.RssDate != prevProps.RssDate) {
          this.setState({ Rss: this.props.RssDate }, this.tick);
+      }
+      if (this.props.regions != prevProps.regions) {
+         this.setState({ mass: this.props.regions });
       }
    }
    async tick() {
@@ -225,6 +232,16 @@ export default class w_main_table extends Component {
       } catch (error) {
       }
    }
+   SetRegion(ev) {
+      try {
+         if (ev != null && ev.data != null) {
+            let NEW_REGION = ev.data.value;
+            this.props.updateStartRegion({ NEW_REGION });
+         }
+      } catch (error) {
+      }
+   }
+
    render() {
       let _dataTable = null;
       let _dataTable_Normales = null;
@@ -272,7 +289,14 @@ export default class w_main_table extends Component {
       if (this.state.isExistError) {
          err = 'Ошибка! Сервер не ответил!';
       }
+      let Dropdown_Def = 0;
+      if (this.state.mass != null) {
+         Dropdown_Def = Number(this.state.mass[0].text);
+         if (this.props.start_region != null) {
+            Dropdown_Def = Number(this.props.start_region);
+         }
 
+      }
       return (
          <div>
             <table id='table_main' name='table_main'>
@@ -300,9 +324,11 @@ export default class w_main_table extends Component {
                                     <div className='div_Region'>Регион {' '}
                                        <Dropdown
                                           inline
-                                          defaultValue={this.state.mass[0].text}
-                                          placeholder={this.state.mass[0].text}
-                                          options={this.state.mass} />
+                                          defaultValue={Dropdown_Def}
+                                          placeholder={Dropdown_Def}
+                                          options={this.state.mass}
+                                          onChange={(ev, data) => { this.SetRegion({ ev, data }) }}
+                                       />
                                     </div>
                                  </td>
                                  {this.props.NeedCode == '191' && Mass != null && this.state.typeChart == "month" &&
