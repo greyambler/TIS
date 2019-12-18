@@ -10,6 +10,14 @@ import { Dropdown, Header, Icon } from 'semantic-ui-react'
 
 
 import moment from 'moment';
+function IsNot(n, _date) {
+   for (const iterator of n) {
+      if (iterator.ent_time_grp == _date) {
+         return false;
+      }
+   }
+   return true;
+}
 
 export default class w_main_Icon extends Component {
    constructor(props) {
@@ -29,14 +37,14 @@ export default class w_main_Icon extends Component {
       this.tick_Top();
       this.tick_Year();
    }
-   /*  */ 
+   /*  */
    componentDidUpdate(prevProps) {
-      
+
       if (this.props.regions != prevProps.regions) {
          this.setState({ mass: this.props.regions });
       }
    }
-  
+
 
    async tick_R_Inc() {
       let end = moment();
@@ -139,13 +147,13 @@ export default class w_main_Icon extends Component {
       try {
          if (ev != null && ev.data != null) {
             let NEW_REGION = ev.data.value;
-            this.setState({start_region:NEW_REGION});
+            this.setState({ start_region: NEW_REGION });
             this.tick_Year(NEW_REGION);
          }
       } catch (error) {
       }
    }
-   
+
    render() {
       let err = null;
       if (this.state.isExistError) {
@@ -162,11 +170,24 @@ export default class w_main_Icon extends Component {
             Dropdown_Def = Number(this.props.start_region);
          }
       }
-      
+
+/*
+      let N = this.state.Year_Incidents;
+  if (N != null) {
+         let n = new Array();
+         for (const iterator of this.state.Year_Incidents) {
+            if (IsNot(n, iterator.ent_time_grp)){
+               n.push(iterator);
+            }
+         }
+         N = n;
+      }
+*/
+
       return (
          <table>
             <tbody>
-             <tr>
+               <tr>
                   <td colSpan="2" width={this.props.w_Width} height="20">
                      <>
                         {/*  <table>
@@ -214,7 +235,7 @@ export default class w_main_Icon extends Component {
 
                               <tr>
                                  <td width={this.props.w_Width / 2}>
-                                    <W_chartDolayProc 
+                                    <W_chartDolayProc
                                        startDate={this.props.startDate}
                                        endDate={this.props.endDate}
                                        w_Width={this.props.w_Width / 2}

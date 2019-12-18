@@ -13,16 +13,19 @@ const _Debuge = true;
 
 function Get_Data(data) {
    let _Data = new Array();
-   if (data) {
+   let i = 1;
+   if (data != null) {
       for (const item of data) {
-         _Data.push({
-            name: item.name,
-            color: 'black',
-            path: 'M381.759 0h292l-.64 295.328-100.127-100.096-94.368 94.368C499.808 326.848 512 369.824 512 415.712c0 141.376-114.56 256-256 256-141.376 0-256-114.624-256-256s114.624-256 256-256c48.8 0 94.272 13.92 133.12 37.632l93.376-94.592L381.76 0zM128.032 415.744c0 70.688 57.312 128 128 128s128-57.312 128-128-57.312-128-128-128-128 57.312-128 128z',
-            value: item.incidents_percent,
-            id: item.id,
-         });
-         let r = 0;
+         if (item.name != null) {
+            _Data.push({
+               name: (item.name != null) ? item.name : i,
+               color: 'black',
+               path: 'M381.759 0h292l-.64 295.328-100.127-100.096-94.368 94.368C499.808 326.848 512 369.824 512 415.712c0 141.376-114.56 256-256 256-141.376 0-256-114.624-256-256s114.624-256 256-256c48.8 0 94.272 13.92 133.12 37.632l93.376-94.592L381.76 0zM128.032 415.744c0 70.688 57.312 128 128 128s128-57.312 128-128-57.312-128-128-128-128 57.312-128 128z',
+               value: item.incidents_percent,
+               id: item.id,
+            });
+            i++;
+         }
       }
    }
    return _Data;
@@ -54,9 +57,9 @@ export default class w_chartDolay extends Component {
    ClickRegion(v) {
       try {
          let endDate = moment();
-         let startDate = moment().subtract(364, 'day');   
+         let startDate = moment().subtract(364, 'day');
          let NumberChart = 364;
-         this.props.updateData({ startDate, endDate, NumberChart },this.props.history.push('/Main_N&'+ v.data._origin.id));
+         this.props.updateData({ startDate, endDate, NumberChart }, this.props.history.push('/Main_N&' + v.data._origin.id));
          //this.props.history.push('/Main_N&'+ v.data._origin.id);
          //alert(v.data._origin.name + " " + v.data._origin.id);
          //window.location.href = '/Main_N' + '&' + v.data._origin.id;
@@ -116,13 +119,13 @@ export default class w_chartDolay extends Component {
                max: 100
             }
          };
-         let _H = 320;
+         let _H = 300;
 
          return (
             <table>
                <tbody>
                   <tr>
-                     <td width={this.props.w_Width} height='20'>
+                     <td width={this.props.w_Width} height='30'>
 
                         <Chart
                            width={this.state.W_Width / 5}
@@ -130,7 +133,7 @@ export default class w_chartDolay extends Component {
                            data={data}
                            scale={scale}
                            forceFit
-                           
+
                            onClick={ev => { this.ClickRegion(ev) }}
                         >
                            <Tooltip />
@@ -158,8 +161,8 @@ export default class w_chartDolay extends Component {
                                           value: 50,
                                        }}
                                        style={{
-                                          opacity: 0.95,
-                                          fontSize: 20,
+                                          color: 'red',
+                                          fontSize: 16,
                                           textAlign: 'center',
 
                                        }} />

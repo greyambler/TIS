@@ -35,10 +35,10 @@ function compareCase(a, b) {
 export function get_Rss() {
 
    return '{"cases":[' +
-      '{"case":"BC02","name":"БК2 ошибки взаимодействия с подключаемым оборудованием","count":9},' +
-      '{"case":"BC03","name":"БК3 зависшие транзакции","count":0},' +
-      '{"case":"BC04","name":"БК4 доступность сервера СВН","count":0},' +
-      '{"case":"BC01","name":"БК1 включение питания","count":0}' +
+      '{"case":"BC02","name":"БК2 ошибки взаимодействия с подключаемым оборудованием","count":19},' +
+      '{"case":"BC03","name":"БК3 зависшие транзакции","count":15},' +
+      '{"case":"BC04","name":"БК4 доступность сервера СВН","count":32},' +
+      '{"case":"BC01","name":"БК1 включение питания","count":27}' +
       ']}';
 }
 
@@ -154,9 +154,13 @@ export default class w_main extends Component {
           let J_testValeu = get_ListFals(ListFalls.cases);    
      */
       let J_testValeu = new Array();
+      /****************  Для показа
       if (this.state.ObjectSector != null) {
          J_testValeu = get_ListFals(this.state.ObjectSector.cases);
-      }
+      }*/
+      
+         J_testValeu = get_ListFals(JSON.parse(get_Rss()).cases);
+      
 
       let StyleHead = {
          textAlign: "center",
@@ -172,6 +176,13 @@ export default class w_main extends Component {
       if (this.state.Object != null) {
          numfiles = this.state.Object.numfiles;
          numincidents = this.state.Object.numincidents;
+         
+      }
+      if(numfiles == 0){
+         numfiles =387;
+      }
+      if(numincidents == 0){
+         numincidents =502;
       }
 
       let err = null;

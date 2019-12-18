@@ -29,8 +29,6 @@ export function Full_EtalonData(data) {
         }
     }
 }
-
-
 export default class w_circle extends Component {
     constructor(props) {
         super(props);
@@ -90,12 +88,13 @@ export default class w_circle extends Component {
         }
     }
     render() {
-        if (this.state.data != null && this.state.data.length > 0) {
+        let _Data = this.state.data;
+        if (_Data != null && _Data.length > 0) {
             const { DataView } = DataSet;
             const { Html } = Guide;
             const dv = new DataView();
 
-            dv.source(this.state.data).transform({
+            dv.source(_Data).transform({
                 type: "percent",
                 field: "count",
                 dimension: "item",

@@ -3,9 +3,30 @@ import namor from "namor";
 import moment from 'moment';
 import 'moment/locale/ru';
 
+const IP_Server = "http://172.23.16.49:11000";
+
+export const Rss = IP_Server + "/data";
+
+export const Rss_msg = IP_Server +  "/data/msg";
+
+export const RssIncident = IP_Server +  "/data/incident";
 
 
-export const Rss = "http://172.23.16.18:11000/data";
+export const RssIncidentRegions = IP_Server +  "/data/regions/incidents";
+
+export const Rss_Sector = IP_Server +  "/data/sectorchart";
+
+export const Rss_Settings = IP_Server +  "/data/matrix";
+
+export const Rss_BackInc = IP_Server +  "/data/incident/eventsrange/?incident_id=";//incident_id=30
+
+export const Rss_Regions = IP_Server +  "/data/regions";
+
+export const Rss_TOP5 = IP_Server +  "/data/regions/incidents/top5percent"; //?from=2018-01-02&to=2020-06-02
+
+
+/*
+export const Rss = "http://172.23.16.49:11000/data";
 
 export const Rss_msg = "http://172.23.16.49:11000/data/msg";
 
@@ -14,18 +35,22 @@ export const RssIncident = "http://172.23.16.49:11000/data/incident";
 
 export const RssIncidentRegions = "http://172.23.16.49:11000/data/regions/incidents";
 
-//http://172.23.16.49:11000/data/regions/incidents/?from=2018-01-02&to=2020-06-02&region_id=77
-//http://172.23.16.49:11000/data/regions/incidents/?from=2018-01-02&to=2020-06-02
-
 export const Rss_Sector = "http://172.23.16.49:11000/data/sectorchart";
 
-export const Rss_Settings = "http://172.23.16.18:11000/data/matrix";
+export const Rss_Settings = "http://172.23.16.49:11000/data/matrix";
 
 export const Rss_BackInc = "http://172.23.16.49:11000/data/incident/eventsrange/?incident_id=";//incident_id=30
 
 export const Rss_Regions = "http://172.23.16.49:11000/data/regions";
 
 export const Rss_TOP5 = "http://172.23.16.49:11000/data/regions/incidents/top5percent"; //?from=2018-01-02&to=2020-06-02
+*/
+
+
+//http://172.23.16.49:11000/data/regions/incidents/?from=2018-01-02&to=2020-06-02&region_id=77
+//http://172.23.16.49:11000/data/regions/incidents/?from=2018-01-02&to=2020-06-02
+
+
 //http://172.23.16.49:11000/data/regions/incidents/top5percent/?from=2018-01-02&to=2020-06-02
 
 

@@ -664,4 +664,6 @@ C_Chart {
 .td_Top {
    vertical-align: top;
    align-content: top;
+
+   color: rgb(29, 245, 83)
 }

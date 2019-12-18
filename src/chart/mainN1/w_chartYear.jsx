@@ -1703,6 +1703,7 @@ export default class w_chartYear extends Component {
                >
                   <Tooltip title="ent_time_grp" />
 
+                  <Axis name="id" visible={false} />
                   <Axis name="week" visible={false} />
                   <Axis name="day" visible={false} />
                   <Axis name="ent_time_grp" visible={false} />
@@ -1737,7 +1738,10 @@ export default class w_chartYear extends Component {
                            }}
                            color={[
                               "incidents",
-                              "#F51D27-#FA541C-#FFBE15-#FFF2D1-#E3F6FF-#85C6FF-#0086FA-#0A61D7"
+                              "#0086FA-#85C6FF-#E3F6FF-#FFF2D1-#FFBE15-#FA541C-#8f0309"
+                              //"#0A61D7-#0086FA-#85C6FF-#E3F6FF-#FFF2D1-#FFBE15-#FA541C-#F51D27"
+                              
+                              //"#F51D27-#FA541C-#FFBE15-#FFF2D1-#E3F6FF-#85C6FF-#0086FA-#0A61D7"
                            ]}
                         />
                      </View>

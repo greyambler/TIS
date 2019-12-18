@@ -564,7 +564,7 @@ class Nav extends Component {
                                  <Link to="/" >
                                     <Stage width='356' height='25' x='0' y='0'>
                                        <Layer key='1' background='red'>
-                                          <Text Text='Временная ИС по системным инцидентам' x='25' y='12' fill='white' />
+                                          <Text Text='Мониторинг системных инцидентов' x='25' y='12' fill='white' />
                                        </Layer>
                                     </Stage>
                                  </Link>
